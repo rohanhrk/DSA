@@ -197,6 +197,7 @@ public class l001Basic {
     }
     public static void rotate(int[] arr, int k) {
         int n = arr.length;
+        k = (k%n + n) % n;
         reverseFunc(arr,0,n-1);
         reverseFunc(arr,0,k-1);
         reverseFunc(arr,k,n-1);

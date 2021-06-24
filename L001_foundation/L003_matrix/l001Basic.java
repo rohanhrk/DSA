@@ -254,6 +254,130 @@ public class l001Basic {
         }
 
     }
+
+    // rotate shell
+    public static int[] storedIn1dArrayFrom2d(int[][] arr, int s) {
+        int rmin = s-1;
+        int cmin = s-1;
+        int rmax = arr.length - s;
+        int cmax = arr[0].length - s;
+
+        int size = 2 * (rmax + cmax) - 2 * (rmin + cmin);
+        int[] oned = new int[size];
+        int i = 0;
+        
+        
+        // top wall
+        for(int r = rmin, c = cmin; c <= cmax; c++) {
+            oned[i] = arr[r][c];
+            i++;
+            
+        }
+        rmin++;
+
+        // right wall
+        for(int r = rmin, c = cmax; r <= rmax; r++) {
+            oned[i] = arr[r][c];
+            i++;
+            
+        }
+        cmax--;
+
+        // bottom wall
+        for(int r = rmax, c = cmax; c >= cmin; c--) {
+            oned[i] = arr[r][c];
+            i++;
+            
+        }   
+        rmax--;
+
+        // left wall
+        for(int r = rmax, c = cmin; r >= rmin; r--) {
+            oned[i] = arr[r][c];
+            i++;
+            
+        }
+        cmin++;
+      
+
+        return oned;
+    }
+
+    public static void reverse(int[] arr,int i , int j) {
+        while(i < j) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+
+            i++;
+            j--;
+        }
+    }
+
+    public static void rotateArrayBy_r(int[] arr, int r) {
+        int n = arr.length;
+        r = (r%n + n) % n;
+        // reverse 0 to n-1
+        reverse(arr,0,n-1);
+        reverse(arr,0,n-r-1);
+        reverse(arr,n-r,n-1);
+    }
+    public static void fillElementIn_2dArray_From_1d(int[][] twod, int[] oned, int s) {
+        int rmin = s-1;
+        int cmin = s-1;
+        int rmax = twod.length - s;
+        int cmax = twod[0].length - s;
+
+        int size = 2 * (rmax + cmax) - 2 * (rmin + cmin);
+        int i = 0;
+        
+        
+        // top wall
+        for(int r = rmin, c = cmin; c <= cmax; c++) {
+            twod[r][c] = oned[i];
+            i++;
+            
+        }
+        rmin++;
+
+        // right wall
+        for(int r = rmin, c = cmax; r <= rmax; r++) {
+            twod[r][c] = oned[i];
+            i++;
+            
+        }
+        cmax--;
+
+        // bottom wall
+        for(int r = rmax, c = cmax; c >= cmin; c--) {
+            twod[r][c] = oned[i];
+            i++;
+            
+        }   
+        rmax--;
+
+        // left wall
+        for(int r = rmax, c = cmin; r >= rmin; r--) {
+            twod[r][c] = oned[i];
+            i++;
+            
+        }
+        cmin++;
+    }
+    public static void rotateShell(int[][] arr, int s, int r) {
+
+        // store element in 1d array
+        int[] oned = storedIn1dArrayFrom2d(arr, s);
+
+        // rotate array by r
+        rotateArrayBy_r(oned, r);
+        
+       
+        // stored element from oned array to original 2d array
+        fillElementIn_2dArray_From_1d(arr,oned,s);
+        
+
+    }
     public static void main(String[] args) {
         // test1();
         int n = scn.nextInt();
@@ -264,6 +388,15 @@ public class l001Basic {
                 arr[i][j] = scn.nextInt();
             }
         }
-        spiralDisplay(arr);
+
+        int r = scn.nextInt();
+        rotateShell(arr,2, r);
+
+        for(int i = 0; i < arr.length; i++) {
+            for(int j = 0; j < arr[0].length; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }
