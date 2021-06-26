@@ -47,31 +47,79 @@ public class l001Basic {
 
     public static String compression1_mathod1(String str) {
         int i = 0, j = 0, count = 0;
-        String ans = "";
+        StringBuilder sb = new StringBuilder();
 
         while(j < str.length()) {
             if(count == 0) {
-                ans += str.charAt(i);
+                sb.append(str.charAt(i));
             }
             
             char c1 = str.charAt(i);
             char c2 = str.charAt(j);
+
             if(c1 == c2) {
                 j++;
                 count++;
             } else {
-                ans += count;
+                sb.append(count);
                 i = j;
                 count = 0;
             }
         }
 
-        ans += count;
+        sb.append(count);
 
-        return ans;
+        return sb.toString();
     }
 
+    public static String compression1_mathod2(String str) {
+        if(str.length() == 0) {
+            return "";
+        }
 
+        StringBuilder sb = new StringBuilder();
+
+        char prevChar = str.charAt(0);
+        int i = 1;
+        while(i <= str.length()) {
+            int count = 1;
+            while( i < str.length() && prevChar == str.charAt(i) ) {
+                count++;
+                prevChar = str.charAt(i);
+                i++;
+            }
+
+            sb.append(prevChar);
+            sb.append(count);
+
+            if(i == str.length) break;
+
+            prevChar = str.charAt(i);
+            i++;
+        }
+
+        return sb.toString();
+    }
+
+    public static String compression2(String str) {
+
+        int[] freq = new int[26];
+        for(int i = 0; i < str.length(); i++) {
+            int idx = str.charAt(i) - 'a';
+            freq[idx]++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0 ; i < freq.length; i++) {
+            if(freq[i] > 0) {
+                char ch = (char)('a' + i)
+                sb.append(ch);
+                sb.append(freq[i]);
+            }
+        }
+
+
+    }
     public static void main(String[] args) {
         String str = scn.nextLine();
         String c1 = compression1_mathod1(str);
