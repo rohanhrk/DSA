@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class l001Basic {
         public static Scanner scn = new Scanner(System.in);
@@ -41,7 +42,21 @@ public class l001Basic {
 
         System.out.println(str);
     }
+    
+    // without X2
+    public static String withoutX2(String str) {
+        StringBuilder sb = new StringBuilder();
 
+        for(int i = 0; i < str.length(); i++) {
+            if(i < 2 && str.charAt(i) != 'x') {
+                sb.append(str.charAt(i));
+            }else if(i >= 2) {
+                sb.append(str.charAt(i));
+            }
+        }
+
+        return sb.toString();
+    } 
     // Question ======================================================
     // compression
 
@@ -92,7 +107,7 @@ public class l001Basic {
             sb.append(prevChar);
             sb.append(count);
 
-            if(i == str.length) break;
+            if(i == str.length()) break;
 
             prevChar = str.charAt(i);
             i++;
@@ -112,17 +127,219 @@ public class l001Basic {
         StringBuilder sb = new StringBuilder();
         for(int i = 0 ; i < freq.length; i++) {
             if(freq[i] > 0) {
-                char ch = (char)('a' + i)
+                char ch = (char)('a' + i);
                 sb.append(ch);
                 sb.append(freq[i]);
             }
         }
 
-
+        return sb.toString();
     }
+
+    public static String toggle(String str) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0 ; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if(ch >= 'a' && ch <= 'z') {
+                char uc = (char)('A' - 'a' + ch);
+                sb.append(uc);
+            }else if(ch>='A' && ch<='Z') {
+                char lc = (char)('a' - 'A' + ch);
+                sb.append(lc);
+            }
+        }
+
+        return sb.toString();
+    }
+    
+    
+    // palindromic substring
+    public static boolean isPalindrome(String str) {
+        int i = 0, j = str.length() - 1;
+        while(i < j) {
+            if(str.charAt(i++) != str.charAt(j--)) return false;
+        }
+
+        return true;
+    }
+    public static void palindromicSubstring(String str) {
+        for(int i = 0; i < str.length(); i++) {
+            for(int j =i ; j < str.length(); j++) {
+                String ss =  str.substring(i,j+1);
+                if(isPalindrome(ss)) System.out.println(ss);
+            }
+        }
+    }
+
+    // String With Difference Of Every Two Consecutive Characters
+    public static String string_With_Diff_Of_Every_Two_Consecutive_Number(String str) {
+        if(str.length() <= 1) return str;
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < str.length() - 1; i++) {
+            char ch = str.charAt(i);
+            char nextCh = str.charAt(i+1);
+            int diff = (int)(nextCh - ch);
+
+            sb.append(ch);
+            sb.append(diff);
+
+        }
+        sb.append(str.charAt(str.length()-1));
+        return sb.toString();
+    }
+    
+    // permutation of string -> method 1
+    public static int factorial(int n) {
+        int fact = 1;
+
+        for(int i = n; i >= 1; i--) {
+            fact *= i;
+        }
+
+        return fact;
+    }
+    public static void permutationString_mathod1(String str) {
+        int n = str.length() , fact = factorial(n);
+
+        for(int i = 0; i < fact ; i++) {
+            StringBuilder sb = new StringBuilder(str);
+            int temp = i;
+            for(int j = n; j >= 1; j--) {
+                int rem = temp % j;
+                temp /= j;
+
+                char ch = sb.charAt(rem);
+                System.out.print(ch);
+                sb.deleteCharAt(rem);
+            }
+            System.out.println();
+        }
+    }
+
+    //Permutation => method 2
+    public static void appendCharInString(String str,char ch,ArrayList<String> ans){
+        for(int i=0;i<=str.length();i++){
+            String s = str.substring(0,i) + ch + str.substring(i);
+            ans.add(s);
+        }
+    }
+    public static ArrayList<String> permutation(String str){
+        ArrayList<String> ans = new ArrayList<>();
+        ans.add("");
+        for(int i = 0; i <str.length();i++){
+            char ch = str.charAt(i);
+            
+            ArrayList<String> smallAns = new ArrayList<>();
+            for(String s : ans)
+                appendCharInString(s,ch,smallAns);
+
+            ans = smallAns;
+        }
+
+        return ans;
+    }
+
+    // leetcode 541 => recverse string II
+    public void reverseRange(char[] arr, int i, int j) {
+        while(i <  j) {
+            char ch = arr[i];
+            arr[i] = arr[j];
+            arr[j] = ch;
+            
+            i++;
+            j--;
+        }
+    }
+    public String reverseStr(String s, int k) {
+        if(k == 0 || k == 1 || s.length() <= 1) return s;
+        char[] arr = s.toCharArray();
+        int i = 0 , n = s.length();
+        
+        while(i < n) {
+            if(i + k - 1 < n) {
+                reverseRange(arr, i , i + k - 1);
+                i += 2 * k;
+            } else {
+                reverseRange(arr , i , n - 1);
+                break;
+            }
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for(char ch : arr) {
+            sb.append(ch);
+        }
+        
+        return sb.toString();
+    }
+
+    // leetcode 387 => first unique character
+    public static int firstUniqueCharacter(String str) {
+        int[] arr = new int[26];
+        
+        for(int i = 0; i < str.length(); i++) {
+            arr[str.charAt(i) - 'a'] ++;
+        }
+
+        for(int i = 0; i < str.length(); i++) {
+            int count = arr[str.charAt(i) - 'a'];
+            if(count == 1) {
+                return i;
+            } 
+        }
+
+        return -1;
+    }
+
+    // prime factor for query which contains number
+    public static boolean isPrime(int n) {
+        for(int i = 2; i * i <= n ; i++) {
+            if(n * i == 0) return false;
+        }
+
+        return true;
+    }
+
+    public static void primeNumbers(int n, ArrayList<Integer> list) {
+        for(int i = 2; i * i <= n; i++) {
+            if(isPrime(i)) list.add(i);
+        }
+    }
+    
+    public static void primeFactors(int num, ArrayList<Integer> list) {
+        int idx = 0;
+        while(num != 1 && idx < list.size()) {
+            int count = 0;
+            while(num % list.get(idx) == 0) {
+                num /= list.get(idx);
+                count++;
+            }
+            if(count > 0) {
+                System.out.print(list.get(idx) + " ^ " + count + " " );
+            }
+
+            idx++;
+        }
+
+        if(num > 1) {
+            System.out.print(num + " ^ " + 1);
+        }
+
+        System.out.println();
+    }
+
+    public static void primeFactorForQuery(int[] query) {
+        ArrayList<Integer> list = new ArrayList<>();
+        primeNumbers(10000, list);
+
+
+        for(int elem : query) {
+            primeFactors(elem, list);
+        }
+    }
+
     public static void main(String[] args) {
-        String str = scn.nextLine();
-        String c1 = compression1_mathod1(str);
-        System.out.println(c1);
+        System.out.println(firstUniqueCharacter("abab"));
     }
 }

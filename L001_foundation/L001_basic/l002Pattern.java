@@ -559,31 +559,21 @@ public class l002Pattern {
             System.out.println();
         }
     }
-
+    
+    public static void patterExtra1_1(int row) {
+        for(int i = 1; i <= row; i++) {
+            for(int j = 1; j <= row; j++) {
+                if(i == j || j - i == 2 || i - j == 2) {
+                    System.out.print("*\t");
+                }else {
+                    System.out.print("\t");
+                }
+            }
+            System.out.println();
+        }
+    }
     public static void main(String[] args) {
-        // printSquare(5);
-        // printTriangle(5);
-        // printInvertedTriagle(5);
-        // printMirrorTriangle(5);
-        // printDiamond(7);
-        // printMirrorInvertedTriangle(5);
-        // printHollow(7);
-        // pattern15(5);
-        // printPattern15_mathod2(7);
-        // printPattern7(5);
-        // printPAttern8(5);
-        // printPattern7_mathod2(5);
-        // pattern8_mathod2(5);
-        // pattern9(5);
-        // pattern10(5);
-        // pattern11(5);
-        // pattern12(5);
-        // pattern13(6);
-        // pattern14(3);
-        // pattern16(7);
-        // pattern17(9);
-        // pattern18(7);
-        // pattern19(7);
-        pattern20(5);
+      
+        patterExtra1_1(5);
     }
 }
