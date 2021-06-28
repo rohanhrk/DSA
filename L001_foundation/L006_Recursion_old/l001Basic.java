@@ -67,6 +67,21 @@ public class l001Basic {
         if(n % 2 == 0) return ans;
         else return ans * x; 
     }
+
+    // zig zag
+    public static void printZigZag(int n) {
+        if(n == 0) return;
+
+        System.out.print(n + " ");    //pre region
+        printZigZag(n-1);
+        
+        System.out.print(n + " ");    // In region
+        
+        printZigZag(n-1);             //post region
+        System.out.print(n + " ");
+    }
+
+    
     public static void main(String[] args) {
          
     }
