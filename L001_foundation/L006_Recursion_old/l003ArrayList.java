@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class l003ArrayList {
     public static Scanner scn = new Scanner(System.in);
-
+    // **************************************************************** DATE - 28/06 ****************************************************************
+    
     // subsequence -> method 1 (with substring)
     public static ArrayList<String> gss(String str) {
         if(str.length() == 0) {

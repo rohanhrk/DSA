@@ -20,8 +20,8 @@ public class l001Basic {
 
     public static void main(String[] args) {
         int n = scn.nextInt();
-        int b = scn.nextInt();
+        // int b = scn.nextInt();
     
-        System.out.println(binaryToDecimal(n,b));
+        System.out.println(binaryToDecimal(n));
     }
 }

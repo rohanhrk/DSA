@@ -2,8 +2,9 @@ import java.util.Scanner;
 
 public class l001 {
     public static Scanner scn = new Scanner(System.in);
-
-    public static void printHello() {
+    
+    // **************************************************************** Date-12/06 ****************************************************************
+    public static void printHello() {                                                                                
         System.out.println("hello there!");
         System.out.println("This is Rohan Hazarika");
 
@@ -77,8 +78,9 @@ public class l001 {
             }
         }
     }
-
-    public static void printFibbonacciNumbersTillN(int n) {
+   
+    // **************************************************************** date - 13/06 ****************************************************************
+    public static void printFibbonacciNumbersTillN(int n) {                                                                      //
         int a = 0;
         int b = 1;
         int c = 0;
@@ -136,7 +138,8 @@ public class l001 {
         }
     }
 
-    public static int GCD(int a, int b) {
+    // **************************************************************** date- 18/06 ****************************************************************
+    public static int GCD(int a, int b) {                                                                                     
         int divisor = a;
         int dividend = b;
         int reminder;

@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class l001Basic {
+    // **************************************************************** DATE - 27/06 ****************************************************************
     public static void printDecreasing(int n) {
         if(n == 0) return;
 

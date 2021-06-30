@@ -158,12 +158,12 @@ void  BenjaminBulbs(int n) {
 }
 int main() {
     // printHello();
-    // printZ();
+    printZ();
     // workWithDataType();
     // int n;
     // cin>> n;
     // gradingSystem(n);
     // isPrime();
-    countDigit();
+    // countDigit();
     return 0;
 }

@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class l001Basic {
     public static Scanner scn = new Scanner(System.in);
+
+    // **************************************************************** DATE - 23/06 ****************************************************************
     public static void printOutput() {
         int n = scn.nextInt(), m = scn.nextInt();
         int[][] arr = new int[n][m];
@@ -132,6 +134,7 @@ public class l001Basic {
         
     }
     
+    // **************************************************************** DATE - 24/06 ****************************************************************
     // search In a sorted 2d Array 
     public static void searchInASorted2dArray(int[][] arr, int d) {
         int i = 0;
@@ -378,6 +381,7 @@ public class l001Basic {
         
 
     }
+    // ************************************************************************************************************************************************************************************************
     public static void main(String[] args) {
         // test1();
         int n = scn.nextInt();

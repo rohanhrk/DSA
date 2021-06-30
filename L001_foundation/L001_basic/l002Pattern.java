@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class l002Pattern {
     public static Scanner scn = new Scanner(System.in);
-
+    
+    //  **************************************************************** Date - 18/06 ****************************************************************
     public static void printSquare(int row) {
         int nst = row; // no. of star
 
@@ -27,7 +28,7 @@ public class l002Pattern {
         }
     }
 
-    public static void printInvertedTriagle(int row) {
+    public static void pattern2(int row) {
         int nsp = 0;
         int nst = row;
 
@@ -48,7 +49,7 @@ public class l002Pattern {
         }
     }
 
-    public static void printMirrorTriangle(int row) {
+    public static void pattern3(int row) {
         int nst = 1;
         int nsp = row - 1;
 
@@ -71,7 +72,7 @@ public class l002Pattern {
         }
     }
 
-    public static void printDiamond(int row) {
+    public static void pattern5(int row) {
         int nst = 1;
         int nsp = row / 2;
 
@@ -117,8 +118,9 @@ public class l002Pattern {
             System.out.println();
         }
     }
-
-    public static void printHollow(int row) {
+   
+    // **************************************************************** Date - 20/06 ****************************************************************
+    public static void pattern6(int row) {
         int nsp = 1;
         int nst = (row + 1) / 2;
 
@@ -422,7 +424,7 @@ public class l002Pattern {
         }
 
     }
-
+    // **************************************************************** HOMEWORK ****************************************************************
     public static void pattern17(int row) {
         int nst = 1;
         int nsp = row / 2;
@@ -559,7 +561,7 @@ public class l002Pattern {
             System.out.println();
         }
     }
-    
+    // ********************************************************************************************************************************
     public static void patterExtra1_1(int row) {
         for(int i = 1; i <= row; i++) {
             for(int j = 1; j <= row; j++) {

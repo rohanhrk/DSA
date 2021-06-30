@@ -3,7 +3,8 @@ import java.util.ArrayList;
 
 public class l001Basic {
     public static Scanner scn = new Scanner(System.in);
-
+    
+    // **************************************************************** DATE - 25/05 ****************************************************************
     public static void test1() {
         // string is a immutable means not possible to change on same address
         String str = "sdsdfsdfdgfdg"; // it stores in intern pool
@@ -135,7 +136,9 @@ public class l001Basic {
 
         return sb.toString();
     }
-
+    
+    // **************************************************************** DATE: 26/06 ****************************************************************
+    // toggle
     public static String toggle(String str) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0 ; i < str.length(); i++) {
@@ -239,7 +242,8 @@ public class l001Basic {
 
         return ans;
     }
-
+    
+    // **************************************************************** DATE - 27/06 ****************************************************************
     // leetcode 541 => recverse string II
     public void reverseRange(char[] arr, int i, int j) {
         while(i <  j) {
@@ -351,6 +355,9 @@ public class l001Basic {
         al.clear();
         for(int ele : ans) al.add(ele);
     }
+    
+    // ************************************************************************************************************************************************************************************************
+    
     public static void main(String[] args) {
         int n = scn.nextInt();
         ArrayList<Integer> al = new ArrayList<>();

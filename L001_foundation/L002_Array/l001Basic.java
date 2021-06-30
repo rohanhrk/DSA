@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class l001Basic {
     public static Scanner scn = new Scanner(System.in);
-
+    // **************************************************************** DATE - 21/06 ****************************************************************
     public static void test1() {
         int n = scn.nextInt();
         int[] arr = new int[n];
@@ -105,7 +105,8 @@ public class l001Basic {
             j--;
         }
     }
-
+      
+    // **************************************************************** DATE - 22/06 ****************************************************************
     public static int digitFrequency(int num, int data) {
         int digitCount = 0;
 
