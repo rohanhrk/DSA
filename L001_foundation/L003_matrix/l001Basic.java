@@ -331,7 +331,7 @@ public class l001Basic {
         int rmax = twod.length - s;
         int cmax = twod[0].length - s;
 
-        int size = 2 * (rmax + cmax) - 2 * (rmin + cmin);
+        
         int i = 0;
         
         
