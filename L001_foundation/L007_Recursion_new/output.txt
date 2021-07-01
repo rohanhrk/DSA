@@ -1,0 +1,1 @@
+[mpt, mpu, mqt, mqu, mrt, mru, mst, msu, npt, npu, nqt, nqu, nrt, nru, nst, nsu, opt, opu, oqt, oqu, ort, oru, ost, osu]
