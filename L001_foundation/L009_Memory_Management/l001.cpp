@@ -116,6 +116,24 @@ void test4()
     for (int i = 0; i < arr->size(); i++)
         cout << arr->at(i) << " ";
 }
+
+// & -======================================================================
+
+int **test5()
+{
+    int a = 10;                  // '&' -> ye use karne par woh stack ka address store karte rakhta he 
+    int *b = &a;                 // '&a'-> 'a' jis bhi address pe bana hoga, '&a' likhne se wo 'a' ka adress store kar lega
+    int **c = &b;                // '**' -> '*' ka address store karta he means address ka address store 
+
+    cout << a << " " << &a << endl;
+    cout << *b << " " << &b << endl;//dereferance
+    cout << **c << " " << &c << endl;//dereferance           
+
+    int **arr = new int *[1];
+    arr[0] = &a;
+    return arr;
+}
+
 int main() {
 
 }

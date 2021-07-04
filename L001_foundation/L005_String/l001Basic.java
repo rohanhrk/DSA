@@ -26,7 +26,7 @@ public class l001Basic {
     public static void test3() {
         // StringBuilder -> it works same as string of c++ -> character ka array
         // it is mutable
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); // define string builder
         sb.append('d');    //O(1)
         StringBuilder sb1 = sb; //O(1)
         StringBuilder sb2 = new StringBuilder(sb); // O(n) -> it creates new instace of sb which pointing on new address
