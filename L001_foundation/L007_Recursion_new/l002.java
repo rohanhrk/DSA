@@ -227,7 +227,7 @@ public class l002 {
         }
         return myAns;
     }
-    
+
     // way up
     public static int getMazePathsWithJump_wayup(int sr, int sc, int dr, int dc, String ans) {
         if (sr == dr && sc == dc) {
@@ -248,6 +248,61 @@ public class l002 {
             count += getMazePathsWithJump_wayup(sr + jump, sc + jump, dr, dc, ans + "d" + jump);
         }
         return count;
+    }
+
+    // print stair path ********************************************
+    public static ArrayList<String> getStairPaths_return(int n) {
+        if (n == 0) {
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+        ArrayList<String> myAns = new ArrayList<>();
+
+        if (n - 1 >= 0) {
+            ArrayList<String> one = getStairPaths_return(n - 1);
+            for (String s : one)
+                myAns.add("1" + s);
+        }
+
+        if (n - 2 >= 0) {
+            ArrayList<String> two = getStairPaths_return(n - 2);
+            for (String s : two)
+                myAns.add("2" + s);
+
+        }
+
+        if (n - 3 >= 0) {
+            ArrayList<String> three = getStairPaths_return(n - 3);
+            for (String s : three)
+                myAns.add("3" + s);
+        }
+
+        return myAns;
+
+    }
+
+    // way up
+    public static void printStairPaths_wayup(int n, String ans) {
+        if (n == 0) {
+            System.out.println(ans);
+            return;
+        }
+
+        if (n - 1 >= 0) {
+            printStairPaths_wayup(n - 1, ans + "1");
+
+        }
+
+        if (n - 2 >= 0) {
+            printStairPaths_wayup(n - 2, ans + '2');
+
+        }
+
+        if (n - 3 >= 0) {
+            printStairPaths_wayup(n - 3, ans + '3');
+        }
+
     }
 
     public static void main(String[] args) {
