@@ -280,14 +280,14 @@ public class l001Basic {
 
     // leetcode 387 => first unique character
     public static int firstUniqueCharacter(String str) {
-        int[] arr = new int[26];
+        int[] freq = new int[26];
         
         for(int i = 0; i < str.length(); i++) {
-            arr[str.charAt(i) - 'a'] ++;
+            freq[str.charAt(i) - 'a'] ++;
         }
 
         for(int i = 0; i < str.length(); i++) {
-            int count = arr[str.charAt(i) - 'a'];
+            int count = freq[str.charAt(i) - 'a'];
             if(count == 1) {
                 return i;
             } 

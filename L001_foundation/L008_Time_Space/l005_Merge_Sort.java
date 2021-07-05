@@ -1,5 +1,5 @@
-
 import java.util.Scanner;
+
 
 public class l005_Merge_Sort {
     public static Scanner scn = new Scanner(System.in);
