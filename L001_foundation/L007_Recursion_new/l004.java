@@ -1,8 +1,10 @@
 import java.util.Scanner;
 // import java.util.ArrayList;
 
+// **********************_DATE:3/07/2021_**********************
 public class l004 {
-    public static Scanner scn = new Scanner (System.in);
+    public static Scanner scn = new Scanner(System.in);
+
     // target sum
     public static int findTargetSumWays(int[] arr, int idx, int s) {
         // Write your code here
@@ -20,7 +22,7 @@ public class l004 {
     // s = {10,20,30,40,50,60,70}
     // setA (union) setB = S
     // setA (intersection) SetB = phi
-    // sum of setA = sum of setB 
+    // sum of setA = sum of setB
     public static int equiSet(int[] arr, int idx, int sum1, int sum2, String setA, String setB) {
         if (idx == arr.length) {
             if (sum1 == sum2) {

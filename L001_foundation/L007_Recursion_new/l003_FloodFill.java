@@ -1,6 +1,7 @@
 import java.util.Scanner;
+
 // import java.util.ArrayList;
-public class l003 {
+public class l003_FloodFill {
     public static Scanner scn = new Scanner(System.in);
 
     // ******************************************** DATE: 2/07/2021
@@ -121,10 +122,14 @@ public class l003 {
         return count;
     }
 
-
     public static void main(String[] args) {
+        int[][] dir = { { -2, 1 }, { -1, 2 }, { 1, 2 }, { 2, 1 }, { 2, -1 }, { 1, -2 }, { -1, -2 }, { -2, -1 } };
 
+        String[] dirS = { "L", "D", "R", "U" };
+
+        int n = 3, m = 3;
+        boolean[][] vis = new boolean[n][m];
+        System.out.println(floodFill_multiJump(0, 0, n - 1, m - 1, vis, dir, dirS, ""));
     }
 
-  
 }

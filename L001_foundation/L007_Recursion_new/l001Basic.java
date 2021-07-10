@@ -155,6 +155,7 @@ public class l001Basic {
             System.out.println(ans + ques.charAt(idx));
             return;
         }
+        
         char ch = ques.charAt(idx);
         if (ch == ques.charAt(idx + 1))
             separateDuplicates_wayup(ques, idx + 1, ans + ch + "*");

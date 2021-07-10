@@ -201,7 +201,8 @@ public class l002 {
             return base;
         }
         ArrayList<String> myAns = new ArrayList<>();
-
+        
+        // horizontal move
         for (int jump = 1; sc + jump <= dc; jump++) {
             ArrayList<String> horizontal = getMazePathsWithJump_return(sr, sc + jump, dr, dc);
 
@@ -209,7 +210,8 @@ public class l002 {
                 myAns.add("h" + jump + s);
             }
         }
-
+        
+        // vertical move
         for (int jump = 1; sr + jump <= dr; jump++) {
             ArrayList<String> vertical = getMazePathsWithJump_return(sr + jump, sc, dr, dc);
 
@@ -217,8 +219,9 @@ public class l002 {
                 myAns.add("v" + jump + s);
             }
         }
-
-        for (int jump = 1; sc + jump <= dc || sr + jump <= dr; jump++) {
+         
+        // diagonal move
+        for (int jump = 1; sc + jump <= dc && sr + jump <= dr; jump++) {
             ArrayList<String> diagonal = getMazePathsWithJump_return(sr + jump, sc + jump, dr, dc);
 
             for (String s : diagonal) {
@@ -304,6 +307,7 @@ public class l002 {
         }
 
     }
+    
 
     public static void main(String[] args) {
         System.out.println(getMazePathsWithJump_wayup(0, 0, 2, 2, ""));
