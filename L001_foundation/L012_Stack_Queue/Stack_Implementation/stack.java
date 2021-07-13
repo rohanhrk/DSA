@@ -4,8 +4,23 @@ public class stack {
     protected int elementCount = 0; // No of element present in stack
     protected int tos = -1;
 
+    // ******************_Constructor_******************
+    public void initializeVariables(int capacity) {
+        this.capacity = capacity;
+        this.arr = new int[this.capacity];
+        this.elementCount = 0;
+        this.tos = -1;
+    }
+
+    public stack() {
+        initializeVariables(10); // default capacity
+    }
+
+    public stack(int size) {
+        initializeVariables(size);
+    }
     // ******************_basic_function_******************
-    
+
     public int size() {
         return this.elementCount;
     }
@@ -13,26 +28,25 @@ public class stack {
     public boolean isEmpty() {
         return this.elementCount == 0;
     }
+
+    @Override
+    public String toString() {
+        int n = this.capacity;
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < this.elementCount; i++) {
+            sb.append(this.arr[i]);
+            if (i != this.elementCount - 1)
+                sb.append(", ");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    // public void display() {
+
+    // }
     
-    public void display() {
-      
-    }
-
-    // ******************_Constructor_******************
-    public void initializeVariables(int capacity) {
-        this.arr = new int[this.capacity];
-        this.elementCount = 0;
-        this.tos = -1;
-    }
-
-    public stack() {       
-        initializeVariables(10); // default capacity
-    }
-
-    public stack(int size) {
-        initializeVariables(size);
-    }
-
     // ******************_Exception_******************
     private void overFlowException() throws Exception {
         if (this.capacity == this.elementCount) {
@@ -52,13 +66,14 @@ public class stack {
         this.arr[++this.tos] = data;
         this.elementCount++;
     }
+
     public void push(int data) throws Exception {
         overFlowException();
         push_(data);
     }
 
     // 2. top
-    public int top() throws Exception{
+    public int top() throws Exception {
         underFlowException();
         return this.arr[this.tos];
     }
@@ -70,6 +85,7 @@ public class stack {
         this.elementCount++;
         return rv;
     }
+
     public int pop() throws Exception {
         underFlowException();
         return pop_();
