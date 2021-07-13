@@ -1,0 +1,77 @@
+public class stack {
+    protected int[] arr = null;
+    protected int capacity = 0; // maximum element that array can hold in it
+    protected int elementCount = 0; // No of element present in stack
+    protected int tos = -1;
+
+    // ******************_basic_function_******************
+    
+    public int size() {
+        return this.elementCount;
+    }
+
+    public boolean isEmpty() {
+        return this.elementCount == 0;
+    }
+    
+    public void display() {
+      
+    }
+
+    // ******************_Constructor_******************
+    public void initializeVariables(int capacity) {
+        this.arr = new int[this.capacity];
+        this.elementCount = 0;
+        this.tos = -1;
+    }
+
+    public stack() {       
+        initializeVariables(10); // default capacity
+    }
+
+    public stack(int size) {
+        initializeVariables(size);
+    }
+
+    // ******************_Exception_******************
+    private void overFlowException() throws Exception {
+        if (this.capacity == this.elementCount) {
+            throw new Exception("stackIsFull");
+        }
+    }
+
+    private void underFlowException() throws Exception {
+        if (this.elementCount == 0) {
+            throw new Exception("stackIsEmpty");
+        }
+    }
+
+    // ******************_Stack_function_******************
+    // 1. push operator
+    protected void push_(int data) {
+        this.arr[++this.tos] = data;
+        this.elementCount++;
+    }
+    public void push(int data) throws Exception {
+        overFlowException();
+        push_(data);
+    }
+
+    // 2. top
+    public int top() throws Exception{
+        underFlowException();
+        return this.arr[this.tos];
+    }
+
+    // 3. pop
+    protected int pop_() {
+        int rv = this.arr[this.tos];
+        this.arr[this.tos--] = 0;
+        this.elementCount++;
+        return rv;
+    }
+    public int pop() throws Exception {
+        underFlowException();
+        return pop_();
+    }
+}

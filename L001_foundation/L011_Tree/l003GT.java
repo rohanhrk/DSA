@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 // **********************_DATE:10/07/2021_**********************
 public class l003GT {
     public static class Node {
@@ -124,7 +125,8 @@ public class l003GT {
 
         int dis = (list1.size() + list2.size() - 2 * (lcaDistance) + 1); // distance in terms of No of Nodes
 
-        // int dis = (list1.size() + list2.size() - 2 * (lcaDistance) + 1 - 1);_distance in terms of No of Edges
+        // int dis = (list1.size() + list2.size() - 2 * (lcaDistance) + 1 - 1);_distance
+        // in terms of No of Edges
 
         return dis;
 
@@ -133,52 +135,136 @@ public class l003GT {
     // Linearize a generic tree
     public static Node getTail(Node node) {
         Node curr = node;
-        while(curr.childs.size() != 0) {
+        while (curr.childs.size() != 0) {
             curr = curr.childs.get(0);
-        } 
+        }
 
         return curr;
     }
-    
+
     public static void linearize(Node node) {
-        for(Node child : node.childs) {
+        for (Node child : node.childs) {
             linearize(child);
         }
 
-        for(int i = node.childs.size() - 2; i >= 0 ; i--) {
+        for (int i = node.childs.size() - 2; i >= 0; i--) {
             Node tail = getTail(node.childs.get(i));
-            tail.childs.add(node.childs.get(i+1));
-            node.childs.remove(i+1);
-        }  
+            tail.childs.add(node.childs.get(i + 1));
+            node.childs.remove(i + 1);
+        }
     }
 
     // linearize -> better approach
     public static Node linearize_btr(Node node) {
-        if(node.childs.size() == 0) {
+        if (node.childs.size() == 0) {
             return node;
         }
-        
-        int n = node.childs.size();
-        Node gTail = linearize_btr(node.childs.get(n-1));//global tail
 
-        for(int i = n - 2; i >= 0 ; i--) {
+        int n = node.childs.size();
+        Node gTail = linearize_btr(node.childs.get(n - 1));// global tail
+
+        for (int i = n - 2; i >= 0; i--) {
             Node tail = linearize_btr(node.childs.get(i));
-            tail.childs.add(node.childs.get(i+1));
-            node.childs.remove(i+1);
-        }  
+            tail.childs.add(node.childs.get(i + 1));
+            node.childs.remove(i + 1);
+        }
 
         return gTail;
     }
-    
-    // ceil and floor
-    public static int ceil = (int)1e8;
-    public static int floor = -(int)1e8;
-    public static void ceil_floor(Node node, int data) {
-        if(node.data > data) ceil = Math.min(ceil, node.data);
-        if(node.data < data) floor = Math.max(floor, node.data);
 
-        for(Node child : node.childs) {
+    // ceil and floor
+    public static int ceil = (int) 1e8;
+    public static int floor = -(int) 1e8;
+
+    public static void ceil_floor(Node node, int data) {
+        if (node.data > data)
+            ceil = Math.min(ceil, node.data);
+        if (node.data < data)
+            floor = Math.max(floor, node.data);
+
+        for (Node child : node.childs) {
             ceil_floor(child, data);
         }
     }
+
+    // *****************_k'th_largest_element_in_tree_*****************
+    public static int kthLargest_(Node node, int upperBound) {
+        int lowerBound = -(int) 1e8;
+        for (Node child : node.childs) {
+            lowerBound = Math.max(lowerBound, kthLargest_(child, upperBound));
+        }
+
+        if (node.data < upperBound) {
+            lowerBound = Math.max(lowerBound, node.data);
+        }
+
+        return lowerBound;
+    }
+
+    public static int kthLargest(Node node, int k) {
+        int upperBound = (int) 1e8;
+        while (k-- > 0) {
+            upperBound = kthLargest_(node, upperBound);
+        }
+
+        return upperBound;
+    }
+
+    // *****************_Mirror Shape_*****************
+    public static boolean areMirror(Node n1, Node n2) {
+        if (n1.childs.size() != n2.childs.size()) {
+            return false;
+
+        }
+
+        for (int i = 0; i < n1.childs.size(); i++) {
+            Node c1 = n1.childs.get(i);
+            Node c2 = n2.childs.get(n2.childs.size() - 1 - i);
+
+            if (!areMirror(c1, c2))
+                return false;
+        }
+
+        return true;
+
+    }
+
+    // *****************_Similar_Shapes_*****************
+    public static boolean areSimilar(Node n1, Node n2) {
+        // write your code here
+        if (n1.childs.size() != n2.childs.size())
+            return false;
+
+        int n = n1.childs.size();
+        for (int i = 0; i < n; i++) {
+            Node c1 = n1.childs.get(i);
+            Node c2 = n2.childs.get(i);
+            if (!areSimilar(c1, c2))
+                return false;
+        }
+
+        return true;
+    }
+    
+    // *****************_Symmetric_Shapes_*****************
+    public static boolean areSimilar_(Node n1, Node n2) {
+        if (n1.childs.size() != n2.childs.size())
+            return false;
+
+        int n = n1.childs.size();
+        for (int i = 0, j = n - 1; i < n; i++, j--) {
+            Node c1 = n1.childs.get(i);
+            Node c2 = n2.childs.get(j);
+
+            if (!areSimilar_(c1, c2))
+                return false;
+        }
+
+        return true;
+    }
+
+    public static boolean IsSymmetric(Node node) {
+        return areSimilar(node, node);
+    }
+
 }
