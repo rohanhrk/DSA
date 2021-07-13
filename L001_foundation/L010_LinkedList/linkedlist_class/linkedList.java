@@ -1,19 +1,24 @@
 package linkedlist_class;
+// *********************************************_DATE:-5/07/207_*********************************************
 public class linkedList {
-
+    
+    // node ka class
     private class Node {
         int data = 0;
         Node next = null;
-
+         
+        // constructor
         Node(int data) {
             this.data = data;
         }
     }
-
+    
+    // variable
     private Node head = null;
     private Node tail = null;
-    private int sizeOfLL = 0;
-
+    private int sizeOfLL = 0; 
+   
+    // ***************_basic_function_***************
     public boolean isEmpty() {
         return this.sizeOfLL == 0;
     }
@@ -22,7 +27,7 @@ public class linkedList {
         return this.sizeOfLL;
     }
 
-    // display_**************************************************************************
+    // *********_display_*********
     public void display() {
         Node curr = this.head;
         while (curr != null) {
@@ -31,8 +36,9 @@ public class linkedList {
         }
         System.out.println();
     }
-
-    // Exceptions_************************************************************************
+    
+    // *********************************************
+    // ***************_Exceptions_***************
     private void EmptyException() throws Exception {
         if (this.sizeOfLL == 0) {
             throw new Exception("LinkedList is Empty: -1 pepcoding");
@@ -48,9 +54,9 @@ public class linkedList {
         if (idx < 0 || idx > this.sizeOfLL)
             throw new Exception("Index Out Of Bound : -1");
     }
-
-    // Get_===========================================================================
-
+    
+    // *********************************************_LinkedList_Function_*********************************************
+    // ***************_Get_***************
     public int getFirst() throws Exception { // get first
         EmptyException();
         return this.head.data;
@@ -75,8 +81,8 @@ public class linkedList {
         Node node = getNodeAt(idx);
         return node.data;
     }
-
-    // Add_===========================================================================
+  
+    // ***************_Add_***************
     private void addFirstNode(Node node) {
         if (this.head == null) {
             this.head = node;

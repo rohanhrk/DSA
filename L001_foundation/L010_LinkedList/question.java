@@ -1,3 +1,4 @@
+// *********************************************_DATE:-6/07/2021_*********************************************
 public class question {
     public class Node {
         int data;
@@ -8,6 +9,7 @@ public class question {
     Node tail = null;
     int size = 0;
 
+    // *************************_Mid_Of_LL_*************************
     public int mid() {
         // write your code here
         Node fast = head;
@@ -22,7 +24,7 @@ public class question {
         return slow.data;
     }
 
-    // reverse a linkedList (pointer iterative)
+    // *************************_Reverse_A_LL_(pointer_iterative)_*************************
     public void reversePI() {
         // write your code here
         Node prev = null;
@@ -41,7 +43,7 @@ public class question {
         this.head = prev;
     }
 
-    // reverse a linkedList (data iterative)
+    // *************************_reverse_a_linkedList_(data_iterative)_*************************
     private Node getNodeAt(int idx) {
         Node curr = this.head;
         while (idx-- > 0) {
@@ -69,7 +71,7 @@ public class question {
         }
     }
 
-    // display reverse (recursive) -. linkedList
+    // *************************_display_reverse_(recursive)_-_linkedList_*************************
     private void displayReverseHelper(Node node) {
         // write your code here
         if (node == null) {
@@ -84,8 +86,7 @@ public class question {
         System.out.println();
     }
 
-    // recursive_===============================================
-    // pointer
+    // *************************_Reverse_A_LL_recursive_pointer_*************************
     private void reversePRHelper(Node node) {
         // write your code here
         if (node.next == null) {
@@ -113,8 +114,7 @@ public class question {
         // System.out.println();
     }
 
-    // return type
-
+    // ************_return_type_************
     private Node reversePRHelper_return(Node node) {
         // write your code here
         if (node.next == null) {
@@ -142,34 +142,52 @@ public class question {
         // System.out.println();
     }
 
-    // merge two sorted LinkedList
+    // ************_kthFromLast_************
+    public int kthFromLast(int k) {
+        // write your code here
+        Node fast = this.head;
+        Node slow = this.head;
+
+        while (k-- > 0) {
+            fast = fast.next;
+        }
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        return slow.data;
+    }
+
+    // *************************_merge_two_sorted_LinkedList_*************************
     public static LinkedList mergeTwoSortedLists(LinkedList l1, LinkedList l2) {
         // write your code hered
         Node c1 = l1.head;
         Node c2 = l2.head;
-  
+
         LinkedList ans = new LinkedList();
-  
+
         while (c1 != null && c2 != null) {
-          if (c1.data < c2.data) {
+            if (c1.data < c2.data) {
+                ans.addLast(c1.data);
+                c1 = c1.next;
+            } else {
+                ans.addLast(c2.data);
+                c2 = c2.next;
+            }
+        }
+
+        while (c1 != null) {
             ans.addLast(c1.data);
             c1 = c1.next;
-          } else {
+        }
+
+        while (c2 != null) {
             ans.addLast(c2.data);
             c2 = c2.next;
-          }
         }
-  
-        while (c1 != null) {
-          ans.addLast(c1.data);
-          c1 = c1.next;
-        }
-        
-        while (c2 != null) {
-          ans.addLast(c2.data);
-          c2 = c2.next;
-        }
-        
+
         return ans;
-      }
+    }
 }
