@@ -19,7 +19,7 @@ public class stackUsingQueue_pop {
             this.temp.add(this.que.remove());
     }
 
-    // O(1)
+    // O(n)
     public void push(int data) {
         transferToAnotherQueue();
 
