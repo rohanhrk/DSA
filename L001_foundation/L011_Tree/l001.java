@@ -325,28 +325,32 @@ public class l001 {
     }
 
     public static binarySearchTree allSolution(Node node) {
-        binarySearchTree left = allSolution(node.left);
-        binarySearchTree right = allSolution(node.right);
+        if (node == null)
+            return new binarySearchTree();
+
+        binarySearchTree left = allSolution(node.left); // left subtree
+        binarySearchTree right = allSolution(node.right); // right subtree
 
         binarySearchTree myRes = new binarySearchTree();
-         
-        // isBST & isBST balance
+
+        // isBST
         myRes.isBST = left.isBST && right.isBST && left.maxEle < node.data && node.data < right.minEle;
-        myRes.isBal = left.isBal && right.isBal && Math.abs(left.height - right.height) <= 1;
-        
         myRes.maxEle = Math.max(node.data, right.maxEle);
         myRes.minEle = Math.min(node.data, left.minEle);
+
+        // isBST balance
+        myRes.isBal = left.isBal && right.isBal && Math.abs(left.height - right.height) <= 1;
         myRes.height = Math.max(left.height, right.height) + 1;
-        
+
         // total BST
         myRes.totalNoOfBST = left.totalNoOfBST + right.totalNoOfBST + (myRes.isBST ? 1 : 0);
 
         // largest BST
-        if(myRes.isBST) {
+        if (myRes.isBST) {
             myRes.largestBSTNode = node;
             myRes.largestBSTSize += left.largestBSTSize + right.largestBSTSize + 1;
         } else {
-            if(left.largestBSTSize < right.largestBSTSize) {
+            if (left.largestBSTSize < right.largestBSTSize) {
                 myRes.largestBSTNode = left.largestBSTNode;
                 myRes.largestBSTSize = left.largestBSTSize;
             } else {
@@ -357,5 +361,34 @@ public class l001 {
 
         return myRes;
 
-    } 
+    }
+
+    // ***************************_Tilt Of Binary Tree_***************************
+    public static class tiltSolPair {
+        int sum = 0;
+        int tilt = 0;
+    }
+
+    public static tiltSolPair tiltFun(Node node) {
+        if (node == null) {
+            return new tiltSolPair();
+        }
+
+        tiltSolPair left = tiltFun(node.left); // left subtree
+        tiltSolPair right = tiltFun(node.right); // right sub
+
+        tiltSolPair ans = new tiltSolPair();
+
+        ans.sum += left.sum + right.sum + node.data;
+        ans.tilt += left.tilt + right.tilt + Math.abs(left.sum - right.sum);
+
+        return ans;
+    }
+
+    public static int tilt(Node node) {
+        // write your code here to set the tilt data member
+        tiltSolPair ans = tiltFun(node);
+        return ans.tilt;
+
+    }
 }
