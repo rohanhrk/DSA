@@ -2,21 +2,25 @@ import java.util.ArrayList;
 
 // ***************************_DATE:-18/07/2021_***************************
 public class heap {
+    // Variables
     private ArrayList<Integer> arr;
     private int size = 0;
-    private boolean isMax = true;
+    private boolean isMax = true; // by default max heap
 
-    // construction
+    // initialize our variables
     private void initialize(boolean isMax) {
         this.arr = new ArrayList<>();
         this.size = 0;
         this.isMax = isMax;
     }
 
-    public heap() {
+    // **********_CONSTRUCTOR_**********
+    // 1->>>>>>>>>>>>
+    public heap() {      // default constructor
         initialize(true);
     }
-
+    
+    // 2->>>>>>>>>>>>
     public heap(int[] arr, boolean isMax) { // O(n)
         initialize(isMax);
         for (int ele : arr)
@@ -73,7 +77,7 @@ public class heap {
     
     private int compareTo(int a, int b) {
         if (this.isMax)
-            return this.arr.get(a) - this.arr.get(b);
+            return this.arr.get(a) - this.arr.get(b);  
 
         else
             return this.arr.get(b) - this.arr.get(a);
@@ -81,7 +85,7 @@ public class heap {
     
     // **********_UpHeapiFy_**********
     private void upheapify(int ci) { // O(logn)
-        int pi = (ci - 1) / 2;
+        int pi = (ci - 1) / 2; // parent index
         int minIdx = ci;
 
         if (pi >= 0 && compareTo(minIdx, pi) > 0)
