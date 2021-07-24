@@ -2,16 +2,17 @@ import java.util.ArrayList;
 
 // **********************_DATE:10/07/2021_**********************
 public class l003GT {
+    // Node ka class
     public static class Node {
         int data = 0;
         ArrayList<Node> childs = new ArrayList<>();
 
-        Node(int data) {
+        Node(int data) { // CONSTRUCTOR
             this.data = data;
         }
     }
 
-    // size
+    // ***********_size_***********
     public static int size(Node node) {
         int size = 0;
 
@@ -22,7 +23,7 @@ public class l003GT {
         return size + 1;
     }
 
-    // height
+    // ***********_height_***********
     public static int height(Node node) {
         int h = -1;
 
@@ -33,7 +34,7 @@ public class l003GT {
         return h + 1;
     }
 
-    // Maximum
+    // ***********_Maximum_***********
     public static int max(Node node) {
         int max = 0;
 
@@ -44,7 +45,7 @@ public class l003GT {
         return Math.max(max, node.data);
     }
 
-    // Minimum
+    // ***********_Minimum_***********
     public static int min(Node node) {
         int min = 0;
 
@@ -55,7 +56,7 @@ public class l003GT {
         return Math.min(min, node.data);
     }
 
-    // find
+    // ***********_find_***********
     public static boolean find(Node node, int data) {
         // write your code here
         boolean res = node.data == data;
@@ -66,7 +67,7 @@ public class l003GT {
         return res;
     }
 
-    // root to node path
+    // ***********_root to node path_***********
     public static boolean rootToNodePath(Node node, int data, ArrayList<Node> ans) {
         // write your code here
         boolean res = node.data == data;
@@ -78,7 +79,7 @@ public class l003GT {
         return res;
     }
 
-    // lca in bst
+    // ***********_lca in bst_***********
     public static int lca(Node root, int d1, int d2) {
         ArrayList<Node> list1 = new ArrayList<>();
         ArrayList<Node> list2 = new ArrayList<>();
@@ -102,7 +103,7 @@ public class l003GT {
         return lca.data;
     }
 
-    // Distance Between Two Nodes In A Generic Tree
+    // ***********_Distance Between Two Nodes In A Generic Tree_***********
     public static int distanceBetweenNodes(Node root, int d1, int d2) {
         ArrayList<Node> list1 = new ArrayList<>();
         ArrayList<Node> list2 = new ArrayList<>();
@@ -132,7 +133,7 @@ public class l003GT {
 
     }
 
-    // Linearize a generic tree
+    // ***********_Linearize a generic tree_***********
     public static Node getTail(Node node) {
         Node curr = node;
         while (curr.childs.size() != 0) {
@@ -172,7 +173,7 @@ public class l003GT {
         return gTail;
     }
 
-    // ceil and floor
+    // ***********_ceil and floor_***********
     public static int ceil = (int) 1e8;
     public static int floor = -(int) 1e8;
 
@@ -185,6 +186,24 @@ public class l003GT {
         for (Node child : node.childs) {
             ceil_floor(child, data);
         }
+    }
+
+    // using pair class
+    public static class pair {
+        int floor = -(int) 1e9;
+        int ceil = (int) 1e9;
+    }
+
+    public static void ceilAndFloor(Node node, int data, pair p) {
+        if (node.data < data)
+            p.floor = Math.max(p.floor, node.data);
+
+        if (node.data > data)
+            p.ceil = Math.min(p.ceil, node.data);
+
+        for (Node child : node.childs)
+            ceilAndFloor(child, data, p);
+
     }
 
     // *****************_k'th_largest_element_in_tree_*****************
@@ -218,8 +237,8 @@ public class l003GT {
         }
 
         for (int i = 0; i < n1.childs.size(); i++) {
-            Node c1 = n1.childs.get(i);
-            Node c2 = n2.childs.get(n2.childs.size() - 1 - i);
+            Node c1 = n1.childs.get(i); // child 1
+            Node c2 = n2.childs.get(n2.childs.size() - 1 - i); // child 2
 
             if (!areMirror(c1, c2))
                 return false;
@@ -245,7 +264,7 @@ public class l003GT {
 
         return true;
     }
-    
+
     // *****************_Symmetric_Shapes_*****************
     public static boolean areSimilar_(Node n1, Node n2) {
         if (n1.childs.size() != n2.childs.size())
@@ -265,6 +284,19 @@ public class l003GT {
 
     public static boolean IsSymmetric(Node node) {
         return areSimilar(node, node);
+    }
+
+    // *****************_remove leafs in a generic tree_*****************
+    public static void removeLeaves(Node node) {
+        for (int i = node.childs.size() - 1; i >= 0; i--) {
+            Node child = node.childs.get(i);
+            if (child.childs.size() == 0) {
+                node.childs.remove(i);
+            }
+        }
+        for (Node child : node.childs) {
+            removeLeaves(child);
+        }
     }
 
 }

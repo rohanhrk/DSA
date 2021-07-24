@@ -2,11 +2,11 @@ public class stack {
     protected int[] arr = null;
     protected int capacity = 0; // maximum element that array can hold in it
     protected int elementCount = 0; // No of element present in stack
-    protected int tos = -1;
+    protected int tos = -1; // top of stack
 
     // ******************_Constructor_******************
     public void initializeVariables(int capacity) {
-        this.capacity = capacity;
+        this.capacity = capacity;   
         this.arr = new int[this.capacity];
         this.elementCount = 0;
         this.tos = -1;
@@ -19,8 +19,9 @@ public class stack {
     public stack(int size) {
         initializeVariables(size);
     }
+    
+    
     // ******************_basic_function_******************
-
     public int size() {
         return this.elementCount;
     }

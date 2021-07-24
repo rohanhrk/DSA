@@ -127,6 +127,7 @@ public class l002BST {
             node.right = add(node.right, data);
         else
             node.left = add(node.left, data);
+
         return node;
     }
 
@@ -192,5 +193,4 @@ public class l002BST {
         targetSumPair(root, node.right, tar);
     }
 
-    
 }
