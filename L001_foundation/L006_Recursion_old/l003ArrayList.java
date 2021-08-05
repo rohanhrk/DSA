@@ -7,6 +7,7 @@ public class l003ArrayList {
     // ****************************************************************
 
     // subsequence -> method 1 (with substring)
+    // "abc"
     public static ArrayList<String> gss(String str) {
         if (str.length() == 0) {
             ArrayList<String> base = new ArrayList<>();
@@ -14,17 +15,17 @@ public class l003ArrayList {
             return base;
         }
 
-        char ch = str.charAt(0);
-        String ros = str.substring(1);
+        char ch = str.charAt(0); // a
+        String ros = str.substring(1); // bc
 
-        ArrayList<String> smallRes = gss(ros);
+        ArrayList<String> smallRes = gss(ros); 
         ArrayList<String> myRes = new ArrayList<>();
-
-        for (String s : smallRes) {
+        
+        for (String s : smallRes) { // excluded char a 
             myRes.add(s);
         }
 
-        for (String s : smallRes) {
+        for (String s : smallRes) { // included char a
             myRes.add(ch + s);
         }
 

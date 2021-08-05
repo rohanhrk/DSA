@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class l001Basic {
     public static Scanner scn = new Scanner(System.in);
-  
+
     // fibonacci
     public static int fibo(int n) {
         if (n <= 1)
@@ -17,7 +17,8 @@ public class l001Basic {
         return tribo(n - 1) + tribo(n - 2) + tribo(n - 3);
     }
 
-    // **************************************************************** date -> 29/06 ****************************************************************
+    // **************************************************************** date ->
+    // 29/06 ****************************************************************
     // palindrome
     public static boolean palindrom(int[] arr, int si, int li) {
         if (si >= li) {
@@ -135,8 +136,8 @@ public class l001Basic {
 
     // seperate dublicate by "*"
     public static String separateDuplicates(String str) { // niche ate hute result store karenge
-        if (str.length() == 1) return str;
-        
+        if (str.length() == 1)
+            return str;
 
         char ch = str.charAt(0);
         String ros = str.substring(1);
@@ -155,7 +156,7 @@ public class l001Basic {
             System.out.println(ans + ques.charAt(idx));
             return;
         }
-        
+
         char ch = ques.charAt(idx);
         if (ch == ques.charAt(idx + 1))
             separateDuplicates_wayup(ques, idx + 1, ans + ch + "*");
@@ -190,7 +191,7 @@ public class l001Basic {
             removeAdjacentDuplicates_wayup(str, idx + 1, ans + ch);
 
     }
-    
+
     // ************************************************************************************************************************************************************************************************
     public static void main(String[] args) {
 

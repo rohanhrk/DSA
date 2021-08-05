@@ -1,0 +1,16 @@
+b0->q0  b1->q1  b2->q2  b3->q3  
+b0->q0  b1->q1  b2->q2  b4->q3  
+b0->q0  b1->q1  b2->q2  b5->q3  
+b0->q0  b1->q1  b3->q2  b4->q3  
+b0->q0  b1->q1  b3->q2  b5->q3  
+b0->q0  b1->q1  b4->q2  b5->q3  
+b0->q0  b2->q1  b3->q2  b4->q3  
+b0->q0  b2->q1  b3->q2  b5->q3  
+b0->q0  b2->q1  b4->q2  b5->q3  
+b0->q0  b3->q1  b4->q2  b5->q3  
+b1->q0  b2->q1  b3->q2  b4->q3  
+b1->q0  b2->q1  b3->q2  b5->q3  
+b1->q0  b2->q1  b4->q2  b5->q3  
+b1->q0  b3->q1  b4->q2  b5->q3  
+b2->q0  b3->q1  b4->q2  b5->q3  
+15
