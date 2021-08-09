@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class question {
+    // =======================================_DATE:2/08_=======================================
+
     // Special Matrix
     // https://practice.geeksforgeeks.org/problems/special-matrix4201/1
     public int floodFill_findWays(int sr, int sc, int dr, int dc, int[][] dir, boolean[][] block, int[][] dp) {
@@ -117,6 +119,7 @@ public class question {
         return res;
     }
 
+    // =======================================_DATE:5/08_=======================================
     // 39. Combination Sum
     public int combinationSum(int[] arr, int tar, int idx, List<Integer> smallAns, List<List<Integer>> res) {
         if (tar == 0) {
@@ -354,7 +357,7 @@ public class question {
         return res;
 
     }
-    
+
     // 51. N-Queens
     boolean[] rows;
     boolean[] cols;
@@ -366,7 +369,7 @@ public class question {
         int n = boxes.length, m = boxes[0].length;
         if (tnq == 0) {
             ArrayList<String> smallAns = new ArrayList<>();
-            
+
             for (int i = 0; i < n; i++) {
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < m; j++) {
@@ -425,8 +428,9 @@ public class question {
 
         return count;
     }
+
     public int nQueens_optimize(int n) {
-        int q = n , m = n;
+        int q = n, m = n;
         rows = new boolean[n];
         cols = new boolean[m];
         diag = new boolean[n + m - 1];
@@ -439,9 +443,11 @@ public class question {
         // System.out.println(nqueen_permutationn04(n, m, q, 0, ""));
 
     }
+
     public int totalNQueens(int n) {
         return nQueens_optimize(n);
     }
+
     public static void main(String[] args) {
 
     }

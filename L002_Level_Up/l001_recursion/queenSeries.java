@@ -1,3 +1,5 @@
+
+// ==========================================_DATE:-4/08_==========================================
 public class queenSeries {
     // ========================================_1D_Queens_Set_========================================
     // HINT
@@ -167,8 +169,9 @@ public class queenSeries {
         int r = bn / m, c = bn % m;
         if (!visited[r][c]) {
             visited[r][c] = true;
-            count += queenpermutation2d_subseq(tBoxes, tQueens, qpsf + 1, 0, ans + "(" + r + "," + c + ")" + "  ", visited);
-            visited[r][c]= false;
+            count += queenpermutation2d_subseq(tBoxes, tQueens, qpsf + 1, 0, ans + "(" + r + "," + c + ")" + "  ",
+                    visited);
+            visited[r][c] = false;
         }
 
         count += queenpermutation2d_subseq(tBoxes, tQueens, qpsf, bn + 1, ans, visited);
