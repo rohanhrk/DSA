@@ -1,3 +1,6 @@
+import java.util.Arrays;
+
+// *****************************_DATE:-3/07_*****************************
 public class l002RecursionTrees {
     public static int permutationWithInfi(int[] arr, int tar, String ans) {
         if (tar == 0) {
@@ -138,44 +141,6 @@ public class l002RecursionTrees {
         return count;
     }
 
-    // ========================================_1D_Queens_Set_========================================
-    // HINT
-    public static int queenCombination_hint(int[] arr, int tar, int idx, String ans) {
-        if (tar == 0) {
-            System.out.println(ans);
-            return 1;
-        }
-
-        int count = 0;
-        for (int i = idx; i < arr.length; i++) {
-
-            count += queenCombination_hint(arr, tar - arr[i], i + 1, ans + i + " ");
-        }
-        return count;
-    }
-
-    // tBoxes -> total boxes, tQueens - > total queens, qpsf -> queen placed so far,
-    // bn-> box no
-    public static int queenCombination(int tBoxes, int tQueens, int qpsf, int bn, String ans) {
-        if (qpsf == tQueens) {
-            System.out.println(ans);
-            return 1;
-        }
-
-        int count = 0;
-        for (int i = bn; i < tBoxes; i++) {
-
-            count += queenCombination(tBoxes, tQueens, qpsf + 1, i + 1, ans + "b" + i + "->" + "q" + qpsf + "  ");
-        }
-        return count;
-    }
-
-    public static void queenSet() {
-        // int[] arr = { 1, 1, 1, 1, 1, 1 };
-        // System.out.println(queenCombination_hint(arr, 4, 0, ""));
-        System.out.println(queenCombination(6, 4, 0, 0, ""));
-    }
-
     public static void coinChange() {
         int[] arr = { 2, 3, 5, 7 };
         int tar = 10;
@@ -192,6 +157,8 @@ public class l002RecursionTrees {
     }
 
     public static void main(String[] args) {
-        queenSet();
+        // queenSet();
+        // nQueens();
+        // nQueens_optimize();
     }
 }

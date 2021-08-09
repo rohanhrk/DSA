@@ -5,13 +5,13 @@ public class l001 {
     public static Scanner scn = new Scanner(System.in);
 
     public static int floodFill(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir, boolean[][] vis,
-            String ans) {
+            String psf) {
         if (sr == dr && sc == dc) {
-            System.out.println(ans);
+            System.out.println(psf);
             return 1;
         }
-        int count = 0;
 
+        int count = 0;
         vis[sr][sc] = true;
         int n = vis.length;
         int m = vis[0].length;
@@ -20,7 +20,7 @@ public class l001 {
             int c = sc + dir[d][1];
 
             if (r >= 0 && c >= 0 && r < n && c < m && !vis[r][c]) {
-                count += floodFill(r, c, dr, dc, dirs, dir, vis, ans + dirs[d]);
+                count += floodFill(r, c, dr, dc, dirs, dir, vis, psf + dirs[d]);
             }
         }
         vis[sr][sc] = false;
@@ -48,7 +48,7 @@ public class l001 {
             pair p = new pair("", 0, 1);
             return p;
         }
-        // int count = 0;
+
         pair myAns = new pair("", -(int) 1e8, 0);
         vis[sr][sc] = true;
         int n = vis.length;

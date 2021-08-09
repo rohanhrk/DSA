@@ -1,23 +1,23 @@
 package linkedlist_class;
+
 // *********************************************_DATE:-5/07/207_*********************************************
 public class linkedList {
-    
     // node ka class
     private class Node {
         int data = 0;
         Node next = null;
-         
+
         // constructor
         Node(int data) {
             this.data = data;
         }
     }
-    
+
     // variable
     private Node head = null;
     private Node tail = null;
-    private int sizeOfLL = 0; 
-   
+    private int sizeOfLL = 0;
+
     // ***************_basic_function_***************
     public boolean isEmpty() {
         return this.sizeOfLL == 0;
@@ -36,7 +36,7 @@ public class linkedList {
         }
         System.out.println();
     }
-    
+
     // *********************************************
     // ***************_Exceptions_***************
     private void EmptyException() throws Exception {
@@ -54,7 +54,7 @@ public class linkedList {
         if (idx < 0 || idx > this.sizeOfLL)
             throw new Exception("Index Out Of Bound : -1");
     }
-    
+
     // *********************************************_LinkedList_Function_*********************************************
     // ***************_Get_***************
     public int getFirst() throws Exception { // get first
@@ -81,7 +81,7 @@ public class linkedList {
         Node node = getNodeAt(idx);
         return node.data;
     }
-  
+
     // ***************_Add_***************
     private void addFirstNode(Node node) {
         if (this.head == null) {
@@ -158,7 +158,7 @@ public class linkedList {
         return removeNode;
     }
 
-    public int removeFirst() throws Exception {    //remove first
+    public int removeFirst() throws Exception { // remove first
         EmptyException();
         Node node = removeFirstNode();
         return node.data;
@@ -180,7 +180,7 @@ public class linkedList {
 
     }
 
-    public int removeLast() throws Exception {             //remove last
+    public int removeLast() throws Exception { // remove last
         EmptyException();
         Node node = removeLastNode();
         return node.data;
@@ -203,8 +203,8 @@ public class linkedList {
             return curr;
         }
     }
- 
-    public int removeAt(int idx) throws Exception {       //remove At
+
+    public int removeAt(int idx) throws Exception { // remove At
         EmptyException();
         IndexOutOfBoundSizeExclusiveException(idx);
         Node node = removeNodeAt(idx);
