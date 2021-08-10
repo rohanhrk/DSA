@@ -1,6 +1,6 @@
 
 // ==========================================_DATE:-4/08_==========================================
-public class queenSeries {
+public class l004QueenSeries {
     // ========================================_1D_Queens_Set_========================================
     // HINT
     public static int queenCombination_hint(int[] arr, int tar, int idx, String ans) {

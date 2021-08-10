@@ -1,4 +1,5 @@
-public class Nqueen_series {
+// =====================================_DATE:-7/08_=====================================
+public class l005Nqueen_series {
     // =======================================_N-QUEENS_=======================================
     public static boolean isSafeToPlaceQueen(boolean[][] boxes, int r, int c) {
         // int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
@@ -122,7 +123,8 @@ public class Nqueen_series {
 
     }
 
-    // =====================================_OPTIMIZATION_=====================================
+    // =====================================_OPTIMIZATION_1_=====================================
+    static int calls = 0;
     static boolean[] rows;
     static boolean[] cols;
     static boolean[] diag;
@@ -134,7 +136,7 @@ public class Nqueen_series {
             System.out.println(ans);
             return 1;
         }
-
+        calls++;
         int count = 0;
         for (int i = idx; i < n * m; i++) {
             int r = i / m;
@@ -155,7 +157,7 @@ public class Nqueen_series {
             System.out.println(ans);
             return 1;
         }
-
+        calls++;
         int count = 0;
         for (int i = idx; i < n * m; i++) {
             int r = i / m;
@@ -219,7 +221,7 @@ public class Nqueen_series {
         return count;
     }
 
-    public static void nQueens_optimize() {
+    public static void nQueens_optimize1() {
         int n = 4, m = 4, q = 4;
         rows = new boolean[n];
         cols = new boolean[m];
@@ -227,10 +229,78 @@ public class Nqueen_series {
         anti_diag = new boolean[n + m - 1];
 
         // System.out.println(nqueen_combination03(n, m, q, 0, ""));
-        // System.out.println(nqueen_permutationn03(n, m, q, 0, ""));
+        System.out.println(nqueen_permutationn03(n, m, q, 0, ""));
+        System.out.println(calls);
+        // System.out.println(nqueen_combination04(n, m, q, 0, ""));
+        // System.out.println(nqueen_permutationn04(n, m, q, 0, ""));
+
+    }
+
+    // =====================================_OPTIMIZATION_2_=====================================
+    
+
+    public static int Nqueen04_combination_01(int floor, int tnq, int m, String ans) {
+        if (tnq == 0) {
+            System.out.println(ans);
+            return 1;
+        }
+
+        calls++;
+        int count = 0;
+        for (int room = 0; room < m; room++) {
+            int r = floor, c = room;
+            if (!cols[c] && !diag[r + c] && !anti_diag[r - c + m - 1]) {
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = true;
+                count += Nqueen04_combination_01(floor + 1, tnq - 1, m, ans + "(" + r + "," + c + ")" + " ");
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = false;
+            }
+        }
+
+        return count;
+    }
+
+    public static int Nqueen04_permutation_01(int floor, int tnq, int m, String ans) {
+        if (tnq == 0 || floor >= m) {
+            if (tnq == 0) {
+                System.out.println(ans);
+                return 1;
+            }
+            return 0;
+        }
+
+        calls++;
+        int count = 0;
+        for (int room = 0; room < m; room++) {
+            int r = floor, c = room;
+            if (!rows[r] && !cols[c] && !diag[r + c] && !anti_diag[r - c + m - 1]) {
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = true;
+                count += Nqueen04_permutation_01(0, tnq - 1, m, ans + "(" + r + "," + c + ")" + " ");
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = false;
+            }
+        }
+        count += Nqueen04_permutation_01(floor + 1, tnq, m, ans);
+        return count;
+    }
+
+    public static void nQueens_optimize2() {
+        int n = 4, m = 4, q = 4;
+        rows = new boolean[n];
+        cols = new boolean[m];
+        diag = new boolean[n + m - 1];
+        anti_diag = new boolean[n + m - 1];
+
+        // System.out.println(Nqueen04_combination_01(0, q, m, ""));
+        // System.out.println(calls);
+        System.out.println(Nqueen04_permutation_01(0, q, m, ""));
+        System.out.println(calls);
 
         // System.out.println(nqueen_combination04(n, m, q, 0, ""));
-        System.out.println(nqueen_permutationn04(n, m, q, 0, ""));
+        // System.out.println(nqueen_permutationn04(n, m, q, 0, ""));
 
+    }
+
+    public static void main(String[] args) {
+        nQueens_optimize1();
+        nQueens_optimize2();
     }
 }

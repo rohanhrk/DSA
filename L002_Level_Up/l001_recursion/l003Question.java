@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.*;
 
-public class question {
+public class l003Question {
     // =======================================_DATE:2/08_=======================================
 
     // Special Matrix
@@ -163,6 +163,7 @@ public class question {
         for (int i = idx; i < arr.length; i++) {
             if (tar - arr[i] >= 0 && !blockWidth[arr[i]]) {
                 blockWidth[arr[i]] = true;
+
                 smallAns.add(arr[i]);
                 count += combinationSum2_m1(arr, tar - arr[i], i + 1, smallAns, res);
                 smallAns.remove(smallAns.size() - 1);
@@ -290,24 +291,27 @@ public class question {
     }
 
     // 46. Permutations
-    public int permute(int[] arr, int idx, List<Integer> smallAns, List<List<Integer>> res, int x, boolean[] vis) {
-        if (x == arr.length) {
-            ArrayList<Integer> base = new ArrayList<>(smallAns);
+    // tel = total no of elements.
+    public int permute(int[] arr, int tel, List<Integer> smallAns, List<List<Integer>> res) {
+        if (tel == 0) {
+            List<Integer> base = new ArrayList<>(smallAns);
             res.add(base);
             return 1;
         }
 
         int count = 0;
         for (int i = 0; i < arr.length; i++) {
-            if (!vis[i]) {
-                vis[i] = true;
-                smallAns.add(arr[i]);
-                count += permute(arr, i, smallAns, res, x + 1, vis);
+            if (arr[i] > -11) { // -11, as per constraints.
+                int val = arr[i];
+                arr[i] = -11;
+                smallAns.add(val);
+
+                count += permute(arr, tel - 1, smallAns, res);
+
                 smallAns.remove(smallAns.size() - 1);
-                vis[i] = false;
+                arr[i] = val;
             }
         }
-
         return count;
     }
 
@@ -315,47 +319,46 @@ public class question {
         List<Integer> smallAns = new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();
 
-        int count = permute(nums, 0, smallAns, res, 0, new boolean[nums.length + 1]);
+        permute(nums, nums.length, smallAns, res);
         return res;
 
     }
 
-    //
-    public int permuteUnique(int[] arr, int idx, List<Integer> smallAns, List<List<Integer>> res, int x,
-            boolean[] vis) {
-        if (x == arr.length) {
-            ArrayList<Integer> base = new ArrayList<>(smallAns);
+    // 47. Permutations II
+    public int permuteUnique(int[] arr, int tel, List<Integer> smallAns, List<List<Integer>> res) {
+        if (tel == 0) {
+            List<Integer> base = new ArrayList<>(smallAns);
             res.add(base);
             return 1;
         }
 
         int count = 0;
-        // int prev = -1;
-        boolean[] blockWidth = new boolean[22];
+        int prev = -12;
         for (int i = 0; i < arr.length; i++) {
-            if (!vis[i] && !blockWidth[arr[i] + (10)]) {
-                vis[i] = true;
-                blockWidth[arr[i] + 10] = true;
+            if (arr[i] > -11 && prev != arr[i]) { // -11, as per constraints.
+                int val = arr[i];
+                arr[i] = -11;
+                smallAns.add(val);
 
-                smallAns.add(arr[i]);
-                count += permuteUnique(arr, i, smallAns, res, x + 1, vis);
+                count += permuteUnique(arr, tel - 1, smallAns, res);
+
                 smallAns.remove(smallAns.size() - 1);
+                arr[i] = val;
 
-                vis[i] = false;
+                prev = arr[i];
             }
-            // prev = arr[idx];
         }
-
         return count;
     }
 
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<Integer> smallAns = new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();
+        List<Integer> smallAns = new ArrayList<>();
 
-        int count = permuteUnique(nums, 0, smallAns, res, 0, new boolean[nums.length + 1]);
+        Arrays.sort(nums);
+        permuteUnique(nums, nums.length, smallAns, res);
+
         return res;
-
     }
 
     // 51. N-Queens
@@ -395,6 +398,37 @@ public class question {
 
         return count;
     }
+    
+    // optimize
+    public int Nqueen04_combination_01(boolean[][] boxes,int floor, int tnq, int m) {
+        int n = boxes.length;
+        if (tnq == 0) {
+            ArrayList<String> smallAns = new ArrayList<>();
+            
+            for (int i = 0; i < n; i++) {
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < m; j++) {
+                    sb.append(boxes[i][j] ? "Q" : ".");
+                }
+                smallAns.add(sb.toString());
+            }
+
+            ans.add(smallAns);
+            return 1;
+        }
+
+        int count = 0;
+        for (int room = 0; room < m; room++) {
+            int r = floor, c = room;
+            if (!cols[c] && !diag[r + c] && !anti_diag[r - c + m - 1]) {
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = boxes[r][c] = true;
+                count += Nqueen04_combination_01(boxes, floor + 1, tnq - 1, m);
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = boxes[r][c] = false;
+            }
+        }
+
+        return count;
+    }
 
     public List<List<String>> solveNQueens(int n) {
         int m = n;
@@ -404,12 +438,14 @@ public class question {
         diag = new boolean[n + m - 1];
         anti_diag = new boolean[n + m - 1];
 
-        nqueen_Combination03(boxes, n, 0);
+        // nqueen_Combination03(boxes, n, 0);
+        Nqueen04_combination_01(boxes,0, n, m);
         return ans;
     }
 
     // 52. N-Queens II
-    // combination
+    // combination 
+    // time complexity: (n * m)^q
     public int nqueen_combination03(int n, int m, int tnq, int idx) {
         if (tnq == 0) {
             return 1;
@@ -428,7 +464,27 @@ public class question {
 
         return count;
     }
+    
+    // optimize 
+    // time complexity: (m)^q
+    public int Nqueen04_combination_01(int floor, int tnq, int m) {
+        if (tnq == 0) {
+            return 1;
+        }
+        
+        int count = 0;
+        for (int room = 0; room < m; room++) {
+            int r = floor, c = room;
+            if (!cols[c] && !diag[r + c] && !anti_diag[r - c + m - 1]) {
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = true;
+                count += Nqueen04_combination_01(floor + 1, tnq - 1, m);
+                rows[r] = cols[c] = diag[r + c] = anti_diag[r - c + m - 1] = false;
+            }
+        }
 
+        return count;
+    }
+    
     public int nQueens_optimize(int n) {
         int q = n, m = n;
         rows = new boolean[n];
@@ -436,12 +492,8 @@ public class question {
         diag = new boolean[n + m - 1];
         anti_diag = new boolean[n + m - 1];
 
-        return nqueen_combination03(n, m, q, 0);
-        // System.out.println(nqueen_permutationn03(n, m, q, 0, ""));
-
-        // System.out.println(nqueen_combination04(n, m, q, 0, ""));
-        // System.out.println(nqueen_permutationn04(n, m, q, 0, ""));
-
+        // return nqueen_combination03(n, m, q, 0);
+        return Nqueen04_combination_01(0, q, m);
     }
 
     public int totalNQueens(int n) {
