@@ -176,7 +176,7 @@ public class l001 {
         // printZ();
         int a = scn.nextInt();
         int b = scn.nextInt();
-        GCD(a, b);
+        System.out.println(GCD(a, b));
         // gradingSystem(n);
         // oddEven(n);
     }
