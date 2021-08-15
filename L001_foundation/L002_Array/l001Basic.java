@@ -1,6 +1,15 @@
 import java.util.Scanner;
 import java.util.Arrays;
 
+public class first {
+    public static
+    public static int first() {
+    
+    }
+    public static void main(String[] args) {
+        first();
+    }
+}
 public class l001Basic {
     public static Scanner scn = new Scanner(System.in);
     // **************************************************************** DATE - 21/06 ****************************************************************
