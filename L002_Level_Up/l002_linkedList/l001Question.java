@@ -1,4 +1,4 @@
-public class l001Practice {
+public class l001Question {
     public static class ListNode {
         int val = 0;
         ListNode next = null;
@@ -90,6 +90,8 @@ public class l001Practice {
 
     // fold of a linkedlist
     public static void fold(ListNode head) {
+        if (head == null || head.next == null)
+            return;
         ListNode mid = middleNode1(head);
         ListNode nhead = mid.next;
         mid.next = null;
@@ -113,6 +115,8 @@ public class l001Practice {
 
     // unfold of linkedList
     public static void unfold(ListNode head) {
+        if (head == null || head.next == null)
+            return;
         ListNode l1 = new ListNode(-1); // dummy node
         ListNode l2 = new ListNode(-1);
         ListNode p1 = l1, p2 = l2, c1 = head, c2 = c1.next;
@@ -135,8 +139,39 @@ public class l001Practice {
         p1.next = p2;
     }
 
+    public static void unfold1(ListNode head) {
+        if (head == null || head.next == null)
+            return;
+
+        ListNode l1 = new ListNode(-1);
+        ListNode l2 = new ListNode(-1);
+        ListNode p1 = l1, p2 = l2;
+
+        p1.next = head;
+        p2.next = head.next;
+
+        p1 = p1.next;
+        p2 = p2.next;
+
+        while (p2 != null && p2.next != null) {
+            ListNode f = p2.next;
+
+            p1.next = f;
+            p2.next = f.next;
+
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        p1.next = null;
+        p2 = reverse(l2.next);
+        p1.next = p2;
+    }
+
     // merge two sorted lit
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null || l2 == null)
+            return l1 != null ? l1 : l2;
         ListNode dummy = new ListNode(-1);
         ListNode p = dummy, c1 = l1, c2 = l2;
         while (c1 != null && c2 != null) {
@@ -159,8 +194,8 @@ public class l001Practice {
     // merge k sorted list
     public static ListNode mergeKLists(ListNode[] lists) {
         ListNode dummy = null;
-         
-        for(ListNode node : lists) {
+
+        for (ListNode node : lists) {
             dummy = mergeTwoLists(dummy, node);
         }
 
@@ -169,7 +204,8 @@ public class l001Practice {
 
     // optimize
     public static ListNode mergeKLists(ListNode[] lists, int si, int ei) {
-        if(si == ei) return lists[si];
+        if (si == ei)
+            return lists[si];
         int mid = (si + ei) / 2;
         ListNode leftListNode = mergeKLists(lists, si, mid);
         ListNode rightListNode = mergeKLists(lists, mid + 1, ei);
@@ -177,9 +213,24 @@ public class l001Practice {
         return mergeTwoLists(leftListNode, rightListNode);
 
     }
-    public static ListNode mergeKLists(ListNode[] lists) {
+
+    public static ListNode mergeKLists1(ListNode[] lists) {
         return mergeKLists(lists, 0, lists.length);
     }
 
+    // merge Sort
+    public static ListNode mergeSort(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        ListNode mid = middleNode1(head);
+        ListNode nhead = mid.next;
+        mid.next = null;
+
+        ListNode leftListNode = mergeSort(head);
+        ListNode rightListNode = mergeSort(nhead);
+
+        return mergeTwoLists(leftListNode, rightListNode);
+
+    }
 
 }
