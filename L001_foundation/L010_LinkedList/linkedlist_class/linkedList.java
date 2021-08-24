@@ -56,6 +56,7 @@ public class linkedList {
     }
 
     // *********************************************_LinkedList_Function_*********************************************
+     // GETTER SETTER REMOVE FUNCTION
     // ***************_Get_***************
     public int getFirst() throws Exception { // get first
         EmptyException();
@@ -81,6 +82,7 @@ public class linkedList {
         Node node = getNodeAt(idx);
         return node.data;
     }
+    
 
     // ***************_Add_***************
     private void addFirstNode(Node node) {

@@ -126,9 +126,8 @@ public class l001 {
 
     // ==============================================_DATE_:-_7/072021_==============================================
 
-    // 3. ***************************_print node k distances
-    // away_***************************
-    // *************** Important ****************************
+    // 3. ***************************_print_node_k_distances_away_***************************
+    // *************** Important(Amazon ka fav. interview question) ****************************
 
     // a. root to node path
     public static boolean rootToNodePath(Node root, int data, ArrayList<Node> ans) {
@@ -144,12 +143,12 @@ public class l001 {
         return res;
 
     }
-
-    public static void print_At_K_Depth(Node root, int k, Node block, ArrayList<Integer> ans) {
-        if (root == null || root == block || k < 0)
+    
+    public static void print_At_K_Depth(Node root, int k, Node blockNode, ArrayList<Integer> ans) {
+        if (root == null || root == blockNode || k < 0) // base case
             return;
 
-        if (k == 0) {
+        if (k == 0) {     // base case 2
             ans.add(root.data);
             return;
         }
