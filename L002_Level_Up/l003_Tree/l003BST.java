@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.LinkedList;
 public class l003BST {
     public static class TreeNode {
         int val = 0;
@@ -88,5 +88,35 @@ public class l003BST {
         }
         
         return curr;
+    }
+
+
+    // 173. Binary Search Tree Iterator
+    // Time -> O(N) , space -> O(log(N))
+    class BSTIterator {
+        LinkedList<TreeNode> st;
+        public BSTIterator(TreeNode root) {
+            st = new LinkedList<>();
+            addAllLeft(root);
+        }
+
+        public void addAllLeft(TreeNode node) {
+            while(node != null) {
+                this.st.addFirst(node);
+                node = node.left;
+            }
+        }
+
+        // time->on an average O(1) worst time -> O(log(N))
+        public int next() {
+            TreeNode topNode = this.st.removeFirst();
+            addAllLeft(topNode.right);
+            return topNode.val;
+        }
+       
+        // time->O(1)
+        public boolean hasNext() {
+            return this.st.size() != 0;
+        }
     }
 }

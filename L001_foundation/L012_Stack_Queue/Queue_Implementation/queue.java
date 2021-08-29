@@ -1,7 +1,7 @@
 public class queue {
     protected int[] arr = null;
     protected int capacity = 0; // maximum element that array can hold in it
-    protected int elementCount = 0; // No of element present in stack
+    protected int elementCount = 0; // No of element present in an array
     protected int front = 0; // denote where element is present
     protected int back = 0; // denote where element would be find
 

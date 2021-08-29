@@ -83,7 +83,7 @@ public class stack {
     protected int pop_() {
         int rv = this.arr[this.tos];
         this.arr[this.tos--] = 0;
-        this.elementCount++;
+        this.elementCount--;
         return rv;
     }
 

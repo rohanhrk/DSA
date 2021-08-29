@@ -37,7 +37,7 @@ public class queueUsingStack_push {
         int rv = this.temp.pop();
 
         while (this.temp.size() != 0)
-            this.add(this.temp.pop());
+            this.st.add(this.temp.pop());
 
         return rv;
     }

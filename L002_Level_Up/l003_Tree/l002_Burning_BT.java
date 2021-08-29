@@ -15,8 +15,7 @@ public class l002_Burning_BT {
         }
     }
 
-    // ****************************_burn the binary
-    // tree_****************************
+    // ****************************_burn_the_binary_tree_****************************
     public boolean rootToNodePath(TreeNode root, TreeNode target, List<TreeNode> ans) {
         if (root == null)
             return false;
@@ -27,6 +26,10 @@ public class l002_Burning_BT {
         return res;
     }
 
+    // faith ----->>>>>>
+        // 1. hum time ko as an index ki tarah treat karenge
+        // 2. agar time == ans.size(), toh ek naya arraylist banayenge aur ans me add kar denge
+        // 3. har ek root ko apne respective time(index) ke arraylist me append kar lenge   
     public void burnTree(TreeNode node, int time, List<List<Integer>> ans, TreeNode blockNode) {
         if (node == null || node == blockNode)
             return;
@@ -96,7 +99,7 @@ public class l002_Burning_BT {
         burnTreeWithWater(root.right, time + 1, ans, blockNode, WaterNode);
     }
 
-    // -1 : did we gett the target node, -2 : fire will not reach that node, t > 0 :
+    // -1 : did we get the target node, -2 : fire will not reach that node, t > 0 :
     // fire will reach with time t.
     public int burnTreeWithWater(TreeNode root, TreeNode targetNode, List<List<Integer>> ans,
             HashSet<Integer> WaterNode) {
