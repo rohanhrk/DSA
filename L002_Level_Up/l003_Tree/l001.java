@@ -186,10 +186,10 @@ public class l001 {
     }
 
     // facts------>>>>>>
-        // 1. agar target data, nehi milta toh -1 return karenge
-        // 2. agar data milta he toh non negative value return karenge 
+    // 1. agar target data, nehi milta toh -1 return karenge
+    // 2. agar data milta he toh non negative value return karenge
     public int distanceK_01(TreeNode root, TreeNode target, int k, List<Integer> ans) {
-     
+
         if (root == null)
             return -1;
         if (root == target) {
@@ -217,58 +217,107 @@ public class l001 {
         distanceK_01(root, target, k, ans);
         return ans;
     }
-     
+
     // 236. Lowest Common Ancestor of a Binary Tree
-    public boolean NodeToRootPath(TreeNode root,TreeNode node, List<TreeNode> path) {
-        if(root == null) return false;
-        
-        boolean res = root == node ||  NodeToRootPath(root.left, node, path) || NodeToRootPath(root.right, node, path);
-        if(res) path.add(root);
-        
+    public boolean NodeToRootPath(TreeNode root, TreeNode node, List<TreeNode> path) {
+        if (root == null)
+            return false;
+
+        boolean res = root == node || NodeToRootPath(root.left, node, path) || NodeToRootPath(root.right, node, path);
+        if (res)
+            path.add(root);
+
         return res;
     }
+
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         List<TreeNode> path1 = new ArrayList<>();
         List<TreeNode> path2 = new ArrayList<>();
         NodeToRootPath(root, p, path1);
         NodeToRootPath(root, q, path2);
-            
+
         TreeNode LCA = null;
         int i = path1.size() - 1;
         int j = path2.size() - 1;
-        while(i >= 0 && j >= 0 && path1.get(i) == path2.get(j)) {
+        while (i >= 0 && j >= 0 && path1.get(i) == path2.get(j)) {
             LCA = path1.get(i);
             i--;
             j--;
         }
-        
+
         return LCA;
 
     }
 
-    // 
-         private TreeNode LCA = null;
-     public boolean lowestCommonAncestor_(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null) return false;
+    //
+    private TreeNode LCA = null;
+
+    public boolean lowestCommonAncestor_(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null)
+            return false;
 
         boolean self = root == p || root == q;
 
         boolean left = lowestCommonAncestor_(root.left, p, q);
-        if(LCA != null) return true;
-        
+        if (LCA != null)
+            return true;
+
         boolean right = lowestCommonAncestor_(root.right, p, q);
-        if(LCA != null) return true;
-        
-        if((self && left) || (self && right) || (left && right))
+        if (LCA != null)
+            return true;
+
+        if ((self && left) || (self && right) || (left && right))
             LCA = root;
-        
+
         return self || left || right;
 
     }
-    
+
     public TreeNode lowestCommonAncestor__(TreeNode root, TreeNode p, TreeNode q) {
         lowestCommonAncestor_(root, p, q);
         return LCA;
     }
-    
+
+    // PREDECESSOR_SUCCESSOR_============================================================================
+    public static class allSolnPair {
+        TreeNode pred = null;
+        TreeNode succ = null;
+        TreeNode prev = null;
+
+        int floor = -(int) 1e9;
+        int ceil = (int) 1e9;
+    }
+
+    public static void precAndSucc(TreeNode root, int data, allSolnPair pair) {
+        precAndSucc(root.left, data, pair);
+        if (pair.prev.val == data && pair.pred == null)
+            pair.pred = pair.prev;
+        if (pair.pred != null && pair.prev.val == data)
+            pair.succ = root;
+
+        pair.prev = root;
+        precAndSucc(root.right, data, pair);
+    }
+
+    // Floor_Ceil==================================================================
+    public static void FloorNceil(TreeNode node, int data, allSolnPair pair) {
+        if (node.val < data)
+            pair.floor = Math.max(pair.floor, node.val);
+        else
+            pair.ceil = Math.min(pair.ceil, node.val);
+        FloorNceil(node.left, data, pair);
+        FloorNceil(node.right, data, pair);
+    }
+
+    // 110. Balanced Binary Tree
+    public int getHeight(TreeNode node){
+        if(node==null) return 0;
+        return Math.max(getHeight(node.left),getHeight(node.right))+1;
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(root==null) return true;
+        int left =getHeight(root.left); 
+        int right = getHeight(root.right);
+        return ((int)Math.abs(left - right) < 2) && isBalanced(root.left) && isBalanced(root.right) ; // self && left && right
+    }
 }
