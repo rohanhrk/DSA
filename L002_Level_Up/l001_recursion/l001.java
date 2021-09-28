@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class l001 {
     public static Scanner scn = new Scanner(System.in);
 
-    public static int floodFill(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir, boolean[][] vis,
-            String psf) {
+    public static int floodFill(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir, boolean[][] vis, String psf) {
         if (sr == dr && sc == dc) {
             System.out.println(psf);
             return 1;
@@ -27,6 +26,7 @@ public class l001 {
         return count;
     }
 
+    // =========================================================================================
     public static class pair {
         String psf;
         int length;
@@ -41,8 +41,7 @@ public class l001 {
 
     }
 
-    public static pair floodFill_longestPAth(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir,
-            boolean[][] vis) {
+    public static pair floodFill_longestPAth(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir, boolean[][] vis) {
         if (sr == dr && sc == dc) {
             // System.out.println(ans);
             pair p = new pair("", 0, 1);
@@ -114,8 +113,7 @@ public class l001 {
 
     }
 
-    public static pathpair floodFill_heavyPath(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir,
-            boolean[][] vis, int[] wt) {
+    public static pathpair floodFill_heavyPath(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir, boolean[][] vis, int[] wt) {
         if (sr == dr && sc == dc) {
             // System.out.println(ans);
             pathpair p = new pathpair("", 0, 1);

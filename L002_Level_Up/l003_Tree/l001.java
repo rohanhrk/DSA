@@ -11,19 +11,30 @@ public class l001 {
             this.val = val;
         }
     }
+     public static class Node {
+        int data = 0;
+        Node left = null;
+        Node right = null;
 
+        Node(int data) {
+            this.data = data;
+        }
+    }
+    // ======================================================================================================
+    // ======================================================================================================
+    // DATE:22/08
     public static int size(TreeNode root) {
         return root == null ? 0 : size(root.left) + size(root.right) + 1;
     }
-
+    
     public static int height(TreeNode root) {
         return root == null ? -1 : Math.max(height(root.left), height(root.right)) + 1;
     }
-
+    
     public static int Maximum(TreeNode root) {
         return root == null ? -(int) 1e9 : Math.max(Math.max(Maximum(root.left), Maximum(root.right)), root.val);
     }
-
+    
     public static boolean find(TreeNode root, int data) {
         if (root == null)
             return false;
@@ -32,7 +43,9 @@ public class l001 {
 
         return find(root.left, data) || find(root.right, data); // left call || right call
     }
-
+    // ======================================================================================================
+    // PROBLEMS: Node-To-Root-Path
+    // 1. return type ArrayList
     public static ArrayList<TreeNode> NodeToRootPath(TreeNode root, int data) {
         if (root == null)
             return new ArrayList<>();
@@ -57,7 +70,7 @@ public class l001 {
 
         return new ArrayList<>();
     }
-
+    // 2. boolean type
     public static boolean NodeToRootPath(TreeNode root, int data, ArrayList<TreeNode> ans) {
         if (root == null)
             return false;
@@ -73,7 +86,7 @@ public class l001 {
         return res;
     }
 
-    // root To All Leaf Path
+    // PROBLEMS: root-To-All-Leaf-Path_
     public static void rootToAllLeafPath(TreeNode root, ArrayList<Integer> smallAns,
             ArrayList<ArrayList<Integer>> ans) {
         if (root == null)
@@ -92,7 +105,6 @@ public class l001 {
 
         smallAns.remove(smallAns.size() - 1);
     }
-
     public static ArrayList<ArrayList<Integer>> rootToAllLeafPath(TreeNode root) {
         // write your code.
         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
@@ -101,7 +113,7 @@ public class l001 {
         return ans;
     }
 
-    // all-single-child-parent-in-binary-tree
+    // PROBLEMS: all-single-child-parent-in-binary-tree
     public static void exactlyOneChild(TreeNode root, ArrayList<Integer> ans) {
         if (root == null || (root.left == null && root.right == null))
             return;
@@ -114,14 +126,13 @@ public class l001 {
         exactlyOneChild(root.right, ans);
 
     }
-
     public static ArrayList<Integer> exactlyOneChild(TreeNode root) {
         ArrayList<Integer> ans = new ArrayList<>();
         exactlyOneChild(root, ans);
         return ans;
     }
 
-    // count single child
+    // PROBLEMS: count single child
     public static int countOneChild(TreeNode root) {
         if (root == null || (root.left == null && root.right == null))
             return 0;
@@ -137,8 +148,7 @@ public class l001 {
         return count;
     }
 
-    // All distacne K in binary Tree
-
+    // PROBLEMS: All distacne K in binary Tree
     public void kDown(TreeNode root, int k, TreeNode blockNode, List<Integer> ans) {
         if (root == null || k < 0 || root == blockNode)
             return;
@@ -150,9 +160,7 @@ public class l001 {
         kDown(root.left, k - 1, blockNode, ans);
         kDown(root.right, k - 1, blockNode, ans);
     }
-
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-
         // root to Node path
         ArrayList<TreeNode> path = new ArrayList<>();
         NodeToRootPath(root, target.val, path);
@@ -184,12 +192,10 @@ public class l001 {
         kDown(root.left, blockNode, K - 1, ans);
         kDown(root.right, blockNode, K - 1, ans);
     }
-
     // facts------>>>>>>
     // 1. agar target data, nehi milta toh -1 return karenge
     // 2. agar data milta he toh non negative value return karenge
     public int distanceK_01(TreeNode root, TreeNode target, int k, List<Integer> ans) {
-
         if (root == null)
             return -1;
         if (root == target) {
@@ -202,7 +208,6 @@ public class l001 {
             kDown(root, root.left, k - ld, ans);
             return ld + 1;
         }
-
         int rd = distanceK_01(root.right, target, k, ans);
         if (rd != -1) {
             kDown(root, root.right, k - rd, ans);
@@ -211,13 +216,15 @@ public class l001 {
 
         return -1;
     }
-
     public List<Integer> distanceK_01(TreeNode root, TreeNode target, int k) {
         List<Integer> ans = new ArrayList<>();
         distanceK_01(root, target, k, ans);
         return ans;
     }
-
+    
+    // ======================================================================================================
+    // ======================================================================================================
+    
     // 236. Lowest Common Ancestor of a Binary Tree
     public boolean NodeToRootPath(TreeNode root, TreeNode node, List<TreeNode> path) {
         if (root == null)
@@ -249,9 +256,8 @@ public class l001 {
 
     }
 
-    //
+ 
     private TreeNode LCA = null;
-
     public boolean lowestCommonAncestor_(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null)
             return false;
@@ -278,6 +284,7 @@ public class l001 {
         return LCA;
     }
 
+    // =================================================================================================
     // PREDECESSOR_SUCCESSOR_============================================================================
     public static class allSolnPair {
         TreeNode pred = null;
@@ -320,4 +327,6 @@ public class l001 {
         int right = getHeight(root.right);
         return ((int)Math.abs(left - right) < 2) && isBalanced(root.left) && isBalanced(root.right) ; // self && left && right
     }
+
+   
 }

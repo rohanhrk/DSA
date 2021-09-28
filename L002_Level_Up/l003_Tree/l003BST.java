@@ -12,6 +12,8 @@ public class l003BST {
         }
     }
 
+    // ============================================================================================
+    // DATE: 24/ 08
     public static int size(TreeNode root) {
         return root == null ? 0 : size(root.left) + size(root.right) + 1;
     }
@@ -108,7 +110,7 @@ public class l003BST {
             }
         }
 
-        // time->on an average O(1) worst time -> O(log(N))
+        // time->on an average O(1) worst time -> O(log(N)) --> worst time will never achieved
         public int next() {
             TreeNode topNode = this.st.removeFirst();
             addAllLeft(topNode.right);
@@ -121,6 +123,7 @@ public class l003BST {
         }
     }
 
+    // ============================================================================================
     // Predecessor_N_Successor
     public static TreeNode getLeftMost(TreeNode node) {
         if (node == null)

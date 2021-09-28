@@ -14,6 +14,8 @@ public class l003View {
         }
     }
 
+    // =================================================================================================
+    // DATE: 25/ 08
     // levelOrder
     public static void levelOrder(TreeNode root) {
 
@@ -94,6 +96,7 @@ public class l003View {
     }
 
     // width of binary tree -> shadow techniques
+    // vl -> vertical level
     public static void width(TreeNode root, int vl, int[] minMax) {
         if (root == null)
             return;
@@ -222,7 +225,7 @@ public class l003View {
         return ans;
     }
 
-    // diagonal order
+    // diagonal ordern
     public static ArrayList<ArrayList<Integer>> diagonalTraversal(TreeNode root) {
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
@@ -319,7 +322,8 @@ public class l003View {
                 TreeNode node =  que.removeFirst();
                 while(node != null) {
                     ans.set(idx, node.val);
-                    if(node.left != null) que.addLast(node.left);
+                    if(node.left != null) 
+                        que.addLast(node.left);
                     node = node.right;
                 }
             }
@@ -329,6 +333,9 @@ public class l003View {
         return ans;
 
     } 
+
+    // ===============================================================================================================
+    // DATE: 27/ 08
 
     // vertical sum of binary tree Nodes
     public static ArrayList<Integer> verticalOrderSum(TreeNode root) {

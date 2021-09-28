@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 
+// DATE: 3/ 08/ 2021
 // =============================================_AMAZON_=============================================
 public class l002_Burning_BT {
 
@@ -29,14 +30,14 @@ public class l002_Burning_BT {
     // faith ----->>>>>>
         // 1. hum time ko as an index ki tarah treat karenge
         // 2. agar time == ans.size(), toh ek naya arraylist banayenge aur ans me add kar denge
-        // 3. har ek root ko apne respective time(index) ke arraylist me append kar lenge   
+        // 3. har ek noot ko apne respective time(index) ke arraylist me append kar lenge   
     public void burnTree(TreeNode node, int time, List<List<Integer>> ans, TreeNode blockNode) {
         if (node == null || node == blockNode)
             return;
 
         if (time == ans.size())
-            ans.add(new ArrayList<>());
-        ans.get(time).add(node.val);
+            ans.add(new ArrayList<>()); // 1/2
+        ans.get(time).add(node.val);    // 3
 
         burnTree(node.left, time + 1, ans, blockNode);
         burnTree(node.right, time + 1, ans, blockNode);
