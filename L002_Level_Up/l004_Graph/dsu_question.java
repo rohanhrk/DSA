@@ -247,4 +247,48 @@ public class dsu_question {
 
         return mCost <= K ? super_road : -1;
     }
+
+    // 959. Regions Cut By Slashes
+    public int regionsBySlashes(String[] grid) {
+        int n = grid.length;
+        int m = n + 1;
+        par = new int[m*m];
+        int region = 1;
+        
+        for(int i = 0; i < m * m; i++) {
+            par[i] = i;
+            
+            int r = i / m, c = i % m;
+            if(r == 0 || c == 0 || r == m - 1 || c == m - 1) {
+                par[i] = 0;
+            }
+        }
+        
+        for(int i = 0; i < grid.length; i++) {
+            String str = grid[i];
+            for(int j = 0; j < str.length(); j++) {
+                char ch = str.charAt(j);
+                int p1 = 0, p2 = 0;
+                if(ch == '/') {
+                    p1 = findPar(i * m + (j + 1));
+                    p2 = findPar((i + 1) * m + j);
+                } else if(ch == '\\') {
+                    p1 = findPar(i * m + j);
+                    p2 = findPar((i + 1) * m + (j + 1));
+                } else {
+                    continue;
+                }
+                
+                if(p1 == p2) {
+                    region++;
+                } else {
+                    par[p1] = p2;
+                }
+            }
+        }
+        
+        return region;
+        
+        
+    }
 }
