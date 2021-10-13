@@ -437,10 +437,10 @@ public class bfs_question {
 				pq.add(new pair(r, c, dis));
 				distance[r][c] = dis;
 
-				if(r == er && c == ec) 
-					return dis;
+				// if(r == er && c == ec) 
+				// 	return dis;
 			}
 		}
-		return -1;
+		return distace[er][ec] != (int)1e8 ? distace[er][ec] : -1; 
 	}
 }
