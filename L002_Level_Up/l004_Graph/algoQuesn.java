@@ -138,4 +138,45 @@ public class algoQuesn {
 
         return prev[dest] != (int) 1e9 ? prev[dest] : -1;
     }
+
+
+    // 1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int[][] mat = new int[n][n];
+        for(int[] m : mat) 
+            Arrays.fill(m, (int)1e9);
+        
+        for(int[] e : edges) {
+            int u = e[0], v = e[1], w = e[2];
+            mat[u][v] = w;
+            mat[v][u] = w;
+        }
+        
+        for(int i = 0; i < n; i++) 
+            mat[i][i] = 0;
+        
+        // src -> intermadiate -> dest        
+        for(int intermadiate = 0; intermadiate < n; intermadiate++) 
+            for(int src = 0; src < n; src++) 
+                for(int dest = 0; dest < n ; dest++) 
+                    mat[src][dest] = Math.min(mat[src][dest] , mat[src][intermadiate] + mat[intermadiate][dest]);
+                
+        
+        int smallestNoOfCity = (int)1e9;
+        int src_city = -1; // source city
+        for( int src = 0 ; src < n ; src++ ){
+            int reachCity = 0; // reachable city
+            for( int dest = 0 ; dest < n ; dest++ ){
+               if( mat[src][dest] <= distanceThreshold){
+                   reachCity++;
+               }
+            }
+            
+            if( reachCity <= smallestNoOfCity ){ // ( "=" bcz we want geeater no. ) 
+                smallestNoOfCity = reachCity;
+                src_city = src;
+            }
+        }
+        return src_city;
+    }
 }

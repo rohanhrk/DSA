@@ -120,8 +120,6 @@ public class algo {
         }
     }
 
-    
-
     // ================================================_Dijikstra_algorithms_================================================
     public static class pair {
         int par, vtx, weight, wsf;
@@ -243,7 +241,7 @@ public class algo {
 
             if (vis[p.vtx])
                 continue;
-                
+
             if (p.par != -1) {
                 addEdge(new_graph, p.par, p.vtx, p.wt);
             }
@@ -252,8 +250,8 @@ public class algo {
             dis[p.vtx] = p.wt;
             par[p.vtx] = p.par;
 
-            for(Edge e : graph[p.vtx]) {
-                if(!vis[e.v]) 
+            for (Edge e : graph[p.vtx]) {
+                if (!vis[e.v])
                     pq.add(new prims_pair(p.vtx, e.v, e.w));
             }
         }
@@ -276,24 +274,24 @@ public class algo {
         boolean[] vis = new boolean[N];
         int[] dis = new int[N];
         int[] par = new int[N];
-        Arrays.fill(dis, (int)1e9);
+        Arrays.fill(dis, (int) 1e9);
         Arrays.fill(par, -1);
 
         dis[src] = 0;
-        
-        while(pq.size() != 0) {
+
+        while (pq.size() != 0) {
             prims_pair p = pq.remove();
-            
-            if(vis[p.vtx]) 
+
+            if (vis[p.vtx])
                 continue;
-            
-            if(p.par != -1)
+
+            if (p.par != -1)
                 addEdge(new_graph, p.par, p.vtx, p.wt);
 
             vis[p.vtx] = true;
 
-            for(Edge e : graph[p.vtx]) {
-                if(e.w < dis[e.v]) {
+            for (Edge e : graph[p.vtx]) {
+                if (e.w < dis[e.v]) {
                     pq.add(new prims_pair(p.vtx, e.v, e.w));
                     dis[p.vtx] = e.w;
                     par[p.vtx] = p.par;
@@ -303,41 +301,67 @@ public class algo {
     }
 
     // ==========================================_Bellman_Ford_Algo_==========================================
-    public static boolean Bellman_Ford_Algo(int N, int[][] edges, int src) {
+    public static void Bellman_Ford_Algo(int N, int[][] edges, int src) {
         int[] prev = new int[N];
-        Arrays.fill(prev, (int)1e9);
+        Arrays.fill(prev, (int) 1e9);
         prev[src] = 0;
-            
+
         boolean isNegativeCycle = false;
-        for(int i = 1; i <= N; i++) {
+        for (int i = 1; i <= N; i++) {
             boolean allUpdate = false;
             int[] curr = new int[N];
-            for(int j = 0; j < N; j++) {
+            for (int j = 0; j < N; j++) {
                 curr[j] = prev[j];
             }
-            
-            // {u, v, w}             
-            for(int[] e : edges) {
+
+            // {u, v, w}
+            for (int[] e : edges) {
                 int u = e[0], v = e[1], w = e[2];
-                if(prev[u] != (int)1e9 && prev[u] + w < curr[v]) {
-                    if(i == N) {
+                if (prev[u] != (int) 1e9 && prev[u] + w < curr[v]) {
+                    if (i == N) {
                         isNegativeCycle = true;
                         break;
                     }
 
                     curr[v] = prev[u] + w;
                     allUpdate = true;
-                } 
-                    
+                }
+
             }
-            
-            if(!allUpdate) 
+
+            if (!allUpdate)
                 break;
             prev = curr;
         }
-        
-        return isNegativeCycle;
-        
+
+        // return isNegativeCycle;
+        System.out.println("Negative cycle : " + isNegativeCycle);
+
+    }
+
+    // =========================================_Floyd_Warshall_=========================================
+    public static void floydWarshall(int[][] edges) {
+        int N = edges.length;
+        int[][] mat = new int[N][N];
+        for (int[] d : mat)
+            Arrays.fill(d, (int) 1e9);
+
+        for (int[] e : edges) {
+            int u = e[0], v = e[1], w = e[2];
+            mat[u][v] = w;
+        }
+
+        for (int i = 0; i <= N; i++)
+            mat[i][i] = 0;
+
+        // IS -> intermadiate stage
+        for(int IS = 0; IS <= N; IS++) {
+            for(int src = 0; src <= N; src++) {
+                for(int dst = 0; dst <= N; dst++) {
+                    mat[src][dst] = Math.max(mat[src][dst], mat[src][IS] + mat[IS][dst]);
+                }
+            }
+        }
     }
 
 }

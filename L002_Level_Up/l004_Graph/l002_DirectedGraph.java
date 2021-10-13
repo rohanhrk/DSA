@@ -246,6 +246,63 @@ public class l002_DirectedGraph {
 
     	return ans;
     }
+
+    // =================================_Kosaraju'=================================
+    public static void topoOrder(ArrayList<Edge>[] graph, int src, ArrayList<Integer> order, boolean[] vis) {
+    	vis[src] = true;
+    	for(Edge e : graph[u]) {
+    		if(!vis[e.v]) {
+    			topoOrder(graph, e.v, order, vis);
+    		}
+    	}
+
+    	order.add(src);
+    }
+
+    public static void SCC_compo(ArrayList<Edge>[] ngraph, int scr, boolean[] vis, ArrayList<Integer> component) {
+    	vis[src] = true;
+    	component.add(src);
+
+    	for(Edge e : graph[src]) {
+    		if(!vis[e.v])
+    			SCC_compo(ngraph, e.v, vis, component);
+    	}
+    }
+
+    public static void kosaraju(ArrayList<Edge>[] graph) {
+    	int N = graph.length;
+    	
+    	// 1. Topological order
+    	ArrayList<Integer> topoOrder = new ArrayList<>;
+    	boolean[] vis = new boolean[N];
+    	for(int i = 0; i< N; i++) {
+    		if(!vis[i])
+    			topoOrder(graph, src, topoOrder, vis);
+    	}
+
+    	// 2. compliment of Graph
+    	ArrayList<Edge>[] ngraph = new ArrayList[N];
+    	for(int i = 0; i < N; i++) 
+    		ngraph[i]  = new ArrayList<>();
+
+    	for(int i = 0; i < N; i++) {
+    		for(Edge e : graph[i]) {
+    			ngraph[e.v].add(new Edge(i,w));
+    		}
+    	}
+
+    	// 3. DFS -> topological order
+    	ArrayList<Integer> component = new ArrayList<>();
+    	vis = new boolean[N];
+    	for(int i = topoOrder.size(); i >= 0; i++) {
+    		int u = topoOrder.get(i);
+    		if(!vis[u]) {
+    			SCC_compo(ngraph, u, vis, component);
+    			System.out.println(component);
+    			component.clear();
+    		}
+    	}
+    }
 	public static void constructGraph() {
 		int N = 8;
 		ArrayList<Edge>[] graph = new ArrayList[N];

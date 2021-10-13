@@ -2,6 +2,8 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class bfs_question {
 	public static class Edge {
@@ -304,6 +306,141 @@ public class bfs_question {
 			interchange++;
 		}
 
+		return -1;
+	}
+
+	// 1376. Time Needed to Inform All Employees
+	public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+		// {u,v,w}
+		ArrayList<int[]>[] graph = new ArrayList[n];
+		for (int i = 0; i < n; i++)
+			graph[i] = new ArrayList<>();
+
+		for (int i = 0; i < manager.length; i++) {
+			int u = manager[i], v = i;
+			if (u != -1) {
+				int w = informTime[u];
+				graph[u].add(new int[] { v, w });
+			}
+		}
+
+		// {vtx, wsf}
+		LinkedList<int[]> que = new LinkedList<>();
+		que.addLast(new int[] { headID, 0 });
+
+		int totalMinutes = 0;
+		while (que.size() != 0) {
+			int size = que.size();
+			while (size-- > 0) {
+				int[] rp = que.removeFirst(); // remove pair
+				int vtx = rp[0], wsf = rp[1];
+
+				for (int[] e : graph[vtx]) {
+					int v = e[0], w = e[1];
+					que.addLast(new int[] { v, wsf + w });
+					totalMinutes = Math.max(totalMinutes, wsf + w);
+				}
+			}
+		}
+
+		return totalMinutes;
+
+	}
+
+	// Lintcode 787 : The Maze
+	public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+		// write your code here
+		int n = maze.length, m = maze[0].length, sr = start[0], sc = start[1], er = destination[0], ec = destination[1];
+		boolean[][] vis = new boolean[n][m];
+		int[][] dir = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
+
+		LinkedList<Integer> que = new LinkedList<>();
+		que.addLast(sr * m + sc);
+		vis[sr][sc] = true;
+
+		while (que.size() != 0) {
+			int size = que.size();
+			while (size-- > 0) {
+				int idx = que.removeFirst();
+				int rem_row = idx / m, rem_col = idx % m;
+
+				for (int[] d : dir) {
+					int curr_row = rem_row, curr_col = rem_col;
+
+					while (curr_row >= 0 && curr_col >= 0 && curr_row < n && curr_col < m
+							&& maze[curr_row][curr_col] == 0) {
+						curr_row += d[0];
+						curr_col += d[1];
+					}
+
+					curr_row -= d[0];
+					curr_col -= d[1];
+
+					if (vis[curr_row][curr_col])
+						continue;
+
+					vis[curr_row][curr_col] = true;
+					que.addLast(curr_row * m + curr_col);
+
+					if (curr_row == er && curr_col == ec)
+						return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	// 788 · The Maze II
+	public int shortestDistance(int[][] maze, int[] start, int[] destination) {
+		class pair {
+			int r, c, dis;
+
+			pair(int r, int c, int dis) {
+				this.r = r;
+				this.c = c;
+				this.dis = dis;
+			}
+		}
+
+		int n = maze.length, m = maze[0].length, sr = start[0], sc = start[1], er = destination[0], ec = destination[1];
+		int[][] dir = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
+
+		int[][] distance = new int[n][m];
+		for (int[] d : distance)
+			Arrays.fill(d, (int) 1e9);
+
+		PriorityQueue<pair> pq = new PriorityQueue<>((a, b) -> {
+			return a.dis - b.dis;
+		});
+		pq.add(new pair(sr, sc, 0));
+		distance[sr][sc] = 0;
+
+		while (pq.size() != 0) {
+			pair p = pq.remove();
+			int r = p.r, c = p.c, dis = p.dis;
+
+			for (int[] d : dir) {
+				while (r >= 0 && c >= 0 && r < n && c < m && maze[r][c] == 0) {
+					r += d[0];
+					c += d[1];
+					dis++;
+				}
+
+				r -= d[0];
+				c -= d[1];
+				dis--;
+
+				if (dis >= distance[r][c])
+					continue;
+
+				pq.add(new pair(r, c, dis));
+				distance[r][c] = dis;
+
+				if(r == er && c == ec) 
+					return dis;
+			}
+		}
 		return -1;
 	}
 }

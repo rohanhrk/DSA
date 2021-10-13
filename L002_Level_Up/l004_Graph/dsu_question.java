@@ -291,4 +291,66 @@ public class dsu_question {
         
         
     }
+
+    // 924. Minimize Malware Spread
+    int[] country; 
+    int[] poc; // population of country
+    public int findCountry(int u) {
+        if(country[u] == u) 
+            return u;
+        int temp = findCountry(country[u]);
+        country[u] = temp;
+        return temp;
+    }
+    
+    public int minMalwareSpread(int[][] graph, int[] initial) {
+        int n = graph.length;
+        country = new int[n];
+        poc = new int[n];
+        
+        for(int i = 0; i < n; i++) {
+            country[i] = i;
+            poc[i] = 1;
+        }
+        
+        // 1. find population of counttry using DSU where we store population in a poc array         
+        for(int i = 0; i < n; i++) {
+            int p1 = findCountry(i);
+            for(int j = 0; j < n; j++) {
+                if(i != j) {
+                    if(graph[i][j] == 1) {
+                        int p2 = findCountry(j);
+                        if(p1 != p2) {
+                            country[p2] = p1;
+                            poc[p1] += poc[p2];
+                        }
+                    }
+                }
+            }
+        }
+        Arrays.sort(initial);
+        
+        // 2. find out Total Infected person in a country         
+        int[] ipc = new int[n]; // Infected person in a country
+        for(int ip : initial) {
+            int c = findCountry(ip);
+            ipc[c]++;
+        }
+        
+        // 3. figure out which country having infected person only one and 
+        // having maximum population
+        int maxPopulatedCountry = 0;
+        int c = initial[0];
+        
+        for(int ip : initial) {
+            int p = findCountry(ip); 
+            if(ipc[p] == 1 && poc[p] > maxPopulatedCountry) {
+                maxPopulatedCountry = poc[p];
+                c = ip;
+            }
+        }
+        
+        return c;
+    }
 }
+
