@@ -612,7 +612,7 @@ public class l002_stringSet {
         return minCut_memo(s, 0, isPlindromeDp, dp);
     }
 
-    // 10. Regular Expression Matching, 
+    // 10. Regular Expression Matching
     public String removeMultiStars(String str) {
         if(str.length() == 0)
             return "";
