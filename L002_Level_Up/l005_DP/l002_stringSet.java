@@ -679,7 +679,7 @@ public class l002_stringSet {
             return dp[n][m] = 0;
         }
     }
-    public boolean isMatch(String s, String p) {
+    public boolean isMatch_(String s, String p) {
         p = removeMultiStars(p);
         int n = s.length(), m = p.length();
         int[][] dp = new int[n + 1][m + 1];
