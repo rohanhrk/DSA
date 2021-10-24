@@ -647,7 +647,7 @@ public class l002_stringSet {
         
         return true;
     }
-    public int isMatch_memo(String s, String p, int n, int m, int[][] dp) {
+    public int isMatch_memo_(String s, String p, int n, int m, int[][] dp) {
         if(n == 0 || m == 0) {
             if(n == 0 && m == 0) {
                 return dp[n][m] = 1;
@@ -666,13 +666,13 @@ public class l002_stringSet {
         
         char ch1 = s.charAt(n - 1), ch2 = p.charAt(m - 1);
         if(ch1 == ch2 || ch2 == '.') 
-            return dp[n][m] = isMatch_memo(s, p, n - 1, m - 1, dp);
+            return dp[n][m] = isMatch_memo_(s, p, n - 1, m - 1, dp);
         else if(ch2 == '*') {
             boolean res = false;
             
             if(m > 1 && (s.charAt(n - 1) == p.charAt(m - 2) || p.charAt(m - 2) == '.'))
-                res = res || isMatch_memo(s, p, n - 1, m, dp) == 1;
-            res = res || isMatch_memo(s, p, n, m - 2, dp) == 1;
+                res = res || isMatch_memo_(s, p, n - 1, m, dp) == 1;
+            res = res || isMatch_memo_(s, p, n, m - 2, dp) == 1;
             
             return dp[n][m] = res ? 1 : 0;
         } else {
@@ -686,4 +686,7 @@ public class l002_stringSet {
         for(int[] d : dp) Arrays.fill(d, -1);
         return isMatch_memo(s, p, n, m, dp) == 1;
     }
+
+
+    
 }
