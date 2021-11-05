@@ -13,6 +13,8 @@ public class l004_targetSet {
         }
     }
 
+    // =============================================================================================================================
+    // Que_35 : Permutation with infinite coins
     public static int permutation_memo(int[] arr, int tar, int[] dp) {
         if (tar == 0) {
             return dp[tar] = 1;
@@ -50,6 +52,8 @@ public class l004_targetSet {
         return dp[TAR];
     }
 
+    // =============================================================================================================================
+    // Que_36 : Combination with infinite coins
     public static int combination_memo(int[] arr, int tar, int n, int[][] dp) {
         if (tar == 0)
             return dp[n][tar] = 1;
@@ -102,7 +106,8 @@ public class l004_targetSet {
         display_1d(dp);
     }
 
-    // 322. Coin Change
+    // =============================================================================================================================
+    // Que_37 : 322. Coin Change
     public int coinChange_memo(int[] arr, int tar, int[] dp) {
         if (tar == 0) {
             return dp[tar] = 0;
@@ -149,7 +154,8 @@ public class l004_targetSet {
         return ans == (int) 1e8 ? -1 : ans;
     }
 
-    // 518. Coin Change 2
+    // =============================================================================================================================
+    // Que_38 : 518. Coin Change 2
     public int change_memo(int[] arr, int tar, int n, int[][] dp) {
         if (tar == 0)
             return dp[n][tar] = 1;
@@ -191,12 +197,12 @@ public class l004_targetSet {
         coinChage();
     }
 
-    // =============================================
+    // =============================================================================================================================
 
     // https://www.geeksforgeeks.org/find-number-of-solutions-of-a-linear-equation-of-n-variables/
 
-    // =============================================
-    // 377. Combination Sum IV
+    // =============================================================================================================================
+    // Que_39 : 377. Combination Sum IV
     public int combinationSum4(int[] nums, int target, int[] dp) {
         if (target == 0)
             return dp[target] = 1;
@@ -223,7 +229,8 @@ public class l004_targetSet {
         return count == -1 ? 0 : count;
     }
 
-    // subset sum problem
+    // =============================================================================================================================
+    // Que_40 : subset sum problem
     public static int subsetSum_memo(int[] arr, int tar, int n, int[][] dp) {
         if (tar == 0 || n == 0)
             return dp[n][tar] = (tar == 0) ? 1 : 0;
@@ -261,7 +268,8 @@ public class l004_targetSet {
         return dp[N][TAR];
     }
 
-    // 0-1_knapsack_problems_=====================================
+    // =============================================================================================================================
+    // Que_41 : 0-1_knapsack_problems_
     public static int knapSack_memo(int W, int wt[], int val[], int n, int[][] dp) {
         if (W == 0 || n == 0)
             return dp[n][W] = 0;
@@ -278,7 +286,8 @@ public class l004_targetSet {
 
     }
 
-    // UNBOUNDED_KNAPSACK_problems_===========================================
+    // =============================================================================================================================
+    // Que_42 : UNBOUNDED_KNAPSACK_problems
     static int unboundedKnapSack_memo(int W, int wt[], int val[], int n, int[][] dp) {
         if (W == 0 || n == 0)
             return dp[n][W] = 0;
@@ -337,9 +346,8 @@ public class l004_targetSet {
         return unboundedKnapSack_memo(W, wt, val, N, dp);
     }
 
-    // ==============================================
-     
-    // 416. Partition Equal Subset Sum
+    // =============================================================================================================================
+    // Que_43 : 416. Partition Equal Subset Sum
     // -1 -> undefined, 0 -> false , 1 -> true     
     public int canPartition(int[] nums, int tar, int n, int[][] dp) {
         if(n == 0 || tar == 0)

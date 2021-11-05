@@ -270,8 +270,153 @@ public class l001_Arrays {
 
     // 628. Maximum Product of Three Numbers_==============================
     public int maximumProduct(int[] nums) {
+        int max1 = -(int) 1e9, max2 = -(int) 1e9, max3 = -(int) 1e9;
+        int min1 = (int) 1e9, min2 = (int) 1e9; 
         
+        for(int val : nums) {
+            if(val > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = val;
+            } else if(val > max2) {
+                max3 = max2;
+                max2 = val;
+            } else if(val > max3) {
+                max3 = val;
+            }
+            
+            if(val < min1) {
+                min2 = min1;
+                min1 = val;
+            } else if(val < min2) {
+                min2 = val;
+            }
+        }
+        
+        return Math.max(max1 * max2 * max3 , min1 * min2 * max1);
     }
+
+    // 769. Max Chunks To Make Sorted_======================
+    public int maxChunksToSorted(int[] arr) {
+        int n = arr.length;
+        
+        int chunk = 0, max = 0; 
+        for(int i = 0; i < n; i++) {
+            max = Math.max(max, arr[i]);
+            
+            if(max == i) 
+                chunk++;
+        }
+        
+        return chunk;
+    }
+
+    // 768. Max Chunks To Make Sorted II_=============================
+    
+    // using two array
+    public int maxChunksToSorted_01(int[] arr) {
+        int n = arr.length;
+        int[] left_max = new int[n];
+        int[] right_min = new int[n];
+        
+        left_max[0] = arr[0];
+        right_min[n - 1] = arr[n - 1];
+        
+        
+        for(int i = 1; i < left_max.length; i++) 
+            left_max[i] = Math.max(arr[i], left_max[i - 1]);
+        for(int i = right_min.length - 2; i >= 0; i--)
+            right_min[i] = Math.min(arr[i], right_min[i + 1]);
+        
+        int chunk_count = 1;
+        for(int i = 0; i < n - 1; i++) {
+            if(left_max[i] <= right_min[i + 1])
+                chunk_count++;
+        }
+        
+        return chunk_count;
+    }
+
+    // using one array
+    public int maxChunksToSorted_02(int[] arr) {
+        int n = arr.length;
+        // prepare right_min and maage left_max while running with loop         
+        int[] right_min = new int[n];
+        right_min[n - 1] = arr[n - 1];
+        
+        for(int i = right_min.length - 2; i >= 0; i--)
+            right_min[i] = Math.min(arr[i], right_min[i + 1]);
+        
+        // count chunk         
+        int chunk_count = 1;
+        int left_max = -(int)1e9;
+        for(int i = 0; i < n - 1; i++) {
+            left_max = Math.max(left_max, arr[i]);
+            if(left_max <= right_min[i + 1])
+                chunk_count++;
+        }
+        
+        return chunk_count;
+    }
+
+    // 747. Largest Number At Least Twice of Others
+    public int dominantIndex(int[] nums) {
+        int n = nums.length;
+        int max1 = -(int)1e9 , max2 = -(int)1e9, idx = -1;
+        
+        for(int i = 0; i < n; i++) {
+            if(nums[i] > max1) {
+                max2 = max1;
+                max1 = nums[i];
+                idx = i;
+            } else if(nums[i] > max2) {
+                max2 = nums[i];
+            }
+        }
+        
+        return max1 >= 2 * max2 ? idx : -1;
+    }
+
+    // 345. Reverse Vowels of a String
+    private boolean isVowel(char ch) {
+        String s = "aeiou";
+        return s.contains(ch + "");
+    }
+    
+    public void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    
+    public String reverseVowels(String s) {
+        int n = s.length();
+        char[] arr = new char[n];
+        for(int i = 0; i < n; i++) 
+            arr[i] = s.charAt(i);
+        
+        
+        int left = 0;
+        int right = n - 1;
+        
+        while(left < right) {
+            while(left < right && !isVowel(arr[left]))
+                left++;
+            
+            while(left < right && !isVowel(arr[right]))
+                right--;
+            
+            swap(arr, left, right);
+            left++;
+            right--;
+        }
+        
+        return new String(arr);
+    }
+
+    // 
+    
 }
+
 
 

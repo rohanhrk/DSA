@@ -17,8 +17,8 @@ public class l005_cutSet {
         }
     }
 
-    // =======================================
-    // matrix_chain_multiplication
+    // =============================================================================================================================
+    // Que_44 : matrix_chain_multiplication
     // memoization
     public static int mcm_memo(int[] arr, int si, int ei, int[][] dp) {
         if (si + 1 == ei)
@@ -120,8 +120,8 @@ public class l005_cutSet {
 
     }
 
-    // ========================================================================
-    // https://www.geeksforgeeks.org/minimum-maximum-values-expression/
+    // =============================================================================================================================
+    // Que_45 : https://www.geeksforgeeks.org/minimum-maximum-values-expression/
     // Minimum and Maximum values of an expression with * and +
     public static class min_max_pair {
         int min_value = (int) 1e9;
@@ -182,8 +182,8 @@ public class l005_cutSet {
         System.out.println("max_value : " + val.max_value);
     }
 
-    // =======================================================
-    // 312. Burst Balloons
+    // =============================================================================================================================
+    // Que_44 : 312. Burst Balloons
     public int maxCoins(int[] nums, int si, int ei, int[][] dp) {
         if (dp[si][ei] != -1)
             return dp[si][ei];
@@ -212,8 +212,8 @@ public class l005_cutSet {
         return maxCoins(nums, 0, n - 1, dp);
     }
 
-    // ========================================================================================
-    // https://practice.geeksforgeeks.org/problems/boolean-parenthesization5610/1
+    // =============================================================================================================================
+    // Que_45 : https://practice.geeksforgeeks.org/problems/boolean-parenthesization5610/1
     public static class boolean_pair {
         int true_count = 0;
         int false_count = 0;
@@ -273,8 +273,8 @@ public class l005_cutSet {
         return countWays_memo(S, 0, N - 1, dp).true_count;
     }
 
-    // ========================================================================
-    // https://www.geeksforgeeks.org/optimal-binary-search-tree-dp-24/
+    // =============================================================================================================================
+    // Que_46 : https://www.geeksforgeeks.org/optimal-binary-search-tree-dp-24/
     public static int optimalSearchTree_memo(int keys[], int freq[], int si, int ei, int[][] dp) {
         // code here
         if (dp[si][ei] != -1)
@@ -304,8 +304,8 @@ public class l005_cutSet {
         return optimalSearchTree_memo(keys, freq, 0, n - 1, dp);
     }
 
-    // ========================================================================
-    // 95. Unique Binary Search Trees II
+    // =============================================================================================================================
+    // Que_47 : 95. Unique Binary Search Trees II
     public class TreeNode {
         int val;
         TreeNode left;
@@ -370,8 +370,8 @@ public class l005_cutSet {
         return generateTrees_memo(1, n);
     }
 
-    // =======================================================================================
-    // 1039. Minimum Score Triangulation of Polygon
+    // =============================================================================================================================
+    // Que_48 : 1039. Minimum Score Triangulation of Polygon
     public int minScoreTriangulation_memo(int[] values, int si, int ei, int[][] dp) {
         if(ei - si <= 1)
             return dp[si][ei] = 0;

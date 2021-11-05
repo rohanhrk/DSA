@@ -14,6 +14,8 @@ public class l001_twoPointer{
 		}
 	}
 
+	// =============================================================================================================================
+	// Question_1 : fibonacci Series
 	// faith --> F(n) = F(n-1) + F(n-2)
 	public static int fibo_memo(int n, int[] dp) {
 		// base case
@@ -53,7 +55,8 @@ public class l001_twoPointer{
 		return a;
 	}
 
-	// Maze path
+	// =============================================================================================================================
+	// Question_2 : Maze path
 	public static int maze_memo(int sr, int sc, int dr, int dc, int[][] dir, int[][] dp) {
 		// base case
 		if (sr == dr && sc == dc) {
@@ -103,7 +106,8 @@ public class l001_twoPointer{
 		return dp[SR][SC];
 	}
 
-	// gold mine problems
+	// =============================================================================================================================
+	// Question_3 : gold mine problems
 	static int goldMine_memo(int[][] mat, int sr, int sc, int[][] dir, int[][] dp) {
 		if (sc == mat[0].length - 1) {
 			return dp[sr][sc] = mat[sr][sc];
@@ -169,7 +173,8 @@ public class l001_twoPointer{
 		return goldMine_tabu(M, 0, 0, dir, dp);
 	}
 
-	// Dice Problems
+	// =============================================================================================================================
+	// Question_4 : Dice Problems
 	public static int dice_memo(int sp, int ep, int[] dp) {
 		if (sp == ep) {
 			return dp[sp] = 1;
@@ -210,7 +215,8 @@ public class l001_twoPointer{
 		print_oned(dp);
 	}
 
-	//
+	// =============================================================================================================================
+	// Question_5 : 91. Decode Ways
 	public int numDecodings_memo(String s, int idx, int[] dp) {
 		if (idx == s.length()) {
 			return dp[idx] = 1;
@@ -298,8 +304,8 @@ public class l001_twoPointer{
 		return numDecodings_memo_02(s, len, dp);
 	}
 
-	// =====================================================================
-	// 639. Decode Ways II
+	// =============================================================================================================================
+	// Question_6 : 639. Decode Ways II
 	public long numDecodings_memo(String s, int idx, long[] dp) {
 		if (idx == s.length()) {
 			return dp[idx] = 1;
@@ -350,7 +356,8 @@ public class l001_twoPointer{
 		return (int) numDecodings_memo(s, 0, dp);
 	}
 
-	// https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425/1
+	// =============================================================================================================================
+	// Question_7 : https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425/1
 	public long countFriendsPairings_memo(int n, long[] dp) {
 		// code here
 		if (n <= 1)
@@ -396,7 +403,13 @@ public class l001_twoPointer{
 		return b;
 	}
 
-	// https://www.geeksforgeeks.org/count-the-number-of-ways-to-divide-n-in-k-groups-incrementally/
+	public long countFriendsPairings(int n) {
+		// code her
+		return countFriendsPairings_opti(n);
+	}
+	
+	// =============================================================================================================================
+	// Question_8 : https://www.geeksforgeeks.org/count-the-number-of-ways-to-divide-n-in-k-groups-incrementally/
 	public static int divideInKGroups_memo(int n, int k, int[][] dp) {
 		if(k == 1 || n == k) {
 			return dp[n][k] = 1;
@@ -416,10 +429,7 @@ public class l001_twoPointer{
 		int[][] dp = new int[n + 1][k + 1];
 		return divideInKGroups_memo(n, k, dp);
 	}
-	public long countFriendsPairings(int n) {
-		// code her
-		return countFriendsPairings_opti(n);
-	}
+	
 
 	public static void main(String[] args) {
 		dice_set();

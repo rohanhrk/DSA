@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class l002_stringSet {
-    // 516. Longest Palindromic Subsequence
+    // Que_9 : 516. Longest Palindromic Subsequence_===============================
     public int lpss_memo(String s, int si, int ei, int[][] dp) {
         if (si >= ei)
             return dp[si][ei] = si == ei ? 1 : 0;
@@ -72,7 +72,8 @@ public class l002_stringSet {
         return -1;
     }
 
-    // 1143. Longest Common Subsequence
+    // =============================================================================================================================
+    // Que_10 : 1143. Longest Common Subsequence
     public int lcss_memo(String s1, int si1, String s2, int si2, int[][] dp) {
         if (si1 == s1.length() || si2 == s2.length())
             return dp[si1][si2] = 0;
@@ -122,7 +123,8 @@ public class l002_stringSet {
         return lcss_tabu(s1, 0, s2, 0, dp);
     }
 
-    // 5. Longest Palindromic Substring
+    // =============================================================================================================================
+    // Que_11 : 5. Longest Palindromic Substring
     public String longestPalindrome(String s) {
         int n = s.length();
         boolean[][] dp = new boolean[n][n];
@@ -147,7 +149,8 @@ public class l002_stringSet {
         return s.substring(startIdx, length + startIdx);
     }
 
-    // Longest Common Substring
+    // =============================================================================================================================
+    // Que_12 : Longest Common Substring_
     public String lcSubstring(String s1, String s2) {
         int n = s1.length(), m = s2.length();
         int[][] dp = new int[n + 1][m + 1];
@@ -179,7 +182,8 @@ public class l002_stringSet {
         return lcs_string;
     }
 
-    // 1458. Max Dot Product of Two Subsequences
+    // =============================================================================================================================
+    // Que_13 : 1458. Max Dot Product of Two Subsequences
     public int maximum(int... arr) {
         int max = arr[0];
         for (int ele : arr)
@@ -232,7 +236,8 @@ public class l002_stringSet {
         return maxDotProduct_tabu(nums1, nums2, 0, 0, dp);
     }
 
-    // 72. Edit Distance
+    // =============================================================================================================================
+    // Que_14 : 72. Edit Distance
     public int minDistance_memo(String word1, String word2, int n, int m, int[][] dp) {
         if (n == 0 || m == 0) {
             return dp[n][m] = (n == 0) ? m : n; // Insert : delete
@@ -261,7 +266,8 @@ public class l002_stringSet {
         return minDistance_memo(word1, word2, n, m, dp);
     }
 
-    // 583. Delete Operation for Two Strings
+    // =============================================================================================================================
+    // Que_15 : 583. Delete Operation for Two Strings
     public int minDistance_memo_(String word1, String word2, int n, int m, int[][] dp) {
         if (n == 0 || m == 0) {
             return dp[n][m] = (n == 0) ? m : n;
@@ -303,7 +309,8 @@ public class l002_stringSet {
         return minDistance_tabu(word1, word2, n, m, dp);
     }
 
-    // https://practice.geeksforgeeks.org/problems/minimum-number-of-deletions-and-insertions0209/1
+    // =============================================================================================================================
+    // Que_16 : https://practice.geeksforgeeks.org/problems/minimum-number-of-deletions-and-insertions0209/1
     public int minOperations(String str1, String str2, int n, int m, int[][] dp) {
         // Your code goes here
         if (n == 0 || m == 0)
@@ -332,7 +339,8 @@ public class l002_stringSet {
         return minOperations(str1, str2, n, m, dp);
     }
 
-    // 115. Distinct Subsequences
+    // =============================================================================================================================
+    // Que_17 : 115. Distinct Subsequences
     public int numDistinct_memo(String s, String t, int n, int m, int[][] dp) {
         if (n == 0 || m == 0 || n < m) {
             return dp[n][m] = (m == 0) ? 1 : 0;
@@ -383,7 +391,8 @@ public class l002_stringSet {
         return numDistinct_memo(s, t, n, m, dp);
     }
 
-    // 940. Distinct Subsequences II
+    // =============================================================================================================================
+    // Que_18 : 940. Distinct Subsequences II
     public int distinctSubseqII(String s) {
         int n = s.length();
         long[] dp = new long[n + 1];
@@ -412,7 +421,8 @@ public class l002_stringSet {
         return (int) ((dp[n] % mod - 1) % mod);
     }
 
-    // https://practice.geeksforgeeks.org/problems/count-subsequences-of-type-ai-bj-ck4425/1
+    // =============================================================================================================================
+    // Que_19 : https://practice.geeksforgeeks.org/problems/count-subsequences-of-type-ai-bj-ck4425/1
     public int countSubseq_ai_bj_ck(String s) {
         int emptyCount = 1, n = s.length();
         long aCount = 0, bCount = 0, cCount = 0, mod = (int) 1e9 + 7;
@@ -430,6 +440,8 @@ public class l002_stringSet {
         return (int) (cCount % mod);
     }
 
+    // =============================================================================================================================
+    // Que_20 --->
     // follow up quesn
     // i) slove quens for k
     // ii) b^p a^i c^j d^k
@@ -473,7 +485,8 @@ public class l002_stringSet {
         return dCount;
     }
 
-    // https://practice.geeksforgeeks.org/problems/count-palindromic-subsequences/1
+    // =============================================================================================================================
+    // Que_21 : https://practice.geeksforgeeks.org/problems/count-palindromic-subsequences/1
     long countPS_memo(String str, int i, int j, long[][] dp) {
         // Your code here
         if (i >= j) {
@@ -509,7 +522,8 @@ public class l002_stringSet {
         return countPS_memo(str, 0, n - 1, dp);
     }
 
-    // 44. Wildcard Matching
+    // =============================================================================================================================
+    // Que_22 : 44. Wildcard Matching
     public String remove_multiStar(String str) {
         if(str.length() == 0) 
             return "";
@@ -568,7 +582,9 @@ public class l002_stringSet {
         
         return isMatch_memo(s, p, n, m, dp) == 1 ? true : false;
     }
-    // 132. Palindrome Partitioning II
+
+    // =============================================================================================================================
+    // Que_23 : 132. Palindrome Partitioning II
      public void lpsString_dp(String s, boolean[][] isPlindromeDp) {
         for(int gap = 0; gap < s.length(); gap++) {
             for(int i = 0, j = gap; j < s.length(); i++, j++) {
@@ -612,7 +628,8 @@ public class l002_stringSet {
         return minCut_memo(s, 0, isPlindromeDp, dp);
     }
 
-    // 10. Regular Expression Matching
+    // =============================================================================================================================
+    // Que_24 :  10. Regular Expression Matching
     public String removeMultiStars(String str) {
         if(str.length() == 0)
             return "";
@@ -686,7 +703,5 @@ public class l002_stringSet {
         for(int[] d : dp) Arrays.fill(d, -1);
         return isMatch_memo(s, p, n, m, dp) == 1;
     }
-
-
     
 }
