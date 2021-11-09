@@ -691,55 +691,54 @@ public class l001_Arrays {
         return dist;
     }
 
-
     // 670. Maximum Swap
     // private void swap(int[] arr, int i , int j) {
-    //     int temp = arr[i];
-    //     arr[i] = arr[j];
-    //     arr[j] = temp;
+    // int temp = arr[i];
+    // arr[i] = arr[j];
+    // arr[j] = temp;
     // }
 
     // space -> O(n) where n is length
     public int maximumSwap_01(int num) {
-        // convert number to string and create integer array         
+        // convert number to string and create integer array
         String str = "" + num;
         int n = str.length();
         int[] arr = new int[n];
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
             arr[i] = str.charAt(i) - '0';
-        
+
         // step 1 : prepare right max index array
         int[] right_max_idx = new int[n];
         right_max_idx[n - 1] = n - 1;
-        for(int i = n - 2; i >= 0; i--) {
+        for (int i = n - 2; i >= 0; i--) {
             int digit = arr[i];
             int last_idx = right_max_idx[i + 1];
-           
-            if(digit > arr[last_idx])
+
+            if (digit > arr[last_idx])
                 right_max_idx[i] = i;
-            else 
+            else
                 right_max_idx[i] = last_idx;
         }
-        
+
         // step 2 : travel and figure out position for swapping
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             int digit = arr[i];
             int max_idx = right_max_idx[i];
-            
-            if(digit < arr[max_idx]) {
-                // swap                 
+
+            if (digit < arr[max_idx]) {
+                // swap
                 swap(arr, i, max_idx);
                 break;
             }
         }
-        
+
         // step 3 : make final result
         int fact = 1, ans = 0;
-        for(int i = n - 1; i >= 0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             ans = ans + arr[i] * fact;
             fact *= 10;
         }
-        
+
         return ans;
     }
 
@@ -747,41 +746,41 @@ public class l001_Arrays {
     public int maximumSwap_02(int num) {
         String str = "" + num;
         char[] chArr = str.toCharArray(); // convert string to char array
-        
+
         // step 1 : prepare last index of digit
         int[] last_idx = new int[10];
-        for(int i = 0; i < chArr.length; i++) {
+        for (int i = 0; i < chArr.length; i++) {
             int digit = chArr[i] - '0';
             last_idx[digit] = i;
         }
-        
+
         // step 2 : figure out position of swapping
         boolean flag = false;
-        for(int i = 0; i < chArr.length; i++) {
+        for (int i = 0; i < chArr.length; i++) {
             int digit = chArr[i] - '0';
-            for(int j = 9 ; j > digit; j--) {
-                if(i < last_idx[j]) {
+            for (int j = 9; j > digit; j--) {
+                if (i < last_idx[j]) {
                     // swap
                     swap(chArr, i, last_idx[j]);
                     flag = true;
                     break;
                 }
             }
-            
-            if(flag)
+
+            if (flag)
                 break;
         }
-        
+
         // step 3 : prepare number for ans
         int ans = 0, fact = 1, n = chArr.length;
-        for(int i = n - 1; i >= 0 ; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             int digit = chArr[i] - '0';
             ans = ans + fact * digit;
             fact *= 10;
         }
-        
+
         return ans;
-        
+
     }
 
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/arrays-&-strings-l2/2-sum-target-sum-unique-pairs/ojquestion
@@ -792,14 +791,14 @@ public class l001_Arrays {
         int left = 0, right = arr.length - 1;
         List<List<Integer>> ans = new ArrayList<>();
 
-        while(left < right) {
-            if(left != 0 && arr[left] == arr[left - 1]) {
+        while (left < right) {
+            if (left != 0 && arr[left] == arr[left - 1]) {
                 left++;
                 continue;
             }
 
             int sum = arr[left] + arr[right];
-            if(sum == target) {
+            if (sum == target) {
                 List<Integer> small_ans = new ArrayList<>();
                 small_ans.add(arr[left]);
                 small_ans.add(arr[right]);
@@ -807,7 +806,7 @@ public class l001_Arrays {
 
                 left++;
                 right--;
-            } else if(sum > target) {
+            } else if (sum > target) {
                 right--;
             } else {
                 left++;
@@ -823,14 +822,14 @@ public class l001_Arrays {
         int left = sp, right = arr.length - 1;
         List<List<Integer>> ans = new ArrayList<>();
 
-        while(left < right) {
-            if(left != sp && arr[left] == arr[left - 1]) {
+        while (left < right) {
+            if (left != sp && arr[left] == arr[left - 1]) {
                 left++;
                 continue;
             }
 
             int sum = arr[left] + arr[right];
-            if(sum == target) {
+            if (sum == target) {
                 List<Integer> small_ans = new ArrayList<>();
                 small_ans.add(arr[left]);
                 small_ans.add(arr[right]);
@@ -838,7 +837,7 @@ public class l001_Arrays {
 
                 left++;
                 right--;
-            } else if(sum > target) {
+            } else if (sum > target) {
                 right--;
             } else {
                 left++;
@@ -847,25 +846,27 @@ public class l001_Arrays {
 
         return ans;
     }
+
     public List<List<Integer>> threeSum(int[] nums, int target) {
         int n = nums.length;
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
 
-        for(int i = 0; i <= n - 3; i++) {
-            if(i != 0 && nums[i] == nums[i - 1])
+        for (int i = 0; i <= n - 3; i++) {
+            if (i != 0 && nums[i] == nums[i - 1])
                 continue;
 
             int val1 = nums[i];
             List<List<Integer>> twoSumPair = two_sum(nums, target - val1, i + 1);
-            for(List<Integer> list : twoSumPair) {
+            for (List<Integer> list : twoSumPair) {
                 list.add(val1);
                 ans.add(list);
             }
         }
-        
+
         return ans;
     }
+
     public List<List<Integer>> threeSum(int[] nums) {
         return threeSum(nums, 0);
     }
@@ -875,39 +876,430 @@ public class l001_Arrays {
         int n = nums.length;
         List<List<Integer>> ans = new ArrayList<>();
 
-        for(int i = sp; i <= n - 3; i++) {
-            if(i != sp && nums[i] == nums[i - 1])
+        for (int i = sp; i <= n - 3; i++) {
+            if (i != sp && nums[i] == nums[i - 1])
                 continue;
 
             int val1 = nums[i];
             List<List<Integer>> twoSumPair = two_sum(nums, target - val1, i + 1);
-            for(List<Integer> list : twoSumPair) {
+            for (List<Integer> list : twoSumPair) {
                 list.add(val1);
                 ans.add(list);
             }
         }
-        
+
         return ans;
     }
+
     public List<List<Integer>> fourSum(int[] nums, int target) {
         int n = nums.length;
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
-        
-        for(int i = 0; i <= n - 4; i++) {
-            if(i != 0 && nums[i] == nums[i - 1]) {
+
+        for (int i = 0; i <= n - 4; i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            
+
             int val1 = nums[i];
             List<List<Integer>> three_sum_triplet = three_sum(nums, target - val1, i + 1);
-            for(List<Integer> list : three_sum_triplet) {
+            for (List<Integer> list : three_sum_triplet) {
                 list.add(val1);
                 ans.add(list);
             }
         }
-        
+
         return ans;
     }
-    
+
+    // K Sum - Target Sum Unique Set
+    public List<List<Integer>> kSum(int[] arr, int target, int k, int sp) {
+        // write your code here
+        if (k == 2) {
+            List<List<Integer>> base = two_sum(arr, target, sp);
+            return base;
+        }
+        int n = arr.length;
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for (int i = sp; i <= n - k; i++) {
+            if (i != sp && arr[i] == arr[i - 1])
+                continue;
+
+            int val1 = arr[i];
+            List<List<Integer>> small_ans = kSum(arr, target - val1, k - 1, i + 1);
+            for (List<Integer> list : small_ans) {
+                list.add(val1);
+                ans.add(list);
+            }
+        }
+
+        return ans;
+    }
+
+    public List<List<Integer>> kSum(int[] arr, int target, int k) {
+        // write your code here
+        Arrays.sort(arr);
+        return kSum(arr, target, k, 0);
+    }
+
+    // 537. Complex Number Multiplication
+    public String complexNumberMultiply(String num1, String num2) {
+        int a1 = Integer.parseInt(num1.substring(0, num1.indexOf("+")));
+        int b1 = Integer.parseInt(num1.substring(num1.indexOf("+") + 1, num1.length() - 1));
+
+        int a2 = Integer.parseInt(num2.substring(0, num2.indexOf("+")));
+        int b2 = Integer.parseInt(num2.substring(num2.indexOf("+") + 1, num2.length() - 1));
+
+        int real = a1 * a2 - b1 * b2;
+        int imaginary = a1 * b2 + a2 * b1;
+
+        String result = "" + real + "+" + imaginary + "i";
+        return result;
+    }
+
+    // https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1
+    public static int findPlatform(int arr[], int dep[], int n) {
+        // add your code here
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+
+        int i = 0, j = 0;
+        int platform = 0, over_max = 0;
+
+        while (i < n) {
+            if (arr[i] <= dep[j]) {
+                platform++;
+                i++;
+            } else {
+                platform--;
+                j++;
+            }
+
+            over_max = Math.max(over_max, platform);
+        }
+
+        return over_max;
+    }
+
+    // Sieve Of Eratosthenes
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/arrays-&-strings-l2/sieve-of-eratosthenes/ojquestion
+    public static void printPrimeUsingSieve(int n) {
+        // pre calculation
+        boolean[] isPrime = new boolean[n + 1];
+
+        // fill all as prime , i.e. marked true => this is optional
+        Arrays.fill(isPrime, true);
+
+        // begins from 2 to root(n)
+        for (int i = 2; i * i <= n; i++) {
+            if (!isPrime[i])
+                continue; // because if it is marked as not primes, then its multiple are also marked
+
+            for (int j = i + i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
+        }
+
+        // run a loop and print if it is a prime
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i])
+                System.out.print(i + " ");
+        }
+
+    }
+
+    // 204. Count Primes
+    public int countPrimes(int n) {
+        // pre calculation
+        boolean[] isPrime = new boolean[n + 1];
+
+        // fill all as prime , i.e. marked true => this is optional
+        Arrays.fill(isPrime, true);
+
+        // begins from 2 to root(n)
+        for (int i = 2; i * i <= n; i++) {
+            if (!isPrime[i])
+                continue; // because if it is marked as not primes, then its multiple are also marked
+
+            for (int j = i + i; j <= n; j += i) {
+                isPrime[j] = false;
+            }
+        }
+
+        // run a loop and increament count if it is a prime
+        int prime_count = 0;
+        for (int i = 2; i < n; i++) {
+            if (isPrime[i])
+                prime_count++;
+        }
+
+        return prime_count;
+    }
+
+    // segmented Sieve Algo
+    private static ArrayList<Integer> seive(int n) {
+        // pre calculation
+        boolean[] isPrime = new boolean[n + 1];
+
+        // begins from 2 to root(n)
+        for (int i = 2; i * i <= n; i++) {
+            if (isPrime[i])
+                continue; // because if it is marked as not primes, then its multiple are also marked
+
+            for (int j = i + i; j <= n; j += i) {
+                isPrime[j] = true;
+            }
+        }
+
+        // run a loop and store if it is a prime
+        ArrayList<Integer> prime = new ArrayList<>();
+        for (int i = 2; i <= n; i++) {
+            if (!isPrime[i])
+                prime.add(i);
+        }
+
+        return prime;
+    }
+
+    public static void segmentedSieveAlgo(int a, int b) {
+        // write your code here
+        int root_b = (int) Math.sqrt(b);
+        ArrayList<Integer> primes = seive(root_b);
+
+        int n = b - a;
+        boolean[] is_prime = new boolean[n + 1];
+        // is_prime[i] = true -> value associated with index is not prime
+        // is_prime[i] = false -> value associated with index is prime
+
+        for (int prime : primes) {
+            int multiple = (int) Math.ceil(a * 1.0 / prime);
+
+            if (multiple == 1)
+                multiple++;
+
+            int si = multiple * prime - a; // starting index
+            for (int i = si; i < is_prime.length; i += prime) {
+                is_prime[i] = true; // mark it as not prime
+            }
+        }
+
+        // travel and print prime
+        for (int i = 0; i < is_prime.length; i++) {
+            if (is_prime[i] == false && i + a != 1) {
+                System.out.println(i + a);
+            }
+        }
+    }
+
+    // Find Pair Given Difference
+    // https://practice.geeksforgeeks.org/problems/find-pair-given-difference1559/1#
+    public boolean findPair(int arr[], int size, int target) {
+        // code here.
+        Arrays.sort(arr);
+        int left = 0, right = 1;
+
+        while (right < arr.length) {
+            int diff = arr[right] - arr[left];
+
+            if (diff == target) {
+                return true;
+            } else if (diff > target) {
+                left++;
+            } else {
+                right++;
+            }
+        }
+
+        return false;
+    }
+
+    // 881. Boats to Save People
+    public int numRescueBoats(int[] weights, int capacity) {
+        Arrays.sort(weights);
+        int n = weights.length;
+        int left = 0, right = n - 1;
+        int boats = 0;
+
+        while (left <= right) {
+            int sum = weights[left] + weights[right];
+            if (sum > capacity) {
+                right--;
+            } else {
+                // sum <= capacity
+                left++;
+                right--;
+            }
+
+            boats++;
+        }
+
+        return boats;
+    }
+
+    // 763. Partition Labels
+    public List<Integer> partitionLabels(String s) {
+        int n = s.length();
+
+        // 1. make a HashMap and maintain index of last occurance of character
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            char ch = s.charAt(i);
+            map.put(ch, i);
+        }
+
+        // 2. making of result
+        List<Integer> res = new ArrayList<>();
+
+        int prev = 0;
+        int max = 0;
+
+        for (int i = 0; i < n; i++) {
+            char ch = s.charAt(i);
+            max = Math.max(max, map.get(ch));
+
+            if (max == i) {
+                int length = max - prev + 1;
+                res.add(length);
+
+                prev = max + 1;
+            }
+        }
+
+        return res;
+    }
+
+    // 754. Reach a Number
+    public int reachNumber(int target) {
+        // if target is negative
+        target = Math.abs(target);
+
+        int jump = 0;
+        int sum = 0;
+        while (sum < target) {
+            jump++;
+            sum += jump;
+        }
+
+        while ((sum - target) % 2 != 0) {
+            jump++;
+            sum += jump;
+        }
+
+        return jump;
+    }
+
+    // 867. Transpose Matrix
+    public int[][] transpose_NxM(int[][] matrix) {
+        int row = matrix.length, col = matrix[0].length;
+        int[][] transpose = new int[col][row];
+
+        for (int r = 0; r < col; r++) {
+            for (int c = 0; c < row; c++) {
+                transpose[r][c] = matrix[c][r];
+            }
+        }
+
+        return transpose;
+    }
+
+    // https://practice.geeksforgeeks.org/problems/transpose-of-matrix-1587115621/1
+    // Function to find transpose of a matrix.
+    private static void swap(int[][] arr, int i, int j) {
+        int temp = arr[i][j];
+        arr[i][j] = arr[j][i];
+        arr[j][i] = temp;
+    }
+
+    public static void transpose_NxN(int matrix[][], int n) {
+        // code here
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                swap(matrix, i, j);
+            }
+        }
+    }
+
+    // 48. Rotate Image
+    private void transpose(int matrix[][]) {
+        // code here
+        int n = matrix.length;
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < i; j++) {
+                swap(matrix, i, j);
+            }
+        }
+    }
+    public void rotate(int[][] matrix) {
+        // 1. take transpose
+        transpose(matrix);
+        
+        // 2. reverse column
+        int n = matrix.length;
+        for(int r = 0; r < n; r++) {
+            int left = 0, right = n - 1;
+            
+            while(left < right) {
+                int temp = matrix[r][left];
+                matrix[r][left] = matrix[r][right];
+                matrix[r][right] = temp;
+                
+                left++;
+                right--;
+            }
+          
+        }
+    }
+
+    // 838. Push Dominoes
+    private void solveConf(char[] arr, int i, int j) {
+        if(arr[i] == 'L' && arr[j] == 'L') {
+            for(int k = i + 1; k < j ; k++) {
+                arr[k] = 'L';
+            }
+        } else if(arr[i] == 'R' && arr[j] == 'R'){
+            for(int k = i + 1; k < j ; k++) {
+                arr[k] = 'R';
+            }
+        } else if(arr[i] == 'L' && arr[j] == 'R') {
+            // Nothing to do
+        } else {
+            int left = i + 1, right = j - 1;
+            while(left < right) {
+                arr[left] = 'R';
+                arr[right] = 'L';
+                
+                left++;
+                right--;
+            }
+        }
+    }
+    public String pushDominoes(String dominoes) {
+        int n = dominoes.length();
+        char[] arr = new char[n + 2];
+        arr[0] = 'L';
+        arr[arr.length - 1] = 'R';
+        
+        for(int i = 1; i < arr.length - 1; i++)
+            arr[i] = dominoes.charAt(i - 1);
+        
+        int i = 0, j = 1;
+        
+        while(j < arr.length) {
+            while(arr[j] == '.') 
+                j++;
+            // case management
+            if(j - i > 1)
+                solveConf(arr, i, j);
+            i = j;
+            j++;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for(int k = 1; k < arr.length - 1; k++) 
+            sb.append(arr[k]);
+        
+        return sb.toString();
+    }
+
 }

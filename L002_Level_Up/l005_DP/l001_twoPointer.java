@@ -217,6 +217,7 @@ public class l001_twoPointer{
 
 	// =============================================================================================================================
 	// Question_5 : 91. Decode Ways
+	// https://leetcode.com/problems/decode-ways/
 	public int numDecodings_memo(String s, int idx, int[] dp) {
 		if (idx == s.length()) {
 			return dp[idx] = 1;
@@ -306,6 +307,7 @@ public class l001_twoPointer{
 
 	// =============================================================================================================================
 	// Question_6 : 639. Decode Ways II
+	// https://leetcode.com/problems/decode-ways-ii/
 	public long numDecodings_memo(String s, int idx, long[] dp) {
 		if (idx == s.length()) {
 			return dp[idx] = 1;
@@ -357,7 +359,8 @@ public class l001_twoPointer{
 	}
 
 	// =============================================================================================================================
-	// Question_7 : https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425/1
+	// Question_7 : friends-pairing-problem
+	// https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425/1
 	public long countFriendsPairings_memo(int n, long[] dp) {
 		// code here
 		if (n <= 1)
@@ -409,7 +412,8 @@ public class l001_twoPointer{
 	}
 	
 	// =============================================================================================================================
-	// Question_8 : https://www.geeksforgeeks.org/count-the-number-of-ways-to-divide-n-in-k-groups-incrementally/
+	// Question_8 : count-the-number-of-ways-to-divide-n-in-k-groups-incrementally
+	// https://www.geeksforgeeks.org/count-the-number-of-ways-to-divide-n-in-k-groups-incrementally/
 	public static int divideInKGroups_memo(int n, int k, int[][] dp) {
 		if(k == 1 || n == k) {
 			return dp[n][k] = 1;

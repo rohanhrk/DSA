@@ -2,7 +2,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class l002_stringSet {
-    // Que_9 : 516. Longest Palindromic Subsequence_===============================
+    // =============================================================================================================================
+    // Question_9 : 516. Longest Palindromic Subsequence_
+    // https://leetcode.com/problems/longest-palindromic-subsequence/
     public int lpss_memo(String s, int si, int ei, int[][] dp) {
         if (si >= ei)
             return dp[si][ei] = si == ei ? 1 : 0;
@@ -73,7 +75,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_10 : 1143. Longest Common Subsequence
+    // Question_10 : 1143. Longest Common Subsequence
+    // https://leetcode.com/problems/longest-common-subsequence/
     public int lcss_memo(String s1, int si1, String s2, int si2, int[][] dp) {
         if (si1 == s1.length() || si2 == s2.length())
             return dp[si1][si2] = 0;
@@ -84,8 +87,9 @@ public class l002_stringSet {
         int len = 0;
         char ch1 = s1.charAt(si1), ch2 = s2.charAt(si2);
         if (ch1 == ch2) {
-            len = 1 + lcss_memo(s1, si1 + 1, s2, si2 + 1, dp);
+            len = 1 + lcss_memo(s1, si1 + 1, s2, si2 + 1, dp); // both ch1 and ch2 excluded
         } else {
+            // any of the character is excluded
             len = Math.max(lcss_memo(s1, si1 + 1, s2, si2, dp), lcss_memo(s1, si1, s2, si2 + 1, dp));
         }
 
@@ -124,7 +128,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_11 : 5. Longest Palindromic Substring
+    // Question_11 : 5. Longest Palindromic Substring
+    // https://leetcode.com/problems/longest-palindromic-substring/
     public String longestPalindrome(String s) {
         int n = s.length();
         boolean[][] dp = new boolean[n][n];
@@ -150,7 +155,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_12 : Longest Common Substring_
+    // Question_12 : Longest Common Substring_
+    // https://practice.geeksforgeeks.org/problems/longest-common-substring1452/1#
     public String lcSubstring(String s1, String s2) {
         int n = s1.length(), m = s2.length();
         int[][] dp = new int[n + 1][m + 1];
@@ -183,8 +189,9 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_13 : 1458. Max Dot Product of Two Subsequences
-    public int maximum(int... arr) {
+    // Question_13 : 1458. Max Dot Product of Two Subsequences
+    // https://leetcode.com/problems/max-dot-product-of-two-subsequences/
+    private int maximum(int... arr) {
         int max = arr[0];
         for (int ele : arr)
             max = Math.max(max, ele);
@@ -237,7 +244,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_14 : 72. Edit Distance
+    // Question_14 : 72. Edit Distance
+    // https://leetcode.com/problems/edit-distance/
     public int minDistance_memo(String word1, String word2, int n, int m, int[][] dp) {
         if (n == 0 || m == 0) {
             return dp[n][m] = (n == 0) ? m : n; // Insert : delete
@@ -267,7 +275,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_15 : 583. Delete Operation for Two Strings
+    // Question_15 : 583. Delete Operation for Two Strings
+    // https://leetcode.com/problems/delete-operation-for-two-strings/
     public int minDistance_memo_(String word1, String word2, int n, int m, int[][] dp) {
         if (n == 0 || m == 0) {
             return dp[n][m] = (n == 0) ? m : n;
@@ -310,7 +319,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_16 : https://practice.geeksforgeeks.org/problems/minimum-number-of-deletions-and-insertions0209/1
+    // Question_16 : minimum-number-of-deletions-and-insertions
+    // https://practice.geeksforgeeks.org/problems/minimum-number-of-deletions-and-insertions0209/1
     public int minOperations(String str1, String str2, int n, int m, int[][] dp) {
         // Your code goes here
         if (n == 0 || m == 0)
@@ -340,8 +350,10 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_17 : 115. Distinct Subsequences
+    // Question_17 : 115. Distinct Subsequences
+    // https://leetcode.com/problems/distinct-subsequences/
     public int numDistinct_memo(String s, String t, int n, int m, int[][] dp) {
+        // faith --> string 't' ko as a subsequence, string 's' me kitne tariko se dhund sakta hu
         if (n == 0 || m == 0 || n < m) {
             return dp[n][m] = (m == 0) ? 1 : 0;
         }
@@ -350,8 +362,8 @@ public class l002_stringSet {
             return dp[n][m];
 
         char ch1 = s.charAt(n - 1), ch2 = t.charAt(m - 1);
-        int a = numDistinct_memo(s, t, n - 1, m - 1, dp);
-        int b = numDistinct_memo(s, t, n - 1, m, dp);
+        int a = numDistinct_memo(s, t, n - 1, m - 1, dp); // both character are excluded
+        int b = numDistinct_memo(s, t, n - 1, m, dp); // excluded 1st character from string s
 
         if (ch1 == ch2)
             return dp[n][m] = a + b;
@@ -392,7 +404,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_18 : 940. Distinct Subsequences II
+    // Question_18 : 940. Distinct Subsequences II
+    // https://leetcode.com/problems/distinct-subsequences-ii/
     public int distinctSubseqII(String s) {
         int n = s.length();
         long[] dp = new long[n + 1];
@@ -422,7 +435,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_19 : https://practice.geeksforgeeks.org/problems/count-subsequences-of-type-ai-bj-ck4425/1
+    // Question_19 : count-subsequences-of-type-a^i-b^j-c^k
+    // https://practice.geeksforgeeks.org/problems/count-subsequences-of-type-ai-bj-ck4425/1
     public int countSubseq_ai_bj_ck(String s) {
         int emptyCount = 1, n = s.length();
         long aCount = 0, bCount = 0, cCount = 0, mod = (int) 1e9 + 7;
