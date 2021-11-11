@@ -4,8 +4,9 @@ import java.util.ArrayList;
 public class l003_LIS {
 
     // =============================================================================================================================
-    // Longest_Increasing_Subsequence_=========================================
-    // Que_25 : 300. Longest Increasing Subsequence -> left to right
+    // Longest_Increasing_Subsequence
+    // Question_25 : 300. Longest Increasing Subsequence -> left to right
+    // https://leetcode.com/problems/longest-increasing-subsequence/
     public static int[] LIS_leftToRight(int[] nums) {
         int n = nums.length;
         int[] dp = new int[n];
@@ -24,7 +25,8 @@ public class l003_LIS {
     }
 
     // =============================================================================================================================
-    // Que_26 : https://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1
+    // Que_26 : maximum-sum-increasing-subsequence
+    // https://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1
     public int maxSumIS(int arr[], int n) {  
         int[] dp = new int[n];
         int maxSum = 0;
@@ -42,7 +44,8 @@ public class l003_LIS {
     }  
 
     // =============================================================================================================================
-    // Que_27 : https://www.geeksforgeeks.org/dynamic-programming-building-bridges/
+    // Question_27 : building-bridges
+    // https://www.geeksforgeeks.org/dynamic-programming-building-bridges/
     // {x-coordinate, y_coordinate}
     public static int buildingBridge(int[][] bridges) {
         Arrays.sort(bridges, (a,b) -> {
@@ -106,7 +109,8 @@ public class l003_LIS {
     }
 
     // =============================================================================================================================
-    // Que_29 : Longest_Bitonic_Subsequesnce_
+    // Question_29 : Longest_Bitonic_Subsequesnce
+    // https://practice.geeksforgeeks.org/problems/longest-bitonic-subsequence0824/1
     public static int longestBitonicSub(int[] arr) {
         int[] LIS = LIS_leftToRight(arr);
         int[] LDS = LIS_rightToLeft(arr);
@@ -121,7 +125,7 @@ public class l003_LIS {
     }
 
     // =============================================================================================================================
-    // Que_30 : 1671. Minimum Number of Removals to Make Mountain Array
+    // Question_30 : 1671. Minimum Number of Removals to Make Mountain Array
     public int minimumMountainRemovals(int[] arr) {
         int[] LIS = LIS_leftToRight(arr);
         int[] LDS = LIS_rightToLeft(arr);

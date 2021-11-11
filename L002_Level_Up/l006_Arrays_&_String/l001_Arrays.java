@@ -1302,4 +1302,139 @@ public class l001_Arrays {
         return sb.toString();
     }
 
+    // 829. Consecutive Numbers Sum
+    public int consecutiveNumbersSum(int n) {
+        int count = 0;
+        for(int k = 1; k * (k - 1) < 2 * n; k++) {
+            // x = (2N - K(K - 1)) / 2K             
+            int num = 2 * n - k * (k - 1); // numerator
+            int den = 2 * k; // denomanator
+            
+            if(num % den == 0) {
+                // x is an integer
+                count++;
+            }
+        }
+        
+        return count;
+    }
+
+    // 415. Add Strings
+    public String addStrings(String num1, String num2) {
+        StringBuilder sb = new StringBuilder();
+        int i = num1.length() - 1, j = num2.length() - 1;
+        int carry = 0;
+        int sum = 0;
+        while(i >= 0 || j >= 0 || carry > 0) {
+            int ival = (i >= 0) ? num1.charAt(i--) - '0' : 0;
+            int jval = (j >= 0) ? num2.charAt(j--) - '0' : 0; 
+
+            sum = carry + ival + jval;
+            
+            sb.append(sum >= 10 ? sum % 10 : sum);
+            carry = sum / 10;
+        }
+        
+        return sb.reverse().toString();
+    }
+
+    // 43. Multiply Strings
+    public String multiply(String num1, String num2) {
+        if(num1.equals("0") || num2.equals("0"))
+            return "0";
+        int l1 = num1.length(), l2 = num2.length();
+        int[] res = new int[l1 + l2];
+        int i = l2 - 1;
+        int pf = 0; // power factor
+        
+        while(i >= 0) {
+            int ival = num2.charAt(i--) - '0';
+            int carry = 0, j = l1 - 1, k = res.length - 1 - pf;
+            
+            while(j >= 0 || carry != 0) {
+                int jval = (j >= 0) ? num1.charAt(j--) - '0' : 0;
+                int prod = ival * jval + carry + res[k];
+                res[k--] = prod % 10;
+                carry = prod/10;
+            }
+            pf++;
+        }
+        
+        boolean flag = false;
+        StringBuilder sb = new StringBuilder();
+        for(int val : res) {
+            if(val == 0 && flag == false) {
+                // leading zero
+                continue;
+            } else {
+                // work
+                flag  = true;
+                sb.append(val);
+            }
+        }
+        return sb.toString();
+    }
+
+    // 42. Trapping Rain Water
+    // Time -> O(n) , space -> O(n)
+    public int trap_01(int[] height) {
+        int n = height.length;
+        int[] left_max = new int[n];
+        int[] right_max = new int[n];
+        
+        // prepare right max
+        right_max[n - 1] = height[n - 1];
+        for(int i = n - 2; i >= 0; i--) {
+            right_max[i] = Math.max(right_max[i + 1], height[i]);
+        }
+        
+        // prepare left max and along with find water
+        int water = 0;
+        left_max[0] = height[0];
+        water += Math.min(left_max[0], right_max[0]) - height[0];
+       
+        for(int i = 1; i < n; i++) {
+            left_max[i] = Math.max(left_max[i - 1], height[i]);
+            water += Math.min(left_max[i], right_max[i]) - height[i];
+        }
+        
+        return water;
+    }
+
+    // Space optimization
+    // Time -> O(n) , space -> O(1)
+    public int trap_02(int[] height) {
+        int n = height.length;
+        
+        int water = 0, flow = 0, max = height[0], max_idx = 0;
+        
+        for(int i = 1; i < n; i++) {
+            int ht = height[i];
+            
+            if(max <= ht) {
+                water += flow;
+                flow = 0;
+                max = ht;
+                max_idx = i;
+            } else {
+                flow += (max - ht);
+            }
+        }
+        
+        // solve overflow of flow value         
+        flow = 0;
+        max = height[n - 1];
+        for(int i = n - 2; i >= max_idx; i--) {
+            int ht = height[i];
+             if(max <= ht) {
+                water += flow;
+                flow = 0;
+                max = ht;
+            } else {
+                flow += (max - ht);
+            }
+        }
+            
+        return water;
+    }
 }

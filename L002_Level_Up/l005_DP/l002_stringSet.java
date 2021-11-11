@@ -353,7 +353,8 @@ public class l002_stringSet {
     // Question_17 : 115. Distinct Subsequences
     // https://leetcode.com/problems/distinct-subsequences/
     public int numDistinct_memo(String s, String t, int n, int m, int[][] dp) {
-        // faith --> string 't' ko as a subsequence, string 's' me kitne tariko se dhund sakta hu
+        // faith --> string 't' ko as a subsequence, string 's' me kitne tariko se dhund
+        // sakta hu
         if (n == 0 || m == 0 || n < m) {
             return dp[n][m] = (m == 0) ? 1 : 0;
         }
@@ -500,7 +501,8 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_21 : https://practice.geeksforgeeks.org/problems/count-palindromic-subsequences/1
+    // Question_21 : count-palindromic-subsequences
+    // https://practice.geeksforgeeks.org/problems/count-palindromic-subsequences/1
     long countPS_memo(String str, int i, int j, long[][] dp) {
         // Your code here
         if (i >= j) {
@@ -518,9 +520,15 @@ public class l002_stringSet {
         char last_ch = str.charAt(j); // last character
         long mod = (long) 1e9 + 7;
 
+        // If first and last characters are same, then we
+        // consider it as palindrome subsequence and check
+        // for the rest subsequence (i+1, j), (i, j-1)
         if (first_ch == last_ch) {
             dp[i][j] = (exclude_first + exclude_last + 1) % mod;
         } else {
+            // check for rest sub-sequence and remove common
+            // palindromic subsequences as they are counted
+            // twice when we do countPS(i+1, j) + countPS(i,j-1)
             dp[i][j] = (exclude_first + exclude_last - common + mod) % mod;
         }
 
@@ -537,185 +545,193 @@ public class l002_stringSet {
     }
 
     // =============================================================================================================================
-    // Que_22 : 44. Wildcard Matching
+    // Question_22 : 44. Wildcard Matching
+    // https://leetcode.com/problems/wildcard-matching/
     public String remove_multiStar(String str) {
-        if(str.length() == 0) 
+        if (str.length() == 0)
             return "";
-        
+
         StringBuilder sb = new StringBuilder();
         sb.append(str.charAt(0));
-        
+
         int i = 1;
-        while(i < str.length()) {
-            while(i < str.length() && sb.charAt(sb.length() - 1) == '*' && str.charAt(i) == '*') 
+        while (i < str.length()) {
+            while (i < str.length() && sb.charAt(sb.length() - 1) == '*' && str.charAt(i) == '*')
                 i++;
-            
-            if(i < str.length())
+
+            if (i < str.length())
                 sb.append(str.charAt(i));
             i++;
-            
+
         }
-        
+
         return sb.toString();
     }
-    
+
     public int isMatch_memo(String s, String p, int n, int m, int[][] dp) {
-        if(n == 0 || m == 0) {
-            if(n == 0 && m == 0) 
+        if (n == 0 || m == 0) {
+            if (n == 0 && m == 0)
                 return dp[n][m] = 1;
-            else if(m == 1 && p.charAt(m - 1) == '*') {
+            else if (m == 1 && p.charAt(m - 1) == '*') {
                 return dp[n][m] = 1;
             } else {
                 return dp[n][m] = 0;
             }
         }
-        
-        if(dp[n][m] != -1) 
+
+        if (dp[n][m] != -1)
             return dp[n][m];
-        
+
         char ch1 = s.charAt(n - 1), ch2 = p.charAt(m - 1);
-        if(ch1 == ch2 || ch2 == '?') {
+        if (ch1 == ch2 || ch2 == '?') {
             return dp[n][m] = isMatch_memo(s, p, n - 1, m - 1, dp);
-        } else if(ch2 == '*') {
+        } else if (ch2 == '*') {
             boolean res = false;
-            res = res || isMatch_memo(s, p, n - 1, m, dp) == 1; // star mapped with current character
-            res = res || isMatch_memo(s, p, n, m - 1, dp) == 1; // star mapped with empty string
-            
+            res = res || isMatch_memo(s, p, n - 1, m, dp) == 1; // *(star) mapped with current character
+            res = res || isMatch_memo(s, p, n, m - 1, dp) == 1; // *(star) mapped with empty string
+
             return dp[n][m] = res ? 1 : 0;
         } else {
             return dp[n][m] = 0; // false
         }
     }
+
     public boolean isMatch(String s, String p) {
         p = remove_multiStar(p);
         int n = s.length(), m = p.length();
-        
+
         int[][] dp = new int[n + 1][m + 1]; // 0 -> false , 1 -> true;
-        for(int[] d : dp)
+        for (int[] d : dp)
             Arrays.fill(d, -1);
-        
+
         return isMatch_memo(s, p, n, m, dp) == 1 ? true : false;
     }
 
     // =============================================================================================================================
-    // Que_23 : 132. Palindrome Partitioning II
-     public void lpsString_dp(String s, boolean[][] isPlindromeDp) {
-        for(int gap = 0; gap < s.length(); gap++) {
-            for(int i = 0, j = gap; j < s.length(); i++, j++) {
-                if(gap == 0) 
+    // Question_23 : 132. Palindrome Partitioning II
+    // https://leetcode.com/problems/palindrome-partitioning-ii/
+    public void lpsString_dp(String s, boolean[][] isPlindromeDp) {
+        for (int gap = 0; gap < s.length(); gap++) {
+            for (int i = 0, j = gap; j < s.length(); i++, j++) {
+                if (gap == 0)
                     isPlindromeDp[i][j] = true;
-                else if(gap == 1 && s.charAt(i) == s.charAt(j)) 
+                else if (gap == 1 && s.charAt(i) == s.charAt(j))
                     isPlindromeDp[i][j] = true;
-                else 
+                else
                     isPlindromeDp[i][j] = s.charAt(i) == s.charAt(j) && isPlindromeDp[i + 1][j - 1];
-                
+
             }
         }
-    } 
-    
+    }
+
     public int minCut_memo(String s, int si, boolean[][] isPlindromeDp, int[] dp) {
-        if(isPlindromeDp[si][s.length() - 1]) 
+        if (isPlindromeDp[si][s.length() - 1])
             return dp[si] = 0;
-        
-        if(dp[si] != -1) 
+
+        if (dp[si] != -1)
             return dp[si];
-        
-        int min_cut = (int)1e9; 
-        for(int cut = si; cut < s.length(); cut++) {
-           if(isPlindromeDp[si][cut]) 
-               min_cut = Math.min(min_cut, minCut_memo(s, cut + 1, isPlindromeDp, dp) + 1) ;
-           
+
+        int min_cut = (int) 1e9;
+        for (int cut = si; cut < s.length(); cut++) {
+            if (isPlindromeDp[si][cut])
+                min_cut = Math.min(min_cut, minCut_memo(s, cut + 1, isPlindromeDp, dp) + 1);
+
         }
 
         return dp[si] = min_cut;
     }
-        
+
     public int minCut(String s) {
         int n = s.length();
-        
+
         boolean[][] isPlindromeDp = new boolean[n][n];
         lpsString_dp(s, isPlindromeDp);
-        
-        int[] dp = new int[n]; 
-        Arrays.fill(dp, - 1);
-        
+
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+
         return minCut_memo(s, 0, isPlindromeDp, dp);
     }
 
     // =============================================================================================================================
-    // Que_24 :  10. Regular Expression Matching
+    // Question_24 : 10. Regular Expression Matching
+    // https://leetcode.com/problems/regular-expression-matching/
     public String removeMultiStars(String str) {
-        if(str.length() == 0)
+        if (str.length() == 0)
             return "";
-        
+
         int n = str.length();
-        
+
         StringBuilder sb = new StringBuilder();
         sb.append(str.charAt(0));
-        
+
         int i = 1;
-        while(i < n) {
-            while(i < n && sb.charAt(sb.length() - 1) == '*' && str.charAt(i) == '*')
+        while (i < n) {
+            while (i < n && sb.charAt(sb.length() - 1) == '*' && str.charAt(i) == '*')
                 i++;
-            
-            if(i < n) 
+
+            if (i < n)
                 sb.append(str.charAt(i));
-            
+
             i++;
         }
-        
+
         return sb.toString();
     }
-    
+
     public static boolean isCharStarSeq(String str, int len) {
         int i = 0;
-        while(i < len) {
-            while(i < len && ((str.charAt(i) >= 'a' && str.charAt(i) <= 'z') || str.charAt(i) == '.') && str.charAt(i + 1) == '*') 
+        while (i < len) {
+            while (i < len && ((str.charAt(i) >= 'a' && str.charAt(i) <= 'z') || str.charAt(i) == '.')
+                    && str.charAt(i + 1) == '*')
                 i += 2;
-            
+
             return i >= len ? true : false;
         }
-        
+
         return true;
     }
+
     public int isMatch_memo_(String s, String p, int n, int m, int[][] dp) {
-        if(n == 0 || m == 0) {
-            if(n == 0 && m == 0) {
+        if (n == 0 || m == 0) {
+            if (n == 0 && m == 0) {
                 return dp[n][m] = 1;
-            } else if(n == 0 && m >= 2) { 
-                if(isCharStarSeq(p, m)) 
+            } else if (n == 0 && m >= 2) {
+                if (isCharStarSeq(p, m))
                     return dp[n][m] = 1;
-                else 
+                else
                     return dp[n][m] = 0;
             } else {
                 return dp[n][m] = 0;
             }
         }
-        
-        if(dp[n][m] != -1) 
+
+        if (dp[n][m] != -1)
             return dp[n][m];
-        
+
         char ch1 = s.charAt(n - 1), ch2 = p.charAt(m - 1);
-        if(ch1 == ch2 || ch2 == '.') 
+        if (ch1 == ch2 || ch2 == '.')
             return dp[n][m] = isMatch_memo_(s, p, n - 1, m - 1, dp);
-        else if(ch2 == '*') {
+        else if (ch2 == '*') {
             boolean res = false;
-            
-            if(m > 1 && (s.charAt(n - 1) == p.charAt(m - 2) || p.charAt(m - 2) == '.'))
+
+            if (m > 1 && (s.charAt(n - 1) == p.charAt(m - 2) || p.charAt(m - 2) == '.'))
                 res = res || isMatch_memo_(s, p, n - 1, m, dp) == 1;
             res = res || isMatch_memo_(s, p, n, m - 2, dp) == 1;
-            
+
             return dp[n][m] = res ? 1 : 0;
         } else {
             return dp[n][m] = 0;
         }
     }
+
     public boolean isMatch_(String s, String p) {
         p = removeMultiStars(p);
         int n = s.length(), m = p.length();
         int[][] dp = new int[n + 1][m + 1];
-        for(int[] d : dp) Arrays.fill(d, -1);
+        for (int[] d : dp)
+            Arrays.fill(d, -1);
         return isMatch_memo(s, p, n, m, dp) == 1;
     }
-    
+
 }
