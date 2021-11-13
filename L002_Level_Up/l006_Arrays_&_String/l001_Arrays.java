@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class l001_Arrays {
     // 925. Long Pressed Name
@@ -1224,98 +1225,100 @@ public class l001_Arrays {
     private void transpose(int matrix[][]) {
         // code here
         int n = matrix.length;
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < i; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
                 swap(matrix, i, j);
             }
         }
     }
+
     public void rotate(int[][] matrix) {
         // 1. take transpose
         transpose(matrix);
-        
+
         // 2. reverse column
         int n = matrix.length;
-        for(int r = 0; r < n; r++) {
+        for (int r = 0; r < n; r++) {
             int left = 0, right = n - 1;
-            
-            while(left < right) {
+
+            while (left < right) {
                 int temp = matrix[r][left];
                 matrix[r][left] = matrix[r][right];
                 matrix[r][right] = temp;
-                
+
                 left++;
                 right--;
             }
-          
+
         }
     }
 
     // 838. Push Dominoes
     private void solveConf(char[] arr, int i, int j) {
-        if(arr[i] == 'L' && arr[j] == 'L') {
-            for(int k = i + 1; k < j ; k++) {
+        if (arr[i] == 'L' && arr[j] == 'L') {
+            for (int k = i + 1; k < j; k++) {
                 arr[k] = 'L';
             }
-        } else if(arr[i] == 'R' && arr[j] == 'R'){
-            for(int k = i + 1; k < j ; k++) {
+        } else if (arr[i] == 'R' && arr[j] == 'R') {
+            for (int k = i + 1; k < j; k++) {
                 arr[k] = 'R';
             }
-        } else if(arr[i] == 'L' && arr[j] == 'R') {
+        } else if (arr[i] == 'L' && arr[j] == 'R') {
             // Nothing to do
         } else {
             int left = i + 1, right = j - 1;
-            while(left < right) {
+            while (left < right) {
                 arr[left] = 'R';
                 arr[right] = 'L';
-                
+
                 left++;
                 right--;
             }
         }
     }
+
     public String pushDominoes(String dominoes) {
         int n = dominoes.length();
         char[] arr = new char[n + 2];
         arr[0] = 'L';
         arr[arr.length - 1] = 'R';
-        
-        for(int i = 1; i < arr.length - 1; i++)
+
+        for (int i = 1; i < arr.length - 1; i++)
             arr[i] = dominoes.charAt(i - 1);
-        
+
         int i = 0, j = 1;
-        
-        while(j < arr.length) {
-            while(arr[j] == '.') 
+
+        while (j < arr.length) {
+            while (arr[j] == '.')
                 j++;
             // case management
-            if(j - i > 1)
+            if (j - i > 1)
                 solveConf(arr, i, j);
             i = j;
             j++;
         }
-        
+
         StringBuilder sb = new StringBuilder();
-        for(int k = 1; k < arr.length - 1; k++) 
+        for (int k = 1; k < arr.length - 1; k++)
             sb.append(arr[k]);
-        
+
         return sb.toString();
     }
 
     // 829. Consecutive Numbers Sum
     public int consecutiveNumbersSum(int n) {
         int count = 0;
-        for(int k = 1; k * (k - 1) < 2 * n; k++) {
-            // x = (2N - K(K - 1)) / 2K             
+        for (int k = 1; k * (k - 1) < 2 * n; k++) {
+            // x = (2N - K(K - 1)) / 2K
             int num = 2 * n - k * (k - 1); // numerator
             int den = 2 * k; // denomanator
-            
-            if(num % den == 0) {
+
+            if (num % den == 0) {
                 // x is an integer
                 count++;
             }
         }
-        
+
         return count;
     }
 
@@ -1325,54 +1328,95 @@ public class l001_Arrays {
         int i = num1.length() - 1, j = num2.length() - 1;
         int carry = 0;
         int sum = 0;
-        while(i >= 0 || j >= 0 || carry > 0) {
+        while (i >= 0 || j >= 0 || carry > 0) {
             int ival = (i >= 0) ? num1.charAt(i--) - '0' : 0;
-            int jval = (j >= 0) ? num2.charAt(j--) - '0' : 0; 
+            int jval = (j >= 0) ? num2.charAt(j--) - '0' : 0;
 
             sum = carry + ival + jval;
-            
+
             sb.append(sum >= 10 ? sum % 10 : sum);
             carry = sum / 10;
         }
-        
+
         return sb.reverse().toString();
     }
 
     // 43. Multiply Strings
     public String multiply(String num1, String num2) {
-        if(num1.equals("0") || num2.equals("0"))
+        if (num1.equals("0") || num2.equals("0"))
             return "0";
         int l1 = num1.length(), l2 = num2.length();
         int[] res = new int[l1 + l2];
         int i = l2 - 1;
         int pf = 0; // power factor
-        
-        while(i >= 0) {
+
+        while (i >= 0) {
             int ival = num2.charAt(i--) - '0';
             int carry = 0, j = l1 - 1, k = res.length - 1 - pf;
-            
-            while(j >= 0 || carry != 0) {
+
+            while (j >= 0 || carry != 0) {
                 int jval = (j >= 0) ? num1.charAt(j--) - '0' : 0;
                 int prod = ival * jval + carry + res[k];
                 res[k--] = prod % 10;
-                carry = prod/10;
+                carry = prod / 10;
             }
             pf++;
         }
-        
+
         boolean flag = false;
         StringBuilder sb = new StringBuilder();
-        for(int val : res) {
-            if(val == 0 && flag == false) {
+        for (int val : res) {
+            if (val == 0 && flag == false) {
                 // leading zero
                 continue;
             } else {
                 // work
-                flag  = true;
+                flag = true;
                 sb.append(val);
             }
         }
         return sb.toString();
+    }
+
+    // 239. Sliding Window Maximum
+    private int[] ngri(int[] arr) {
+        // ngri -> next greater on right index
+        int n = arr.length;
+        int[] ngr = new int[n];
+        Stack<Integer> st = new Stack<>(); // store index
+        st.push(0);
+
+        for (int i = 1; i < n; i++) {
+            while (st.size() > 0 && arr[i] > arr[st.peek()]) {
+                ngr[st.pop()] = i;
+            }
+            st.push(i);
+        }
+
+        while (st.size() > 0) {
+            ngr[st.pop()] = n;
+        }
+
+        return ngr;
+    }
+
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        int[] ngr = ngri(nums);
+
+        int[] res = new int[n - k + 1];
+        int j = 0;
+        for (int i = 0; i < res.length; i++) {
+            if (j < i)
+                j = i;
+
+            while (i + k > ngr[j]) {
+                j = ngr[j];
+            }
+            res[i] = nums[j];
+        }
+
+        return res;
     }
 
     // 42. Trapping Rain Water
@@ -1381,23 +1425,23 @@ public class l001_Arrays {
         int n = height.length;
         int[] left_max = new int[n];
         int[] right_max = new int[n];
-        
+
         // prepare right max
         right_max[n - 1] = height[n - 1];
-        for(int i = n - 2; i >= 0; i--) {
+        for (int i = n - 2; i >= 0; i--) {
             right_max[i] = Math.max(right_max[i + 1], height[i]);
         }
-        
+
         // prepare left max and along with find water
         int water = 0;
         left_max[0] = height[0];
         water += Math.min(left_max[0], right_max[0]) - height[0];
-       
-        for(int i = 1; i < n; i++) {
+
+        for (int i = 1; i < n; i++) {
             left_max[i] = Math.max(left_max[i - 1], height[i]);
             water += Math.min(left_max[i], right_max[i]) - height[i];
         }
-        
+
         return water;
     }
 
@@ -1405,13 +1449,13 @@ public class l001_Arrays {
     // Time -> O(n) , space -> O(1)
     public int trap_02(int[] height) {
         int n = height.length;
-        
+
         int water = 0, flow = 0, max = height[0], max_idx = 0;
-        
-        for(int i = 1; i < n; i++) {
+
+        for (int i = 1; i < n; i++) {
             int ht = height[i];
-            
-            if(max <= ht) {
+
+            if (max <= ht) {
                 water += flow;
                 flow = 0;
                 max = ht;
@@ -1420,13 +1464,13 @@ public class l001_Arrays {
                 flow += (max - ht);
             }
         }
-        
-        // solve overflow of flow value         
+
+        // solve overflow of flow value
         flow = 0;
         max = height[n - 1];
-        for(int i = n - 2; i >= max_idx; i--) {
+        for (int i = n - 2; i >= max_idx; i--) {
             int ht = height[i];
-             if(max <= ht) {
+            if (max <= ht) {
                 water += flow;
                 flow = 0;
                 max = ht;
@@ -1434,7 +1478,142 @@ public class l001_Arrays {
                 flow += (max - ht);
             }
         }
-            
+
         return water;
+    }
+
+    // meeting rooms 1
+    // https://www.lintcode.com/problem/920/
+    public static class Interval {
+        int start, end;
+
+        Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    public boolean canAttendMeetings(List<Interval> intervals) {
+        // Write your code here
+        int n = intervals.size();
+        if (n == 0)
+            return true;
+        Collections.sort(intervals, (a, b) -> {
+            return a.start - b.start;
+        });
+
+        int end = intervals.get(0).end;
+        for (int i = 1; i < n; i++) {
+            if (end > intervals.get(i).start) {
+                return false;
+            } else {
+                end = intervals.get(1).end;
+            }
+        }
+
+        return true;
+    }
+
+    // meeting room2 
+    // https://www.interviewbit.com/problems/meeting-rooms/
+    public int solve(ArrayList<ArrayList<Integer>> intervals) {
+        int n = intervals.size();
+        int[] start = new int[n];
+        int[] end = new int[n];
+        for(int i = 0; i < n; i++) {
+            start[i] = intervals.get(i).get(0);
+            end[i] = intervals.get(i).get(1);
+        }
+
+        Arrays.sort(start);
+        Arrays.sort(end);
+
+        int i = 0, j = 0; // start ansd end point
+        int req_rooms = 0, overall_max = 0;
+        while(i < n) {
+            if(start[i] < end[j]) {
+                req_rooms++;
+                i++;
+            } else {
+                req_rooms--;
+                j++;
+            }
+
+            overall_max = Math.max(overall_max, req_rooms);
+        }
+
+        return overall_max;
+    }
+
+    // 56. Merge Intervals
+    public int[][] merge(int[][] intervals) {
+        int n = intervals.length;
+        Arrays.sort(intervals, (a, b) -> {
+            return a[0] - b[0];
+        });
+        
+        ArrayList<int[]> res = new ArrayList<>();
+        
+        int lsp = intervals[0][0];
+        int lep = intervals[0][1];
+        for(int i = 1; i < n; i++) {
+            int sp = intervals[i][0];
+            int ep = intervals[i][1];
+            
+            if(sp > lep) {
+                int[] arr = {lsp, lep};
+                res.add(arr);
+                
+                lsp = sp;
+                lep = ep;
+            } else if(lep < ep){
+                // partial marging
+                lep = ep;
+            } else {
+                // new interval is already covered in between lsp and lep;
+            }
+        }
+        
+        int[] arr = {lsp, lep};
+        res.add(arr);
+        
+        //         int[][] ans = new int[res.size()][2];
+        //         for(int i = 0; i < res.size(); i++) {
+        //             ans[i][0] = res.get(i)[0];
+        //             ans[i][1] = res.get(i)[1];
+        //         }
+
+        //         return ans;
+        
+        return res.toArray(new int[res.size()][]);
+    }
+
+    // 986. Interval List Intersections
+    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
+        int l1 = firstList.length, l2 = secondList.length;
+        if(l1 == 0 || l2 == 0) 
+            return new int[0][0];
+        
+        ArrayList<int[]> res = new ArrayList<>();
+        int i = 0; // poniting to first interval of first list
+        int j = 0; // poniting to first interval of second list
+        
+        while(i < l1 && j < l2) {
+            int sp = Math.max(firstList[i][0] , secondList[j][0]);
+            int ep = Math.min(firstList[i][1] , secondList[j][1]);
+            
+            if(sp <= ep) {
+                int[] arr = {sp, ep};
+                res.add(arr);
+            }
+            
+            if(firstList[i][1] < secondList[j][1])
+                i++;
+            else
+                j++;
+
+        }
+        
+        return res.toArray(new int[res.size()][]);
     }
 }
