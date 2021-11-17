@@ -1616,4 +1616,97 @@ public class l001_Arrays {
         
         return res.toArray(new int[res.size()][]);
     }
+
+     // 853. Car Fleet
+    private class fleetHelper implements Comparable<fleetHelper> {
+        int pos;
+        int speed;
+        double time;
+
+        fleetHelper(int pos, int speed, double time) {
+            this.pos = pos;
+            this.speed = speed;
+            this.time = time;
+        }
+
+        public int compareTo(fleetHelper other) {
+            return this.pos - other.pos;
+        }
+    }
+
+    public int carFleet(int target, int[] position, int[] speed) {
+        int n = position.length;
+        fleetHelper[] data = new fleetHelper[n];
+        for (int i = 0; i < n; i++) {
+            data[i] = new fleetHelper(position[i], speed[i], (target - position[i]) * 1.0 / speed[i]);
+        }
+        Arrays.sort(data);
+
+        double maxTime = data[n - 1].time;
+        int fleet = 1;
+
+        for (int i = n - 2; i >= 0; i--) {
+            if (data[i].time > maxTime) {
+                fleet++;
+                maxTime = data[i].time;
+            }
+        }
+
+        return fleet;
+    }
+
+    // Digit multiplier 
+    // https://practice.geeksforgeeks.org/problems/digit-multiplier3000/1#
+    public static String getSmallest(Long N) {
+        // code here
+        if (N == 1)
+            return "1";
+        String res = "";
+        for (int digit = 9; digit > 1; digit--) {
+            while (N % digit == 0) {
+                N = N / digit;
+                res = digit + res;
+            }
+        }
+
+        return (N == 1) ? res : "-1";
+    }
+
+    // First negative integer in every window of size k
+    // https://practice.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1
+    public long[] printFirstNegativeInteger(long arr[], int n, int k) {
+        long[] res = new long[n - k + 1];
+        int last_neg = n;
+        for(int i = n - 1; i >= n - k; i--) {
+            if(arr[i] < 0)
+                last_neg = i;
+        }
+        
+        for(int i = n - k; i >= 0; i--) {
+            if(arr[i] < 0)
+                last_neg = i;
+                
+            if(i + k > last_neg)
+                res[i] = arr[last_neg];
+        }
+        
+        return res;
+    }
+
+    // 53. Maximum Subarray
+    public int maxSubArray(int[] arr) {
+        int n = arr.length;
+        int curr_sum = 0;
+        int over_sum = -(int)1e9;
+        for(int i = 0; i < n; i++) {
+            if(curr_sum < 0) {
+                curr_sum = arr[i];
+            } else {
+                curr_sum += arr[i];
+            }
+            
+            over_sum = Math.max(over_sum, curr_sum);
+        }
+        return over_sum;
+    }
 }
