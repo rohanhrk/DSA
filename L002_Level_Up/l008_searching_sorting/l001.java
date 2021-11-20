@@ -4,10 +4,11 @@ import java.util.PriorityQueue;
 import java.util.List;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.HashMap;
 
 public class l001 {
 
-    // ==============================================================================================
+    // ============================================================================================================================================================================================
     // Question_1 : Marks Of PCM (GFG)
     // Link: https://practice.geeksforgeeks.org/problems/marks-of-pcm2529/1
     public class marks implements Comparable<marks> {
@@ -47,10 +48,9 @@ public class l001 {
 
     }
 
-    // ==============================================================================================
+    // ============================================================================================================================================================================================
     // Question_2 : Union Of Two Sorted Array (GFG)
-    // Link :
-    // https://practice.geeksforgeeks.org/problems/union-of-two-sorted-arrays/1
+    // Link:https://practice.geeksforgeeks.org/problems/union-of-two-sorted-arrays/1
     public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m) {
         ArrayList<Integer> res = new ArrayList<>();
         int i = 0, j = 0;
@@ -89,8 +89,9 @@ public class l001 {
         return res;
     }
 
-    // ==============================================================================================
-    // 74. Search a 2D Matrix
+    // ============================================================================================================================================================================================
+    // Question_3 : 74. Search a 2D Matrix
+    // Link : https://leetcode.com/problems/search-a-2d-matrix/
     public static int findRowIdx(int[][] matrix, int target) {
         int idx = -1;
         int lo = 0, hi = matrix.length - 1;
@@ -138,7 +139,9 @@ public class l001 {
         return colIdx != -1;
     }
 
-    // 240. Search a 2D Matrix II
+    // ============================================================================================================================================================================================
+    // Question_4 : 240. Search a 2D Matrix II
+    // Link : https://leetcode.com/problems/search-a-2d-matrix-ii/
     public boolean searchMatrix_2(int[][] matrix, int target) {
         int n = matrix.length, m = matrix[0].length;
         int r = 0, c = m - 1;
@@ -155,7 +158,9 @@ public class l001 {
         return false;
     }
 
-    // 724. Find Pivot Index
+    // ============================================================================================================================================================================================
+    // Quewstion_5 : 724. Find Pivot Index
+    // Link : https://leetcode.com/problems/find-pivot-index/
     public int pivotIndex(int[] nums) {
         int n = nums.length;
         int total_sum = 0;
@@ -175,7 +180,10 @@ public class l001 {
         return -1;
     }
 
-    // 658. Find K Closest Elements
+    // ============================================================================================================================================================================================
+    // Question_6 : 658. Find K Closest Elements
+    // Link : https://leetcode.com/problems/find-k-closest-elements/
+    // space --> O(k) , Time ---> O(nlog(k))
     public static class pair implements Comparable<pair> {
         int val;
         int dis;
@@ -215,11 +223,13 @@ public class l001 {
         return res;
     }
 
-    // Optimization
+    // ***************_OptimizatioN_***************
+    // Space --> O(1) , Time --> O(log(n))
     public List<Integer> findClosestElements_optimize(int[] arr, int k, int x) {
         int n = arr.length;
         int lo = 0, hi = n - 1, min_dist_idx = 0;
 
+        // Time : O(log(n))
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
             // everytime maintain closest value idx
@@ -237,6 +247,7 @@ public class l001 {
         int right = min_dist_idx;
         LinkedList<Integer> res = new LinkedList<>();
 
+        // Time: O(k)
         while (left >= 0 && right < n && k > 0) {
             if (Math.abs(arr[left] - x) <= Math.abs(arr[right] - x)) {
                 res.addFirst(arr[left]);
@@ -262,16 +273,19 @@ public class l001 {
         return res;
     }
 
-    // Find Transition Point
-    // https://practice.geeksforgeeks.org/problems/find-transition-point/1
+    // ============================================================================================================================================================================================
+    // Question_7 : Find Transition Point
+    // Link : https://practice.geeksforgeeks.org/problems/find-transition-point/1
     public static int findTransition(int[] arr) {
         int tp = -1, n = arr.length;
         int lo = 0, hi = n - 1;
         while (lo <= hi) {
             int mid = (lo + hi) / 2;
             if (arr[mid] == 0) {
+                // move right side
                 lo = mid + 1;
             } else if (arr[mid] == 1) {
+                // move left side
                 tp = mid;
                 hi = mid - 1;
             }
@@ -280,13 +294,14 @@ public class l001 {
         return tp;
     }
 
-    // 278. First Bad Version
+    // ============================================================================================================================================================================================
+    // Question_8 : 278. First Bad Version
+    // Link : https://leetcode.com/problems/first-bad-version/
     public static boolean isBadVersion(int version) {
         return true;
     }
 
     public static int firstBadVersion(int n) {
-        // write your code here
         int lo = 1;
         int hi = n;
         int fbv = -1;
@@ -305,8 +320,9 @@ public class l001 {
         return fbv;
     }
 
-    // 374. Guess Number Higher or Lower
-    // https://leetcode.com/problems/guess-number-higher-or-lower/submissions/
+    // ============================================================================================================================================================================================
+    // Question_9 : 374. Guess Number Higher or Lower
+    // Link:https://leetcode.com/problems/guess-number-higher-or-lower/submissions/
     static int pn = 0; // picked number
 
     public static int guess(int val) {
@@ -337,7 +353,8 @@ public class l001 {
         return -1;
     }
 
-    // Find Pair With Given Difference
+    // ============================================================================================================================================================================================
+    // Question_10 : Find Pair With Given Difference
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/searching-and-sorting/find_pair_with_given_difference/ojquestion
     public static void findPair(int[] arr, int target) {
         // write your code here
@@ -361,9 +378,10 @@ public class l001 {
         System.out.println("-1");
     }
 
+    // ============================================================================================================================================================================================
+    // Question_11 : Roof Top
     // https://practice.geeksforgeeks.org/problems/roof-top-1587115621/1
     public static int findMaxSteps(int[] arr) {
-        // write your code here
         int n = arr.length;
         int max_step = 0;
         int count = 0;
@@ -380,10 +398,10 @@ public class l001 {
         return max_step;
     }
 
-    // Maximize Sum Of Arr[i]*i Of An Array
+    // ============================================================================================================================================================================================
+    // Question_12 : Maximize Sum Of Arr[i]*i Of An Array
     // https://practice.geeksforgeeks.org/problems/maximize-arrii-of-an-array0026/1#
     public static int maximise(int[] arr) {
-        // write your code here
         Arrays.sort(arr);
         int n = arr.length;
         int sum = 0, mod = (int) 1e9 + 7;
@@ -394,10 +412,10 @@ public class l001 {
         return sum;
     }
 
+    // ============================================================================================================================================================================================
+    // Question_13 : Max sum in the configuration
     // https://practice.geeksforgeeks.org/problems/max-sum-in-the-configuration/1
     int max_sum(int arr[], int n) {
-        // Your code here
-
         int sum = 0;
         int sIm1 = 0; // s(i - 1)
 
@@ -416,7 +434,9 @@ public class l001 {
         return max;
     }
 
-    // 33. Search in Rotated Sorted Array
+    // ============================================================================================================================================================================================
+    // Question_14 : 33. Search in Rotated Sorted Array
+    // https://leetcode.com/problems/search-in-rotated-sorted-array/
     public int search(int[] nums, int target) {
         int n = nums.length;
         int lo = 0, hi = n - 1;
@@ -448,7 +468,9 @@ public class l001 {
         return idx;
     }
 
-    // 153. Find Minimum in Rotated Sorted Array
+    // ============================================================================================================================================================================================
+    // Question_15 : 153. Find Minimum in Rotated Sorted Array
+    // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
     public int findMin(int[] nums) {
         int n = nums.length;
         int lo = 0, hi = n - 1;
@@ -457,12 +479,14 @@ public class l001 {
             if (nums[mid] < nums[hi])
                 hi = mid; // potential ans
             else
-                lo = mid + 1; // discurded left side
+                lo = mid + 1; // discard left side
         }
 
         return nums[hi];
     }
 
+    // ============================================================================================================================================================================================
+    // Question_16 : Rotation Count
     // https://practice.geeksforgeeks.org/problems/rotation4723/1
     int findKRotation(int nums[], int n) {
         // code here
@@ -478,10 +502,10 @@ public class l001 {
         return hi;
     }
 
-    // Count Inversions
+    // ============================================================================================================================================================================================
+    // Question_17 : Count Inversions
     // https://practice.geeksforgeeks.org/problems/inversion-of-array-1587115620/1
     public static long count = 0;
-
     public static long[] mergeTwoArr(long[] left, long[] right) {
         int l1 = left.length, l2 = right.length;
         long[] res = new long[l1 + l2];
@@ -525,8 +549,10 @@ public class l001 {
         // Your Code Here
     }
 
-    // 4. Median of Two Sorted Arrays
-    // brute force -> O(n + m)
+    // ============================================================================================================================================================================================
+    // Question_18 : 4. Median of Two Sorted Arrays
+    // https://leetcode.com/problems/median-of-two-sorted-arrays/
+    // 1.brute force -> O(n + m)
     public static int[] mergeTwoArr(int[] left, int[] right) {
         int l1 = left.length, l2 = right.length;
         int[] res = new int[l1 + l2];
@@ -566,7 +592,7 @@ public class l001 {
         return median;
     }
 
-    // Optimised solution
+    // 2. Optimised solution************************
     // O(log(min(n, m)))
     public double findMedianSortedArrays(int[] a, int[] b) {
         if (a.length > b.length) {
@@ -574,6 +600,7 @@ public class l001 {
             a = b;
             b = temp;
         }
+
         int l1 = a.length, l2 = b.length;
         int total_elem = l1 + l2;
 
@@ -582,10 +609,10 @@ public class l001 {
             int aleft = lo + (hi - lo) / 2;
             int bleft = (total_elem + 1) / 2 - aleft;
 
-            int al = (aleft == l1) ? (int) 1e9 : a[aleft];
-            int alm1 = (aleft == 0) ? -(int) 1e9 : a[aleft - 1];
-            int bl = (bleft == l2) ? (int) 1e9 : b[bleft];
-            int blm1 = (bleft == 0) ? -(int) 1e9 : b[bleft - 1];
+            int al = (aleft == l1) ? (int) 1e9 : a[aleft]; // aleft element
+            int alm1 = (aleft == 0) ? -(int) 1e9 : a[aleft - 1]; // (aleft - 1) element
+            int bl = (bleft == l2) ? (int) 1e9 : b[bleft]; // bleft element
+            int blm1 = (bleft == 0) ? -(int) 1e9 : b[bleft - 1]; // (bleft - 1) element
 
             // valid spliting
             if (alm1 <= bl && blm1 <= al) {
@@ -598,7 +625,6 @@ public class l001 {
                 } else {
                     median = lmax;
                 }
-
                 return median;
             } else if (alm1 > bl) {
                 // there are more element to picked in left part from 'b' arr
@@ -612,7 +638,9 @@ public class l001 {
         return 0;
     }
 
-    // 875. Koko Eating Bananas
+    // ============================================================================================================================================================================================
+    // Question_19 : 875. Koko Eating Bananas
+    // https://leetcode.com/problems/koko-eating-bananas/
     private boolean isPossible(int[] piles, int speed, int h) {
         int time = 0;
         for (int val : piles)
@@ -643,6 +671,7 @@ public class l001 {
         return min_k;
     }
 
+    // ============================================================================================================================================================================================
     // 1283. Find the Smallest Divisor Given a Threshold
     private boolean isPossible_(int[] nums, int threshold, int divisor) {
         int sum = 0;
@@ -673,6 +702,7 @@ public class l001 {
         return min_divisor;
     }
 
+    // ============================================================================================================================================================================================
     // Allocate minimum number of pages
     // https://practice.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
     private static boolean isAllocationPossible(int[] page, int mid, int M) {
@@ -711,6 +741,7 @@ public class l001 {
         return min;
     }
 
+    // ============================================================================================================================================================================================
     // 1011. Capacity To Ship Packages Within D Days
     private boolean isShipmentPossible(int[] weights, int days, int curr_burden) {
         int day_count = 1, sum = 0;
@@ -726,58 +757,213 @@ public class l001 {
     }
 
     public int shipWithinDays(int[] weights, int days) {
-        int max = -(int)1e9, sum = 0;
-        for(int val : weights) {
+        int max = -(int) 1e9, sum = 0;
+        for (int val : weights) {
             max = Math.max(max, val);
             sum += val;
         }
-        
+
         int lo = max, hi = sum;
-        int min_burden = (int)1e9;
-        while(lo <= hi) {
+        int min_burden = (int) 1e9;
+        while (lo <= hi) {
             int curr_burden = lo + (hi - lo) / 2;
-            if(isShipmentPossible(weights, days, curr_burden) == true) {
+            if (isShipmentPossible(weights, days, curr_burden) == true) {
                 min_burden = curr_burden;
                 hi = curr_burden - 1;
             } else {
                 lo = curr_burden + 1;
             }
         }
-        
+
         return min_burden;
     }
 
+    // ============================================================================================================================================================================================
     // 410. Split Array Largest Sum
     private boolean isSplitPossible(int[] nums, int m, int curr_sum) {
         int count_subarr = 1, sum = 0;
-        for(int val : nums) {
+        for (int val : nums) {
             sum += val;
-            if(sum > curr_sum) {
+            if (sum > curr_sum) {
                 count_subarr += 1;
                 sum = val;
             }
         }
-        
+
         return count_subarr <= m;
     }
+
     public int splitArray(int[] nums, int m) {
-        int max = -(int)1e9, sum = 0;
-        for(int val : nums) {
+        int max = -(int) 1e9, sum = 0;
+        for (int val : nums) {
             max = Math.max(max, val);
             sum += val;
         }
-        
-        int lo = max, hi = sum, min_sum = (int)1e9;
-        while(lo <= hi) {
+
+        int lo = max, hi = sum, min_sum = (int) 1e9;
+        while (lo <= hi) {
             int curr_sum = lo + (hi - lo) / 2;
-            if(isSplitPossible(nums, m, curr_sum)) {
+            if (isSplitPossible(nums, m, curr_sum)) {
                 min_sum = curr_sum;
                 hi = curr_sum - 1;
             } else {
                 lo = curr_sum + 1;
             }
         }
-        
+
         return min_sum;
+    }
+
+    // ============================================================================================================================================================================================
+    // Count zeros in a sorted matrix
+    // https://practice.geeksforgeeks.org/problems/count-zeros-in-a-sorted-matrix/1
+    public int countZeros(int matrix[][], int n) {
+        // Your code here
+        int i = 0, j = n - 1, count = 0;
+        while (i < n && j >= 0) {
+            if (matrix[i][j] == 0) {
+                count += (j + 1);
+                i++;
+            } else {
+                j--;
+            }
+        }
+
+        return count;
+    }
+
+    // ============================================================================================================================================================================================
+    // Counting elements in two arrays
+    // https://practice.geeksforgeeks.org/problems/counting-elements-in-two-arrays/1
+    public static int ceilIdx(int[] arr, int data) {
+        int idx = -1, n = arr.length, lo = 0, hi = n - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (arr[mid] <= data) {
+                lo = mid + 1;
+            } else {
+                idx = mid;
+                hi = mid - 1;
+            }
+        }
+
+        return idx;
+    }
+
+    public static ArrayList<Integer> countEleLessThanOrEqual(int arr1[], int arr2[], int n, int m) {
+        // add your code here
+        Arrays.sort(arr2);
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int idx = ceilIdx(arr2, arr1[i]);
+            res.add((idx == -1) ? m : idx);
+        }
+
+        return res;
+    }
+
+    // ============================================================================================================================================================================================
+    // Count Zeros Xor Pairs -> portals
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/searching-and-sorting/count-zeros-xor-pairs-official/ojquestion
+    public static int countPairs(int[] arr) {
+        // write your code here
+        int n = arr.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int val : arr) {
+            if (map.containsKey(val)) {
+                map.put(val, map.get(val) + 1);
+            } else {
+                map.put(val, 1);
+            }
+        }
+
+        int count = 0;
+        for (int key : map.keySet()) {
+            int t = map.get(key);
+            count += t * (t - 1) / 2;
+        }
+        return count;
+    }
+
+    // ============================================================================================================================================================================================
+    // Buildings receiving sunlight
+    // https://practice.geeksforgeeks.org/problems/buildings-receiving-sunlight3032/1
+    public static int longest(int ht[], int n) {
+        int count = 0, max = -(int) 1e9;
+        for (int val : ht) {
+            if (val >= max) {
+                count++;
+                max = val;
+            }
+        }
+
+        return count;
+    }
+
+    // ============================================================================================================================================================================================
+    // Distinct absolute array elements
+    // https://practice.geeksforgeeks.org/problems/distinct-absolute-array-elements4529/1
+    public int distinctCount(int[] arr, int n) {
+        int left = 0, right = n - 1, prev_val = -(int) 1e9, next_val = (int) 1e9;
+        int count = 0;
+        while (left <= right) {
+            int left_val = Math.abs(arr[left]), right_val = Math.abs(arr[right]);
+
+            if (left_val == right_val) {
+                if (left_val != prev_val && right_val != next_val)
+                    count++;
+                prev_val = left_val;
+                left++;
+
+                next_val = right_val;
+                right--;
+            } else if (left_val > right_val) {
+                if (left_val != prev_val)
+                    count++;
+                prev_val = left_val;
+                left++;
+            } else {
+                if (right_val != next_val)
+                    count++;
+                next_val = right_val;
+                right--;
+            }
+        }
+        return count;
+    }
+
+    // ============================================================================================================================================================================================
+    // 540. Single Element in a Sorted Array
+    // Link : https://leetcode.com/problems/single-element-in-a-sorted-array/
+    public int singleNonDuplicate(int[] arr) {
+        int n = arr.length;
+        int lo = 0, hi = n - 1;
+        int idx = -1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (mid == 0 || mid == n - 1) {
+                idx = mid;
+                break;
+            } else if (arr[mid] != arr[mid - 1] && arr[mid] != arr[mid + 1]) {
+                idx = mid;
+                break;
+            } else if (arr[mid] == arr[mid - 1]) {
+                // left side
+                if ((mid - lo + 1) % 2 == 0) {
+                    lo = mid + 1;
+                } else {
+                    hi = mid;
+                }
+            } else {
+                // right side
+                if ((hi - mid + 1) % 2 == 0) {
+                    hi = mid - 1;
+                } else {
+                    lo = mid;
+                }
+            }
+        }
+
+        return arr[idx];
     }
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.Stack;
+import java.util.PriorityQueue;
 
 public class l001_Arrays {
     // 925. Long Pressed Name
@@ -1514,13 +1515,13 @@ public class l001_Arrays {
         return true;
     }
 
-    // meeting room2 
+    // meeting room2
     // https://www.interviewbit.com/problems/meeting-rooms/
     public int solve(ArrayList<ArrayList<Integer>> intervals) {
         int n = intervals.size();
         int[] start = new int[n];
         int[] end = new int[n];
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             start[i] = intervals.get(i).get(0);
             end[i] = intervals.get(i).get(1);
         }
@@ -1530,8 +1531,8 @@ public class l001_Arrays {
 
         int i = 0, j = 0; // start ansd end point
         int req_rooms = 0, overall_max = 0;
-        while(i < n) {
-            if(start[i] < end[j]) {
+        while (i < n) {
+            if (start[i] < end[j]) {
                 req_rooms++;
                 i++;
             } else {
@@ -1551,73 +1552,73 @@ public class l001_Arrays {
         Arrays.sort(intervals, (a, b) -> {
             return a[0] - b[0];
         });
-        
+
         ArrayList<int[]> res = new ArrayList<>();
-        
+
         int lsp = intervals[0][0];
         int lep = intervals[0][1];
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             int sp = intervals[i][0];
             int ep = intervals[i][1];
-            
-            if(sp > lep) {
-                int[] arr = {lsp, lep};
+
+            if (sp > lep) {
+                int[] arr = { lsp, lep };
                 res.add(arr);
-                
+
                 lsp = sp;
                 lep = ep;
-            } else if(lep < ep){
+            } else if (lep < ep) {
                 // partial marging
                 lep = ep;
             } else {
                 // new interval is already covered in between lsp and lep;
             }
         }
-        
-        int[] arr = {lsp, lep};
-        res.add(arr);
-        
-        //         int[][] ans = new int[res.size()][2];
-        //         for(int i = 0; i < res.size(); i++) {
-        //             ans[i][0] = res.get(i)[0];
-        //             ans[i][1] = res.get(i)[1];
-        //         }
 
-        //         return ans;
-        
+        int[] arr = { lsp, lep };
+        res.add(arr);
+
+        // int[][] ans = new int[res.size()][2];
+        // for(int i = 0; i < res.size(); i++) {
+        // ans[i][0] = res.get(i)[0];
+        // ans[i][1] = res.get(i)[1];
+        // }
+
+        // return ans;
+
         return res.toArray(new int[res.size()][]);
     }
 
     // 986. Interval List Intersections
     public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
         int l1 = firstList.length, l2 = secondList.length;
-        if(l1 == 0 || l2 == 0) 
+        if (l1 == 0 || l2 == 0)
             return new int[0][0];
-        
+
         ArrayList<int[]> res = new ArrayList<>();
         int i = 0; // poniting to first interval of first list
         int j = 0; // poniting to first interval of second list
-        
-        while(i < l1 && j < l2) {
-            int sp = Math.max(firstList[i][0] , secondList[j][0]);
-            int ep = Math.min(firstList[i][1] , secondList[j][1]);
-            
-            if(sp <= ep) {
-                int[] arr = {sp, ep};
+
+        while (i < l1 && j < l2) {
+            int sp = Math.max(firstList[i][0], secondList[j][0]);
+            int ep = Math.min(firstList[i][1], secondList[j][1]);
+
+            if (sp <= ep) {
+                int[] arr = { sp, ep };
                 res.add(arr);
             }
-            
-            if(firstList[i][1] < secondList[j][1])
+
+            if (firstList[i][1] < secondList[j][1])
                 i++;
             else
                 j++;
 
         }
-        
+
         return res.toArray(new int[res.size()][]);
     }
 
-     // 853. Car Fleet
+    // 853. Car Fleet
     private class fleetHelper implements Comparable<fleetHelper> {
         int pos;
         int speed;
@@ -1655,7 +1656,7 @@ public class l001_Arrays {
         return fleet;
     }
 
-    // Digit multiplier 
+    // Digit multiplier
     // https://practice.geeksforgeeks.org/problems/digit-multiplier3000/1#
     public static String getSmallest(Long N) {
         // code here
@@ -1677,19 +1678,19 @@ public class l001_Arrays {
     public long[] printFirstNegativeInteger(long arr[], int n, int k) {
         long[] res = new long[n - k + 1];
         int last_neg = n;
-        for(int i = n - 1; i >= n - k; i--) {
-            if(arr[i] < 0)
+        for (int i = n - 1; i >= n - k; i--) {
+            if (arr[i] < 0)
                 last_neg = i;
         }
-        
-        for(int i = n - k; i >= 0; i--) {
-            if(arr[i] < 0)
+
+        for (int i = n - k; i >= 0; i--) {
+            if (arr[i] < 0)
                 last_neg = i;
-                
-            if(i + k > last_neg)
+
+            if (i + k > last_neg)
                 res[i] = arr[last_neg];
         }
-        
+
         return res;
     }
 
@@ -1697,16 +1698,314 @@ public class l001_Arrays {
     public int maxSubArray(int[] arr) {
         int n = arr.length;
         int curr_sum = 0;
-        int over_sum = -(int)1e9;
-        for(int i = 0; i < n; i++) {
-            if(curr_sum < 0) {
+        int over_sum = -(int) 1e9;
+        for (int i = 0; i < n; i++) {
+            if (curr_sum < 0) {
                 curr_sum = arr[i];
             } else {
                 curr_sum += arr[i];
             }
-            
+
             over_sum = Math.max(over_sum, curr_sum);
         }
         return over_sum;
+    }
+
+    // 1191. K-Concatenation Maximum Sum
+    public long kadans1(int[] arr) {
+        int n = arr.length;
+        long curr_sum = 0;
+        long over_sum = -(int) 1e9;
+        for (int i = 0; i < n; i++) {
+            if (curr_sum < 0) {
+                curr_sum = arr[i];
+            } else {
+                curr_sum += arr[i];
+            }
+
+            over_sum = Math.max(over_sum, curr_sum);
+        }
+        return Math.max(over_sum, 0);
+    }
+
+    private long kadans12(int[] arr) {
+        int n = arr.length;
+        int[] n_arr = new int[2 * n];
+        for (int i = 0; i < 2 * n; i++) {
+            n_arr[i] = arr[i % n];
+        }
+
+        return kadans1(n_arr);
+
+    }
+
+    long mod = (int) 1e9 + 7;
+
+    public int kConcatenationMaxSum(int[] arr, int k) {
+        if (k == 1) {
+            return (int) (kadans1(arr) % mod);
+        }
+
+        long t_sum = 0;
+        for (int val : arr)
+            t_sum += val;
+
+        if (t_sum >= 0) {
+            return (int) ((kadans12(arr) + (t_sum * (k - 2))) % mod);
+        } else {
+            return (int) (kadans12(arr) % mod);
+        }
+    }
+
+    // 152. Maximum Product Subarray
+    public int maxProduct(int[] nums) {
+        int n = nums.length;
+        int curr_prod = 1;
+        int max_prod = -(int) 1e9;
+
+        // left product with maximization of result
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != 0) {
+                curr_prod *= nums[i];
+                max_prod = Math.max(max_prod, curr_prod);
+            } else {
+                curr_prod = 1;
+                max_prod = Math.max(0, max_prod);
+            }
+        }
+
+        // right product with maximization of result
+        curr_prod = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            if (nums[i] != 0) {
+                curr_prod *= nums[i];
+                max_prod = Math.max(max_prod, curr_prod);
+            } else {
+                curr_prod = 1;
+                max_prod = Math.max(0, max_prod);
+            }
+        }
+
+        return max_prod;
+    }
+
+    // Max sum in sub-arrays
+    // https://practice.geeksforgeeks.org/problems/max-sum-in-sub-arrays0824/1
+    public static long pairWithMaxSum(long arr[], long n) {
+        // Your code goes here
+        long max_sum = -(int) 1e9;
+        for (int i = 0; i < n - 1; i++)
+            max_sum = Math.max(max_sum, arr[i] + arr[i + 1]);
+
+        return max_sum;
+    }
+
+    // 134. Gas Station
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length;
+        int gas_sum = 0, cost_sum = 0;
+        for (int i = 0; i < n; i++) {
+            gas_sum += gas[i];
+            cost_sum += cost[i];
+        }
+
+        if (gas_sum - cost_sum < 0)
+            return -1;
+
+        int idx = 0, prefix_sum = 0, min = (int) 1e9;
+
+        for (int i = 0; i < n; i++) {
+            prefix_sum += gas[i] - cost[i];
+
+            if (prefix_sum <= min) {
+                idx = i;
+                min = prefix_sum;
+            }
+        }
+
+        return (idx + 1) % n;
+    }
+
+    // 1007. Minimum Domino Rotations For Equal Row
+    private int find_minimum(int... arr) {
+        int min = arr[0];
+        for (int val : arr)
+            min = Math.min(min, val);
+
+        return min;
+    }
+
+    public int minDominoRotations(int[] tops, int[] bottoms) {
+        int n = tops.length, m = bottoms.length;
+
+        int num1 = tops[0], num2 = bottoms[0];
+
+        int count1 = 0; // No of rotation required to make tops array as num1
+        int count2 = 0; // No of rotation required to make tops array as num2
+        int count3 = 0; // No of rotation required to make bottoms array as num1
+        int count4 = 0; // No of rotation required to make bottoms array as num2
+
+        for (int i = 0; i < n; i++) {
+            if (count1 != (int) 1e9) {
+                if (tops[i] == num1) {
+                    // nothing to do
+                } else if (bottoms[i] == num1) {
+                    count1++;
+                } else {
+                    count1 = (int) 1e9;
+                }
+            }
+
+            if (count2 != (int) 1e9) {
+                if (tops[i] == num2) {
+                    // nothing to do
+                } else if (bottoms[i] == num2) {
+                    count2++;
+                } else {
+                    count2 = (int) 1e9;
+                }
+            }
+
+            if (count3 != (int) 1e9) {
+                if (bottoms[i] == num1) {
+                    // nothing to do
+                } else if (tops[i] == num1) {
+                    count3++;
+                } else {
+                    count3 = (int) 1e9;
+                }
+            }
+
+            if (count4 != (int) 1e9) {
+                if (bottoms[i] == num2) {
+                    // nothing to do
+                } else if (tops[i] == num2) {
+                    count4++;
+                } else {
+                    count4 = (int) 1e9;
+                }
+            }
+        }
+
+        int res = find_minimum(count1, count2, count3, count4);
+        return res != (int) 1e9 ? res : -1;
+    }
+
+    // 632. Smallest Range Covering Elements from K Lists
+    private class range_helper implements Comparable<range_helper> {
+        int val;
+        int r;
+        int c;
+
+        range_helper(int val, int r, int c) {
+            this.val = val;
+            this.r = r;
+            this.c = c;
+        }
+
+        public int compareTo(range_helper other) {
+            return this.val - other.val;
+        }
+    }
+
+    public int[] smallestRange(List<List<Integer>> nums) {
+        PriorityQueue<range_helper> pq = new PriorityQueue<>();
+        int n = nums.size();
+
+        int max = -(int) 1e9;
+        int sp = 0, ep = 0, length = (int) 1e9;
+
+        for (int r = 0; r < n; r++) {
+            int val = nums.get(r).get(0);
+            pq.add(new range_helper(val, r, 0));
+            max = Math.max(max, val);
+        }
+
+        int cmin = 0, cmax = 0;
+        while (true) {
+            range_helper rem = pq.remove();
+
+            cmin = rem.val;
+            cmax = max;
+
+            if (cmax - cmin < length) {
+                length = cmax - cmin;
+                sp = cmin;
+                ep = cmax;
+            }
+
+            if (rem.c + 1 < nums.get(rem.r).size()) {
+                int val = nums.get(rem.r).get(rem.c + 1);
+                pq.add(new range_helper(val, rem.r, rem.c + 1));
+                max = Math.max(max, val);
+            } else {
+                break;
+            }
+        }
+
+        int[] res = { sp, ep };
+        return res;
+    }
+
+    // 209. Minimum Size Subarray Sum
+    public int minSubArrayLen(int target, int[] nums) {
+        int n = nums.length;
+        int sum = 0;
+        int left_ptr = 0;
+        int min_len = (int)1e9;
+        
+        for(int i = 0; i < n; i++) {
+            if(nums[i] >= target)
+                return 1;
+            
+            sum += nums[i];
+            
+            while(sum >= target) {
+                min_len = Math.min(min_len, i - left_ptr + 1);
+                sum -= nums[left_ptr];
+                left_ptr++;
+            }
+        }
+        
+        return min_len != (int)1e9 ? min_len : 0;
+    }
+
+    // 643. Maximum Average Subarray I
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;
+        for(int i = 0; i < k - 1; i++) {
+            sum += nums[i];
+        }
+        
+        int n = nums.length;
+        double max_avg = -(int)1e9 * 1.0;
+        for(int i = k - 1; i < n; i++) {
+            sum += nums[i];
+            double avg = sum * 1.0 / k;
+            max_avg = Math.max(max_avg, avg);
+            sum -= nums[i - k + 1];
+        }
+        
+        return max_avg;
+    }
+
+    // 442. Find All Duplicates in an Array
+    public List<Integer> findDuplicates(int[] nums) {
+        ArrayList<Integer> res = new ArrayList<>();
+        int n = nums.length;
+        for(int i = 0; i < n; i++) {
+            int idx = Math.abs(nums[i]) - 1;
+            int val = nums[idx];
+            
+            if(val < 0) {
+                // duplicacy encounter
+                res.add(idx + 1);
+            } else {
+                // mark it
+                nums[idx] *= -1;
+            }
+        }
+        
+        return res;
     }
 }
