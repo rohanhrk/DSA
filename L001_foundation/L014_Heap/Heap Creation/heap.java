@@ -17,10 +17,10 @@ public class heap {
     // ==========================================================================================================
     // ===================================
     // ===========_CONSTRUCTOR_===========
-    public heap() {      // default constructor
+    public heap() { // default constructor
         initialize(true);
     }
-    
+
     public heap(int[] arr, boolean isMax) { // O(n) --> with proof
         initialize(isMax);
         for (int ele : arr)
@@ -42,19 +42,22 @@ public class heap {
     public boolean isEmpty() {
         return this.size == 0;
     }
-     
+
     // ==========================================================================================================
     // ===========================
     // ===========_ADD_===========
-    public void add(int data) {   // O(logn)
+    public void add(int data) { // O(logn)
         this.arr.add(data);
         this.size++;
         upheapify(this.size - 1);
     }
-    
+
     // ==============================
     // ===========_REMOVE_===========
-    public int remove() { // O(logn)
+    public int remove() throws Exception { // O(logn)
+        if (this.arr.size() == 0)   // Exception Handling
+            throw new Exception("NULL_POINTER");
+
         int rv = this.arr.get(0);
         int n = this.arr.size();
 
@@ -65,13 +68,15 @@ public class heap {
         downHeapify(0);
         return rv;
     }
-    
+
     // ============================
     // ===========_PEEK_===========
-    public int peek() { // O(1)
+    public int peek() throws Exception{ // O(1)
+        if (this.arr.size() == 0)   // Exception Handling
+            throw new Exception("NULL_POINTER");
         return this.arr.get(0);
     }
-    
+
     private void swap(int i, int j) { // O(1)
         int ei = this.arr.get(i);
         int ej = this.arr.get(j);
@@ -80,15 +85,19 @@ public class heap {
         this.arr.set(j, ei);
 
     }
-    
+
+    // ==========================================================================================================
+    // =============================================
+    // ===========_Implements Comparable_===========
     private int compareTo(int a, int b) {
+        // give preferance to 'a -> this'
         if (this.isMax)
-            return this.arr.get(a) - this.arr.get(b);  
+            return this.arr.get(a) - this.arr.get(b);
 
         else
             return this.arr.get(b) - this.arr.get(a);
     }
-    
+
     // ==========================================================================================================
     // =================================
     // ===========_UpHeapiFy_===========
@@ -104,7 +113,7 @@ public class heap {
             upheapify(minIdx);
         }
     }
-    
+
     // ===================================
     // ===========_DownHeapiFy_===========
     private void downHeapify(int pi) { // O(logn)
@@ -121,9 +130,5 @@ public class heap {
             swap(maxIdx, pi);
             downHeapify(maxIdx);
         }
-    }
-
-    public static void main(String[] args) {
-
     }
 }
