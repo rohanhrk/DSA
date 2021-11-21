@@ -672,7 +672,8 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // 1283. Find the Smallest Divisor Given a Threshold
+    // Question_20 : 1283. Find the Smallest Divisor Given a Threshold
+    // https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
     private boolean isPossible_(int[] nums, int threshold, int divisor) {
         int sum = 0;
         for (int val : nums)
@@ -703,7 +704,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Allocate minimum number of pages
+    // Question_21 : Allocate minimum number of pages
     // https://practice.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
     private static boolean isAllocationPossible(int[] page, int mid, int M) {
         int st_count = 1, sum = 0;
@@ -742,7 +743,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // 1011. Capacity To Ship Packages Within D Days
+    // Question_22 : 1011. Capacity To Ship Packages Within D Days
     private boolean isShipmentPossible(int[] weights, int days, int curr_burden) {
         int day_count = 1, sum = 0;
         for (int val : weights) {

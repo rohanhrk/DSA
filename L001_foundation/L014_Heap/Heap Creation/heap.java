@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 // ***************************_DATE:-18/07/2021_***************************
 public class heap {
-    // Variables
+    // defines Variables
     private ArrayList<Integer> arr;
     private int size = 0;
     private boolean isMax = true; // by default max heap
@@ -14,14 +14,14 @@ public class heap {
         this.isMax = isMax;
     }
 
-    // **********_CONSTRUCTOR_**********
-    // 1->>>>>>>>>>>>
+    // ==========================================================================================================
+    // ===================================
+    // ===========_CONSTRUCTOR_===========
     public heap() {      // default constructor
         initialize(true);
     }
     
-    // 2->>>>>>>>>>>>
-    public heap(int[] arr, boolean isMax) { // O(n)
+    public heap(int[] arr, boolean isMax) { // O(n) --> with proof
         initialize(isMax);
         for (int ele : arr)
             this.arr.add(ele);
@@ -32,7 +32,9 @@ public class heap {
         this.size = arr.length;
     }
 
-    // ***************************_basic function_***************************
+    // ==========================================================================================================
+    // ======================================
+    // ===========_basic function_===========
     public int size() {
         return this.size;
     }
@@ -41,14 +43,17 @@ public class heap {
         return this.size == 0;
     }
      
-    // **********_ADD_**********
+    // ==========================================================================================================
+    // ===========================
+    // ===========_ADD_===========
     public void add(int data) {   // O(logn)
         this.arr.add(data);
         this.size++;
         upheapify(this.size - 1);
     }
     
-    // **********_REMOVE_**********
+    // ==============================
+    // ===========_REMOVE_===========
     public int remove() { // O(logn)
         int rv = this.arr.get(0);
         int n = this.arr.size();
@@ -61,7 +66,8 @@ public class heap {
         return rv;
     }
     
-    // **********_PEEK_**********
+    // ============================
+    // ===========_PEEK_===========
     public int peek() { // O(1)
         return this.arr.get(0);
     }
@@ -83,7 +89,9 @@ public class heap {
             return this.arr.get(b) - this.arr.get(a);
     }
     
-    // **********_UpHeapiFy_**********
+    // ==========================================================================================================
+    // =================================
+    // ===========_UpHeapiFy_===========
     private void upheapify(int ci) { // O(logn)
         int pi = (ci - 1) / 2; // parent index
         int minIdx = ci;
@@ -97,7 +105,8 @@ public class heap {
         }
     }
     
-    // **********_DownHeapiFy_**********
+    // ===================================
+    // ===========_DownHeapiFy_===========
     private void downHeapify(int pi) { // O(logn)
         int maxIdx = pi;
         int lci = 2 * pi + 1;

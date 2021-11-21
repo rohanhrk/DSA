@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class question {
-    // 242. Valid Anagram
-
+    // Question_1 : 242. Valid Anagram
+    // https://leetcode.com/problems/valid-anagram/
     // using frequency array
     public boolean isAnagram1(String s, String t) {
         int[] freq = new int[26];
@@ -42,7 +42,8 @@ public class question {
 
     }
 
-    // 49. Group Anagrams
+    // Question_2 : 49. Group Anagrams
+    // https://leetcode.com/problems/group-anagrams/
     public static String RLES(String str) {
         int[] freq = new int[26];
         for (int i = 0; i < str.length(); i++) {

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 // **************************************_DATE:-14/07/21_**************************************
 public class l001_basic {
+    // BASIC
     public static void basic_01() {
         HashMap<String, Integer> map = new HashMap<>();
         // put -> contains (key,value) pair
@@ -34,6 +35,7 @@ public class l001_basic {
 
     }
 
+    // ======================================================================================================================================================================================================
     // ******************_print_frequency_******************
     public static void printFrequency(String str) {
         HashMap<Character, Integer> map = new HashMap<>();
@@ -56,6 +58,7 @@ public class l001_basic {
         System.out.println(map);
     }
 
+    // ======================================================================================================================================================================================================
     // ******************_highest_frequency_character_******************
     public static void highestFreqChar(String str) {
         HashMap<Character, Integer> map = new HashMap<>();
@@ -80,6 +83,7 @@ public class l001_basic {
         System.out.println(ans);
     }
 
+    // ======================================================================================================================================================================================================
     // ******************_position_of_character_******************
     public static void positionOfCharacter(String str) {
         HashMap<Character, ArrayList<Integer>> map = new HashMap<>();
@@ -102,6 +106,7 @@ public class l001_basic {
         System.out.println(map);
     }
     
+    // ======================================================================================================================================================================================================
     // ******************_intersection_of_twoArray_without_duplicates_******************
     public static void intersectionOfTwoArrayWithoutDuplicates(int[] a1, int[] a2) {
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -119,6 +124,7 @@ public class l001_basic {
 
     }
 
+    // ======================================================================================================================================================================================================
     // ******************_intersection_of_twoArray_with_duplicates_******************
     public static void intersectionOfTwoArrayWithDuplicates(int[] a1, int[] a2) {
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -138,6 +144,7 @@ public class l001_basic {
 
     }
 
+    // ======================================================================================================================================================================================================
     // ******************_longest_consecutive_subsequense_******************
     public static void longestConsecutivSubsequence(int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();

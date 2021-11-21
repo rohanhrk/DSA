@@ -1,6 +1,6 @@
 public class client {
     public static void solve1(int[] arr){
-        heap pq = new heap();
+        heap pq = new heap(); 
         
         for(int ele : arr) pq.add(ele);
 
@@ -10,7 +10,7 @@ public class client {
     }
 
     public static void solve2(int[] arr){
-        heap pq = new heap(arr, false);
+        heap pq = new heap(arr, true);
 
         while(pq.size() != 0){
             System.out.print(pq.remove() + " ");

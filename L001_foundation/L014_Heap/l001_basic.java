@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 // **********************************_DATE:-15/07/21_**********************************
 public class l001_basic {
@@ -42,22 +43,33 @@ public class l001_basic {
         }
     }
 
-    // ***********************_K_largest_element_***********************
-    public static void kLargest(int[] arr, int k) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+    // ====================================================================================================================================================================================================
+    // Question_1 : K largest element
+    // https://practice.geeksforgeeks.org/problems/k-largest-elements3736/1
+    public static ArrayList<Integer> kLargest(int arr[], int n, int k) {
+        // code here
+        PriorityQueue<Integer> pq = new PriorityQueue<>(); // by default min PQ
 
-        for (int ele : arr) {
-            pq.add(ele);
+        for (int val : arr) {
+            pq.add(val);
 
             if (pq.size() > k)
                 pq.remove();
         }
 
+        ArrayList<Integer> res = new ArrayList<>();
         while (pq.size() != 0)
-            System.out.println(pq.remove());
+            res.add(pq.remove());
+
+        Collections.sort(res, (a, b) -> {
+            return b - a;
+        });
+
+        return res;
     }
 
-    // ***********************_K_Smallest_element_***********************
+    // ====================================================================================================================================================================================================
+    // Question_2 : K Smallest element
     public static void kSmallest(int[] arr, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
             return b - a;
@@ -74,7 +86,9 @@ public class l001_basic {
             System.out.println(pq.remove());
     }
 
-    // ***********************_Top_K_frequent_element_***********************
+    // ====================================================================================================================================================================================================
+    // Question_3 : 347. Top K Frequent Elements
+    // https://leetcode.com/problems/top-k-frequent-elements/
     public int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int ele : nums)
@@ -133,7 +147,9 @@ public class l001_basic {
         return ans;
     }
 
-    // ***********************_leetcode 692. Top K Frequent Words_***********************
+    // ====================================================================================================================================================================================================
+    // Question_4 : 692. Top K Frequent Words
+    // https://leetcode.com/problems/top-k-frequent-words/
     public List<String> topKFrequent(String[] words, int k) {
         HashMap<String, Integer> map = new HashMap<>();
         for (String word : words)
@@ -163,7 +179,9 @@ public class l001_basic {
         return ans;
     }
 
-    // ***********************_find_k_largest_***********************
+    // ====================================================================================================================================================================================================
+    // Question_5 : 215. Kth Largest Element in an Array
+    // https://leetcode.com/problems/kth-largest-element-in-an-array/
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
@@ -176,8 +194,10 @@ public class l001_basic {
 
         return pq.remove();
     }
-    
-    // ***********************leetcode 378. Kth Smallest Element in a Sorted Matrix***********************
+
+    // ====================================================================================================================================================================================================
+    // Question_6 : 378. Kth Smallest Element in a Sorted Matrix
+    // https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
     public int kthSmallest(int[][] matrix, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
             return b - a;
@@ -193,37 +213,146 @@ public class l001_basic {
 
         return pq.remove();
     }
-    
-    // leetcode 451. Sort Characters By Frequency_=============================
-    public String frequencySort(String s) {
-        HashMap<Character,Integer> map = new HashMap<>();
-        for(int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            map.put(ch , map.getOrDefault(ch, 0) + 1);
-        } 
-            
-        PriorityQueue<Character> pq = new PriorityQueue<>((a,b) -> {
-            if(map.get(a) == map.get(b)) {
-                return a.compareTo(b);
-            }
-            return map.get(b) - map.get(a);
-        });
-        
-        for(char ch : map.keySet()) {
-            pq.add(ch);
-        } 
-        
-        StringBuilder sb = new StringBuilder();
-        while(pq.size() != 0) {
-            char rkey = pq.remove();
-            int val = map.get(rkey);
-            while(val-- > 0) 
-                sb.append(rkey);
-        } 
-            
-        
-        return sb.toString();
+
+    // ====================================================================================================================================================================================================
+    // *****************************_DATE:-16/07/2021_*****************************
+    // Question_7 : Sort K-sorted Array
+    // https://practice.geeksforgeeks.org/problems/nearly-sorted-algorithm/0
+    public static void kSortedArray(int[] arr, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int[] ans = new int[arr.length];
+        int idx = 0;
+        for (int ele : arr) {
+            pq.add(ele);
+            if (pq.size() > k)
+                ans[idx++] = pq.remove();
+        }
+
+        while (pq.size() != 0)
+            ans[idx++] = pq.remove();
+
+        for (int ele : ans)
+            System.out.println(ele);
     }
+
+    // ====================================================================================================================================================================================================
+    // Question_8 : 23. Merge k Sorted Arrays
+    // https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1#
+    // method 1 ---> Using Helper class
+    private static class Helper implements Comparable<Helper> {
+        int val;
+        int r;
+        int c;
+
+        Helper(int val, int r, int c) {
+            this.val = val;
+            this.r = r;
+            this.c = c;
+        }
+
+        public int compareTo(Helper other) {
+            return this.val - other.val;
+        }
+    }
+
+    public static ArrayList<Integer> mergeKArrays(int[][] arr, int K) {
+        PriorityQueue<Helper> pq = new PriorityQueue<>(); // default behaviour
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            Helper nh = new Helper(arr[i][0], i, 0);
+            pq.add(nh);
+        }
+
+        while (pq.size() != 0) {
+            Helper rem = pq.remove();
+            int val = rem.val, r = rem.r, c = rem.c;
+            ans.add(val);
+
+            if (c + 1 < arr[r].length) {
+                rem.val = arr[r][c + 1];
+                rem.c = c + 1;
+
+                pq.add(rem);
+            }
+        }
+
+        return ans;
+    }
+
+    // {val, col_idx, row_idx}
+    public static ArrayList<Integer> mergeKSortedLists(ArrayList<ArrayList<Integer>> lists) {
+        ArrayList<Integer> rv = new ArrayList<>();
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+            return a[0] - b[0];
+        });
+
+        for (int i = 0; i < lists.size(); i++) {
+            int[] ar = new int[] { lists.get(i).get(0), 0, i };
+            pq.add(ar);
+        }
+
+        while (pq.size() != 0) {
+            int[] ar = pq.remove();
+            rv.add(ar[0]);
+
+            int idx = ar[1];
+            int listIdx = ar[2];
+            int length = lists.get(listIdx).size();
+
+            if (idx + 1 < length) {
+                ar[1] = idx + 1;
+                ar[0] = lists.get(listIdx).get(idx + 1);
+                pq.add(ar);
+            }
+        }
+        return rv;
+    }
+
+    // using devide ansd conquer mathod
+    // Space -> nk , time -> O(nklog(k))
+    private static ArrayList<Integer> merge_two_list(ArrayList<Integer> left_list, ArrayList<Integer> right_list) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        int i = 0, j = 0;
+        while (i < left_list.size() && j < right_list.size()) {
+            int val1 = left_list.get(i), val2 = right_list.get(j);
+            if (val1 < val2) {
+                ans.add(val1);
+                i++;
+            } else {
+                ans.add(val2);
+                j++;
+            }
+        }
+
+        while (i < left_list.size()) {
+            int val1 = left_list.get(i);
+            ans.add(val1);
+            i++;
+        }
+
+        while (j < right_list.size()) {
+            int val2 = right_list.get(j);
+            ans.add(val2);
+            j++;
+        }
+
+        return ans;
+    }
+
+    public static ArrayList<Integer> mergeKSortedList2(ArrayList<ArrayList<Integer>> lists, int si, int ei) {
+        if (si == ei) {
+            return lists.get(si);
+        }
+
+        int mid = (si + ei) / 2;
+        ArrayList<Integer> left_list = mergeKSortedList2(lists, si, mid);
+        ArrayList<Integer> right_list = mergeKSortedList2(lists, mid + 1, ei);
+
+        return merge_two_list(left_list, right_list);
+
+    }
+
     // =============================================_INPUT_=============================================
     public static void input(int[] arr) {
         for (int i = 0; i < arr.length; i++)
@@ -233,8 +362,9 @@ public class l001_basic {
     public static void main(String[] args) {
         int[] arr = new int[12];
         input(arr);
-        kLargest(arr, 4);
+        // kLargest(arr, 4);
         System.out.println();
         kSmallest(arr, 4);
     }
+
 }
