@@ -1,9 +1,13 @@
 import java.util.Scanner;
-
+import java.util.Arrays;
 // =======================================_DATE:2/08_=======================================
 public class l001 {
     public static Scanner scn = new Scanner(System.in);
 
+    // ==================================================================================================================
+    // ==================================================
+    // ===============_Flood_Fill_problem_===============
+    // --> Print all path
     public static int floodFill(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir, boolean[][] vis, String psf) {
         if (sr == dr && sc == dc) {
             System.out.println(psf);
@@ -26,7 +30,9 @@ public class l001 {
         return count;
     }
 
-    // =========================================================================================
+    // ==================================================================================================================
+    // ============================================
+    // ===============_Longest_Path_===============
     public static class pair {
         String psf;
         int length;
@@ -70,6 +76,9 @@ public class l001 {
         return myAns;
     }
 
+    // ==================================================================================================================
+    // ============================================
+    // ===============_Longest_Path_===============
     public static pair floodFill_shortesttPAth(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir,
             boolean[][] vis) {
         if (sr == dr && sc == dc) {
@@ -100,6 +109,9 @@ public class l001 {
         return myAns;
     }
 
+    // ==================================================================================================================
+    // ==========================================
+    // ===============_heavy_Path_===============
     public static class pathpair {
         String psf;
         int wsf;
@@ -142,6 +154,9 @@ public class l001 {
         return myAns;
     }
 
+    // ==================================================================================================================
+    // =============================================
+    // ===============_Lightest_Path_===============
     public static pathpair floodFill_lightestPath(int sr, int sc, int dr, int dc, String[] dirs, int[][] dir,
             boolean[][] vis, int[] wt) {
         if (sr == dr && sc == dc) {
@@ -172,8 +187,8 @@ public class l001 {
         return myAns;
     }
 
-    // ==========================================================================
-
+    // ==================================================================================================================
+    
     public static void main(String[] args) {
         int n = 4;
         int m = 4;

@@ -1,6 +1,8 @@
 // =====================================_DATE:-7/08_=====================================
 public class l005Nqueen_series {
+    // =============================================================================================================================================================================
     // =======================================_N-QUEENS_=======================================
+    // ========================================================================================
     public static boolean isSafeToPlaceQueen(boolean[][] boxes, int r, int c) {
         // int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
         int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
@@ -21,7 +23,8 @@ public class l005Nqueen_series {
         return true;
     }
 
-    // combination
+    // ===================_COMBINATION_===================
+    // ===================================================
     public static int nqueen_combination01(boolean[][] boxes, int tnq, int idx, String ans) {
         if (tnq == 0) {
             System.out.println(ans);
@@ -42,7 +45,8 @@ public class l005Nqueen_series {
         return count;
     }
 
-    // permutation
+    // ===================_PERMUTATION_===================
+    // ===================================================
     public static int nqueen_permutation01(boolean[][] boxes, int tnq, int idx, String ans) {
         if (tnq == 0) {
             System.out.println(ans);
@@ -63,7 +67,9 @@ public class l005Nqueen_series {
         return count;
     }
 
-    // ***********************_subsequence mathod_***********************
+    // =============================================================================================================================================================================
+    // ================================_subsequence_mathod_================================
+    // ====================================================================================
     public static int nqueen_combination02(boolean[][] boxes, int tnq, int idx, String ans) {
         int n = boxes.length, m = boxes[0].length, count = 0;
 

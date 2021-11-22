@@ -3,9 +3,8 @@ import java.util.ArrayList;
 import java.util.*;
 
 public class l003Question {
-    // =======================================_DATE:2/08_=======================================
-
-    // Special Matrix
+    // =============================================================================================================================================================================
+    // Question_1 : Special Matrix
     // https://practice.geeksforgeeks.org/problems/special-matrix4201/1
     public int floodFill_findWays(int sr, int sc, int dr, int dc, int[][] dir, boolean[][] block, int[][] dp) {
         if (sr == dr && sc == dc)
@@ -46,7 +45,9 @@ public class l003Question {
         return ans;
     }
 
-    // 1219. Path with Maximum Gold
+    // =============================================================================================================================================================================
+    // Question_2 : 1219. Path with Maximum Gold
+    // https://leetcode.com/problems/path-with-maximum-gold/
     public int getMaximumGold(int[][] mat, int sr, int sc, int er, int ec, boolean[][] vis, int[][] dir) {
         if (mat[sr][sc] == 0)
             return 0;
@@ -81,6 +82,8 @@ public class l003Question {
         return max;
     }
 
+    // =============================================================================================================================================================================
+    // Question_3 : rat-in-a-maze-problem
     // https://practice.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
     public static int floodFill(int sr, int sc, int er, int ec, int[][] dir, String[] Sdir, int[][] vis, String psf,
             ArrayList<String> res) {
@@ -119,8 +122,9 @@ public class l003Question {
         return res;
     }
 
-    // =======================================_DATE:5/08_=======================================
-    // 39. Combination Sum
+    // =============================================================================================================================================================================
+    // Question_4 : 39. Combination Sum
+    // https://leetcode.com/problems/combination-sum/
     public int combinationSum(int[] arr, int tar, int idx, List<Integer> smallAns, List<List<Integer>> res) {
         if (tar == 0) {
             List<Integer> base = new ArrayList<>(smallAns);
@@ -149,8 +153,10 @@ public class l003Question {
         return res;
     }
 
-    // 40. Combination Sum II
-    // mathode 1
+    // =============================================================================================================================================================================
+    // Question_5 : 40. Combination Sum II
+    // https://leetcode.com/problems/combination-sum-ii/
+    // mathode 1 --> blocking mathod
     public int combinationSum2_m1(int[] arr, int tar, int idx, List<Integer> smallAns, List<List<Integer>> res) {
         if (tar == 0) {
             List<Integer> base = new ArrayList<>(smallAns);
@@ -173,7 +179,7 @@ public class l003Question {
         return count;
     }
 
-    // mathod 2
+    // mathod 2 --> pointers mathod
     public int combinationSum2_m2(int[] arr, int tar, int idx, List<Integer> smallAns, List<List<Integer>> res) {
         if (tar == 0) {
             List<Integer> base = new ArrayList<>(smallAns);
@@ -181,9 +187,7 @@ public class l003Question {
             return 1;
         }
 
-        int count = 0;
-        int prev = -1;
-
+        int count = 0, prev = -1;
         for (int i = idx; i < arr.length; i++) {
             if (tar - arr[i] >= 0 && prev != arr[i]) {
                 smallAns.add(arr[i]);
@@ -231,7 +235,9 @@ public class l003Question {
         return res;
     }
 
-    // 77. Combinations
+    // =============================================================================================================================================================================
+    // Question_6 : 77. Combinations
+    // https://leetcode.com/problems/combinations/
     public int combine(int n, int k, int idx, List<Integer> smallAns, List<List<Integer>> res) {
         if (k == 0) {
             List<Integer> base = new ArrayList<>(smallAns);
@@ -240,7 +246,6 @@ public class l003Question {
         }
 
         int count = 0;
-        // if(dp[n][k] != 0) return dp
         for (int i = idx; i <= n; i++) {
             smallAns.add(i);
             count += combine(n, k - 1, i + 1, smallAns, res);
@@ -258,7 +263,9 @@ public class l003Question {
         return res;
     }
 
-    // 216. Combination Sum III
+    // =============================================================================================================================================================================
+    // Question_7 : 216. Combination Sum III
+    // https://leetcode.com/problems/combination-sum-iii/
     public int combinationSum3(int tar, int k, int idx, List<Integer> smallAns, List<List<Integer>> res) {
         if (k == 0 || tar == 0) {
             if (k == 0 && tar == 0) {
@@ -270,7 +277,6 @@ public class l003Question {
         }
 
         int count = 0;
-        // if(dp[n][k] != 0) return dp
         for (int i = idx; i <= 9; i++) {
             if (tar - i >= 0) {
                 smallAns.add(i);
@@ -280,8 +286,7 @@ public class l003Question {
         }
 
         return count;
-    }
-
+    }   
     public List<List<Integer>> combinationSum3(int k, int n) {
         List<Integer> smallAns = new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();
@@ -290,7 +295,9 @@ public class l003Question {
         return res;
     }
 
-    // 46. Permutations
+    // =============================================================================================================================================================================
+    // Question_8 : 46. Permutations
+    // https://leetcode.com/problems/permutations/
     // tel = total no of elements.
     public int permute(int[] arr, int tel, List<Integer> smallAns, List<List<Integer>> res) {
         if (tel == 0) {
@@ -324,7 +331,9 @@ public class l003Question {
 
     }
 
+    // =============================================================================================================================================================================
     // 47. Permutations II
+    // https://leetcode.com/problems/permutations-ii/
     public int permuteUnique(int[] arr, int tel, List<Integer> smallAns, List<List<Integer>> res) {
         if (tel == 0) {
             List<Integer> base = new ArrayList<>(smallAns);
@@ -361,6 +370,7 @@ public class l003Question {
         return res;
     }
 
+    
     // 51. N-Queens
     boolean[] rows;
     boolean[] cols;

@@ -1,7 +1,9 @@
 
 // ==========================================_DATE:-4/08_==========================================
 public class l004QueenSeries {
-    // ========================================_1D_Queens_Set_========================================
+    // =============================================================================================================================================================================
+    // ==========================_1D_Queens_Set_==========================
+    // ===================================================================
     // HINT
     public static int queenCombination_hint(int[] arr, int tar, int idx, String ans) {
         if (tar == 0) {
@@ -16,7 +18,10 @@ public class l004QueenSeries {
         return count;
     }
 
-    // *******************_COMBINATION_*******************
+    // =============================================================================================================================================================================
+    // ==========================_COMBINATION_==========================
+    // =================================================================
+
     // tBoxes -> total boxes, tQueens - > total queens, qpsf -> queen placed so far,
     // bn-> box no
     public static int queenCombination(int tBoxes, int tQueens, int qpsf, int bn, String ans) {
@@ -32,7 +37,9 @@ public class l004QueenSeries {
         return count;
     }
 
-    // *******************_PERMUTATION_*******************
+    // =============================================================================================================================================================================
+    // ==========================_PERMUTATION_==========================
+    // =================================================================
     public static int queenPermutation(int tBoxes, int tQueens, int qpsf, int bn, String ans, boolean[] visited) {
         if (qpsf == tQueens) {
             System.out.println(ans);
@@ -52,7 +59,9 @@ public class l004QueenSeries {
         return count;
     }
 
-    // =====================================_SubSequence_Mathod_=====================================
+    // =============================================================================================================================================================================
+    // ==========================_SubSequence_Mathod_==========================
+    // ========================================================================
     public static int queenCombination_subseq(int tBoxes, int tQueens, int qpsf, int bn, String ans) {
         if (qpsf == tQueens || bn == tBoxes) {
             if (qpsf == tQueens) {
@@ -95,13 +104,16 @@ public class l004QueenSeries {
         return count;
     }
 
-    // ========================================_2D_Queens_Set_========================================
 
-    // *******************_COMBINATION_*******************
-    // tBoxes -> total boxes, tQueens - > total queens, qpsf -> queen placed so far,
-    // bn-> box no
-    public static int queenCombination2d(int[][] tBoxes, int tQueens, int qpsf, int bn, String ans) {
-        if (qpsf == tQueens) {
+    // =============================================================================================================================================================================
+    // ========================================_2D_Queens_Set_========================================
+    // ===============================================================================================
+    
+    // ==========================_COMBINATION_==========================
+    // =================================================================
+    // tBoxes -> total boxes, tQueens - > total queens, bn-> box no
+    public static int queenCombination2d(boolean[][] tBoxes, int tQueens, int bn, String ans) {
+        if (tQueens == 0) {
             System.out.println(ans);
             return 1;
         }
@@ -109,15 +121,15 @@ public class l004QueenSeries {
         int n = tBoxes.length, m = tBoxes[0].length, count = 0;
         for (int i = bn; i < n * m; i++) {
             int r = i / m, c = i % m;
-            count += queenCombination2d(tBoxes, tQueens, qpsf + 1, i + 1, ans + "(" + r + "," + c + ")" + "  ");
+            count += queenCombination2d(tBoxes, tQueens - 1, i + 1, ans + "(" + r + "," + c + ")" + "  ");
         }
         return count;
     }
 
-    // *******************_PERMUTATION_*******************
-    public static int queenPermutation2d(int[][] tBoxes, int tQueens, int qpsf, int bn, String ans,
-            boolean[][] visited) {
-        if (qpsf == tQueens) {
+    // ==========================_PERMUTATION_==========================
+    // =================================================================
+    public static int queenPermutation2d(boolean[][] tBoxes, int tQueens, int bn, String ans) {
+        if (tQueens == 0) {
             System.out.println(ans);
             return 1;
         }
@@ -125,18 +137,20 @@ public class l004QueenSeries {
         int n = tBoxes.length, m = tBoxes[0].length, count = 0;
         for (int i = bn; i < n * m; i++) {
             int r = i / m, c = i % m;
-            if (!visited[r][c]) {
-                visited[r][c] = true;
-                count += queenPermutation2d(tBoxes, tQueens, qpsf + 1, 0, ans + "(" + r + "," + c + ")" + "  ",
-                        visited);
-                visited[r][c] = false;
+            if (!tBoxes[r][c]) {
+                tBoxes[r][c] = true;
+                count += queenPermutation2d(tBoxes, tQueens - 1, 0, ans + "(" + r + "," + c + ")" + "  ");
+                tBoxes[r][c] = false;
             }
         }
 
         return count;
     }
 
-    // =====================================_SubSequence_Mathod_=====================================
+    
+    // =============================================================================================================================================================================
+    // ==========================_SubSequence_Mathod_==========================
+    // ========================================================================
     public static int queenCombination2d_subseq(int[][] tBoxes, int tQueens, int qpsf, int bn, String ans) {
         int n = tBoxes.length, m = tBoxes[0].length, count = 0;
         if (qpsf == tQueens || bn == n * m) {
