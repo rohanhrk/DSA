@@ -4,8 +4,8 @@ public class l005Nqueen_series {
     // =======================================_N-QUEENS_=======================================
     // ========================================================================================
     public static boolean isSafeToPlaceQueen(boolean[][] boxes, int r, int c) {
-        // int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
-        int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
+        // int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } }; // for combination
+        int[][] dir = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } }; // for permutation
 
         int n = boxes.length, m = boxes[0].length;
         for (int d = 0; d < dir.length; d++) {
@@ -70,6 +70,9 @@ public class l005Nqueen_series {
     // =============================================================================================================================================================================
     // ================================_subsequence_mathod_================================
     // ====================================================================================
+
+    // ===================_COMBINATION_===================
+    // ===================================================
     public static int nqueen_combination02(boolean[][] boxes, int tnq, int idx, String ans) {
         int n = boxes.length, m = boxes[0].length, count = 0;
 
@@ -94,6 +97,8 @@ public class l005Nqueen_series {
         return count;
     }
 
+    // ===================_PERMUTATION_===================
+    // =================================================== 
     public static int nqueen_permutation02(boolean[][] boxes, int tnq, int idx, String ans) {
         int n = boxes.length, m = boxes[0].length, count = 0;
 
@@ -129,14 +134,20 @@ public class l005Nqueen_series {
 
     }
 
+
+    // =============================================================================================================================================================================
     // =====================================_OPTIMIZATION_1_=====================================
+    // ==========================================================================================
+    
+    // static variables --->
     static int calls = 0;
     static boolean[] rows;
     static boolean[] cols;
     static boolean[] diag;
     static boolean[] anti_diag;
 
-    // combination
+    // ===================_COMBINATION_===================
+    // ===================================================
     public static int nqueen_combination03(int n, int m, int tnq, int idx, String ans) {
         if (tnq == 0) {
             System.out.println(ans);
@@ -157,7 +168,8 @@ public class l005Nqueen_series {
         return count;
     }
 
-    // permutation
+    // ===================_PERMUTATION_===================
+    // ===================================================
     public static int nqueen_permutationn03(int n, int m, int tnq, int idx, String ans) {
         if (tnq == 0) {
             System.out.println(ans);
@@ -178,7 +190,13 @@ public class l005Nqueen_series {
         return count;
     }
 
-    // ************************************_SUBSEQUENCE_************************************
+
+    // =============================================================================================================================================================================
+    // ================================_subsequence_mathod_================================
+    // ====================================================================================
+
+    // ===================_COMBINATION_===================
+    // ===================================================
     public static int nqueen_combination04(int n, int m, int tnq, int idx, String ans) {
         if (tnq == 0 || idx == n * m) {
             if (tnq == 0) {
@@ -203,6 +221,8 @@ public class l005Nqueen_series {
         return count;
     }
 
+    // ===================_PERMUTATION_===================
+    // ===================================================
     public static int nqueen_permutationn04(int n, int m, int tnq, int idx, String ans) {
         if (tnq == 0 || idx == n * m) {
             if (tnq == 0) {
@@ -227,6 +247,8 @@ public class l005Nqueen_series {
         return count;
     }
 
+    // ====================================
+    // ====================================
     public static void nQueens_optimize1() {
         int n = 4, m = 4, q = 4;
         rows = new boolean[n];
@@ -242,9 +264,14 @@ public class l005Nqueen_series {
 
     }
 
-    // =====================================_OPTIMIZATION_2_=====================================
-    
 
+
+    // =============================================================================================================================================================================
+    // =====================================_OPTIMIZATION_2_=====================================
+    // ==========================================================================================
+    
+    // ===================_COMBINATION_===================
+    // ===================================================
     public static int Nqueen04_combination_01(int floor, int tnq, int m, String ans) {
         if (tnq == 0) {
             System.out.println(ans);
@@ -265,6 +292,8 @@ public class l005Nqueen_series {
         return count;
     }
 
+    // ===================_PERMUTATION_===================
+    // ===================================================
     public static int Nqueen04_permutation_01(int floor, int tnq, int m, String ans) {
         if (tnq == 0 || floor >= m) {
             if (tnq == 0) {
@@ -288,6 +317,8 @@ public class l005Nqueen_series {
         return count;
     }
 
+    // ====================================
+    // ====================================
     public static void nQueens_optimize2() {
         int n = 4, m = 4, q = 4;
         rows = new boolean[n];

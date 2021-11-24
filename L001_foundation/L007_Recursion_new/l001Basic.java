@@ -3,23 +3,27 @@ import java.util.Scanner;
 public class l001Basic {
     public static Scanner scn = new Scanner(System.in);
 
-    // fibonacci
+    // ====================================================================================================================================================================
+    // Question_1 : fibonacci
+    // ======================
     public static int fibo(int n) {
         if (n <= 1)
             return n;
         return fibo(n - 1) + fibo(n - 2);
     }
 
-    // tribonacci
+    // ====================================================================================================================================================================
+    // Question_2 : tribonacci
+    // =======================
     public static int tribo(int n) {
         if (n <= 2)
             return n == 2 ? 1 : n;
         return tribo(n - 1) + tribo(n - 2) + tribo(n - 3);
     }
 
-    // **************************************************************** date ->
-    // 29/06 ****************************************************************
-    // palindrome
+    // ====================================================================================================================================================================
+    // Question_3 : palindrome
+    // =======================
     public static boolean palindrom(int[] arr, int si, int li) {
         if (si >= li) {
             return true;
@@ -32,7 +36,9 @@ public class l001Basic {
         return palindrom(arr, si + 1, li - 1);
     }
 
-    // reverse array
+    //  ====================================================================================================================================================================
+    // Question_4 : reverse array
+    // ==========================
     public static void reverse(int[] arr, int si, int li) {
         if (si >= li)
             return;
@@ -45,7 +51,9 @@ public class l001Basic {
         reverse(arr, si + 1, li - 1);
     }
 
-    // Inverse array -> extra space use(array ka)
+    // ====================================================================================================================================================================
+    // Question_5 : Inverse array -> extra space use(array ka)
+    // =======================================================
     public static int[] inverse_mathod1(int[] arr, int idx) {
         if (idx == arr.length) {
             int[] ans = new int[arr.length];
@@ -58,8 +66,10 @@ public class l001Basic {
         return ans;
     }
 
+    // ===================================
     // rajneesh sir ka solution
     // Inverse array -> No extra space use
+    // ===================================
     public static void inverse_mathod2(int[] arr, int idx) {
         if (idx == arr.length) {
             return;
@@ -71,7 +81,9 @@ public class l001Basic {
 
     }
 
-    // sum of digit in string
+    // ====================================================================================================================================================================
+    // Question_6 : sum of digit in string
+    // ===================================
     public static int sumDigitOfAString_mathod1(String str, int idx, int sum) {
         if (idx == str.length())
             return sum;
@@ -81,7 +93,9 @@ public class l001Basic {
         return add;
     }
 
+    // ========================
     // rajneesh sir ka solution
+    // ========================
     public static int sumDigitOfAString_mathod2(String str, int idx) {
         if (idx == str.length())
             return 0;
@@ -90,7 +104,9 @@ public class l001Basic {
         return (str.charAt(idx) - '0') + recAns;
     }
 
-    // String One Two Are Reverse
+    // ====================================================================================================================================================================
+    // Question_7 : String One Two Are Reverse
+    // =======================================
     public static boolean StringOneTwoAreReverse(String s1, String s2, int idx1, int idx2) {
         if (idx1 == s1.length() && idx2 == -1)
             return true;
@@ -100,7 +116,9 @@ public class l001Basic {
         return StringOneTwoAreReverse(s1, s2, idx1 + 1, idx2 - 1);
     }
 
-    // palindrome of string
+    // ====================================================================================================================================================================
+    // Question_8 : palindrome of string
+    // =================================
     public static boolean isPalindrom1(String str, int i, int j) {
         if (i >= j) {
             return true;
@@ -118,7 +136,9 @@ public class l001Basic {
 
     }
 
+    // ===============
     // sir ka solution
+    // ===============
     public static boolean isPalindrom2(String str, int i, int j) {
         if (i >= j) {
             return true;
@@ -134,7 +154,9 @@ public class l001Basic {
 
     }
 
-    // seperate dublicate by "*"
+    // ====================================================================================================================================================================
+    // Question_9 : seperate dublicate by "*"
+    // ======================================
     public static String separateDuplicates(String str) { // niche ate hute result store karenge
         if (str.length() == 1)
             return str;
@@ -150,8 +172,7 @@ public class l001Basic {
 
     }
 
-    public static void separateDuplicates_wayup(String ques, int idx, String ans) { // upar jate hute result store
-                                                                                    // karenge
+    public static void separateDuplicates_wayup(String ques, int idx, String ans) { // upar jate hute result store karenge
         if (idx == ques.length() - 1) {
             System.out.println(ans + ques.charAt(idx));
             return;
@@ -164,7 +185,9 @@ public class l001Basic {
             separateDuplicates_wayup(ques, idx + 1, ans + ch);
     }
 
-    // remove adjacent dublicate from string
+    // ====================================================================================================================================================================
+    // Question_10 : remove adjacent dublicate from string
+    // ===================================================
     public static String removeAdjacentDuplicates(String str) { // niche ate hute result store karenge
         if (str.length() == 1)
             return str;
@@ -178,8 +201,7 @@ public class l001Basic {
             return resAns;
     }
 
-    public static void removeAdjacentDuplicates_wayup(String str, int idx, String ans) { // upar jate hute result store
-                                                                                         // karenge
+    public static void removeAdjacentDuplicates_wayup(String str, int idx, String ans) { // upar jate hute result store karenge
         if (idx == str.length() - 1) {
             System.out.println(ans + str.charAt(idx));
             return;

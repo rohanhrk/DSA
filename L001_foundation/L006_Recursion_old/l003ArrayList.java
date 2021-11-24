@@ -3,11 +3,11 @@ import java.util.ArrayList;
 
 public class l003ArrayList {
     public static Scanner scn = new Scanner(System.in);
-    // **************************************************************** DATE - 28/06
-    // ****************************************************************
 
-    // subsequence -> method 1 (with substring)
+    // ====================================================================================================================================================================
+    // Question_1 : subsequence -> method 1 (with substring)
     // "abc"
+    // ========================================
     public static ArrayList<String> gss(String str) {
         if (str.length() == 0) {
             ArrayList<String> base = new ArrayList<>();
@@ -32,6 +32,7 @@ public class l003ArrayList {
         return myRes;
     }
 
+    // ===============================================
     // get subSequence -> method 2 (without substring)
     public static ArrayList<String> gss2(String str, int idx) {
         if (idx == str.length()) {
@@ -41,7 +42,6 @@ public class l003ArrayList {
         }
 
         char ch = str.charAt(idx);
-
         ArrayList<String> smallRes = gss2(str, idx + 1);
         ArrayList<String> myRes = new ArrayList<>();
 
@@ -56,7 +56,9 @@ public class l003ArrayList {
         return myRes;
     }
 
-    // get key pad -> method 1 (with substring)
+    // ====================================================================================================================================================================
+    // Question_2 : get key pad -> method 1 (with substring)
+    // =====================================================
     public static ArrayList<String> getKPC(String str) {
 
         if (str.length() == 0) {
@@ -88,7 +90,9 @@ public class l003ArrayList {
 
     }
 
+    // ==========================================
     // get key pad -> method 2 (without substring)
+    // ===========================================
     public static ArrayList<String> getKPC2(String str, int idx) {
 
         if (idx == str.length()) {

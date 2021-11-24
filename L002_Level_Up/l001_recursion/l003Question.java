@@ -332,7 +332,7 @@ public class l003Question {
     }
 
     // =============================================================================================================================================================================
-    // 47. Permutations II
+    // Question_9 : 47. Permutations II
     // https://leetcode.com/problems/permutations-ii/
     public int permuteUnique(int[] arr, int tel, List<Integer> smallAns, List<List<Integer>> res) {
         if (tel == 0) {
@@ -370,8 +370,9 @@ public class l003Question {
         return res;
     }
 
-    
-    // 51. N-Queens
+    // =============================================================================================================================================================================
+    // Question_10 : 51. N-Queens
+    // https://leetcode.com/problems/n-queens/
     boolean[] rows;
     boolean[] cols;
     boolean[] diag;
@@ -453,7 +454,10 @@ public class l003Question {
         return ans;
     }
 
+    // =============================================================================================================================================================================
     // 52. N-Queens II
+    // https://leetcode.com/problems/n-queens-ii/
+   
     // combination 
     // time complexity: (n * m)^q
     public int nqueen_combination03(int n, int m, int tnq, int idx) {
@@ -495,6 +499,7 @@ public class l003Question {
         return count;
     }
     
+    // ================================
     public int nQueens_optimize(int n) {
         int q = n, m = n;
         rows = new boolean[n];

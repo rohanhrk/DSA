@@ -1,8 +1,10 @@
 // import java.util.Scanner;
 
 public class l001Basic {
-    // **************************************************************** DATE - 27/06
-    // ****************************************************************
+
+    // ====================================================================================================================================================================
+    // Question_1 : Print Decreasing
+    // =============================
     public static void printDecreasing(int n) {
         if (n == 0)
             return;
@@ -29,7 +31,9 @@ public class l001Basic {
             System.out.println("Back to child function" + n);
     }
 
-    // print increasing
+    // ====================================================================================================================================================================
+    // Question_2 : print increasing
+    // =============================
     public static void printIncreasing(int n) {
         if (n == 0)
             return;
@@ -37,7 +41,9 @@ public class l001Basic {
         System.out.println(n);
     }
 
-    // print decreasing increasing
+    // ====================================================================================================================================================================
+    // Question_3 : print decreasing increasing
+    // ========================================
     public static void printDecresingIncreasing(int n) {
         if (n == 0)
             return;
@@ -46,7 +52,9 @@ public class l001Basic {
         System.out.println(n);
     }
 
-    // print factorial
+    // ====================================================================================================================================================================
+    // Question_4 : print factorial
+    // ============================
     public static int printFactorial(int n) {
         if (n == 0)
             return 1;
@@ -54,7 +62,9 @@ public class l001Basic {
         return ans;
     }
 
-    // power linear
+    // ====================================================================================================================================================================
+    // Question_5 : power linear
+    // =========================
     public static int powerLinear(int x, int n) {
         if (n == 0)
             return 1;
@@ -66,7 +76,9 @@ public class l001Basic {
         return n == 0 ? 1 : powerLinear1(x, n - 1) * x;
     }
 
-    // power logarithmic
+    // ====================================================================================================================================================================
+    // Question_6 : power logarithmic
+    // ==============================
     public static int powerLogarithmic(int x, int n) {
         if (n == 0)
             return 1;
@@ -80,18 +92,20 @@ public class l001Basic {
             return ans * x;
     }
 
-    // zig zag
+    // ====================================================================================================================================================================
+    // Question_7 : zig zag
+    // ====================
     public static void printZigZag(int n) {
         if (n == 0)
             return;
 
         System.out.print(n + " "); // pre region
+        
         printZigZag(n - 1);
-
         System.out.print(n + " "); // In region
-
-        printZigZag(n - 1); // post region
-        System.out.print(n + " ");
+        printZigZag(n - 1); 
+      
+        System.out.print(n + " "); // post region
     }
 
     public static void main(String[] args) {

@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class l002Array {
     public static Scanner scn = new Scanner(System.in);
 
-    // **************************************************************** DATE - 28/06
-    // ****************************************************************
-    // display arr
+    // ====================================================================================================================================================================   
+    // Question_1 : display arr
+    // ========================
     public static void display(int[] arr, int idx) {
         if (idx == arr.length)
             return;
@@ -19,7 +19,9 @@ public class l002Array {
         }
     }
 
-    // display reverse
+    // ====================================================================================================================================================================
+    // Question_2 : display reverse
+    // ============================
     public static void displayReverse(int[] arr, int idx) {
         if (idx == arr.length)
             return;
@@ -27,40 +29,48 @@ public class l002Array {
         System.out.println(arr[idx]);
     }
 
-    // max of Array
+    // ====================================================================================================================================================================
+    // Question_3 : max of Array
+    // =========================
     public static int maxOfArray(int[] arr, int idx) {
         if (idx == arr.length)
             return (int) -1e8;
         int smallArrayKaMax = maxOfArray(arr, idx + 1);
-
-        return Math.max(arr[idx], smallArrayKaMax);
+        return arr[idx] > smallArrayKaMax ? arr[idx] : smallArrayKaMax;
     }
 
-    // find element in array
+    // ====================================================================================================================================================================
+    // Question_4 : find element in array
+    // ==================================
     public static int findElementInArray(int[] arr, int idx, int d) {
         if (idx == arr.length)
             return -1;
+        
         if (arr[idx] == d) {
             return idx;
         }
-        int smallIdx = findElementInArray(arr, idx + 1, d);
 
+        int smallIdx = findElementInArray(arr, idx + 1, d);
         return smallIdx;
     }
 
-    // first index
+    // ====================================================================================================================================================================
+    // Question_5 : first index
+    // ========================
     public static int firstIndex(int[] arr, int idx, int d) {
         if (idx == arr.length)
             return -1;
         if (arr[idx] == d) {
             return idx;
         }
-        int smallIdx = firstIndex(arr, idx + 1, d);
 
+        int smallIdx = firstIndex(arr, idx + 1, d);
         return smallIdx;
     }
     
-    // last index
+    // ====================================================================================================================================================================
+    // Question_6 : last index
+    // =======================
     public static int lastIndex(int[] arr, int idx, int d) {
         if (idx == arr.length)
             return -1;
@@ -72,7 +82,9 @@ public class l002Array {
         return arr[idx] == d ? idx : -1;
     }
     
-    // all index
+    // ====================================================================================================================================================================
+    // Question_7 : all index
+    // ======================
     public static int[] allIndices(int[] arr, int data, int idx, int fsf) {
         if (idx == arr.length)
             return new int[fsf];

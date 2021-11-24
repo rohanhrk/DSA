@@ -506,6 +506,7 @@ public class l001 {
     // Question_17 : Count Inversions
     // https://practice.geeksforgeeks.org/problems/inversion-of-array-1587115620/1
     public static long count = 0;
+
     public static long[] mergeTwoArr(long[] left, long[] right) {
         int l1 = left.length, l2 = right.length;
         long[] res = new long[l1 + l2];
@@ -744,6 +745,7 @@ public class l001 {
 
     // ============================================================================================================================================================================================
     // Question_22 : 1011. Capacity To Ship Packages Within D Days
+    // https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
     private boolean isShipmentPossible(int[] weights, int days, int curr_burden) {
         int day_count = 1, sum = 0;
         for (int val : weights) {
@@ -780,7 +782,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // 410. Split Array Largest Sum
+    // Question_23 : 410. Split Array Largest Sum
     private boolean isSplitPossible(int[] nums, int m, int curr_sum) {
         int count_subarr = 1, sum = 0;
         for (int val : nums) {
@@ -966,5 +968,45 @@ public class l001 {
         }
 
         return arr[idx];
+    }
+
+    // ============================================================================================================================================================================================
+    // Punish the Students 
+    // https://practice.geeksforgeeks.org/problems/punish-the-students5726/1
+    private static void swap(int[] arr, int sp, int lp) {
+        int temp = arr[sp];
+        arr[sp] = arr[lp];
+        arr[lp] = temp;
+    }
+
+    private static int bubbleSort(int[] arr, int n) {
+        int count = 0;
+        int lp = n - 1;
+        while (lp >= 0) {
+            for (int sp = 0; sp < lp; sp++) {
+                if (arr[sp] < arr[sp + 1]) {
+                    swap(arr, sp, sp + 1);
+                    count += 2;
+                }
+            }
+            lp--;
+        }
+
+        return count;
+    }
+
+    public static int shouldPunish(int roll[], int marks[], int n, double avg) {
+        int swap_count = bubbleSort(roll, n);
+        int tMarks = 0;
+        for (int mark : marks)
+            tMarks += mark;
+
+        int nMarks = tMarks - swap_count;
+        double req_avg = (nMarks) * 1.0 / n;
+
+        if (req_avg >= avg)
+            return 1;
+
+        return 0;
     }
 }
