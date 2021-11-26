@@ -5,7 +5,9 @@ public class l002 {
     // *************************** Date - 30/06 ***************************
     public static Scanner scn = new Scanner(System.in);
 
-    // print subsequesne -> upar jate hue storing
+    // ====================================================================================================================================================================
+    // Question_1 : print subsequesne -> upar jate hue storing
+    // =======================================================
     public static void printSS(String str, int idx, String ans) {
         if (idx == str.length()) {
             System.out.println(ans);
@@ -18,7 +20,9 @@ public class l002 {
 
     }
 
+    // ====================================================================================================================================================================
     // using string builder
+    // ====================
     public static void printss_02(String str, int idx, StringBuilder ans) {
         if (idx == str.length()) {
             System.out.println(ans);
@@ -32,8 +36,9 @@ public class l002 {
         printss_02(str, idx + 1, ans);
     }
 
-    // *************************** Date - 1/07 ***************************
-    // ASCII Subsequences
+    // ====================================================================================================================================================================
+    // Question_2 : ASCII Subsequences
+    // ===============================
     public static int countAscii_01(String str, int idx) {
 
         if (idx == str.length()) {
@@ -50,7 +55,9 @@ public class l002 {
 
     }
 
-    // return type(ArrayList) **********************************
+    // ======================
+    // Method_2 : return type(ArrayList)
+    // ======================
     public static ArrayList<String> countAscii_02(String str, int idx) {
         if (idx == -1) {
             ArrayList<String> base = new ArrayList<>();
@@ -71,7 +78,9 @@ public class l002 {
         return myAns;
     }
 
-    // way up->upar jate hue ans storing **********************************
+    // =================================
+    // Method_3 : way up->upar jate hue ans storing
+    // =================================
     public static void countAscii_03(String str, int idx, String ans) {
         if (idx == str.length()) {
             System.out.println(ans);
@@ -87,7 +96,9 @@ public class l002 {
 
     }
 
-    // get key pad combination (kpc) -> way up **********************************
+    // ====================================================================================================================================================================
+    // Question_3 : get key pad combination (kpc) -> way up
+    // ====================================================
     static String[] codes = { ".;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx", "yz" };
 
     public static int getKPC_wayup(String str, int idx, String ans) {
@@ -129,12 +140,43 @@ public class l002 {
         return myAns;
     }
 
-    // maze path (horizontal ans vertical move) **********************************
-
+    // ====================================================================================================================================================================
+    // Quetion_4 : maze path (horizontal/diagonal/vertical move)
+    // =========================================================
     // sr - source row
     // sc - source column
     // dr - destination row
     // dc - destination column
+
+    // ========
+    // mathod_1
+    // ========
+    public static ArrayList<String> maze_path(int[][] maze, int sr, int sc, int dr, int dc, int[][] dir,
+            String[] dir_str) {
+        if (sr == dr && sc == dc) {
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+
+        ArrayList<String> my_ans = new ArrayList<>();
+        for (int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+
+            if (r >= 0 && c >= 0 && r < maze.length && c < maze[0].length) {
+                ArrayList<String> small_ans = maze_path(maze, r, c, dr, dc, dir, dir_str);
+                for (String s : small_ans)
+                    my_ans.add(dir_str[d] + s);
+            }
+        }
+
+        return my_ans;
+    }
+
+    // ========
+    // mathod_2
+    // ========
     public static ArrayList<String> getMazePaths(int sr, int sc, int dr, int dc) {
         if (sr == dr && sc == dc) {
             ArrayList<String> base = new ArrayList<>();
@@ -169,7 +211,9 @@ public class l002 {
 
     }
 
-    // way up
+    // ==================
+    // mathod_3 -> way up
+    // ==================
     public static int getMazePaths_wayup(int sr, int sc, int dr, int dc, String ans) {
         if (sr == dr && sc == dc) {
             System.out.println(ans);
@@ -188,12 +232,46 @@ public class l002 {
 
     }
 
-    // maze path with jump
-
+    // ====================================================================================================================================================================
+    // Question_5 : maze path with jump
+    // ================================
     // sr - source row
     // sc - source column
     // dr - destination row
     // dc - destination column
+
+    // ========
+    // mathod_1
+    // ========
+    public static ArrayList<String> maze_path_with_jumps(int[][] maze, int sr, int sc, int dr, int dc, int[][] dir,
+            String[] dir_str) {
+        if (sr == dr && sc == dc) {
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+
+        ArrayList<String> my_ans = new ArrayList<>();
+        int n = maze.length, m = maze[0].length;
+        for (int d = 0; d < dir.length; d++) {
+            for (int rad = 1; rad < Math.max(n, m); rad++) {
+                int r = sr + rad * dir[d][0];
+                int c = sc + rad * dir[d][1];
+
+                if (r >= 0 && c >= 0 && r < n && c < m) {
+                    ArrayList<String> small_ans = maze_path_with_jumps(maze, r, c, dr, dc, dir, dir_str);
+                    for (String s : small_ans)
+                        my_ans.add(dir_str[d] + rad + s);
+                }
+            }
+        }
+
+        return my_ans;
+    }
+
+    // ========
+    // Mathod_2
+    // ========
     public static ArrayList<String> getMazePathsWithJump_return(int sr, int sc, int dr, int dc) {
         if (sr == dr && sc == dc) {
             ArrayList<String> base = new ArrayList<>();
@@ -231,7 +309,9 @@ public class l002 {
         return myAns;
     }
 
-    // way up
+    // =================
+    // Mathod_3 : way up
+    // =================
     public static int getMazePathsWithJump_wayup(int sr, int sc, int dr, int dc, String ans) {
         if (sr == dr && sc == dc) {
             System.out.println(ans);
@@ -253,7 +333,44 @@ public class l002 {
         return count;
     }
 
-    // print stair path ********************************************
+    // ====================================================================================================================================================================
+    // Question_6 : print stair path -> 1/2/3 steps allowed
+    // ====================================================
+
+    // ========
+    // Mathod_1
+    // ========
+    public static ArrayList<String> path_stair(int sr, int sc, int dr, int dc, int[][] dir) {
+        if (sr == dr && sc == dc) {
+            ArrayList<String> base = new ArrayList<>();
+            base.add("");
+            return base;
+        }
+
+        ArrayList<String> ans = new ArrayList<>();
+        int n = dr + 1, m = dc + 1;
+        for (int d = 0; d < dir.length; d++) {
+            for (int step = 1; step <= 3; step++) {
+                int r = sr + step * dir[d][0];
+                int c = sc + step * dir[d][1];
+
+                if (r >= 0 && c >= 0 && r < n && c < m) {
+                    ArrayList<String> small_ans = path_stair(r, c, dr, dc, dir);
+                    for (String s : small_ans) {
+                        ans.add("" + step + s);
+                    }
+
+                }
+            }
+
+        }
+
+        return ans;
+    }
+
+    // ========
+    // Mathod_2
+    // ========
     public static ArrayList<String> getStairPaths_return(int n) {
         if (n == 0) {
             ArrayList<String> base = new ArrayList<>();
@@ -285,7 +402,9 @@ public class l002 {
 
     }
 
-    // way up
+    // =================
+    // Mathod_3 : way up
+    // =================
     public static void printStairPaths_wayup(int n, String ans) {
         if (n == 0) {
             System.out.println(ans);
@@ -309,6 +428,33 @@ public class l002 {
     }
 
     public static void main(String[] args) {
-        System.out.println(getMazePathsWithJump_wayup(0, 0, 2, 2, ""));
+        // System.out.println(getMazePathsWithJump_wayup(0, 0, 2, 2, ""));
+        int n = 3, m = 10;
+        int[][] maze = new int[n][m];
+        // int[][] dir = {{0,1}, {1, 1}, {1, 0}};
+        String[] dir_str = { "H", "D", "V" };
+
+        // ArrayList<String> ans = maze_path(maze, 0, 0, n - 1, m - 1, dir, dir_str);
+        // for(String s : ans) {
+        // System.out.println(s.toString());
+        // }
+
+        // ArrayList<String> ans = getMazePaths(0, 0, n - 1, m - 1);
+        // for(String s : ans) {
+        // System.out.println(s);
+        // }
+
+        // ArrayList<String> ans = maze_path_with_jumps(maze, 0, 0, n - 1, m - 1, dir,
+        // dir_str);
+        // for(String s : ans) {
+        // System.out.println(s.toString());
+        // }
+
+        int[][] dir = { { 0, 1 } };
+        ArrayList<String> ans = path_stair(0, 0, 0, m, dir);
+        for (String s : ans) {
+            System.out.println(s.toString());
+        }
+
     }
 }

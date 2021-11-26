@@ -103,14 +103,9 @@ public class heap {
     // ===========_UpHeapiFy_===========
     private void upheapify(int ci) { // O(logn)
         int pi = (ci - 1) / 2; // parent index
-        int minIdx = ci;
-
-        if (pi >= 0 && compareTo(minIdx, pi) > 0)
-            minIdx = pi;
-
-        if (minIdx != ci) {
-            swap(minIdx, ci);
-            upheapify(minIdx);
+        if(pi >= 0 && compareTo(ci, pi) > 0) {
+            swap(ci, pi);
+            upheapify(ci);
         }
     }
 
@@ -118,8 +113,8 @@ public class heap {
     // ===========_DownHeapiFy_===========
     private void downHeapify(int pi) { // O(logn)
         int maxIdx = pi;
-        int lci = 2 * pi + 1;
-        int rci = 2 * pi + 2;
+        int lci = 2 * pi + 1; // left child
+        int rci = 2 * pi + 2; // right child
 
         if (lci < this.arr.size() && compareTo(lci, maxIdx) > 0)
             maxIdx = lci;

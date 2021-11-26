@@ -1,4 +1,4 @@
-// *********************************************_DATE:-6/07/2021_*********************************************
+import java.util.LinkedList;
 public class question {
     public class Node {
         int data;
@@ -9,7 +9,7 @@ public class question {
     Node tail = null;
     int size = 0;
 
-    // *************************_Mid_Of_LL_*************************
+    // ==========================================================
     public int mid() {
         // write your code here
         Node fast = head;

@@ -1,6 +1,7 @@
 package linkedlist_class;
 
-// *********************************************_DATE:-5/07/207_*********************************************
+import java.util.*;
+
 public class linkedList {
     // node ka class
     private class Node {
@@ -18,7 +19,10 @@ public class linkedList {
     private Node tail = null;
     private int sizeOfLL = 0;
 
-    // ***************_basic_function_***************
+    // ========================================================================================================================================================================
+    // ==============
+    // basic function
+    // ==============
     public boolean isEmpty() {
         return this.sizeOfLL == 0;
     }
@@ -27,7 +31,6 @@ public class linkedList {
         return this.sizeOfLL;
     }
 
-    // *********_display_*********
     public void display() {
         Node curr = this.head;
         while (curr != null) {
@@ -36,9 +39,10 @@ public class linkedList {
         }
         System.out.println();
     }
-
-    // *********************************************
-    // ***************_Exceptions_***************
+    // ========================================================================================================================================================================
+    // ==================
+    // EXCEPTION HANDLING
+    // ==================
     private void EmptyException() throws Exception {
         if (this.sizeOfLL == 0) {
             throw new Exception("LinkedList is Empty: -1 pepcoding");
@@ -54,10 +58,13 @@ public class linkedList {
         if (idx < 0 || idx > this.sizeOfLL)
             throw new Exception("Index Out Of Bound : -1");
     }
-
-    // *********************************************_LinkedList_Function_*********************************************
-     // GETTER SETTER REMOVE FUNCTION
-    // ***************_Get_***************
+    // ========================================================================================================================================================================
+    // GETTER SETTER REMOVE FUNCTION
+    // =============================
+    
+    // =================
+    // 1. get() function
+    // =================
     public int getFirst() throws Exception { // get first
         EmptyException();
         return this.head.data;
@@ -84,7 +91,13 @@ public class linkedList {
     }
     
 
-    // ***************_Add_***************
+    // ========================================================================================================================================================================
+    // 2. add() function
+    // =================
+
+    // =============
+    // addFirst(data)
+    // ==============
     private void addFirstNode(Node node) {
         if (this.head == null) {
             this.head = node;
@@ -96,12 +109,14 @@ public class linkedList {
 
         this.sizeOfLL++;
     }
-
     public void addFirst(int data) { // add first
         Node node = new Node(data);
         addFirstNode(node);
     }
 
+    // ===========
+    // addLst(data)
+    // ===========
     private void addLastNode(Node node) {
         if (this.head == null) {
             this.head = node;
@@ -114,11 +129,15 @@ public class linkedList {
         this.sizeOfLL++;
     }
 
+ 
     public void addLast(int data) { // add last
         Node node = new Node(data);
         addLastNode(node);
     }
 
+    // ================
+    // addAt(idx, data)
+    // ================
     private void addAtNode(int idx, Node node) {
         if (idx == 0)
             addFirstNode(node);
@@ -143,8 +162,14 @@ public class linkedList {
         addAtNode(idx, node);
     }
 
-    // remove_========================================================================
+    // ========================================================================================================================================================================
+    // ====================
+    // 3. remove() function
+    // ====================
 
+    // =============
+    // removeFirst()
+    // =============
     private Node removeFirstNode() {
         Node removeNode = this.head;
         if (this.sizeOfLL == 1) {
@@ -166,6 +191,9 @@ public class linkedList {
         return node.data;
     }
 
+    // ============
+    // removeLast()
+    // ============
     private Node removeLastNode() {
         Node removeNode = this.tail;
         if (this.sizeOfLL == 1) {
@@ -188,6 +216,9 @@ public class linkedList {
         return node.data;
     }
 
+    // ==========
+    // removeAt()
+    // ==========
     private Node removeNodeAt(int idx) throws Exception {
         if (this.sizeOfLL == 1)
             return removeFirstNode();
