@@ -8,7 +8,9 @@ public class l002Segregate {
         }
     }
 
-    // segregate odd even
+    // =============================================================================================================================================================================================
+    // Question_1: segregate odd even
+    // https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
     public static ListNode segregateEvenOdd(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -35,7 +37,9 @@ public class l002Segregate {
         return head;
     }
 
-    // Segregate 01 Node Of Linkedlist Over Swapping Nodes
+    // =============================================================================================================================================================================================
+    // Quesstion_2 : Segregate 01 Node Of Linkedlist Over Swapping Nodes
+    // =================================================================
     public static ListNode segregate01(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -63,7 +67,10 @@ public class l002Segregate {
         return head;
     }
 
-    // Segregate 012 Node Of Linkedlist
+    // =============================================================================================================================================================================================
+    // Question_3 : Segregate 012 Node Of Linkedlist
+    // https://practice.geeksforgeeks.org/problems/given-a-linked-list-of-0s-1s-and-2s-sort-it/1
+    // =========================================================================================
     public static ListNode segregate012(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -96,7 +103,9 @@ public class l002Segregate {
         return head;
     }
 
-    // Segregate Node Of Linkedlist Over Last Index.
+    // =============================================================================================================================================================================================
+    // Question_4 : Segregate Node Of Linkedlist Over Last Index
+    // =========================================================
     public static ListNode segregateOnLastIndex(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -128,7 +137,9 @@ public class l002Segregate {
         return head;
     }
 
-    // Segregate Node Of Linkedlist Over Pivot Index
+    // =============================================================================================================================================================================================
+    // Question_5 : Segregate Node Of Linkedlist Over Pivot Index
+    // ==========================================================
     public static ListNode segregate(ListNode head, int pivotIdx) {
         if (head == null || head.next == null)
             return head;

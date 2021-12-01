@@ -10,7 +10,9 @@ public class l003Leetcode {
         }
     }
 
-    // leecode 19. Remove Nth Node From End of List
+    // ===================================================================================================================================================
+    // Question_1 : 19. Remove Nth Node From End of List
+    // https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/
     public ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null || n <= 0)
             return head;
@@ -42,7 +44,40 @@ public class l003Leetcode {
         return head;
     }
 
-    // 328. Odd Even Linked List
+    // ===================================================================================================================================================
+    // Question_2 :1721. Swapping Nodes in a Linked List
+    // https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+    private ListNode getNodeAt(ListNode head, int index) {
+        ListNode curr = head;
+        while(index-- > 0) 
+            curr = curr.next;
+        return curr;
+    }
+    
+    private void swap1(ListNode c1, ListNode c2) {
+        int temp = c1.val;
+        c1.val = c2.val;
+        c2.val = temp;
+    }
+    
+    public ListNode swapNodes1(ListNode head, int k) {
+        ListNode slow = head;
+        ListNode fast = head;
+        fast = getNodeAt(head, k - 1);
+        
+        ListNode c1 = fast; // backup
+        while(fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        ListNode c2 = slow; // backup
+        swap1(c1, c2);
+        return head;
+    }
+    // ===================================================================================================================================================
+    // Question_3 : 328. Odd Even Linked List
+    // https://leetcode.com/problems/odd-even-linked-list/
     public ListNode oddEvenList(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -72,7 +107,9 @@ public class l003Leetcode {
         return head;
     }
 
-    // 143. Reorder List
+    // ===================================================================================================================================================
+    // Question_4 : 143. Reorder List
+    // https://leetcode.com/problems/reorder-list/
     public static ListNode middleNode(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -130,7 +167,9 @@ public class l003Leetcode {
         }
     }
 
-    // 1721. Swapping Nodes in a Linked List
+    // ===================================================================================================================================================
+    // Question_2 :1721. Swapping Nodes in a Linked List
+    // https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
     public void swap(ListNode c1, ListNode c2) {
         int a = c1.val, b = c2.val;
 
@@ -168,7 +207,9 @@ public class l003Leetcode {
         return head;
     }
 
+    // ===================================================================================================================================================
     // 86. Partition List
+    // https://leetcode.com/problems/partition-list/submissions/
     public ListNode partition(ListNode head, int x) {
         if (head == null || head.next == null)
             return head;

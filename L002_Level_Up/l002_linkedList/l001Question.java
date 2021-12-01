@@ -8,7 +8,9 @@ public class l001Question {
         }
     }
 
-    // first mid
+    // ===================================================================================================================================================
+    // Question_1 : first mid
+    // https://leetcode.com/problems/middle-of-the-linked-list/
     public static ListNode middleNode1(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -23,7 +25,9 @@ public class l001Question {
         return slow;
     }
 
+    // ==========
     // second mid
+    // ==========
     public static ListNode middleNode2(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -38,7 +42,9 @@ public class l001Question {
         return slow;
     }
 
-    // reverse a linkedList
+    // ===================================================================================================================================================
+    // Question_2 : reverse a linkedList
+    // https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1
     public static ListNode reverse(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -58,7 +64,9 @@ public class l001Question {
         return prev;
     }
 
-    // palindrome of a linkedlist
+    // ===================================================================================================================================================
+    // Question_3 : palindrome of a linkedlist
+    // https://practice.geeksforgeeks.org/problems/check-if-linked-list-is-pallindrome/1
     public static boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null)
             return true;
@@ -88,7 +96,9 @@ public class l001Question {
         return res;
     }
 
-    // fold of a linkedlist
+    // ===================================================================================================================================================
+    // Question_4 : fold of a linkedlist
+    // https://practice.geeksforgeeks.org/problems/reorder-list/1
     public static void fold(ListNode head) {
         if (head == null || head.next == null)
             return;
@@ -113,7 +123,9 @@ public class l001Question {
         }
     }
 
-    // unfold of linkedList
+    // ===================================================================================================================================================
+    // Question_5 : unfold of linkedList
+    // https://www.geeksforgeeks.org/program-to-unfold-a-folded-linked-list/
     public static void unfold(ListNode head) {
         if (head == null || head.next == null)
             return;
@@ -168,7 +180,9 @@ public class l001Question {
         p1.next = p2;
     }
 
-    // merge two sorted lit
+    // ===================================================================================================================================================
+    // Question_6 : merge two sorted list
+    // https://leetcode.com/problems/merge-two-sorted-lists/
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null || l2 == null)
             return l1 != null ? l1 : l2;
@@ -191,7 +205,9 @@ public class l001Question {
         return dummy.next;
     }
 
-    // merge k sorted list
+    // ===================================================================================================================================================
+    // Question_7 : 23. Merge k Sorted Lists
+    // https://leetcode.com/problems/merge-k-sorted-lists/
     public static ListNode mergeKLists(ListNode[] lists) {
         ListNode dummy = null;
 
@@ -218,7 +234,8 @@ public class l001Question {
         return mergeKLists(lists, 0, lists.length);
     }
 
-    // merge Sort
+    // ===================================================================================================================================================
+    // Question_8 : merge Sort
     public static ListNode mergeSort(ListNode head) {
         if (head == null || head.next == null)
             return head;

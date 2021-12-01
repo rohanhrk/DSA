@@ -23,7 +23,6 @@ public class l004QuickSortArrays {
 	}
 
 	public static void quickSort(int[] arr, int si, int ei) {
-		// System.out.println("1");
 		if (si > ei)
 			return;
         

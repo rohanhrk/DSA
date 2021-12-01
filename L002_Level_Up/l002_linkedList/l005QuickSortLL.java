@@ -77,6 +77,8 @@ public class l005QuickSortLL {
 
         return new ListNode[] {head, tail};
     }
+
+    // {LH, LT, PN, RH, RT}
     public static ListNode[] quickSort(ListNode head) {
         if (head == null || head.next == null)
             return new ListNode[] { head, head };
