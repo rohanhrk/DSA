@@ -9,7 +9,7 @@ public class l004 {
     public static int findTargetSumWays(int[] arr, int idx, int s) {
         // Write your code here
         if (idx == arr.length) {
-            return (s == 0) ? 1 : 0;j
+            return (s == 0) ? 1 : 0;
         }
 
         int count = 0;
