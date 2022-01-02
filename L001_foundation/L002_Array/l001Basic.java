@@ -26,8 +26,7 @@ public class l001Basic {
     }
 
     // ===================================================================================================================================================
-    // ==============_maximum_==============
-    // =====================================
+    // Question_1 : maximum
     public static int maximumElem(int[] arr) {
         int maxElem = (int) -1e8;
         for (int i = 0; i < arr.length; i++) {
@@ -39,8 +38,8 @@ public class l001Basic {
         return maxElem;
     }
 
-    // ==============_minimum_==============
-    // =====================================
+    // ===================================================================================================================================================
+    // Question_2 : minimum
     public static int miniumElem(int[] arr) {
         int minElem = (int) 1e8;
         for (int i = 0; i < arr.length; i++) {
@@ -52,8 +51,8 @@ public class l001Basic {
         return minElem;
     }
 
-    // ==============_Find_Element_==============
-    // ==========================================
+    // ===================================================================================================================================================
+    // Question_3 : Find_Element
     public static int findElem(int[] arr, int data) {
         int idx = -1;
         for (int i = 0; i < arr.length; i++) {
@@ -65,8 +64,8 @@ public class l001Basic {
         return idx;
     }
 
-    // ==============_first_index_==============
-    // =========================================
+    // ===================================================================================================================================================
+    // Question_4 : first_index
     public static int firstIndex(int[] arr, int data) {
         int idx = -1;
         for (int i = 0; i < arr.length; i++) {
@@ -78,8 +77,8 @@ public class l001Basic {
         return idx;
     }
 
-    // ==============_last_index_==============
-    // ========================================
+    // ===================================================================================================================================================
+    // Question_5 : last_index
     public static int lastIndex(int[] arr, int data) {
         int idx = -1;
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -91,8 +90,7 @@ public class l001Basic {
         return idx;
     }
 
-    // ==============_span_of_array_==============
-    // ===========================================
+    // Question_6 : span_of_array
     public static int spanOfArray(int[] arr) {
         int maxElem = maximumElem(arr);
         int minElem = miniumElem(arr);
@@ -106,8 +104,8 @@ public class l001Basic {
         arr[j] = temp;
     }
 
-    // ==============_reverse_array_==============
-    // ===========================================
+    // ===================================================================================================================================================
+    // Question_7 : reverse_array
     public static void reverseArray(int[] arr) {
         int i = 0;
         int j = arr.length - 1;
@@ -119,8 +117,8 @@ public class l001Basic {
         }
     }
 
-    // ==============_digit_frequency_==============
-    // =============================================
+    // ===================================================================================================================================================
+    // Question_8 : digit_frequency
     public static int digitFrequency(int num, int data) {
         int digitCount = 0;
 
@@ -136,8 +134,8 @@ public class l001Basic {
         return digitCount;
     }
 
-    // ==============sum_of_two_arrays_==============
-    // ==============================================
+    // ===================================================================================================================================================
+    // Question_9 : sum_of_two_arrays
     public static void sumOfTwoArrays(int[] arr1, int[] arr2) {
         int p = arr1.length;
         int q = arr2.length;
@@ -165,8 +163,10 @@ public class l001Basic {
         }
     }
 
-    // difference of two arrays
+    // ===================================================================================================================================================
+    // Question_10 : difference_of_two_arrays
     public static void diffOfTwoArrays(int[] arr1, int[] arr2) {
+        // assumption => len(arr1) > len(arr2)
         int p = arr1.length;
         int q = arr2.length;
         int r = Math.max(p, q);
@@ -176,34 +176,29 @@ public class l001Basic {
         int i = p - 1, j = q - 1, k = r - 1, borrow = 0;
 
         while (k >= 0) {
-            int num = borrow;
+            int num2 = (j >= 0) ? arr2[j--] : 0;
+            int num1 = borrow + arr1[i--];
 
-            if (i >= 0)
-                num += arr1[i--];
-            if (j >= 0)
-                num -= arr2[j--];
+            int difference = (num1 >= num2) ? num1 - num2 : num1 + 10 - num2;
+            borrow = (num1 >= num2) ? 0 : -1;
 
-            if (num < 0) {
-                num += 10;
-                borrow = -1;
-            } else {
-                borrow = 0;
-            }
-
-            ans[k--] = num;
+            ans[k--] = difference;
         }
 
-        boolean flag = false;
-        for (int l = 0; l < ans.length; l++) {
-            if (!flag && ans[l] == 0)
-                continue;
-
-            System.out.println(ans[l]);
-            flag = true;
+        // edge case
+        int idx = 0;
+        while(ans[idx] == 0) {
+            idx++;
         }
+
+        // print ans
+        while(idx < ans.length)
+            System.out.println(ans[idx++]);
     }
 
-    // rotate an array by k
+    // ===================================================================================================================================================
+    // Question_11 : 189. Rotate Array
+    // https://leetcode.com/problems/rotate-array/
     public static void swapFunc(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
@@ -226,7 +221,8 @@ public class l001Basic {
         reverseFunc(arr, k, n - 1);
     }
 
-    // inverse of an array
+    // ===================================================================================================================================================
+    // Question_12 : inverse of an array
     public static int[] inverseOfAnArrays(int[] arr) {
         int[] ans = new int[arr.length];
 
@@ -238,19 +234,21 @@ public class l001Basic {
         return ans;
     }
 
-    // subArrays
+    // ===================================================================================================================================================
+    // Question_13 : subArrays
     public static void subArrays(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i; j < arr.length; j++) {
-                for (int k = i; k <= j; k++) {
-                    System.out.print(arr[k] + " ");
+        for (int si = 0; si < arr.length; si++) {
+            for (int ei = si; ei < arr.length; ei++) {
+                for (int t = si; t <= ei; t++) {
+                    System.out.print(arr[t] + " ");
                 }
                 System.out.println();
             }
         }
     }
 
-    // Binary Search
+    // ===================================================================================================================================================
+    // Question_14 : Binary Search
     public static int binarySearch(int[] arr, int data) {
         int si = 0;
         int ei = arr.length - 1;

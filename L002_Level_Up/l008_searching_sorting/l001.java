@@ -971,7 +971,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Punish the Students 
+    // Question_18 : Punish the Students 
     // https://practice.geeksforgeeks.org/problems/punish-the-students5726/1
     private static void swap(int[] arr, int sp, int lp) {
         int temp = arr[sp];
@@ -1008,5 +1008,13 @@ public class l001 {
             return 1;
 
         return 0;
+    }
+
+    // ============================================================================================================================================================================================
+    // Question_19 : 3. Longest Substring Without Repeating Characters
+    // https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+    public int lengthOfLongestSubstring(String s) {
+        
     }
 }

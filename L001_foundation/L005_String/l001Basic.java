@@ -4,14 +4,14 @@ import java.util.ArrayList;
 public class l001Basic {
     public static Scanner scn = new Scanner(System.in);
     
-    // **************************************************************** DATE - 25/05 ****************************************************************
+    // ===============================================================================================================================================
     public static void test1() {
         // string is a immutable means not possible to change on same address
         String str = "sdsdfsdfdgfdg"; // it stores in intern pool
         String str1 = str;  // o(1) -> pointing on same address of str
 
         str += 'g' ; //O(n) -> creating copy of str and then 'g' is added in last
-        char ch = str.charAt(3); // get char
+        char ch = str.charAt(3); // get charn
     }
 
     public static void test2() {
@@ -58,8 +58,8 @@ public class l001Basic {
 
         return sb.toString();
     } 
-    // Question ======================================================
-    // compression
+    // ===============================================================================================================================================
+    // Question_1 : compression
 
     public static String compression1_mathod1(String str) {
         int i = 0, j = 0, count = 0;
@@ -137,8 +137,8 @@ public class l001Basic {
         return sb.toString();
     }
     
-    // **************************************************************** DATE: 26/06 ****************************************************************
-    // toggle
+    //  ===============================================================================================================================================
+    // Question_2 : toggle
     public static String toggle(String str) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0 ; i < str.length(); i++) {
@@ -156,8 +156,8 @@ public class l001Basic {
         return sb.toString();
     }
     
-    
-    // palindromic substring
+    // ===============================================================================================================================================
+    // Question_3 : palindromic substring
     public static boolean isPalindrome(String str) {
         int i = 0, j = str.length() - 1;
         while(i < j) {
@@ -170,12 +170,14 @@ public class l001Basic {
         for(int i = 0; i < str.length(); i++) {
             for(int j =i ; j < str.length(); j++) {
                 String ss =  str.substring(i,j+1);
-                if(isPalindrome(ss)) System.out.println(ss);
+                if(isPalindrome(ss)) 
+                    System.out.println(ss);
             }
         }
     }
 
-    // String With Difference Of Every Two Consecutive Characters
+    // ===============================================================================================================================================
+    // Question_4 : String With Difference Of Every Two Consecutive Characters
     public static String string_With_Diff_Of_Every_Two_Consecutive_Number(String str) {
         if(str.length() <= 1) return str;
         StringBuilder sb = new StringBuilder();
@@ -192,35 +194,8 @@ public class l001Basic {
         return sb.toString();
     }
     
-    // permutation of string -> method 1
-    public static int factorial(int n) {
-        int fact = 1;
-
-        for(int i = n; i >= 1; i--) {
-            fact *= i;
-        }
-
-        return fact;
-    }
-    public static void permutationString_mathod1(String str) {
-        int n = str.length() , fact = factorial(n);
-
-        for(int i = 0; i < fact ; i++) {
-            StringBuilder sb = new StringBuilder(str);
-            int temp = i;
-            for(int j = n; j >= 1; j--) {
-                int rem = temp % j;
-                temp /= j;
-
-                char ch = sb.charAt(rem);
-                System.out.print(ch);
-                sb.deleteCharAt(rem);
-            }
-            System.out.println();
-        }
-    }
-
-    //Permutation => method 2
+    // ===============================================================================================================================================
+    // Question_5 : permutation of string
     public static void appendCharInString(String str,char ch,ArrayList<String> ans){
         for(int i=0;i<=str.length();i++){
             String s = str.substring(0,i) + ch + str.substring(i);
