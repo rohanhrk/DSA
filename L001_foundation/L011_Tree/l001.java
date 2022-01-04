@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-// ============================================== DATE :- 6 / 07 / 2021 ==============================================
 public class l001 {
     public static class Node {
         int data = 0;
@@ -12,8 +11,10 @@ public class l001 {
         }
     }
 
-    // traversal of tree_
-    // ==================================================================
+    
+    // ==============================================================================================================================================================
+    // Question_1 : Traversal of Binary tree
+    // pre order
     public static void preOrderTraversal(Node root, ArrayList<Integer> ans) { // pre order
         if (root == null) {
             return;
@@ -24,6 +25,7 @@ public class l001 {
         preOrderTraversal(root.right, ans);
     }
 
+    // In order
     public static void inOrderTraversal(Node root, ArrayList<Integer> ans) { // In order
         if (root == null) {
             return;
@@ -34,6 +36,7 @@ public class l001 {
         inOrderTraversal(root.right, ans);
     }
 
+    // post order
     public static void postOrderTraversal(Node root, ArrayList<Integer> ans) { // post order
         if (root == null) {
             return;
@@ -44,9 +47,8 @@ public class l001 {
         ans.add(root.data);
     }
 
-    // Basic
-    // function_=========================================================================
-    // 1. size
+    // ==============================================================================================================================================================
+    // Question_2 : size
     public static int size(Node root) {
         if (root == null)
             return 0;
@@ -56,7 +58,9 @@ public class l001 {
         return left + right + 1;
     }
 
-    // 2. height -> In Terms Of Edge
+    // ==============================================================================================================================================================
+    // Question_3 : height
+    // =======> In Terms Of Edge
     public static int height(Node root) {
         if (root == null) {
             return -1;
@@ -68,7 +72,7 @@ public class l001 {
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
-    // In terms of Nodes
+    // =======> In terms of Nodes
     public static int heightInTermsOfNode(Node root) {
         if (root == null) {
             return 0;
@@ -80,7 +84,8 @@ public class l001 {
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
-    // 3. Maximum
+    // ==============================================================================================================================================================
+    // Question_4 : Maximum
     public static int maximum(Node root) {
         if (root == null) {
             return (int) -1e8;
@@ -92,7 +97,8 @@ public class l001 {
         return Math.max(Math.max(leftMax, rightMax), root.data);
     }
 
-    // 4. Minimum
+    // ==============================================================================================================================================================
+    // Question_5 : Minimum
     public static int minimum(Node root) {
         if (root == null) {
             return (int) 1e8;
@@ -104,8 +110,9 @@ public class l001 {
         return Math.min(Math.min(leftMin, rightMin), root.data);
     }
 
-    // Question_=======================================================
-    // 1. ***************************_Sum_***************************
+
+    // ==============================================================================================================================================================
+    // Question_6 : Sum
     public static int sum(Node root) {
         if (root == null)
             return 0;
@@ -115,7 +122,8 @@ public class l001 {
         return leftSum + root.data + rightSum;
     }
 
-    // 2. ***************************_find data_***************************
+    // ==============================================================================================================================================================
+    // Question_7 : find data
     public static boolean findData(Node root, int data) {
         if (root == null)
             return false;
@@ -124,11 +132,12 @@ public class l001 {
         return res || findData(root.left, data) || findData(root.right, data);
     }
 
-    // ==============================================_DATE_:-_7/072021_==============================================
-
-    // 3. ***************************_print_node_k_distances_away_***************************
-    // *************** Important(Amazon ka fav. interview question) ****************************
-
+    // ==============================================================================================================================================================
+    // Question_8 : print_node_k_distances_away
+    // https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+    /* 
+        Important(Amazon ka fav. interview question) 
+    */ 
     // a. root to node path
     public static boolean rootToNodePath(Node root, int data, ArrayList<Node> ans) {
         if (root == null)
@@ -143,18 +152,18 @@ public class l001 {
         return res;
 
     }
-    
+
     public static void print_At_K_Depth(Node root, int k, Node blockNode, ArrayList<Integer> ans) {
         if (root == null || root == blockNode || k < 0) // base case
             return;
 
-        if (k == 0) {     // base case 2
+        if (k == 0) { // base case 2
             ans.add(root.data);
             return;
         }
 
-        print_At_K_Depth(root.left, k - 1, block, ans);
-        print_At_K_Depth(root.right, k - 1, block, ans);
+        print_At_K_Depth(root.left, k - 1, blockNode, ans);
+        print_At_K_Depth(root.right, k - 1, blockNode, ans);
     }
 
     public ArrayList<Integer> distanceK(Node root, Node target, int k) {
@@ -163,17 +172,18 @@ public class l001 {
 
         ArrayList<Integer> ans = new ArrayList<>();
 
-        Node block = null;
+        Node block_node = null;
         for (int i = 0; i < path.size(); i++) {
-            print_At_K_Depth(path.get(i), k - i, block, ans);
-            block = path.get(i);
+            Node node = path.get(i);
+            print_At_K_Depth(node, k - i, block_node, ans);
+            block_node = node;
         }
 
         return ans;
     }
 
-    // 4. ***************************_remove single
-    // child_***************************
+    // ==============================================================================================================================================================
+    // Question_9 : print single child node
     public static void printSingleChildNodes(Node node, Node parent) {
         // write your code here
         if (node == null)
@@ -188,7 +198,9 @@ public class l001 {
 
     }
 
-    // 5. ***************************_remove leafs node_***************************
+    // ==============================================================================================================================================================
+    // question_10 : remove leafs node in binary tree
+    // method_1 : return type
     public static Node removeLeaves(Node node) {
         // write your code here
         if (node == null)
@@ -203,8 +215,7 @@ public class l001 {
         return node;
     }
 
-    // ==============================================_DATE:-8/07/2021_==============================================
-    // void type
+    // method_2 : void type
     public static void removeLeaves_void(Node node, Node parent) {
         if (node == null)
             return;
@@ -230,9 +241,12 @@ public class l001 {
         return node;
     }
 
-    // ***************************_Is BST_***************************
-    public static Node prev = null;
+    // ==============================================================================================================================================================
+    // Question_11 : Is a BST
+    // https://practice.geeksforgeeks.org/problems/check-for-bst/1/
 
+    // method_1 : boolean type
+    public static Node prev = null;
     public static boolean isBST(Node node) {
         if (node == null)
             return true;
@@ -243,7 +257,7 @@ public class l001 {
 
         if (prev != null && prev.data > node.data) // In region
             return false;
-        prev = node;
+        prev = node; // update prev
 
         boolean right = isBST(node.right); // right call
         if (!right)
@@ -252,7 +266,7 @@ public class l001 {
         return true;
     }
 
-    // return type -> khudka class banaya -> isBSTsolPair
+    // method_2 : return type -> khudka class banaya -> isBSTsolPair
     public static class isBSTsolPair {
         int maxEle = -(int) 1e8;
         int minEle = (int) 1e8;
@@ -279,7 +293,10 @@ public class l001 {
         return myRes;
     }
 
-    // ***************************_Is balace tree_***************************
+    // ==============================================================================================================================================================
+    // Question_12 : Is balace tree
+    // https://leetcode.com/problems/balanced-binary-tree/
+
     // create class isBalPair
     public static class isBalPair {
         int height = -1;
@@ -308,7 +325,7 @@ public class l001 {
         return myRes;
     }
 
-    // ***************************_Is_BST_/_Is_balance_/_largest_BST_Node_/_Total_of_BST_***************************
+    // Question_13 : Is_BST/Is balance/largest BST Node / Total of BST
     public static class binarySearchTree {
         int maxEle = -(int) 1e8;
         int minEle = (int) 1e8;
