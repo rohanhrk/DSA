@@ -11,7 +11,7 @@ public class l002BST {
         }
     }
 
-    // *****************_constructor_of_bst_*****************
+    /* Constructor of BST */
     public static Node constructTree(int[] arr, int si, int ei) {
         if (si > ei)
             return null;
@@ -29,23 +29,27 @@ public class l002BST {
         return constructTree(arr, 0, arr.length - 1);
     }
 
-    // *****************_size_*****************
+    // ==============================================================================================================================================================
+    // Question_1 : size of BST
     public static int size(Node node) {
         return (node == null) ? 0 : size(node.left) + size(node.right) + 1;
     }
 
-    // *****************_Sum_*****************
+    // ==============================================================================================================================================================
+    // Question_2 : sum of BST
     public static int sum(Node node) {
         // write your code here
         return node == null ? 0 : sum(node.left) + sum(node.right) + node.data;
     }
 
-    // *****************_heigth_*****************
+    // ==============================================================================================================================================================
+    // Question_3: height of bst
     public static int height(Node node) {
         return (node == null) ? -1 : Math.max(height(node.left), height(node.right)) + 1;
     }
 
-    // *****************_maximum_*****************
+    // ==============================================================================================================================================================
+    // Question_4 : maximum in BST
     // without recursion
     public static int maximum(Node node) {
         Node curr = node;
@@ -66,7 +70,9 @@ public class l002BST {
         return maximum_rec(node.right);
     }
 
-    // *****************_mainimum_*****************
+    // ==============================================================================================================================================================
+    // Question_5 : minimum in BST
+    // without recursion
     public static int minimum(Node node) {
         Node curr = node;
 
@@ -83,8 +89,11 @@ public class l002BST {
         return node.left == null ? node.data : minimum_rec(node.left);
     }
 
-    // *****************_find_*****************
-    // using recursion
+    // ==============================================================================================================================================================
+    // Question_6 : find node
+    // https://leetcode.com/problems/search-in-a-binary-search-tree/
+
+    /* using recursion */
     public static boolean findData(Node node, int data) {
         if (node == null)
             return false;
@@ -98,6 +107,7 @@ public class l002BST {
 
     }
 
+    /* without recursion */
     public static boolean find(Node node, int data) {
         Node curr = node;
 
@@ -113,8 +123,9 @@ public class l002BST {
         return false;
     }
 
-    // *****************_add_Node_*****************
-
+    // ==============================================================================================================================================================
+    // Question_7 : add Node
+    // https://leetcode.com/problems/insert-into-a-binary-search-tree/
     public static Node add(Node node, int data) {
         if (node == null) {
             Node base = new Node(data);
@@ -131,7 +142,9 @@ public class l002BST {
         return node;
     }
 
-    // *****************_LCA(lowest common ancestor)_*****************
+    // ==============================================================================================================================================================
+    // Question_8 : LCA
+    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
     public static Node LCA(Node node, int p, int q) {
         Node curr = node;
         while (curr != null) {
@@ -154,8 +167,10 @@ public class l002BST {
         else
             return node.data;
     }
-    // *****************_Remove_Node_*****************
 
+    // ==============================================================================================================================================================
+    // Question_9 : remove node in bst
+    // https://leetcode.com/problems/delete-node-in-a-bst/
     public static Node removeNode(Node node, int data) {
         if (node == null) {
             return null;
@@ -171,26 +186,41 @@ public class l002BST {
 
             int minData = minimum(node.right);
             node.data = minData;
-            removeNode(node.right, minData);
+            node.right = removeNode(node.right, minData);
         }
 
         return node;
     }
 
-    // *****************_Target_Sum_Pair_*****************
-    public static void targetSumPair(Node root, Node node, int tar) {
+    // ==============================================================================================================================================================
+    // Question_10 : target sum pair
+    // https://practice.geeksforgeeks.org/problems/find-a-pair-with-given-target-in-bst/1/#
+    public boolean isPairPresent_(Node root, Node node, int tar) {
         if (node == null)
-            return;
+            return false;
 
-        targetSumPair(root, node.left, tar);
+        boolean left = isPairPresent_(root, node.left, tar);
+        if (left)
+            return true;
 
         int comp = tar - node.data;
         if (comp > node.data) {
-            if (findData(root, comp) == true)
-                System.out.println(node.data + " " + comp);
+            if (findData(root, comp) == true) {
+                return true;
+            }
         }
 
-        targetSumPair(root, node.right, tar);
+        boolean right = isPairPresent_(root, node.right, tar);
+        if (right)
+            return true;
+
+        return left || right;
+    }
+
+    public int isPairPresent(Node root, int target) {
+        // Write your code here
+        return isPairPresent_(root, root, target) ? 1 : 0;
+
     }
 
 }

@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-// **********************_DATE:10/07/2021_**********************
 public class l003GT {
     // Node ka class
     public static class Node {
@@ -12,7 +11,8 @@ public class l003GT {
         }
     }
 
-    // ***********_size_***********
+    // ==============================================================================================================================================================
+    // Question_1 : size of generic tree
     public static int size(Node node) {
         int size = 0;
 
@@ -23,7 +23,8 @@ public class l003GT {
         return size + 1;
     }
 
-    // ***********_height_***********
+    // ==============================================================================================================================================================
+    // Question_2 : height of tree
     public static int height(Node node) {
         int h = -1;
 
@@ -34,7 +35,8 @@ public class l003GT {
         return h + 1;
     }
 
-    // ***********_Maximum_***********
+    // ==============================================================================================================================================================
+    // Question_3 : Maximum
     public static int max(Node node) {
         int max = 0;
 
@@ -45,7 +47,8 @@ public class l003GT {
         return Math.max(max, node.data);
     }
 
-    // ***********_Minimum_***********
+    // ==============================================================================================================================================================
+    // Question_4 : Minimum
     public static int min(Node node) {
         int min = 0;
 
@@ -56,7 +59,8 @@ public class l003GT {
         return Math.min(min, node.data);
     }
 
-    // ***********_find_***********
+    // ==============================================================================================================================================================
+    // Question_5 : find
     public static boolean find(Node node, int data) {
         // write your code here
         boolean res = node.data == data;
@@ -67,9 +71,9 @@ public class l003GT {
         return res;
     }
 
-    // ***********_root to node path_***********
+    // ==============================================================================================================================================================
+    // Question_6 : root to node path
     public static boolean rootToNodePath(Node node, int data, ArrayList<Node> ans) {
-        // write your code here
         boolean res = node.data == data;
         for (Node child : node.childs) {
             res = res || rootToNodePath(child, data, ans);
@@ -79,7 +83,8 @@ public class l003GT {
         return res;
     }
 
-    // ***********_lca in bst_***********
+    // ==============================================================================================================================================================
+    // Question_7 : LCA in GTree
     public static int lca(Node root, int d1, int d2) {
         ArrayList<Node> list1 = new ArrayList<>();
         ArrayList<Node> list2 = new ArrayList<>();
@@ -103,7 +108,9 @@ public class l003GT {
         return lca.data;
     }
 
-    // ***********_Distance Between Two Nodes In A Generic Tree_***********
+
+    // ==============================================================================================================================================================
+    // Question_8 : _Distance Between Two Nodes In A Generic Tree_
     public static int distanceBetweenNodes(Node root, int d1, int d2) {
         ArrayList<Node> list1 = new ArrayList<>();
         ArrayList<Node> list2 = new ArrayList<>();
@@ -173,7 +180,8 @@ public class l003GT {
         return gTail;
     }
 
-    // ***********_ceil and floor_***********
+    // ==============================================================================================================================================================
+    // Question_10 : Ceil and floor
     public static int ceil = (int) 1e8;
     public static int floor = -(int) 1e8;
 
@@ -229,7 +237,8 @@ public class l003GT {
         return upperBound;
     }
 
-    // *****************_Mirror Shape_*****************
+    // ==============================================================================================================================================================
+    // Question_12 : mirror image
     public static boolean areMirror(Node n1, Node n2) {
         if (n1.childs.size() != n2.childs.size()) {
             return false;
@@ -248,7 +257,8 @@ public class l003GT {
 
     }
 
-    // *****************_Similar_Shapes_*****************
+    // ==============================================================================================================================================================
+    // Question_13 : Similar shapes
     public static boolean areSimilar(Node n1, Node n2) {
         // write your code here
         if (n1.childs.size() != n2.childs.size())
@@ -265,7 +275,8 @@ public class l003GT {
         return true;
     }
 
-    // *****************_Symmetric_Shapes_*****************
+    // ==============================================================================================================================================================
+    // Question_14 : Symmetric shapes
     public static boolean areSimilar_(Node n1, Node n2) {
         if (n1.childs.size() != n2.childs.size())
             return false;
@@ -286,7 +297,8 @@ public class l003GT {
         return areSimilar(node, node);
     }
 
-    // *****************_remove leafs in a generic tree_*****************
+    // ==============================================================================================================================================================
+    // Question_15 : removes leafs from generic tree
     public static void removeLeaves(Node node) {
         for (int i = node.childs.size() - 1; i >= 0; i--) {
             Node child = node.childs.get(i);

@@ -325,17 +325,22 @@ public class l001 {
         return myRes;
     }
 
+    // ==============================================================================================================================================================
     // Question_13 : Is_BST/Is balance/largest BST Node / Total of BST
     public static class binarySearchTree {
+        /* isBST */
         int maxEle = -(int) 1e8;
         int minEle = (int) 1e8;
         boolean isBST = true;
 
+        /* isBal */
         boolean isBal = true;
         int height = -1;
 
-        int totalNoOfBST = 0;
+        /* total No Of BST*/ 
+        int countOfBST = 0;
 
+        /* lrgest BST Node */ 
         int largestBSTSize = 0;
         Node largestBSTNode = null;
     }
@@ -349,19 +354,19 @@ public class l001 {
 
         binarySearchTree myRes = new binarySearchTree();
 
-        // isBST
+        /* isBST */ 
         myRes.isBST = left.isBST && right.isBST && left.maxEle < node.data && node.data < right.minEle;
         myRes.maxEle = Math.max(node.data, right.maxEle);
         myRes.minEle = Math.min(node.data, left.minEle);
 
-        // isBST balance
+        /* isBST balance */ 
         myRes.isBal = left.isBal && right.isBal && Math.abs(left.height - right.height) <= 1;
         myRes.height = Math.max(left.height, right.height) + 1;
 
-        // total BST
-        myRes.totalNoOfBST = left.totalNoOfBST + right.totalNoOfBST + (myRes.isBST ? 1 : 0);
+        /* total BST */ 
+        myRes.countOfBST = left.countOfBST + right.countOfBST + (myRes.isBST ? 1 : 0);
 
-        // largest BST
+        /* lrgest BST Node */ 
         if (myRes.isBST) {
             myRes.largestBSTNode = node;
             myRes.largestBSTSize += left.largestBSTSize + right.largestBSTSize + 1;
@@ -379,7 +384,9 @@ public class l001 {
 
     }
 
-    // ***************************_Tilt Of Binary Tree_***************************
+    // ==============================================================================================================================================================
+    // Question_14 : tilt of binary tree
+    // https://leetcode.com/problems/binary-tree-tilt/
     public static class tiltSolPair {
         int sum = 0;
         int tilt = 0;
