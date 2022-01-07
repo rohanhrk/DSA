@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class stringSet {
+public class l002_stringSet {
     public static void print(int[] arr) {
         for (int a : arr)
             System.out.print(a + " ");
@@ -14,7 +14,9 @@ public class stringSet {
         System.out.println();
     }
 
-    // 516. Longest Palindromic Subsequence
+    // ==========================================================================================================================================================
+    // Question_1 : 516. Longest Palindromic Subsequence
+    // https://leetcode.com/problems/longest-palindromic-subsequence/
     // LPSS - Longest Palindromic Subsequence
     public static int LPSS(String str, int i, int j, int[][] dp) {
         if (i >= j) {
@@ -87,7 +89,7 @@ public class stringSet {
         // print2D(dp);
     }
 
-    // ===================================================================
+    // ==========================================================================================================================================================
     // LPS : Longest Palindromic Substring
     public static void LPS(String str, boolean[][] dp) {
         int n = str.length();

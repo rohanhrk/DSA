@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class l001Basic {
+public class l001_Basic {
     public static void print(int[] arr) {
         for (int a : arr)
             System.out.print(a + " ");
@@ -283,7 +283,8 @@ public class l001Basic {
         print2D(dp);
     }
 
-    // *********_maze path with multiple move_*********
+    // ==========================================================================================================================================================
+    // Question_6 : maze path with maximum jumps
     public static int mazePath_MultipleMove_memo(int sr, int sc, int dr, int dc, int[][] dir, int[][] dp) {
         if (sr == dr && sc == dc) {
             return dp[sr][sc] = 1;
@@ -310,8 +311,6 @@ public class l001Basic {
 
     }
 
-    // ==========================================================================================================================================================
-    // Question_6 : maze path with maximum jumps
     public static int mazePath_MultipleMove_dp(int SR, int SC, int dr, int dc, int[][] dir, int[][] dp) {
         for (int sr = dr; sr >= 0; sr--) {
             for (int sc = dc; sc >= 0; sc--) {
@@ -353,7 +352,7 @@ public class l001Basic {
     }
 
     // ==========================================================================================================================================================
-    // 62. Unique Paths
+    // Question_7 : 62. Unique Paths
     // https://leetcode.com/problems/unique-paths/
     public static int uniquePaths_memo(int sr, int sc, int dr, int dc, int[][] dir, int[][] dp) {
         if (sr == dr && sc == dc) {
@@ -410,7 +409,8 @@ public class l001Basic {
     }
 
     // ==========================================================================================================================================================
-    // *************_63. Unique Paths II_*************
+    // Question_8 : 63. Unique Paths II
+    // https://leetcode.com/problems/unique-paths-ii/
     public static int uniquePathsII_memo(int sr, int sc, int dr, int dc, int[][] dir, int[][] dp,
             int[][] obstacleGrid) {
         if (sr == dr && sc == dc && obstacleGrid[sr][sc] != 1) {
@@ -466,6 +466,282 @@ public class l001Basic {
         int[][] dir = { { 0, 1 }, { 1, 0 } };
 
         return uniquePathsII_dp(0, 0, n - 1, m - 1, dir, dp, obstacleGrid);
+    }
+
+    // ==========================================================================================================================================================
+    // Question_9 : 64. Minimum Path Sum
+    // https://leetcode.com/problems/minimum-path-sum/
+    public int minPathSum_memo(int[][] grid, int sr, int sc, int dr, int dc, int[][] dir, int[][] dp) {
+        if (sr == dr && sc == dc) {
+            return dp[sr][sc] = grid[sr][sc];
+        }
+
+        if (dp[sr][sc] != 0)
+            return dp[sr][sc];
+        int sum = (int) 1e8;
+        for (int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+
+            if (r >= 0 && c >= 0 && r <= dr && c <= dc) {
+                sum = Math.min(minPathSum_memo(grid, r, c, dr, dc, dir, dp), sum);
+            }
+
+        }
+
+        return dp[sr][sc] = sum + grid[sr][sc];
+    }
+
+    public int minPathSum_dp(int[][] grid, int SR, int SC, int dr, int dc, int[][] dir, int[][] dp) {
+        for (int sr = dr; sr >= 0; sr--) {
+            for (int sc = dc; sc >= 0; sc--) {
+                if (sr == dr && sc == dc) {
+                    dp[sr][sc] = grid[sr][sc];
+                    continue;
+                }
+                int sum = (int) 1e8;
+                for (int d = 0; d < dir.length; d++) {
+                    int r = sr + dir[d][0];
+                    int c = sc + dir[d][1];
+
+                    if (r >= 0 && c >= 0 && r <= dr && c <= dc) {
+                        sum = Math.min(dp[r][c], sum);
+                    }
+
+                }
+
+                dp[sr][sc] = sum + grid[sr][sc];
+            }
+        }
+
+        return dp[SR][SC];
+
+    }
+
+    public int minPathSum(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][] dp = new int[n][m];
+        int[][] dir = { { 0, 1 }, { 1, 0 } };
+
+        return minPathSum_dp(grid, 0, 0, n - 1, m - 1, dir, dp);
+    }
+
+    // ==========================================================================================================================================================
+    // Question_10 : Friends Pairing Problem
+    // https://practice.geeksforgeeks.org/problems/friends-pairing-problem5425/1/
+    public static int friendPairing_memo(int n, int[] dp) {
+        if (n <= 1)
+            return dp[n] = 1;
+
+        if (dp[n] != 0)
+            return dp[n];
+
+        int single = friendPairing_memo(n - 1, dp);
+        int pairUp = friendPairing_memo(n - 2, dp) * (n - 1);
+
+        return dp[n] = single + pairUp;
+    }
+
+    public static int friendPairing_dp(int N, int[] dp) {
+        for (int n = 0; n <= N; n++) {
+            if (n <= 1) {
+                dp[n] = 1;
+                continue;
+            }
+
+            int single = dp[n - 1];// friendPairing_memo(n - 1, dp);
+            int pairUp = dp[n - 2] * (n - 1);// friendPairing_memo(n - 2, dp) * (n - 1);
+
+            dp[n] = single + pairUp;
+        }
+
+        return dp[N];
+    }
+
+    public static int friendsPairing_opti(int n) {
+        int a = 1, b = 1;
+        for (int i = 2; i <= n; i++) {
+            int sum = b + a * (i - 1);
+            a = b;
+            b = sum;
+        }
+
+        return b;
+    }
+
+    public static void friendPairing(int n) {
+        int[] dp = new int[n + 1];
+        // friendPairing_dp(n, dp);
+        System.out.println(friendsPairing_opti(n));
+        // print(dp);
+    }
+
+    // ==========================================================================================================================================================
+    // Question_11 : Gold Mine Problem
+    // https://practice.geeksforgeeks.org/problems/gold-mine-problem2608/1/
+    public static int goldMine_memo(int[][] maze, int sr, int sc, int dr, int dc, int[][] dp, int[][] dir) {
+        if (sc == dc)
+            return dp[sr][sc] = maze[sr][sc];
+
+        if (dp[sr][sc] != -1)
+            return dp[sr][sc];
+
+        int max = -(int) 1e8;
+        for (int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+
+            if (r >= 0 && c >= 0 && r <= dr && c <= dc) {
+                max = Math.max(max, goldMine_memo(maze, r, c, dr, dc, dp, dir));
+            }
+        }
+
+        return dp[sr][sc] = max + maze[sr][sc];
+    }
+
+    public static int goldMine_dp(int[][] maze, int SR, int SC, int dr, int dc, int[][] dp, int[][] dir) {
+        for (int sc = dc; sc >= 0; sc--) {
+            for (int sr = dr; sr >= 0; sr--) {
+                if (sc == dc) {
+                    dp[sr][sc] = maze[sr][sc];
+                    continue;
+                }
+
+                int max = -(int) 1e8;
+                for (int d = 0; d < dir.length; d++) {
+                    int r = sr + dir[d][0];
+                    int c = sc + dir[d][1];
+
+                    if (r >= 0 && c >= 0 && r <= dr && c <= dc) {
+                        max = Math.max(max, dp[r][c]);
+                    }
+                }
+
+                dp[sr][sc] = max + maze[sr][sc];
+            }
+        }
+
+        return dp[SR][SC];
+    }
+
+    public static int goldMine(int[][] maze) {
+        int n = maze.length;
+        int m = maze[0].length;
+
+        int[][] dp = new int[n][m];
+        for (int[] d : dp)
+            Arrays.fill(d, -1);
+        int[][] dir = { { -1, 1 }, { 0, 1 }, { 1, 1 } };
+
+        int maxGold = -(int) 1e8;
+        for (int i = 0; i < n; i++) {
+            maxGold = Math.max(goldMine_dp(maze, i, 0, n - 1, m - 1, dp, dir), maxGold);
+        }
+
+        print2D(dp);
+        return maxGold;
+    }
+
+    // ==========================================================================================================================================================
+    // Question_12 : Maximum path sum in matrix 
+    // https://practice.geeksforgeeks.org/problems/path-in-matrix3805/1 
+    static int maximumPath_(int[][] matrix, int sr, int sc, int dr, int dc, int[][] dp, int[][] dir, int n, int m) {
+        if(sr == dr) 
+            return dp[sr][sc] = matrix[sr][sc];
+        
+        if(dp[sr][sc] != 0)
+            return dp[sr][sc];
+            
+        int max_sum = 0;
+        
+        for(int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+            
+            if(r >= 0 && r < n && c >= 0 && c < m) {
+                max_sum = Math.max(max_sum, maximumPath_(matrix, r, c, dr, dc, dp, dir, n, m));
+            }
+        }
+        
+        return dp[sr][sc] = max_sum + matrix[sr][sc];
+    }
+    static int maximumPath(int N, int matrix[][])
+    {
+        // code here
+        int[][] dir = {{1, 0}, {1, -1}, {1, 1}};
+        int[][] dp = new int[N][N];
+        int max = 0;
+        for(int c = 0; c < N; c++) {
+            for(int r = 0; r < N; r++) {
+                max = Math.max(max, maximumPath_(matrix, r, c, N - 1, N- 1, dp, dir, N, N));
+            }
+        }
+        
+        return max;
+    }
+
+    // ==========================================================================================================================================================
+    // Question_13 : Min Cost In Maze Traversal
+    // https://leetcode.com/problems/minimum-path-sum/
+    public static int minCost_memo(int[][] maze, int sr, int sc, int dr, int dc, int[][] dir, int[][] dp) {
+        if (sr == dr && sc == dc)
+            return dp[sr][sc] = maze[sr][sc];
+
+        if (dp[sr][sc] != -1)
+            return dp[sr][sc];
+
+        int min = (int) 1e8;
+        for (int d = 0; d < dir.length; d++) {
+            int r = sr + dir[d][0];
+            int c = sc + dir[d][1];
+
+            if (r >= 0 && c >= 0 && r <= dr && c <= dc) {
+                min = Math.min(min, minCost_memo(maze, r, c, dr, dc, dir, dp));
+            }
+        }
+
+        return dp[sr][sc] = min + maze[sr][sc];
+    }
+
+    public static int minCost_dp(int[][] maze, int SR, int SC, int dr, int dc, int[][] dir, int[][] dp) {
+        for (int sc = dc; sc >= 0; sc--) {
+            for (int sr = dr; sr >= 0; sr--) {
+                if (sr == dr && sc == dc) {
+                    dp[sr][sc] = maze[sr][sc];
+                    continue;
+                }
+
+                int min = (int) 1e8;
+                for (int d = 0; d < dir.length; d++) {
+                    int r = sr + dir[d][0];
+                    int c = sc + dir[d][1];
+
+                    if (r >= 0 && c >= 0 && r <= dr && c <= dc) {
+                        min = Math.min(min, dp[r][c]); // Math.min(min, minCost_memo(maze, r, c, dr, dc, dir, dp));
+                    }
+                }
+
+                dp[sr][sc] = min + maze[sr][sc];
+            }
+        }
+
+        return dp[SR][SC];
+
+    }
+
+    public static void minCost(int[][] maze) {
+        int n = maze.length;
+        int m = maze[0].length;
+
+        int[][] dir = { { 0, 1 }, { 1, 0 } };
+        int[][] dp = new int[n][m];
+        for (int[] d : dp)
+            Arrays.fill(d, -1);
+
+        minCost_dp(maze, 0, 0, n - 1, m - 1, dir, dp);
+        // return dp[0][0];
+        print2D(dp);
     }
 
     public static void main(String[] args) {
