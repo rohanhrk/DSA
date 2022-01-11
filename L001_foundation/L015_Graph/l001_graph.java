@@ -3,8 +3,8 @@ import java.util.PriorityQueue;
 import java.util.LinkedList;
 import java.util.Arrays;
 
-// **************************_DATE:-22/07/2021_**************************
-public class l001Basic {
+// ============================================================================================================================================
+public class l001_graph {
     public static int N = 5;
     public static ArrayList<Edge>[] graph = new ArrayList[N];
 
@@ -25,14 +25,15 @@ public class l001Basic {
         }
     }
 
-    // BASIC FUNCTION
-    // 1. *********_ADD EDGE_*********
+    // ============================================================================================================================================
+    /* basic function */ 
+    /* 1. add Edge */
     public static void addEdge(int u, int v, int w) {
         graph[u].add(new Edge(v, w));
         graph[v].add(new Edge(u, w));
     }
 
-    // 2. *********_DISPLAY_*********
+    /* 2. display */ 
     public static void display() {
         for (int i = 0; i < N; i++) {
             System.out.print(i + " -> ");
@@ -43,7 +44,7 @@ public class l001Basic {
         }
     }
 
-    // 3. *********_FIND EDGE_*********
+    /* 3. find edge */
     public static int findEdge(int u, int v) {
         for (int i = 0; i < graph[u].size(); i++) {
             Edge e = graph[u].get(i);
@@ -54,7 +55,7 @@ public class l001Basic {
         return -1;
     }
 
-    // 4. *********_REMOVE EDGE_*********
+    /* 4. remove edge */ 
     public static void removeEdge(int u, int v) {
         int idx1 = findEdge(u, v); // u -> v
         graph[u].remove(idx1);
@@ -63,7 +64,7 @@ public class l001Basic {
         graph[v].remove(idx2);
     }
 
-    // 5. *********_REMOVE VERTEX_*********
+    /* 5. remove vertex */
     public static void removeVtx(int u) {
         for (int i = graph[u].size() - 1; i >= 0; i--) {
             Edge e = graph[u].get(i);
@@ -71,9 +72,9 @@ public class l001Basic {
         }
     }
 
-    // =================================================_QUESTION_=================================================
-
-    // *************_HAS PATH_*************
+    // ============================================================================================================================================
+    // Question_1 : has path
+    // https://leetcode.com/problems/find-if-path-exists-in-graph/
     public static boolean HasPath(int src, int dest, boolean[] vis) {
         if (src == dest)
             return true;
@@ -87,8 +88,8 @@ public class l001Basic {
         return res;
     }
 
-    // **************************_DATE:-23/07/2021_**************************
-    // *************_PRINT ALL PATH_*************
+    // ============================================================================================================================================
+    // Question_2 : print all path
     public static int printAllPath(int src, int dest, boolean[] vis, String ans) {
         if (src == dest) {
             System.out.println(ans + dest);
@@ -106,7 +107,8 @@ public class l001Basic {
         return count;
     }
 
-    // *************_PRE ORDER_*************
+    // ============================================================================================================================================
+    // Question_3 : print preorder
     public static void printPreOrder(int src, boolean[] vis, String ans, int wsf) { // wsf -> weight so far
 
         vis[src] = true;
@@ -120,7 +122,8 @@ public class l001Basic {
         vis[src] = false;
     }
 
-    // *************_POST ORDER_*************
+    // ============================================================================================================================================
+    // Question_4 : print postorder
     public static void printPostOrder(int src, boolean[] vis, String ans, int wsf) { // wsf -> weight so far
 
         vis[src] = true;
@@ -134,8 +137,143 @@ public class l001Basic {
         vis[src] = false;
     }
 
-    // *************_Multisolver-Smallest,Longest,Ceil,Floor,Kthlargest_Path_*************
+    // ============================================================================================================================================
+    // Question_5 : smallest path in terms of wight
+    private static class smallestPath_helper {
+        int smallest_wt = (int)1e9;
+        String smallest_path = "";
+    }
+    private static void smallest_path_dfs( ArrayList<Edge>[] graph, int src, int dest, int wsf, String psf, boolean[] vis, smallestPath_helper ans) {
+        if(src == dest) {
+            if(ans.smallest_wt > wsf) {
+                ans.smallest_wt = wsf;
+                ans.smallest_path = psf + dest;
+            }
+            return;
+        }
 
+        vis[src] = true;
+        for(Edge e : graph[src]) {
+            if(!vis[e.v]) {
+                smallest_path_dfs(graph, e.v, dest, wsf + e.w, psf + src, vis, ans);
+            }
+        }
+        vis[src] = false;
+    }
+    public static String smallestPath(int[][] edges, int n) {
+        ArrayList<Edge>[] graph = new ArrayList[n];
+        for(int i = 0; i < n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            graph[u].add(new Edge(v, w));
+        }
+
+        boolean[] vis = new boolean[n];
+        smallestPath_helper ans = new smallestPath_helper();
+        smallest_path_dfs(graph, 0, n - 1, 0, "", vis, ans);
+        
+        return ans.smallest_path;
+    }
+
+    
+    // ============================================================================================================================================
+    // Question_6 : largest path in terms of wight
+    private static class largestPath_helper {
+        int largest_wt = (int)1e9;
+        String largest_path = "";
+    }
+    private static void largest_path_dfs( ArrayList<Edge>[] graph, int src, int dest, int wsf, String psf, boolean[] vis, largestPath_helper ans) {
+        if(src == dest) {
+            if(ans.largest_wt < wsf) {
+                ans.largest_wt = wsf;
+                ans.largest_path = psf + dest;
+            }
+            return;
+        }
+
+        vis[src] = true;
+        for(Edge e : graph[src]) {
+            if(!vis[e.v]) {
+                largest_path_dfs(graph, e.v, dest, wsf + e.w, psf + src, vis, ans);
+            }
+        }
+        vis[src] = false;
+    }
+
+    public static String largestPath(int[][] edges, int n) {
+        ArrayList<Edge>[] graph = new ArrayList[n];
+        for(int i = 0; i < n; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            graph[u].add(new Edge(v, w));
+        }
+
+        boolean[] vis = new boolean[n];
+        largestPath_helper ans = new largestPath_helper();
+        largest_path_dfs(graph, 0, n - 1, 0, "", vis, ans);
+        
+        return ans.largest_path;
+    }
+
+    // ============================================================================================================================================
+    // Question_7 : floor and ceil
+    private static class FloorCeilHelper {
+        int floor = -(int)1e9;
+        String floor_path = "";
+
+        int ceil = (int) 1e9;
+        String ceil_path = "";
+    }
+    private static void floor_ceil_dfs(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis, FloorCeilHelper ans, int given_wt, int wsf, String psf) {
+        if(src == dest) {
+            if(given_wt > wsf) {
+                ans.floor = Math.max(ans.floor, wsf);
+                if(ans.floor == wsf) {
+                    ans.floor_path = psf + dest;
+                } 
+            } else if(given_wt < wsf) {
+                ans.ceil = Math.min(ans.ceil, wsf);
+                if(ans.ceil == wsf) {
+                    ans.ceil_path = psf + dest;
+                } 
+            }
+
+            return;
+        }
+        vis[src] = true;
+        for(Edge e : graph[src]) {
+            if(!vis[e.v]) {
+                floor_ceil_dfs(graph, e.v, dest, vis, ans, given_wt,wsf + e.v, psf + src);
+            }
+        }
+        vis[src] = false;
+    } 
+    public static void floor_ceil(int[][] edges, int n, int given_wt) {
+        ArrayList<Edge>[] graph = new ArrayList[n];
+        for(int i = 0; i < n; i++)
+            graph[i] = new ArrayList<>();
+
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            graph[u].add(new Edge(v, w));
+        }
+
+        boolean[] vis = new boolean[n];
+        FloorCeilHelper ans = new FloorCeilHelper();
+        floor_ceil_dfs(graph, 0, n - 1, vis, ans, given_wt, 0, "");
+
+        System.out.println("floor is " + ans.floor + "@" + "floor path is " + ans.floor_path);
+        System.out.println("ceil is " + ans.ceil + "@" + "ceil path is " + ans.ceil_path);
+    }
+
+    // ============================================================================================================================================
+    // Question_8 : Multisolver - Smallest, Longest, Ceil, Floor, Kthlargest Path
     public static class pair { // pair class
         int smallestWeight = (int) 1e8;
         String smallestPath = "";
@@ -194,6 +332,8 @@ public class l001Basic {
             pq.add(new pqPair(wsf, psf + dest)); // kth largest path
             if (pq.size() > k)
                 pq.remove();
+
+            return;
         }
 
         vis[src] = true; // marked visited
@@ -206,7 +346,8 @@ public class l001Basic {
 
     }
 
-    // *************_Get Conected Component_*************
+    // ============================================================================================================================================
+    // Question_9 : get connected component
     public static void dfs(int src, boolean[] visited, ArrayList<Integer> ans) {
         ans.add(src);
         visited[src] = true;
@@ -232,9 +373,9 @@ public class l001Basic {
         return components;
     }
 
-    // **************************_DATE:-24/07/2021_**************************
-
-    // *************_Number of Island_*************
+    
+    // ============================================================================================================================================
+    // Question_10 : 
     public static void dfs_island(int[][] mat, int[][] dir, int i, int j) {
         mat[i][j] = 1;
         for (int d = 0; d < 4; d++) {
