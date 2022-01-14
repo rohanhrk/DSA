@@ -1,10 +1,12 @@
 public class stack {
+    // ===========================================================================================================
+    /* Declare Stack Variables */ 
     protected int[] arr = null;
-    protected int capacity = 0; // maximum element that array can hold in it
-    protected int elementCount = 0; // No of element present in stack
-    protected int tos = -1; // top of stack
+    protected int capacity = 0; /* maximum element that array can hold in it */ 
+    protected int elementCount = 0; /* No of element present in stack */ 
+    protected int tos = -1; /* top of stack */ 
 
-    // ******************_Constructor_******************
+    /* initialize stack veriables */ 
     public void initializeVariables(int capacity) {
         this.capacity = capacity;   
         this.arr = new int[this.capacity];
@@ -12,24 +14,39 @@ public class stack {
         this.tos = -1;
     }
 
+    // ===========================================================================================================
+    /* 
+        CONSTRUCTOR =>
+        1. Default 
+        2. parameterize
+    */
+    // 1. default constructor
     public stack() {
         initializeVariables(10); // default capacity
     }
-
+    // 2. parameterize constructor 
     public stack(int size) {
         initializeVariables(size);
     }
-    
-    
-    // ******************_basic_function_******************
+
+    // ===========================================================================================================
+    /*
+        Basic Function =>
+        1. size(), 
+        2. isEmpty()
+    */ 
+
+    // 1. size()
     public int size() {
         return this.elementCount;
     }
 
+    // 2. isEmpty()
     public boolean isEmpty() {
         return this.elementCount == 0;
     }
-
+    
+    /* display */ 
     @Override
     public String toString() {
         int n = this.capacity;
@@ -43,12 +60,13 @@ public class stack {
         sb.append("]");
         return sb.toString();
     }
-
-    // public void display() {
-
-    // }
     
-    // ******************_Exception_******************
+    // ===========================================================================================================
+    /* 
+        Exception Handling ===>
+        1. overFlowException(), 
+        2. underFlowException() 
+    */ 
     private void overFlowException() throws Exception {
         if (this.capacity == this.elementCount) {
             throw new Exception("stackIsFull");
@@ -61,7 +79,14 @@ public class stack {
         }
     }
 
-    // ******************_Stack_function_******************
+    // ===========================================================================================================
+    /* 
+        Stack Function =>
+        1. push 
+        2. pop
+        3. top
+    */ 
+
     // 1. push operator
     protected void push_(int data) {
         this.arr[++this.tos] = data;

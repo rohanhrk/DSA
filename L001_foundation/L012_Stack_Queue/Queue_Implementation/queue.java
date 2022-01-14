@@ -1,23 +1,59 @@
 public class queue {
+
+    /* Variables define */ 
     protected int[] arr = null;
     protected int capacity = 0; // maximum element that array can hold in it
     protected int elementCount = 0; // No of element present in an array
     protected int front = 0; // denote where element is present
     protected int back = 0; // denote where element would be find
 
-    // ******************_basic_function_******************
-
-    public int size() {
-        return this.elementCount;
+    /* initialising variables */ 
+    public void initializeVariables(int capacity) {
+        this.capacity = capacity;
+        this.arr = new int[this.capacity];
+        this.elementCount = 0;
+        this.front = 0;
+        this.back = 0;
     }
 
+    // ============================================================================================================
+    /*
+        constructor =>
+        1. default constructor
+        2. parameterize constructor
+    */ 
+    // 1. default construct
+    public queue() {
+        initializeVariables(10); // default capacity
+    }
+    // 2. param construct
+    public queue(int size) {
+        initializeVariables(size);
+    }
+
+    // ============================================================================================================
+    /*
+        basic function =>
+        1. size()
+        2. isEmpty
+    */ 
+    // 1. size()
+    public int size() {
+        return this.elementCount;
+    }   
+    // 2. isEmpty()
     public boolean isEmpty() {
         return this.elementCount == 0;
     }
 
-    // toString -> wo pehle se java me likhi hui he
-    // hame isko over ride karna hoga
-    // The toString() method returns the string representation of the object.
+    // ============================================================================================================
+    // display Queue
+
+    /*
+        toString -> wo pehle se java me likhi hui he
+        hame isko over ride karna hoga
+        The toString() method returns the string representation of the object.
+    */ 
     @Override
     public String toString() {
         // return "pepcoding";
@@ -51,24 +87,11 @@ public class queue {
     //     return sb.toString();
     // }
 
-    // ******************_Constructor_******************
-    public void initializeVariables(int capacity) {
-        this.capacity = capacity;
-        this.arr = new int[this.capacity];
-        this.elementCount = 0;
-        this.front = 0;
-        this.back = 0;
-    }
 
-    public queue() {
-        initializeVariables(10); // default capacity
-    }
-
-    public queue(int size) {
-        initializeVariables(size);
-    }
-
-    // ******************_Exception_******************
+    // ============================================================================================================
+    /* 
+        
+    */ 
     private void overFlowException() throws Exception {
         if (this.capacity == this.elementCount) {
             throw new Exception("queueIsFull");
@@ -84,10 +107,9 @@ public class queue {
     // ******************_Stack_function_******************
     // 1. push operator
     protected void push_(int data) {
-        this.arr[this.back] = data;
-
+        this.arr[this.back++] = data;
+        this.back %= this.capacity;
         this.elementCount++;
-        this.back = (this.back + 1) % this.capacity;
     }
 
     public void push(int data) throws Exception {
@@ -104,10 +126,9 @@ public class queue {
     // 3. pop
     protected int pop_() {
         int rv = this.arr[this.front];
-        this.arr[this.front] = 0;
-
+        this.arr[this.front++] = 0;
+        this.front %= this.capacity;
         this.elementCount--;
-        this.front = (this.front + 1) % this.capacity;
         return rv;
     }
 

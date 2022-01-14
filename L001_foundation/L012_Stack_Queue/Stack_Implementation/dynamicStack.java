@@ -1,6 +1,4 @@
 public class dynamicStack extends stack {
-    
-    // *****************_CONSTRUCTOR_*****************
     public dynamicStack() {
         super();
     }
