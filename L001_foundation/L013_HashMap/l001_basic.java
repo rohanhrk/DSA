@@ -1,24 +1,25 @@
 import java.util.HashMap;
 import java.util.ArrayList;
 
-// **************************************_DATE:-14/07/21_**************************************
 public class l001_basic {
-    // BASIC
+
+    // ===================================================================================================================================
+    /* Basic */
     public static void basic_01() {
         HashMap<String, Integer> map = new HashMap<>();
-        // put -> contains (key,value) pair
+        /*
+            put -> contains (key,value) pair
+        */ 
         map.put("Nepal", 233);
         map.put("UK", 45);
         map.put("Germany", 35);
         map.put("USA", 20);
         map.put("Russia", 18);
         map.put("India", 10);
-
         System.out.println(map);
 
-        map.put("USA", 19); // key "USA" already present in HashMap, so old value update to new value
-        map.put("china", 15); // key "china" not present in HashMap, so key 'china' inserted in hashmap
-
+        map.put("USA", 19); /* key "USA" already present in HashMap, so old value update to new value */
+        map.put("china", 15); /* key "china" not present in HashMap, so key 'china' inserted in hashmap */ 
         System.out.println(map);
 
         // get -> returns the value to which specified key is mapped or
@@ -27,16 +28,15 @@ public class l001_basic {
         System.out.println(map.get("Nigeria")); // null
 
         String key = "Nigeria";
-        if (map.containsKey(key)) // containsKey -> returns true if this map contains mapping for the specified
-                                  // key
+        if (map.containsKey(key)) /* map.containsKey -> returns true if this map contains mapping for the specified key */ 
             System.out.println(map.get(key));
         else
             System.out.println("not found");
 
     }
 
-    // ======================================================================================================================================================================================================
-    // ******************_print_frequency_******************
+    // ===================================================================================================================================
+    // Question_1 : print frequency
     public static void printFrequency(String str) {
         HashMap<Character, Integer> map = new HashMap<>();
 
@@ -58,8 +58,8 @@ public class l001_basic {
         System.out.println(map);
     }
 
-    // ======================================================================================================================================================================================================
-    // ******************_highest_frequency_character_******************
+    // ===================================================================================================================================
+    // Question_2 : highest frequency character
     public static void highestFreqChar(String str) {
         HashMap<Character, Integer> map = new HashMap<>();
 
@@ -83,8 +83,8 @@ public class l001_basic {
         System.out.println(ans);
     }
 
-    // ======================================================================================================================================================================================================
-    // ******************_position_of_character_******************
+    // ===================================================================================================================================
+    // Question_3 : position of the charcter
     public static void positionOfCharacter(String str) {
         HashMap<Character, ArrayList<Integer>> map = new HashMap<>();
           
@@ -106,8 +106,8 @@ public class l001_basic {
         System.out.println(map);
     }
     
-    // ======================================================================================================================================================================================================
-    // ******************_intersection_of_twoArray_without_duplicates_******************
+    // ===================================================================================================================================
+    // Question_4 : intersection of two array withoutout dublicate
     public static void intersectionOfTwoArrayWithoutDuplicates(int[] a1, int[] a2) {
         HashMap<Integer, Integer> map = new HashMap<>();
 
@@ -124,8 +124,8 @@ public class l001_basic {
 
     }
 
-    // ======================================================================================================================================================================================================
-    // ******************_intersection_of_twoArray_with_duplicates_******************
+    // ===================================================================================================================================
+    // Question_5 : intersection of two array with dublicate
     public static void intersectionOfTwoArrayWithDuplicates(int[] a1, int[] a2) {
         HashMap<Integer, Integer> map = new HashMap<>();
 
@@ -144,8 +144,9 @@ public class l001_basic {
 
     }
 
-    // ======================================================================================================================================================================================================
-    // ******************_longest_consecutive_subsequense_******************
+    // ===================================================================================================================================
+    // Question_6 : Longest consecutive subsequence
+    // https://practice.geeksforgeeks.org/problems/longest-consecutive-subsequence2449/1/
     public static void longestConsecutivSubsequence(int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();
 
