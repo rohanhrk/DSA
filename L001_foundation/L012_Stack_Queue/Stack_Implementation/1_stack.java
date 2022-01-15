@@ -1,4 +1,4 @@
-public class stack {
+public class 1_stack {
     // ===========================================================================================================
     /* Declare Stack Variables */ 
     protected int[] arr = null;
@@ -27,6 +27,24 @@ public class stack {
     // 2. parameterize constructor 
     public stack(int size) {
         initializeVariables(size);
+    }
+
+    // ===========================================================================================================
+    /* 
+        Exception Handling ===>
+        1. overFlowException(), 
+        2. underFlowException() 
+    */ 
+    private void overFlowException() throws Exception {
+        if (this.capacity == this.elementCount) {
+            throw new Exception("stackIsFull");
+        }
+    }
+
+    private void underFlowException() throws Exception {
+        if (this.elementCount == 0) {
+            throw new Exception("stackIsEmpty");
+        }
     }
 
     // ===========================================================================================================
@@ -61,30 +79,13 @@ public class stack {
         return sb.toString();
     }
     
-    // ===========================================================================================================
-    /* 
-        Exception Handling ===>
-        1. overFlowException(), 
-        2. underFlowException() 
-    */ 
-    private void overFlowException() throws Exception {
-        if (this.capacity == this.elementCount) {
-            throw new Exception("stackIsFull");
-        }
-    }
-
-    private void underFlowException() throws Exception {
-        if (this.elementCount == 0) {
-            throw new Exception("stackIsEmpty");
-        }
-    }
-
+   
     // ===========================================================================================================
     /* 
         Stack Function =>
-        1. push 
-        2. pop
-        3. top
+        1. push()
+        2. pop()
+        3. top()
     */ 
 
     // 1. push operator

@@ -1,4 +1,4 @@
-public class queue {
+public class 1_queue {
 
     /* Variables define */ 
     protected int[] arr = null;
@@ -29,6 +29,25 @@ public class queue {
     // 2. param construct
     public queue(int size) {
         initializeVariables(size);
+    }
+
+    // ============================================================================================================
+    /* 
+        exception handling =>
+        1. overFlowException() => when size is full
+        2. underFlowException() => when size is empty
+    */ 
+    // 1. overFlowException()
+    private void overFlowException() throws Exception {
+        if (this.capacity == this.elementCount) {
+            throw new Exception("queueIsFull");
+        }
+    }
+    // 2. underFlowException
+    private void underFlowException() throws Exception {
+        if (this.elementCount == 0) {
+            throw new Exception("queueIsEmpty");
+        }
     }
 
     // ============================================================================================================
@@ -69,42 +88,14 @@ public class queue {
         return sb.toString();
     }
 
-    // // display
-    // public String display() {
-    //     int f = this.front;
-    //     int n = this.elementCount;
-
-    //     StringBuilder sb = new StringBuilder();
-    //     sb.append("[");
-    //     for (int i = 0; i < n; i++) {
-    //         int idx = (f + i) % n;
-    //         sb.append(this.arr[idx]);
-    //         if (i != n - 1)
-    //             sb.append(", ");
-    //     }
-    //     sb.append("]");
-
-    //     return sb.toString();
-    // }
-
 
     // ============================================================================================================
     /* 
-        
+        Queue function =>
+        1. push()
+        2. pop()
+        3. top();
     */ 
-    private void overFlowException() throws Exception {
-        if (this.capacity == this.elementCount) {
-            throw new Exception("queueIsFull");
-        }
-    }
-
-    private void underFlowException() throws Exception {
-        if (this.elementCount == 0) {
-            throw new Exception("queueIsEmpty");
-        }
-    }
-
-    // ******************_Stack_function_******************
     // 1. push operator
     protected void push_(int data) {
         this.arr[this.back++] = data;

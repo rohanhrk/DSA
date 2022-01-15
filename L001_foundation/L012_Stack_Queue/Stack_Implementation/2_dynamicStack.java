@@ -1,4 +1,14 @@
-public class dynamicStack extends stack {
+public class 2_dynamicStack extends stack {
+    /*
+        facts about super() ====>
+        1. "this" keyword pehle dynamics stack me search karta he, apne pass se variable ya function
+        nehi milne par, "this" keyword parent class pe jake dhundta he.
+
+        2. "super" keyword direct parent class me jakar variable aur function ko search karta he.  
+
+        3. "super" keyword "this" keyword se fast work karta he. 
+    */ 
+
     public dynamicStack() {
         super();
     }

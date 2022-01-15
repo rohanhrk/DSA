@@ -1,4 +1,4 @@
-public class dynamicQueue extends queue {
+public class 2_dynamicQueue extends queue {
     public dynamicQueue() {
         super();
     }
