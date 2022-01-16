@@ -260,10 +260,12 @@ public class l001_basic {
             System.out.println(ele);
     }
 
-    // ====================================================================================================================================================================================================
-    // Question_8 : 23. Merge k Sorted Arrays
-    // https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1#
-    // method 1 ---> Using Helper class
+    // ======================================================================================================
+    /*
+        Question_8 : 23. Merge k Sorted Arrays
+        https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1#
+        method 1 ---> Using Helper class
+    */ 
     private static class Helper implements Comparable<Helper> {
         int val;
         int r;
@@ -284,6 +286,7 @@ public class l001_basic {
         PriorityQueue<Helper> pq = new PriorityQueue<>(); // default behaviour
         ArrayList<Integer> ans = new ArrayList<>();
 
+        // O(log(k))
         for (int i = 0; i < arr.length; i++) {
             Helper nh = new Helper(arr[i][0], i, 0);
             pq.add(nh);
@@ -305,6 +308,7 @@ public class l001_basic {
         return ans;
     }
 
+    // Method 2 => 
     // {val, col_idx, row_idx}
     public static ArrayList<Integer> mergeKSortedLists(ArrayList<ArrayList<Integer>> lists) {
         ArrayList<Integer> rv = new ArrayList<>();
@@ -334,7 +338,7 @@ public class l001_basic {
         return rv;
     }
 
-    // using devide ansd conquer mathod
+    // Method_3 : using devide ansd conquer mathod
     // Space -> nk , time -> O(nklog(k))
     private static ArrayList<Integer> merge_two_list(ArrayList<Integer> left_list, ArrayList<Integer> right_list) {
         ArrayList<Integer> ans = new ArrayList<>();
@@ -377,8 +381,87 @@ public class l001_basic {
         return merge_two_list(left_list, right_list);
 
     }
+    
+    // ======================================================================================================
+    /*
+        Question_9 : 242. Valid Anagram
+        https://leetcode.com/problems/valid-anagram/
+        using frequency array
+    */  
+   
+    public boolean isAnagram1(String s, String t) {
+        int[] freq = new int[26];
 
-    // =============================================_INPUT_=============================================
+        for (int i = 0; i < s.length(); i++)
+            freq[s.charAt(i) - 'a']++;
+
+        for (int i = 0; i < t.length(); i++)
+            freq[t.charAt(i) - 'a']--;
+
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] != 0)
+                return false;
+        }
+
+        return true;
+    }
+
+    // using hashmap
+    public boolean isAnagram(String s, String t) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++)
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+
+        for (int i = 0; i < t.length(); i++)
+            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) - 1);
+
+        for (char ch : map.keySet()) {
+            if (map.get(ch) != 0)
+                return false;
+        }
+
+        return true;
+
+    }
+
+    // ======================================================================================================
+    /*
+        Question_10 : 49. Group Anagrams
+        https://leetcode.com/problems/group-anagrams/
+    */ 
+    public static String RLES(String str) {
+        int[] freq = new int[26];
+        for (int i = 0; i < str.length(); i++) {
+            freq[str.charAt(i) - 'a']++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] != 0) {
+                sb.append((char) (i + 'a'));
+                sb.append(freq[i]);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        for (String s : strs) {
+            String rles = RLES(s);
+            map.putIfAbsent(rles, new ArrayList<>());
+            map.get(rles).add(s);
+        }
+
+        List<List<String>> ans = new ArrayList<>();
+        for (String key : map.keySet())
+            ans.add(map.get(key));
+
+        return ans;
+    }
+
+    // ======================================================================================================
     public static void input(int[] arr) {
         for (int i = 0; i < arr.length; i++)
             arr[i] = scn.nextInt();
