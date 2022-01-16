@@ -462,6 +462,41 @@ public class l001_basic {
     }
 
     // ======================================================================================================
+    // Question_11 : 506. Relative Ranks
+    // https://leetcode.com/problems/relative-ranks/
+    public String[] findRelativeRanks(int[] scores) {
+        int n = scores.length;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+            return b[0] - a[0];
+        });
+            
+        String[] ans = new String[n];
+        for(int i = 0; i < n; i++) {
+            pq.add(new int[]{scores[i], i});
+        }
+        
+        int rank = 1;
+        while(pq.size() != 0) {
+            int[] rem_arr = pq.remove();
+            int score = rem_arr[0];
+            int idx = rem_arr[1];
+            
+            if(rank == 1) {
+                ans[idx] = "Gold Medal";
+            } else if(rank == 2) {
+                ans[idx] = "Silver Medal"; 
+            } else if(rank == 3) {
+                ans[idx] = "Bronze Medal";
+            } else {
+                ans[idx] = rank + "";
+            }
+            
+            rank++;
+        }
+        
+        return ans;
+    }
+    // ======================================================================================================
     public static void input(int[] arr) {
         for (int i = 0; i < arr.length; i++)
             arr[i] = scn.nextInt();
