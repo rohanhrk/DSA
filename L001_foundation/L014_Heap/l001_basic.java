@@ -5,11 +5,22 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// **********************************_DATE:-15/07/21_**********************************
 public class l001_basic {
     public static Scanner scn = new Scanner(System.in);
+    
+    // ======================================================================================================
+    /*
+        time complexity => 
+        1. size() -> O(1)
+        2. isEmpty() -> O(1)
+        3. add(data) -> O(log(n))
+        4. peek() -> O(log(n))
+        5. remove() -> O(log(n))
+    */ 
 
-    // ***********************_Increasing_Order_***********************
+
+    // ======================================================================================================
+    // Increasing Order
     public static void MinPQ() {
         PriorityQueue<Integer> pq = new PriorityQueue<>(); // by default min PQ
 
@@ -25,11 +36,14 @@ public class l001_basic {
         }
     }
 
-    // ***********************_Decreasing_Order_***********************
+    // ======================================================================================================
+    // Decreasing Order
     public static void maxPQ() {
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> { // a -> this, b -> other
-            // return a - b; // this - other, default behavior -> means minimum ->
-            // increasing order
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> { 
+            /* 
+                a -> this, b -> other
+                return a - b; // this - other, default behavior -> means minimum -> increasing order
+            */ 
             return b - a; // other - this, reverse of default -> decreasing order
         });
 
@@ -43,9 +57,11 @@ public class l001_basic {
         }
     }
 
-    // ====================================================================================================================================================================================================
-    // Question_1 : K largest element
-    // https://practice.geeksforgeeks.org/problems/k-largest-elements3736/1
+    // ======================================================================================================
+    /*
+        Question_1 : K largest element
+        https://practice.geeksforgeeks.org/problems/k-largest-elements3736/1
+    */ 
     public static ArrayList<Integer> kLargest(int arr[], int n, int k) {
         // code here
         PriorityQueue<Integer> pq = new PriorityQueue<>(); // by default min PQ
@@ -68,7 +84,7 @@ public class l001_basic {
         return res;
     }
 
-    // ====================================================================================================================================================================================================
+    // ======================================================================================================
     // Question_2 : K Smallest element
     public static void kSmallest(int[] arr, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
@@ -86,9 +102,11 @@ public class l001_basic {
             System.out.println(pq.remove());
     }
 
-    // ====================================================================================================================================================================================================
-    // Question_3 : 347. Top K Frequent Elements
-    // https://leetcode.com/problems/top-k-frequent-elements/
+    // ======================================================================================================
+    /* 
+        Question_3 : 347. Top K Frequent Elements
+        https://leetcode.com/problems/top-k-frequent-elements/
+    */  
     public int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int ele : nums)
@@ -130,7 +148,7 @@ public class l001_basic {
             return map.get(a) - map.get(b);
         });
 
-        for (Integer ele : map.keySet()) {
+        for (Integer ele : cccet()) {
             pq.add(ele);
 
             if (pq.size() > k)
@@ -147,9 +165,11 @@ public class l001_basic {
         return ans;
     }
 
-    // ====================================================================================================================================================================================================
-    // Question_4 : 692. Top K Frequent Words
-    // https://leetcode.com/problems/top-k-frequent-words/
+    // ======================================================================================================
+    /*
+        Question_4 : 692. Top K Frequent Words
+        https://leetcode.com/problems/top-k-frequent-words/
+    */ 
     public List<String> topKFrequent(String[] words, int k) {
         HashMap<String, Integer> map = new HashMap<>();
         for (String word : words)
@@ -179,9 +199,11 @@ public class l001_basic {
         return ans;
     }
 
-    // ====================================================================================================================================================================================================
-    // Question_5 : 215. Kth Largest Element in an Array
-    // https://leetcode.com/problems/kth-largest-element-in-an-array/
+    // ======================================================================================================
+    /*
+        Question_5 : 215. Kth Largest Element in an Array
+        https://leetcode.com/problems/kth-largest-element-in-an-array/
+    */ 
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
 
@@ -195,9 +217,11 @@ public class l001_basic {
         return pq.remove();
     }
 
-    // ====================================================================================================================================================================================================
-    // Question_6 : 378. Kth Smallest Element in a Sorted Matrix
-    // https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+    // ======================================================================================================
+    /*
+        Question_6 : 378. Kth Smallest Element in a Sorted Matrix
+        https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+    */ 
     public int kthSmallest(int[][] matrix, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> {
             return b - a;
@@ -214,10 +238,11 @@ public class l001_basic {
         return pq.remove();
     }
 
-    // ====================================================================================================================================================================================================
-    // *****************************_DATE:-16/07/2021_*****************************
-    // Question_7 : Sort K-sorted Array
-    // https://practice.geeksforgeeks.org/problems/nearly-sorted-algorithm/0
+    // ======================================================================================================
+    /*
+        Question_7 : Sort K-sorted Array
+        https://practice.geeksforgeeks.org/problems/nearly-sorted-algorithm/0
+    */ 
     public static void kSortedArray(int[] arr, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         int[] ans = new int[arr.length];
