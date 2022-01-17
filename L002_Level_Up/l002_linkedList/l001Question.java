@@ -139,7 +139,7 @@ public class l001Question {
 
             p1 = c1; // move
             p2 = c2;
-
+ 
             if (c2 != null)
                 c1 = c2.next;
             if (c1 != null)
@@ -220,8 +220,9 @@ public class l001Question {
 
     // optimize
     public static ListNode mergeKLists(ListNode[] lists, int si, int ei) {
-        if (si == ei)
-            return lists[si];
+        if(si >= ei)
+            return (si == ei) ? lists[si] : null;
+
         int mid = (si + ei) / 2;
         ListNode leftListNode = mergeKLists(lists, si, mid);
         ListNode rightListNode = mergeKLists(lists, mid + 1, ei);
@@ -231,11 +232,15 @@ public class l001Question {
     }
 
     public static ListNode mergeKLists1(ListNode[] lists) {
-        return mergeKLists(lists, 0, lists.length);
+        if(lists.length == 0)
+            return null;
+
+        return mergeKLists(lists, 0, lists.length - 1);
     }
 
     // ===================================================================================================================================================
     // Question_8 : merge Sort
+    // https://practice.geeksforgeeks.org/problems/sort-a-linked-list/1/
     public static ListNode mergeSort(ListNode head) {
         if (head == null || head.next == null)
             return head;
