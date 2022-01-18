@@ -38,7 +38,7 @@ public class l002Segregate {
     }
 
     // =============================================================================================================================================================================================
-    // Quesstion_2 : Segregate 01 Node Of Linkedlist Over Swapping Nodes
+    // Question_2 : Segregate 01 Node Of Linkedlist Over Swapping Nodes
     // =================================================================
     public static ListNode segregate01(ListNode head) {
         if (head == null || head.next == null)

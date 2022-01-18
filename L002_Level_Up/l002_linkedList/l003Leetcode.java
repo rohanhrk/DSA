@@ -13,34 +13,47 @@ public class l003Leetcode {
     // ===================================================================================================================================================
     // Question_1 : 19. Remove Nth Node From End of List
     // https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/
+    public ListNode getNodeAt(ListNode head, int index) {
+        ListNode curr = head;
+        while(index-- > 0) {
+            if(curr != null)
+                curr = curr.next;
+        }
+        
+        return curr;
+    }
+    
+    private void remove(ListNode head , int idx) {
+        ListNode prev = getNodeAt(head, idx - 1);
+        ListNode curr = prev.next;
+        ListNode forw = curr.next;
+        
+        prev.next = forw;
+        curr.next = null;
+    }
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if (head == null || n <= 0)
+        if(head == null || n <= 0)
             return head;
-
-        ListNode slow = head;
-        ListNode fast = head;
-
-        while (n-- > 0) {
-            fast = fast.next;
-            if (fast == null && n > 0)
-                return head;
-        }
-
-        if (fast == null) {
-            ListNode rNode = slow;
-            head = rNode.next;
-            rNode.next = null;
+        ListNode slow = head, fast = head;
+        fast = getNodeAt(head, n);
+        if(fast == null) {
+            ListNode curr =  head;
+            ListNode forw = curr.next;
+            
+            curr.next = null;
+            head = forw;
+            
             return head;
         }
-        while (fast.next != null) {
+        
+        int index = 0;
+        while(fast != null) {
             slow = slow.next;
             fast = fast.next;
+            index++;
         }
-
-        ListNode rNode = slow.next;
-        slow.next = rNode.next;
-        rNode.next = null;
-
+        
+        remove(head, index);
         return head;
     }
 
