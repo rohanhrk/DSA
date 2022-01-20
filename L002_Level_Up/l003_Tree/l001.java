@@ -11,7 +11,7 @@ public class l001 {
             this.val = val;
         }
     }
-     public static class Node {
+    public static class Node {
         int data = 0;
         Node left = null;
         Node right = null;
@@ -20,9 +20,7 @@ public class l001 {
             this.data = data;
         }
     }
-    // ======================================================================================================
-    // ======================================================================================================
-    // DATE:22/08
+ 
     public static int size(TreeNode root) {
         return root == null ? 0 : size(root.left) + size(root.right) + 1;
     }
@@ -43,8 +41,9 @@ public class l001 {
 
         return find(root.left, data) || find(root.right, data); // left call || right call
     }
-    // ======================================================================================================
-    // PROBLEMS: Node-To-Root-Path
+
+    // =================================================================================================================================
+    // Question_1 : root to node path
     // 1. return type ArrayList
     public static ArrayList<TreeNode> NodeToRootPath(TreeNode root, int data) {
         if (root == null)
@@ -86,9 +85,10 @@ public class l001 {
         return res;
     }
 
-    // PROBLEMS: root-To-All-Leaf-Path_
-    public static void rootToAllLeafPath(TreeNode root, ArrayList<Integer> smallAns,
-            ArrayList<ArrayList<Integer>> ans) {
+    // =================================================================================================================================
+    // Question_2 : root to all leaf path
+    // https://practice.geeksforgeeks.org/problems/root-to-leaf-paths/1/#
+    public static void rootToAllLeafPath(TreeNode root, ArrayList<Integer> smallAns, ArrayList<ArrayList<Integer>> ans) {
         if (root == null)
             return;
 
@@ -113,7 +113,9 @@ public class l001 {
         return ans;
     }
 
-    // PROBLEMS: all-single-child-parent-in-binary-tree
+    // =================================================================================================================================
+    // Question_3 : all single child parend in binary tree
+    // https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/trees/count-all-single-child-parent-in-binary-tree/ojquestion
     public static void exactlyOneChild(TreeNode root, ArrayList<Integer> ans) {
         if (root == null || (root.left == null && root.right == null))
             return;
@@ -132,7 +134,7 @@ public class l001 {
         return ans;
     }
 
-    // PROBLEMS: count single child
+    // count single child
     public static int countOneChild(TreeNode root) {
         if (root == null || (root.left == null && root.right == null))
             return 0;
@@ -148,7 +150,8 @@ public class l001 {
         return count;
     }
 
-    // PROBLEMS: All distacne K in binary Tree
+    // =================================================================================================================================
+    // Question_4 : All distacne K in binary Tree
     public void kDown(TreeNode root, int k, TreeNode blockNode, List<Integer> ans) {
         if (root == null || k < 0 || root == blockNode)
             return;
