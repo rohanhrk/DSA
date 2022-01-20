@@ -181,7 +181,7 @@ public class l003Leetcode {
     }
 
     // ===================================================================================================================================================
-    // Question_2 :1721. Swapping Nodes in a Linked List
+    // Question_5 :1721. Swapping Nodes in a Linked List
     // https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
     public void swap(ListNode c1, ListNode c2) {
         int a = c1.val, b = c2.val;
@@ -221,7 +221,7 @@ public class l003Leetcode {
     }
 
     // ===================================================================================================================================================
-    // 86. Partition List
+    // Question_6 : 86. Partition List
     // https://leetcode.com/problems/partition-list/submissions/
     public ListNode partition(ListNode head, int x) {
         if (head == null || head.next == null)
@@ -252,7 +252,9 @@ public class l003Leetcode {
         return head;
     }
 
-    // 912. Sort an Array
+    // ===================================================================================================================================================
+    // Question_7 : 912. Sort an Array
+    // https://leetcode.com/problems/sort-an-array/
     public static void swap(int[] arr, int i, int j) {
         // System.out.println("3");
         int a = arr[i], b = arr[j];
@@ -302,7 +304,9 @@ public class l003Leetcode {
         return nums;
     }
 
-    // 141. Linked List Cycle
+    // ===================================================================================================================================================
+    // Question_8 : 141. Linked List Cycle
+    // https://leetcode.com/problems/linked-list-cycle/
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null)
             return false;
@@ -320,7 +324,9 @@ public class l003Leetcode {
         return false;
     }
 
-    // 142. Linked List Cycle II
+    // ===================================================================================================================================================
+    // Question_9 : 142. Linked List Cycle II
+    // https://leetcode.com/problems/linked-list-cycle-ii/
     public ListNode detectCycle(ListNode head) {
         if (head == null || head.next == null)
             return null;
@@ -348,7 +354,9 @@ public class l003Leetcode {
         return slow;
     }
 
-    // 160. Intersection of Two Linked Lists
+    // ===================================================================================================================================================
+    // Question_10 : 160. Intersection of Two Linked Lists
+    // https://leetcode.com/problems/intersection-of-two-linked-lists/
     public ListNode CycleNode(ListNode head) {
         if (head == null || head.next == null)
             return null;
@@ -488,9 +496,7 @@ public class l003Leetcode {
         while (curr != null) {
             while (curr != null && curr.val == prev.val) {
                 ListNode forw = curr.next;
-
                 curr.next = null;
-
                 curr = forw;
             }
 
