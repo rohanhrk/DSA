@@ -13,6 +13,10 @@ public class l003Leetcode {
     // ===================================================================================================================================================
     // Question_1 : 19. Remove Nth Node From End of List
     // https://leetcode.com/problems/remove-nth-node-from-end-of-list/submissions/
+    /*
+        Time : O(N) + O(N) + O(N) ~ O(N)
+        Space : O(1)
+    */ 
     public ListNode getNodeAt(ListNode head, int index) {
         ListNode curr = head;
         while(index-- > 0) {
@@ -35,7 +39,9 @@ public class l003Leetcode {
         if(head == null || n <= 0)
             return head;
         ListNode slow = head, fast = head;
-        fast = getNodeAt(head, n);
+        fast = getNodeAt(head, n);  // O(N)
+
+        /* If fast is ponting to null, then remove 1st node */ 
         if(fast == null) {
             ListNode curr =  head;
             ListNode forw = curr.next;
@@ -47,19 +53,23 @@ public class l003Leetcode {
         }
         
         int index = 0;
-        while(fast != null) {
+        while(fast != null) {  // O(N)
             slow = slow.next;
             fast = fast.next;
             index++;
         }
         
-        remove(head, index);
+        remove(head, index); // O(N)
         return head;
     }
 
     // ===================================================================================================================================================
     // Question_2 :1721. Swapping Nodes in a Linked List
     // https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+    /*
+        Time : O(N) + O(N) ~ O(N)
+        space : O(1)
+    */  
     private ListNode getNodeAt(ListNode head, int index) {
         ListNode curr = head;
         while(index-- > 0) 
@@ -76,10 +86,10 @@ public class l003Leetcode {
     public ListNode swapNodes1(ListNode head, int k) {
         ListNode slow = head;
         ListNode fast = head;
-        fast = getNodeAt(head, k - 1);
+        fast = getNodeAt(head, k - 1); // O(N)
         
         ListNode c1 = fast; // backup
-        while(fast.next != null) {
+        while(fast.next != null) {   // O(N)
             slow = slow.next;
             fast = fast.next;
         }
