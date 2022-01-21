@@ -562,6 +562,7 @@ public class l003Leetcode {
 
     // ===================================================================================================================================================
     // Question_15 : 138. Copy List with Random Pointer
+    // https://leetcode.com/problems/copy-list-with-random-pointer/
     class Node {
         int val;
         Node next;
@@ -615,5 +616,75 @@ public class l003Leetcode {
         copyNodes(head);
         copyRandom(head);
         return extractList(head);
+    }
+
+    // ===================================================================================================================================================
+    // Question_16 : 61. Rotate List
+    // https://leetcode.com/problems/rotate-list/
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null)
+            return head;
+        
+        // 1. find length
+        ListNode curr = head;
+        int len = 1;
+        while(curr.next != null) {
+            curr = curr.next;
+            len++;
+        }
+        
+        // 2. connect tail to head
+        curr.next = head;
+        
+        // 3.          
+        k = len - k % len;
+        while(k-- > 0)
+            curr = curr.next;
+        
+        // 3. make head node and break connection         
+        head = curr.next;
+        curr.next = null;
+        
+        return head;
+    }
+
+    // ===================================================================================================================================================
+    // Question_17 : 2130. Maximum Twin Sum of a Linked List
+    // https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/
+    private ListNode reverse(ListNode node) {
+        ListNode prev = null, curr = node;
+        while(curr != null) {
+            ListNode forw = curr.next;
+            
+            curr.next = prev;
+            
+            prev = curr;
+            curr = forw;
+        }
+        
+        return prev;
+    }
+    public int pairSum(ListNode head) {
+        ListNode slow = head, fast = head;
+        while(fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        ListNode nHead = slow.next;
+        slow.next = null;
+        nHead = reverse(nHead);
+        
+        int max_twin_sum = -(int)1e9;
+        ListNode c1 = head, c2 = nHead;
+        while(c1 != null && c2 != null) {
+            int sum = c1.val + c2.val;
+            max_twin_sum = Math.max(max_twin_sum, sum);
+            
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+        
+        return max_twin_sum;
     }
 }
