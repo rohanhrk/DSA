@@ -152,6 +152,7 @@ public class l001 {
 
     // =================================================================================================================================
     // Question_4 : All distacne K in binary Tree
+    // https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
     public void kDown(TreeNode root, int k, TreeNode blockNode, List<Integer> ans) {
         if (root == null || k < 0 || root == blockNode)
             return;
@@ -225,10 +226,9 @@ public class l001 {
         return ans;
     }
     
-    // ======================================================================================================
-    // ======================================================================================================
-    
+    // =================================================================================================================================
     // 236. Lowest Common Ancestor of a Binary Tree
+    // 
     public boolean NodeToRootPath(TreeNode root, TreeNode node, List<TreeNode> path) {
         if (root == null)
             return false;
