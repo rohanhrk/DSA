@@ -14,9 +14,9 @@ public class l003View {
         }
     }
 
-    // =================================================================================================
-    // DATE: 25/ 08
-    // levelOrder
+    // ==========================================================================================================================
+    // Question_1 : 102. Binary Tree Level Order Traversal
+    // https://leetcode.com/problems/binary-tree-level-order-traversal/
     public static void levelOrder(TreeNode root) {
 
         LinkedList<TreeNode> que = new LinkedList<>();
@@ -47,7 +47,39 @@ public class l003View {
             System.out.println(level++ + "->" + list);
     }
 
-    // Binary Tree left Side View
+    // ==========================================================================================================================
+    // Question_1.1 : 107. Binary Tree Level Order Traversal II
+    // https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        LinkedList<List<Integer>> ans = new LinkedList<>();
+        if(root == null)
+            return ans;
+        LinkedList<TreeNode> que = new LinkedList<>();
+        que.add(root);
+        while(que.size() != 0) {
+            int size = que.size();
+            List<Integer> list = new LinkedList<>();
+            
+            while(size-- > 0) {
+                TreeNode rn = que.removeFirst();
+                list.add(rn.val);
+                
+                if(rn.left != null)
+                    que.addLast(rn.left);
+                if(rn.right != null)
+                    que.addLast(rn.right);
+            }
+            
+            ans.addFirst(list);
+        }
+         
+        return ans;
+             
+    }
+
+    // ==========================================================================================================================
+    // Question_2 : Binary Tree left Side View
+    // https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1/
     public List<Integer> leftSideView(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
         if (root == null)
@@ -71,7 +103,9 @@ public class l003View {
         return ans;
     }
 
-    // 199. Binary Tree Right Side View
+    // ==========================================================================================================================
+    // Question_3 : 199. Binary Tree Right Side View
+    // https://leetcode.com/problems/binary-tree-right-side-view/
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
         if (root == null)
@@ -95,6 +129,9 @@ public class l003View {
         return ans;
     }
 
+    // ==========================================================================================================================
+    // Question_4 : Vertical Traversal of Binary Tree
+    // https://practice.geeksforgeeks.org/problems/print-a-binary-tree-in-vertical-order/1
     // width of binary tree -> shadow techniques
     // vl -> vertical level
     public static void width(TreeNode root, int vl, int[] minMax) {
@@ -162,6 +199,8 @@ public class l003View {
         return ans;
     }
 
+    // ==========================================================================================================================
+    // Question_5 : 
     public static ArrayList<Integer> bottomlSideView(TreeNode root) {
         LinkedList<vPair> que = new LinkedList<>();
         int[] minMax = new int[2];

@@ -2,8 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 
-// DATE: 3/ 08/ 2021
-// =============================================_AMAZON_=============================================
+/*
+    Amazon ====>
+*/ 
 public class l002_Burning_BT {
 
     public class TreeNode {
@@ -16,7 +17,9 @@ public class l002_Burning_BT {
         }
     }
 
-    // ****************************_burn_the_binary_tree_****************************
+    // =========================================================================================================================
+    // Question_1 : Burning Tree
+    // https://practice.geeksforgeeks.org/problems/burning-tree/1/
     public boolean rootToNodePath(TreeNode root, TreeNode target, List<TreeNode> ans) {
         if (root == null)
             return false;
@@ -27,10 +30,13 @@ public class l002_Burning_BT {
         return res;
     }
 
-    // faith ----->>>>>>
-        // 1. hum time ko as an index ki tarah treat karenge
-        // 2. agar time == ans.size(), toh ek naya arraylist banayenge aur ans me add kar denge
-        // 3. har ek noot ko apne respective time(index) ke arraylist me append kar lenge   
+    /*
+        faith ----->>>>>>
+        1. hum time ko as an index ki tarah treat karenge
+        2. agar time == ans.size(), toh ek naya arraylist banayenge aur ans me add kar denge
+        3. har ek noot ko apne respective time(index) ke arraylist me append kar lenge   
+    */ 
+    
     public void burnTree(TreeNode node, int time, List<List<Integer>> ans, TreeNode blockNode) {
         if (node == null || node == blockNode)
             return;
