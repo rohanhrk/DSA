@@ -200,7 +200,8 @@ public class l003View {
     }
 
     // ==========================================================================================================================
-    // Question_5 : 
+    // Question_5 : Bottom View of Binary Tree
+    // https://practice.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1/
     public static ArrayList<Integer> bottomlSideView(TreeNode root) {
         LinkedList<vPair> que = new LinkedList<>();
         int[] minMax = new int[2];
@@ -232,7 +233,10 @@ public class l003View {
         return ans;
     }
 
-    public static ArrayList<Integer> toplSideView(TreeNode root) {
+    // ==========================================================================================================================
+    // Question_6 : Top View of Binary Tree
+    // https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1/
+    public static ArrayList<Integer> topSideView(TreeNode root) {
         LinkedList<vPair> que = new LinkedList<>();
         int[] minMax = new int[2];
         width(root, 0, minMax);
