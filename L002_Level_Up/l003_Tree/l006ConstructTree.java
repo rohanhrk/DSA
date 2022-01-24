@@ -21,6 +21,8 @@ public class l006ConstructTree {
         }
     }
 
+    // ==========================================================================================================================
+    // Question_1 : Construct BST from inorder traversal
     public static TreeNode constructFromInOrder(int[] inOrder, int si, int ei) {
         if (si > ei)
             return null;
@@ -33,17 +35,19 @@ public class l006ConstructTree {
         return root;
     }
 
-    // construct-bst-from-preorder-traversal
-    static int idx;
 
-    public static TreeNode bstFromPreorder(int[] preorder, int lr, int rr) {
-        if (idx == preorder.length || rr < preorder[idx] || lr > preorder[idx])
+    // ==========================================================================================================================
+    // Question_2 : 1008. Construct Binary Search Tree from Preorder Traversal
+    // https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+    private static int idx;
+    public static TreeNode bstFromPreorder(int[] preorder, int left_range, int right_range) {
+        if (idx == preorder.length || right_range < preorder[idx] || left_range > preorder[idx])
             return null;
 
         TreeNode root = new TreeNode(preorder[idx++]);
 
-        root.left = bstFromPreorder(preorder, lr, root.val);
-        root.right = bstFromPreorder(preorder, root.val, rr);
+        root.left = bstFromPreorder(preorder, left_range, root.val);
+        root.right = bstFromPreorder(preorder, root.val, right_range);
 
         return root;
     }
@@ -51,10 +55,11 @@ public class l006ConstructTree {
     public static TreeNode bstFromPreorder(int[] preorder) {
         idx = 0;
         return bstFromPreorder(preorder, -(int) 1e9, (int) 1e9);
-
     }
 
-    // construct-bst-from-postorder-traversal
+    // ==========================================================================================================================
+    // Question_3 : Construct BST from Postorder
+    // https://practice.geeksforgeeks.org/problems/construct-bst-from-post-order/1/
     public static TreeNode bstFromPostorder(int[] postorder, int lr, int rr) {
         if (idx == -1 || rr < postorder[idx] || lr > postorder[idx])
             return null;
