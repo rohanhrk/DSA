@@ -268,7 +268,9 @@ public class l003View {
         return ans;
     }
 
-    // diagonal ordern
+    // ==========================================================================================================================
+    // Question_7 : Diagonal Traversal of Binary Tree 
+    // https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1
     public static ArrayList<ArrayList<Integer>> diagonalTraversal(TreeNode root) {
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
@@ -294,6 +296,8 @@ public class l003View {
         return ans;
     }
 
+    // ==========================================================================================================================
+    // Question_7 : anti diagonal Traversal of Binary Tree 
     public static ArrayList<ArrayList<Integer>> antiDiagonalTraversal(TreeNode root) {
         LinkedList<TreeNode> que = new LinkedList<>();
         que.add(root);
@@ -318,7 +322,8 @@ public class l003View {
         return ans;
     }
 
-    // diagonal view
+    // ==========================================================================================================================
+    // Question_8 : diagonal top side view of Binary Tree 
     public static ArrayList<Integer> diagonalTopSideView(TreeNode root) {
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
@@ -344,6 +349,8 @@ public class l003View {
         return ans;
     }
 
+    // ==========================================================================================================================
+    // Question_8 : diagonal bottom side view of Binary Tree 
     public static  ArrayList<Integer> diagonalOrderBootomView(TreeNode root) {
         int len = 0;
         TreeNode curr = root;
@@ -377,10 +384,9 @@ public class l003View {
 
     } 
 
-    // ===============================================================================================================
-    // DATE: 27/ 08
-
-    // vertical sum of binary tree Nodes
+    // ==========================================================================================================================
+    // Question_9 : vertical sum of binary tree Nodes
+    // https://practice.geeksforgeeks.org/problems/vertical-sum/1
     public static ArrayList<Integer> verticalOrderSum(TreeNode root) {
         LinkedList<vPair> que = new LinkedList<>();
         int[] minMax = new int[2];
@@ -412,7 +418,9 @@ public class l003View {
         return ans;
     }
 
-    // diagonal sum of binary tree
+    // ==========================================================================================================================
+    // Question_10 : diagonal sum of binary tree
+    // https://practice.geeksforgeeks.org/problems/diagonal-sum-in-binary-tree/1/
     public static ArrayList<Integer> diagonalOrderSum(TreeNode root) {
         LinkedList<TreeNode> que = new LinkedList<>();
         que.addLast(root);
@@ -439,7 +447,8 @@ public class l003View {
         return ans;
     }
 
-    // vertical sum of binary tree Nodes using doubly linkedList
+    // ==========================================================================================================================
+    // Question_11 : vertical sum of binary tree Nodes using doubly linkedList
     public static class ListNode {
         int data = 0;
         ListNode prev = null;
