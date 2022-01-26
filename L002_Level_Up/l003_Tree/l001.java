@@ -287,8 +287,7 @@ public class l001 {
         return LCA;
     }
 
-    // =================================================================================================
-    // PREDECESSOR_SUCCESSOR_============================================================================
+    
     public static class allSolnPair {
         TreeNode pred = null;
         TreeNode succ = null;

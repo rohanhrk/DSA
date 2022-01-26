@@ -77,52 +77,58 @@ public class l006ConstructTree {
         return bstFromPostorder(postorder, -(int) 1e9, (int) 1e9);
     }
 
-    // construct-bst-from-levelorder-traversal
-    public static class BSTLpair {
-        TreeNode parent = null;
-        int lb = 0; // left boundary
-        int rb = 0; // right boundary
-
-        BSTLpair(TreeNode parent, int lb, int rb) {
-            this.parent = parent;
-            this.lb = lb;
-            this.rb = rb;
+    // ==========================================================================================================================
+    // Question_4 : Convert Level Order Traversal to BST 
+    // https://practice.geeksforgeeks.org/problems/convert-level-order-traversal-to-bst/1
+    private class BstTriplet {
+        Node par;
+        int lr, rr; // lr => left range, rr => right range
+        BstTriplet(Node par, int lr, int rr) {
+            this.par = par;
+            this.lr = lr;
+            this.rr = rr;
         }
+            
     }
-
-    public static TreeNode constructBSTFromLevelOrder(int[] LevelOrder) {
-        if (LevelOrder.length == 0)
-            return null;
-        LinkedList<BSTLpair> que = new LinkedList<>();
-        TreeNode root = new TreeNode(LevelOrder[0]);
-        int index = 1;
-
-        que.addLast(new BSTLpair(root, -(int) 1e9, root.val));
-        que.addLast(new BSTLpair(root, root.val, (int) 1e9));
-
-        while (index < LevelOrder.length) {
-            BSTLpair rpair = que.removeFirst();
-            TreeNode parent = rpair.parent;
-            int lb = rpair.lb, rb = rpair.rb;
-
-            if (LevelOrder[index] < lb || LevelOrder[index] > rb)
+    public Node constructBST(int[] arr) {
+        LinkedList<BstTriplet> que = new LinkedList<>();
+        que.addLast(new BstTriplet(null, -(int)1e9, (int)1e9));
+        
+        int idx = 0;
+        Node root = null;
+        while(que.size() != 0 && idx < arr.length) {
+            BstTriplet rt = que.removeFirst();
+            
+            Node par = rt.par;
+            int lr = rt.lr, rr = rt.rr;
+            
+            int ele = arr[idx];
+            if(lr > ele || rr < ele) 
                 continue;
-
-            TreeNode childNode = new TreeNode(LevelOrder[index++]);
-            if (childNode.val < parent.val)
-                parent.left = childNode;
-            else
-                parent.right = childNode;
-
-            que.addLast(new BSTLpair(childNode, lb, childNode.val));
-            que.addLast(new BSTLpair(childNode, childNode.val, rb));
+                
+            Node child_node = new Node(ele); 
+            idx++;
+            
+            if(par == null)
+                root = child_node;
+            else {
+                if(par.data > ele)
+                    par.left = child_node;
+                else
+                    par.right = child_node;
+            }
+            
+                
+            que.addLast(new BstTriplet(child_node, lr, ele)); // left subtree
+            que.addLast(new BstTriplet(child_node, ele, rr)); // right subtree    
         }
-
+        
         return root;
-
     }
 
-    // 105. Construct Binary Tree from Preorder and Inorder Traversal
+    // ==========================================================================================================================
+    // Question_5 : 105. Construct Binary Tree from Preorder and Inorder Traversal
+    // https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
     public static int findValIninorder(int val, int[] inorder) {
         int idx = 0;
         while (inorder[idx] != val)
@@ -134,9 +140,12 @@ public class l006ConstructTree {
     public TreeNode InOrPre(int[] preorder, int[] inorder, int Psi, int Pei, int Isi, int Iei) {
         if (Psi > Pei || Isi > Iei)
             return null;
+
         TreeNode root = new TreeNode(preorder[Psi]);
-        int idx = findValIninorder(preorder[Psi], inorder);
-        int Tel = idx - Isi;
+        
+        int idx = findValIninorder(preorder[Psi], inorder); // // search preorder[Psi] in inorder array and return index
+        int Tel = idx - Isi; // total elem in left subtree
+        
         root.left = InOrPre(preorder, inorder, Psi + 1, Psi + Tel, Isi, idx - 1);
         root.right = InOrPre(preorder, inorder, Psi + Tel + 1, Pei, idx + 1, Iei);
 
@@ -144,8 +153,9 @@ public class l006ConstructTree {
 
     }
 
-   
+    // ==========================================================================================================================
     // 106. Construct Binary Tree from Inorder and Postorder Traversal
+    // https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
     public  TreeNode InOrPost(int[] postorder, int[] inorder, int Psi, int Pei, int Isi, int Iei) {
         if (Psi > Pei || Isi > Iei)
             return null;
@@ -165,6 +175,7 @@ public class l006ConstructTree {
         return InOrPost(postorder, inorder, 0, postorder.length - 1, 0, inorder.length - 1);
     }
 
+    // ==========================================================================================================================
     // 889. Construct Binary Tree from Preorder and Postorder Traversal
     // psi -> pre start idx , pei -> pre end idx
     // ppsi -> post start idx, ppei -> post end idx , tnel -> total no of elem
