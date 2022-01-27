@@ -11,9 +11,9 @@ public class l003BST {
             this.val = val;
         }
     }
-
-    // ============================================================================================
-    // DATE: 24/ 08
+    
+    // =========================================================================================================================
+    // Basic
     public static int size(TreeNode root) {
         return root == null ? 0 : size(root.left) + size(root.right) + 1;
     }
@@ -36,6 +36,8 @@ public class l003BST {
         return curr.val;
     }
 
+    // =========================================================================================================================
+    // Question_1 : find element in BST
     public static boolean find(TreeNode root, int data) {
         TreeNode curr = root;
 
@@ -51,6 +53,8 @@ public class l003BST {
         return false;
     }
 
+    // =========================================================================================================================
+    // Question_2 : root to node path in BST
     public static ArrayList<Integer> NodeToRootPath(TreeNode root, int data) {
         ArrayList<Integer> ans = new ArrayList<>();
         TreeNode curr = root;
@@ -77,7 +81,9 @@ public class l003BST {
         return false;
     }
 
-    // 235. Lowest Common Ancestor of a Binary Search Tree
+    // =========================================================================================================================
+    // Question_3 : 235. Lowest Common Ancestor of a Binary Search Tree
+    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         TreeNode curr = root;
         while (curr != null) {
@@ -93,7 +99,9 @@ public class l003BST {
         return curr;
     }
 
-    // 173. Binary Search Tree Iterator
+    // =========================================================================================================================
+    // Question_4 : 173. Binary Search Tree Iterator
+    // https://leetcode.com/problems/binary-search-tree-iterator/submissions/
     // Time -> O(N) , space -> O(log(N))
     class BSTIterator {
         LinkedList<TreeNode> st;
@@ -123,8 +131,9 @@ public class l003BST {
         }
     }
 
-    // ============================================================================================
-    // Predecessor_N_Successor
+    // =========================================================================================================================
+    // Quesstion_5 : Predecessor and Successor
+    // https://practice.geeksforgeeks.org/problems/predecessor-and-successor/1/
     public static TreeNode getLeftMost(TreeNode node) {
         if (node == null)
             return node;
@@ -165,7 +174,9 @@ public class l003BST {
         }
     }
 
-    // 230. Kth Smallest Element in a BST
+    // =========================================================================================================================
+    // Question_6 : 230. Kth Smallest Element in a BST
+    // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
     public void addAllLeft(LinkedList<TreeNode> st, TreeNode node) {
         while (node != null) {
             st.addLast(node);
@@ -191,8 +202,9 @@ public class l003BST {
         return element;
     }
 
-    // add Node in Bst
-
+    // =========================================================================================================================
+    // Question_7 : 701. Insert into a Binary Search Tree
+    // https://leetcode.com/problems/insert-into-a-binary-search-tree/
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if(root == null) return new TreeNode(val);
         TreeNode curr = root, prev = null;

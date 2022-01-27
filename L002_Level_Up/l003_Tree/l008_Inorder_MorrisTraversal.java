@@ -24,7 +24,7 @@ public class l008_Inorder_MorrisTraversal {
         ArrayList<Integer> ans = new ArrayList<>();
 
         while (curr != null) {
-            TreeNode left = curr.left;
+            TreeNode left = curr.left; // backup
             if (left == null) {
                 ans.add(curr.val);
                 curr = curr.right;
