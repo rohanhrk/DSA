@@ -93,7 +93,8 @@ public class l002_Burning_BT {
         return ans;
     }
 
-    // fire - water problem
+    // =========================================================================================================================
+    // Question_2 : fire - water problem
     public void burnTreeWithWater(TreeNode root, int time, List<List<Integer>> ans, TreeNode blockNode,
             HashSet<Integer> WaterNode) {
         if (root == null || root == blockNode || WaterNode.contains(root.val))

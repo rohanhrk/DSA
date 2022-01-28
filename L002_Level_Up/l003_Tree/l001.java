@@ -227,8 +227,8 @@ public class l001 {
     }
     
     // =================================================================================================================================
-    // 236. Lowest Common Ancestor of a Binary Tree
-    // 
+    // Question_5 : 236. Lowest Common Ancestor of a Binary Tree
+    // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
     public boolean NodeToRootPath(TreeNode root, TreeNode node, List<TreeNode> path) {
         if (root == null)
             return false;
@@ -259,7 +259,9 @@ public class l001 {
 
     }
 
- 
+    /*
+        Mathod 2
+    */ 
     private TreeNode LCA = null;
     public boolean lowestCommonAncestor_(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null)
@@ -308,7 +310,7 @@ public class l001 {
         precAndSucc(root.right, data, pair);
     }
 
-    // Floor_Ceil==================================================================
+    // Floor_Ceil
     public static void FloorNceil(TreeNode node, int data, allSolnPair pair) {
         if (node.val < data)
             pair.floor = Math.max(pair.floor, node.val);

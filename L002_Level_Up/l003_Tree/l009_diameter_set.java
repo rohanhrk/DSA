@@ -141,8 +141,9 @@ public class l009_diameter_set {
         return ans1 != -(int)1e9 ? ans1 : Math.max(ans1,ans2);
     } 
 
-    // 124. Binary Tree Maximum Path Sum
-
+    // ===================================================================================================================================
+    // Question_4 : 124. Binary Tree Maximum Path Sum
+    // https://leetcode.com/problems/binary-tree-maximum-path-sum/
     public class NTNPair {
         int maxPossiblePathSum = -(int) 1e9;   // potential max sum path --> jo hamara ans bon sakta he
         int NTNMaxPathSum = 0; // node to node maximum path sum
@@ -170,8 +171,14 @@ public class l009_diameter_set {
         return maxPathSum_helper(root).maxPossiblePathSum;
     }
 
-    //  968. Binary Tree Cameras
-    // -1 --> camera required,  0 --> already covered , 1 --> I have a cameras
+    // ===================================================================================================================================
+    // Question_5 : 968. Binary Tree Cameras
+    // https://leetcode.com/problems/binary-tree-cameras/
+    /*
+        -1 => the node is not monitored, camera required,  
+         0 => the node is monitored. , 
+         1 =>  the node has the camera.
+    */ 
     public int minCameraCover(TreeNode root, int[] noOfCamerasInstal) {
         int lr = minCameraCover(root.left, noOfCamerasInstal);
         int rr = minCameraCover(root.right, noOfCamerasInstal);
@@ -186,8 +193,9 @@ public class l009_diameter_set {
         return -1; 
     } 
 
-    // 337. House Robber III
-
+    // ===================================================================================================================================
+    // Question_6 : 337. House Robber III
+    // https://leetcode.com/problems/house-robber-iii/submissions/
     public class housePair {
         int withRobbery = 0;
         int withoutRobbery = 0;
@@ -211,8 +219,10 @@ public class l009_diameter_set {
         return Math.max(ans.withRobbery , ans.withoutRobbery);
     }
 
-    // 2nd approach using array
-    // {withRobbery, withoutRobbery}
+    /*
+        2nd approach using array
+        {withRobbery, withoutRobbery}
+    */
 
     public static int[] houseRobbery02(TreeNode root) {
         if(root == null) return new int[2];
@@ -227,7 +237,9 @@ public class l009_diameter_set {
         return myAns;
     }
 
-    // 1372. Longest ZigZag Path in a Binary Tree
+    // ===================================================================================================================================
+    // Question_7 : 1372. Longest ZigZag Path in a Binary Tree
+    // https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/
     public class zigzagPair {
         int forwardSlop = -1;
         int backwardSlop = -1;
