@@ -11,6 +11,8 @@ public class l008_Inorder_MorrisTraversal {
         }
     }
 
+    // ===================================================================================================================================
+    // Question_1 : Morris Inorder traversal
     public static TreeNode getRightMost(TreeNode node, TreeNode curr) {
         while (node.right != null && node.right != curr) {
             node = node.right;
@@ -19,6 +21,7 @@ public class l008_Inorder_MorrisTraversal {
         return node;
     }
 
+    
     public static ArrayList<Integer> morrisInorderTraversal(TreeNode root) {
         TreeNode curr = root;
         ArrayList<Integer> ans = new ArrayList<>();
@@ -46,16 +49,10 @@ public class l008_Inorder_MorrisTraversal {
         return ans;
     }
 
-    // Question============================================================================================================
-    // validate BST --> using morris Trversal
-
-    // public staic TreeNode getRightMost(TreeNode node, TreeNode curr) {
-    // while(node.right != null && node.right != curr) {
-    // node = node.right;
-    // }
-
-    // return node;
-    // }
+    // ===================================================================================================================================
+    // Question_2 : 98. Validate Binary Search Tree 
+    // https://leetcode.com/problems/validate-binary-search-tree/
+    // --> using morris Trversal
     public static boolean isBST(TreeNode root) {
         TreeNode curr = root;
         TreeNode prev = null;
@@ -87,7 +84,9 @@ public class l008_Inorder_MorrisTraversal {
         return isBST;
     }
 
-    // kth smallest
+    // ===================================================================================================================================
+    // Question_3 : 230. Kth Smallest Element in a BST
+    // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
     public int kthSmallest(TreeNode root, int k) {
         TreeNode curr = root;
         while (curr != null) {
@@ -120,7 +119,9 @@ public class l008_Inorder_MorrisTraversal {
         return node;
     }
 
-    // Kth largest
+    // ===================================================================================================================================
+    // Question_4 : Kth largest element in BST
+    // https://practice.geeksforgeeks.org/problems/kth-largest-element-in-bst/1/
     public static int kthLatgest(TreeNode root, int k) {
         TreeNode curr = root;
         while (curr != null) {
@@ -146,7 +147,9 @@ public class l008_Inorder_MorrisTraversal {
         return -1;
     }
 
-    // binary search tree to doubly linkedlist
+    // ===================================================================================================================================
+    // Question_5 : binary search tree to doubly linkedlist
+    // https://practice.geeksforgeeks.org/problems/binary-tree-to-dll/1
     public static TreeNode bstToDLL(TreeNode root) {
         TreeNode dummy = new TreeNode(-1);
         TreeNode curr = root, prev = dummy;
@@ -180,7 +183,9 @@ public class l008_Inorder_MorrisTraversal {
         return head;
     }
 
-    // BST iterator using Morris traversal
+    // ===================================================================================================================================
+    // Question_6 : BST iterator using Morris traversal
+    // https://leetcode.com/problems/binary-search-tree-iterator/
     public class BSTIterator {
         TreeNode curr = null;
 
@@ -216,6 +221,65 @@ public class l008_Inorder_MorrisTraversal {
         public boolean hasNext() {
             return curr != null;
         }
+    }
+
+    // ===================================================================================================================================
+    // Question_7 : 99. Recover Binary Search Tree
+    // https://leetcode.com/problems/recover-binary-search-tree/
+    private void swap(TreeNode n1, TreeNode n2) {
+        int temp = n1.val;
+        n1.val = n2.val;
+        n2.val = temp;
+    }
+    private TreeNode getRightMostInLeftSubtree(TreeNode node, TreeNode curr) {
+        while(node.right != null && node.right != curr) {
+            node = node.right;
+        }
+        return node;
+    }
+    public void recoverTree(TreeNode root) {
+        TreeNode curr = root, prev = null, first = null, second = null;
+        while(curr != null) {
+            TreeNode left = curr.left;
+            if(left == null) {
+                // may be left subtree is completely traverse
+                if(prev != null && prev.val > curr.val) {
+                    if(first == null) {
+                        first = prev;
+                    } 
+                        second = curr;
+                
+                }
+                prev = curr;
+                
+                curr = curr.right;
+            } else {
+                // thread creation area
+                TreeNode right_most = getRightMostInLeftSubtree(left, curr);
+                if(right_most.right == curr) {
+                    // means left subtree is already traverse
+                    right_most.right = null; // break thread
+                    
+                    // also IN area
+                    if(prev != null && prev.val > curr.val) {
+                        if(first == null) {
+                            first = prev;
+                        } 
+                            second = curr;
+                  
+                    }
+                    prev = curr;
+                    
+                    curr = curr.right;
+                } else {
+                    // create a thread
+                    right_most.right = curr;
+                    curr = left;
+                }
+            }
+        }
+        
+        swap(first, second);
     }
 
 }

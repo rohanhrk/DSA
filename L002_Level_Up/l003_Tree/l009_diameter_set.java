@@ -13,6 +13,14 @@ public class l009_diameter_set {
         return root == null ? -1 : Math.max(height(root.left), height(root.right)) + 1;
     }
 
+    // ===================================================================================================================================
+    // Question_1 : 543. Diameter of Binary Tree
+    // https://leetcode.com/problems/diameter-of-binary-tree/
+    /*
+        mathod 1 => 
+            time -> O(N*N)
+            space -> O(1)
+    */ 
     public int diameterOfBinaryTree_01(TreeNode root) {
         int ld = diameterOfBinaryTree_01(root.left);
         int rd = diameterOfBinaryTree_01(root.right);
@@ -24,6 +32,11 @@ public class l009_diameter_set {
         return Math.max(Math.max(ld, rd), myDiameter);
     }
 
+    /*
+        Mathod 2 =>
+            time -> O(N)
+            space -> O(N)
+    */ 
     // {diameter, height}
     public int[] diameterOfBinaryTree_02(TreeNode root) {
         int[] lp = diameterOfBinaryTree_02(root.left);
@@ -36,6 +49,10 @@ public class l009_diameter_set {
         return myPair;
     }
 
+    /*'
+        Mathod 3 =>
+            using static varible
+    */ 
     public int diameterOfBinaryTree_03(TreeNode root, int[] dia) {
         if (root == null)
             return -1;
@@ -45,9 +62,21 @@ public class l009_diameter_set {
         return Math.max(lh, rh) + 1;
     }
 
-    // ===============================================================================================================
-     // 113. Path Sum II
+    // ===================================================================================================================================
+    // Question_2 : 112. Path Sum
+    // https://leetcode.com/problems/path-sum/submissions/
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null)
+            return false;
+        
+        boolean res = (root.left == null && root.right == null && targetSum - root.val == 0);
+        
+        return res || hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+    }
 
+    // ===================================================================================================================================
+    // Question_2 : 113. Path Sum II
+    // https://leetcode.com/problems/path-sum-ii/ 
     public void pathSum_(TreeNode root, int targetSum, List<Integer> smallAns, List<List<Integer>> ans) {
         if(root == null) {
             return;
@@ -61,6 +90,7 @@ public class l009_diameter_set {
             }
             return;
         }
+
         smallAns.add(root.val);
         pathSum_(root.left, targetSum - root.val, smallAns, ans);
         pathSum_(root.right, targetSum - root.val, smallAns, ans);
@@ -74,17 +104,9 @@ public class l009_diameter_set {
         return ans;
     }
 
-    // 112. Path Sum
-    public boolean hasPathSum(TreeNode root, int targetSum) {
-        if(root == null) return false;
-        if(root.left == null && root.right == null)
-            return targetSum - root.val == 0 ? true : false;
-        
-        return hasPathSum(root.left , targetSum - root.val) || hasPathSum(root.right , targetSum - root.val);
-    }
-
+    // ===================================================================================================================================
+    // Question_3 : Maximum Path Sum between 2 Leaf Nodes
     // https://www.geeksforgeeks.org/find-maximum-path-sum-two-leaves-binary-tree/
-    //_find-maximum-path-sum-two-leaves-binary-tree
     public static class leafToLeafPair {
         int LTLMaxSum = -(int)1e9; // leave to leave maximum sum 
         int NTLMaxSum = -(int)1e9; // Node to leave maximum sum

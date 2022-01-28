@@ -14,7 +14,22 @@ public class l007_AVL {
         }
     }
 
-    // ===========================================================================================================
+    /*
+        Note : four structured tree which does not follow the balanced tree property
+        
+        {height, balance}
+        =>  height = Math.max(height of left subtree, height of right subtree) + 1;
+            balance = (height of left subtree - height of right subtree);
+        1)                   2)                         3)                        4)
+                a(2,2)               a(2,2)              a(2,-2)                    a(2,-2)
+               /                    /                     \                          \
+              b(1,1)               b(1,-1)                 b(1,-1)                    b(1,1)
+             /                      \                       \                        /
+            c(0,0)                   c(0,0)                  c(0,0)                 c(0,0)
+            
+        fig 1 : left-left     fig 2 : left-right        fig 3 : right-right        fig 4 : right-left
+    */ 
+
     public static void updateBalanceHeight(TreeNode root) {
         int lh = root.left != null ? root.left.height : -1;
         int rh = root.right != null ? root.right.height : -1;
@@ -23,6 +38,7 @@ public class l007_AVL {
         root.bal = (lh - rh);
     }
 
+    /* 3. right rotation */
     public static TreeNode rightRotation(TreeNode A) { // right-right rotation
         TreeNode B = A.left;
         TreeNode BKaRight = B.right;
@@ -36,6 +52,7 @@ public class l007_AVL {
         return B;
     }
 
+    /* 2. left rotation */
     public static TreeNode leftRotation(TreeNode A) { // left-left rotation
         TreeNode B = A.right;
         TreeNode BKaLeft = B.left;
@@ -49,6 +66,7 @@ public class l007_AVL {
         return B;
     }
 
+    /* 1. get rotation */ 
     public static TreeNode getRotation(TreeNode root) {
         updateBalanceHeight(root);
 
@@ -71,8 +89,7 @@ public class l007_AVL {
         return root;
     }
 
-    // ===========================================================================================================
-
+    /* insert a node */
     public static TreeNode add(TreeNode root, int data) {
         if (root == null)
             return new TreeNode(data);
@@ -93,6 +110,7 @@ public class l007_AVL {
         return curr;
     }
 
+    /* remove node */
     public static TreeNode remove(TreeNode root, int data) {
         if (data < root.val)
             root.left = add(root.left, data);
