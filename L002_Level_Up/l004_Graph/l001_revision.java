@@ -11,6 +11,8 @@ public class l001_revision {
 		}
 	}
 
+	// ======================================================================================================================================================
+	// Basic =>
 	public static void addEdge(ArrayList<Edge>[] graph, int u, int v, int w) {
 		graph[u].add(new Edge(v, w));
 		graph[v].add(new Edge(u, w));
@@ -39,7 +41,10 @@ public class l001_revision {
 		graph[v].remove(idx);
 	}
 
-	// Has Path
+	// ======================================================================================================================================================
+	// Question_1 : 1971. Find if Path Exists in Graph
+	// https://leetcode.com/problems/find-if-path-exists-in-graph/
+
 	// O(E), where E is the Total No of Edge in that particular component
 	public static boolean dfs_findPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
 		if (src == dest)
@@ -54,24 +59,35 @@ public class l001_revision {
 		return hasPath;
 	}
 
-	public static int printAllPath(ArrayList<Edge>[] graph, int src, int dest, String psf, int wsf, boolean[] vis) {
-		if (src == dest) {
-			System.out.println(psf + dest + "@" + wsf);
-			return 1;
-		}
+	// ======================================================================================================================================================
+	// Question_2 : 797. All Paths From Source to Target
+	// https://leetcode.com/problems/all-paths-from-source-to-target/
+	private void dfs(int[][] graph, int src, int dest, List<List<Integer>> ans, List<Integer> small_ans) {
+        if(src == dest) {
+            List<Integer> base = new ArrayList<>(small_ans);
+            base.add(dest);
+            ans.add(base);
+            return;
+        }
+        
+        for(int v : graph[src]) {
+                small_ans.add(src);
+                dfs(graph, v, dest, ans, small_ans);
+                small_ans.remove(small_ans.size() - 1);
+        }
+    }
+    
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> small_ans = new ArrayList<>();
+        int n = graph.length;        
+        dfs(graph, 0, n - 1, ans, small_ans);
+        return ans;
+    }
 
-		int count = 0;
-		vis[src] = true;
-		for (Edge e : graph[src]) {
-			if (!vis[e.v])
-				count += printAllPath(graph, e.v, dest, psf + src, wsf + e.w, vis);
-		}
-		vis[src] = false;
-
-		return count;
-	}
-
-	// get connected component
+	// ======================================================================================================================================================
+	// Question_3 : Connected Components in an undirected graph
+	// https://www.geeksforgeeks.org/connected-components-in-an-undirected-graph/
 	public static void dfs_gcc(ArrayList<Edge>[] graph, int src, boolean[] vis) {
 		vis[src] = true;
 		for (Edge e : graph[src])
@@ -92,7 +108,7 @@ public class l001_revision {
 		System.out.println(component);
 	}
 
-	// BFS========================================================
+	// ======================================================================================================================================================
 	public static void BFS_WithCycle(ArrayList<Edge>[] graph, int src, boolean[] vis) {
 		LinkedList<Integer> que = new LinkedList<>();
 		que.addLast(src);

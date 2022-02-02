@@ -11,7 +11,9 @@ public class dfs_question {
 
     }
 
-    // 200. Number of Islands
+    // ====================================================================================================================================================== 
+    // Questio_1 : 200. Number of Islands
+    // https://leetcode.com/problems/number-of-islands/
     public void dfs(char[][] grid, int i, int j, int[][] dir) {
         grid[i][j] = '0';
         int n = grid.length, m = grid[0].length;
@@ -42,7 +44,9 @@ public class dfs_question {
         return islandCount;
     }
 
-    // 695. Max Area of Island
+    // ======================================================================================================================================================
+    // Question_2 : 695. Max Area of Island
+    // https://leetcode.com/problems/max-area-of-island/
     public int dfs_maxArea(int[][] grid, int sr, int sc, int[][] dir) {
         grid[sr][sc] = 0;
         int size = 0, n = grid.length, m = grid[0].length;
@@ -73,9 +77,9 @@ public class dfs_question {
         return maxArea;
     }
 
-    
-
-    // 463. Island Perimeter
+    // ======================================================================================================================================================
+    // Question_3 : 463. Island Perimeter
+    // https://leetcode.com/problems/island-perimeter/
     public void dfs_perimeter(int[][] grid, int sr, int sc, int[][] dir, int[] waterCount) {
         int n = grid.length, m = grid[0].length;
         if (grid[sr][sc] == 0 || sr < 0 || sc < 0 || sr == n || sc == m)
@@ -132,7 +136,9 @@ public class dfs_question {
         return 4 * onesCount - 2 * nbrsCount;
     }
 
-    // 130. Surrounded Regions
+    // ======================================================================================================================================================
+    // Question_4 : 130. Surrounded Regions
+    // https://leetcode.com/problems/surrounded-regions/
     public void dfs_surrounded(char[][] grid, int sr, int sc, int[][] dir) {
         grid[sr][sc] = '#';
         int n = grid.length, m = grid[0].length;
@@ -167,7 +173,9 @@ public class dfs_question {
 
     }
 
-    // lintcode 860 · Number of Distinct Islands
+    // ======================================================================================================================================================
+    // Question_5 : lintcode 860 · Number of Distinct Islands
+    // https://www.lintcode.com/problem/860/
     public void dfs_distictIsland(int[][] grid, int sr, int sc, StringBuilder sb, int[][] dir, char[] dirString) {
         grid[sr][sc] = 0;
         int n = grid.length, m = grid[0].length;
@@ -184,7 +192,6 @@ public class dfs_question {
     }
 
     public int numberofDistinctIslands(int[][] grid) {
-        // write your code here
         int[][] dir = { { 0, -1 }, { -1, 0 }, { 0, 1 }, { 1, 0 } };
         char[] dirString = { 'L', 'U', 'R', 'D' };
         int n = grid.length, m = grid[0].length;
@@ -207,5 +214,74 @@ public class dfs_question {
         }
 
         return set.size();
+    }
+
+    // ======================================================================================================================================================
+    // Question_6 : 1905. Count Sub Islands
+    // https://leetcode.com/problems/count-sub-islands/
+    // method 1 =>
+    private boolean dfs_SubIslands(int[][] grid1, int[][] grid2, int sr, int sc, int[][] dir, int n, int m) {
+        grid2[sr][sc] = 0;
+        boolean res = true;
+        for(int d = 0; d < dir.length; d++) {
+            int row = sr + dir[d][0], col = sc + dir[d][1];
+            if(row >= 0 && row < n && col >= 0 && col < m && grid2[row][col] == 1) {
+                res = dfs_SubIslands(grid1, grid2, row, col, dir, n, m) && res;  
+            }
+        }
+        
+        return res && grid1[sr][sc] == 1;
+    }
+    public int countSubIslands(int[][] grid1, int[][] grid2) {
+        int n = grid2.length, m = grid2[0].length;
+        int[][] dir = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+        int sub_islands = 0;
+        for(int sr = 0; sr < n; sr++) {
+            for(int sc = 0; sc < m; sc++) {
+                if(grid2[sr][sc] == 1 && dfs_SubIslands(grid1, grid2, sr, sc, dir, n, m)) {
+                    sub_islands++;
+                }
+            }
+        }
+        
+        return sub_islands;
+    }
+
+    // method 2 =>
+    private void dfs_Island(int[][] grid, int sr, int sc, int[][] dir, int n, int m) {
+        grid[sr][sc] = 0;
+        for(int d = 0; d < dir.length; d++) {
+            int row = sr + dir[d][0], col = sc + dir[d][1];
+            if(row >= 0 && row < n && col >= 0 && col < m && grid[row][col] == 1) {
+                dfs_Island(grid, row, col, dir, n, m);
+            }
+        }
+    }
+    public int countSubIslands(int[][] grid1, int[][] grid2) {
+        int n = grid2.length, m = grid2[0].length;
+        int[][] dir = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+        
+        // step 1 : remove all non sub island from grid 2
+        for(int sr = 0; sr < n; sr++) {
+            for(int sc = 0; sc < m; sc++) {
+                if(grid2[sr][sc] == 1 && grid1[sr][sc] == 0) {
+                    dfs_Island(grid2, sr, sc, dir, n, m);
+                }
+            }
+        }
+        
+        // step 2 : find out total number of island present in grid 2 after removing non sub island
+        int count_island = 0;
+        for(int sr = 0; sr < n; sr++) {
+            for(int sc = 0; sc < m; sc++) {
+                if(grid2[sr][sc] == 1) {
+                    count_island++;
+                    dfs_Island(grid2, sr, sc, dir, n, m);
+                }
+            }
+        }
+        
+        // step 3 : return count_island which is our required answer
+        return count_island;
     }
 }

@@ -15,60 +15,80 @@ public class bfs_question {
 		}
 	}
 
+	// ========================================================================================================================================
+	// Question_1 : 994. Rotting Oranges
+	// https://leetcode.com/problems/rotting-oranges/
 	// 0 -> empty cell, 1 -> fresh orange, 2 -> rotten orange
-	public class pair {
-		int row = 0;
-		int col = 0;
+	private class Pair {
+        int row;
+        int col;
+        Pair(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
+    public int orangesRotting(int[][] grid) {
+        LinkedList<Pair> que = new LinkedList<>();
+        int n = grid.length, m = grid[0].length;
+        
+        /*
+            step 1 : add all rotten oranges in que which cell has value 2 
+            and also count number of fresh oranges in grid    
+        */ 
+        int fresh_count = 0;
+        for(int r = 0; r < n; r++) {
+            for(int c = 0; c < m; c++) {
+                if(grid[r][c] == 2)
+                    que.addLast(new Pair(r, c));
+                else if(grid[r][c] == 1) 
+                    fresh_count++;
+            }
+        }
+        
+        if(fresh_count == 0)
+            return 0;
+        
+        /*
+            step 2 : add all fresh oranges in que which is 4-directionally adjacent 
+            to a rotten orange
+        */
+        
+        int time = 0;
+        int[][] dir = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+        while(que.size() != 0) {
+            int size = que.size();
+            while(size-- > 0) {
+                Pair rp = que.removeFirst();
+                int sr = rp.row, sc = rp.col;
+                
+                for(int d = 0; d < dir.length; d++) {
+                    int row = sr + dir[d][0], col = sc + dir[d][1];
+                    if(row >= 0 && row < n && col >= 0 && col < m && grid[row][col] == 1) {
+                        que.addLast(new Pair(row, col));
+                        grid[row][col] = 2;
+                    }
+                }
+            }
+            time++;
+        }
+        
+        /*
+			step 3 : check all oranges becomes rotten or not
+        	if not return -1
+		*/           
+        for(int r = 0; r < n; r++) {
+            for(int c = 0; c < m; c++) {
+                if(grid[r][c] == 1)
+                    return -1;
+            }
+        }
+        
+        return time - 1;
+    }
 
-		pair(int row, int col) {
-			this.row = row;
-			this.col = col;
-		}
-	}
-
-	public int orangesRotting(int[][] grid) {
-		int n = grid.length, m = grid[0].length;
-		LinkedList<pair> que = new LinkedList<>();
-		int freshCount = 0, time = 0;
-
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				if (grid[i][j] == 2) {
-					que.addLast(new pair(i, j));
-					grid[i][j] = 2; // mark as visited
-				} else if (grid[i][j] == 1) {
-					freshCount++;
-				}
-			}
-		}
-
-		if (freshCount == 0)
-			return 0;
-		int[][] dir = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
-		while (que.size() != 0) {
-			int size = que.size();
-			while (size-- > 0) {
-				pair rem = que.removeFirst();
-				for (int d = 0; d < dir.length; d++) {
-					int r = rem.row + dir[d][0];
-					int c = rem.col + dir[d][1];
-
-					if (r >= 0 && c >= 0 && r < n && c < m && grid[r][c] == 1) {
-						if (--freshCount == 0)
-							return time + 1;
-						que.addLast(new pair(r, c));
-						grid[r][c] = 2;
-					}
-				}
-			}
-
-			time++;
-		}
-
-		return -1;
-
-	}
-
+	/*
+		Mathod 2 =>
+	*/ 
 	public int orangesRotting_02(int[][] grid) {
 		int n = grid.length, m = grid[0].length;
 		LinkedList<Integer> que = new LinkedList<>();
@@ -114,7 +134,9 @@ public class bfs_question {
 
 	}
 
-	// 1091. Shortest Path in Binary Matrix
+	// ========================================================================================================================================
+	// Question_2 : 1091. Shortest Path in Binary Matrix
+	// https://leetcode.com/problems/shortest-path-in-binary-matrix/
 	public int bfs_shortestPath(int[][] grid, int sr, int sc, int dr, int dc, int[][] dir) {
 		LinkedList<Integer> queue = new LinkedList<>();
 		int n = grid.length, m = grid[0].length;
@@ -156,7 +178,9 @@ public class bfs_question {
 		return bfs_shortestPath(grid, 0, 0, n - 1, m - 1, dir);
 	}
 
-	// 542. 01 Matrix
+	// ========================================================================================================================================
+	// Question_3 : 542. 01 Matrix
+	// https://leetcode.com/problems/01-matrix/
 	public int[][] updateMatrix_01(int[][] mat) {
 		LinkedList<Integer> que = new LinkedList<>();
 		int n = mat.length, m = mat[0].length;
@@ -232,35 +256,61 @@ public class bfs_question {
 		return mat;
 	}
 
-	// Lintcode 663 · Walls and Gates
-	public void wallsAndGates(int[][] rooms) {
-		LinkedList<Integer> queue = new LinkedList<>();
-		int n = rooms.length, m = rooms[0].length;
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				if (rooms[i][j] == 0)
-					queue.addLast(i * m + j);
-			}
-		}
+	// ========================================================================================================================================
+	// Question_4 : Lintcode 663 · Walls and Gates
+	// https://www.lintcode.com/problem/walls-and-gates/description
+	
+	/*
+		-1 - A wall or an obstacle.
+		0 - A gate.
+		INF - Infinity means an empty room
+	*/ 
+	private class Pair {
+        int row, col;
+        Pair(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
+    public void wallsAndGates(int[][] rooms) {
+        int n = rooms.length, m = rooms[0].length;
+        int[][] dir = {{0 , -1}, {-1, 0}, {0, 1}, {1, 0}};
+        LinkedList<Pair> que = new LinkedList<>();
+        
+        /*
+			step 1 => initially add all gate in que which has value zero
+		*/ 
+        for(int r = 0; r < n; r++) {
+            for(int c = 0; c < m; c++) {
+                if(rooms[r][c] == 0)
+                    que.addLast(new Pair(r, c));
+            }
+        }
 
-		int[][] dir = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
-		int INF = 2147483647;
-		while (queue.size() != 0) {
-			int size = queue.size();
-			while (size-- > 0) {
-				int idx = queue.removeFirst();
-				int sr = idx / m, sc = idx % m;
-				for (int d = 0; d < dir.length; d++) {
-					int r = sr + dir[d][0];
-					int c = sc + dir[d][1];
-					if (r >= 0 && c >= 0 && r < n && c < m && rooms[r][c] == INF) {
-						rooms[r][c] = rooms[sr][sc] + 1;
-						queue.addLast(r * m + c);
-					}
-				}
-			}
-		}
-	}
+        /*
+            step 2 => remove each pair from que and find out nearest empty room 
+            and add them to que and mark this empty room as distance + 1 which indicate
+            each empty room with distance + 1 to its nearest gate 
+        */ 
+        int distance = 0;
+        while(que.size() > 0) {
+            int size = que.size();
+            while(size-- > 0) {
+                Pair rp = que.removeFirst();
+                int sr = rp.row, sc = rp.col;
+
+                for(int d = 0; d < dir.length; d++) {
+                    int row = sr + dir[d][0], col = sc + dir[d][1];
+                    if(row >= 0 && row < n && col >= 0 && col < m && rooms[row][col] == 2147483647) {
+                        rooms[row][col] = distance + 1;
+                        que.addLast(new Pair(row, col));
+                    }
+                }
+            }
+
+            distance++;
+        }
+    }
 
 	//
 	public int numBusesToDestination(int[][] routes, int source, int target) {
