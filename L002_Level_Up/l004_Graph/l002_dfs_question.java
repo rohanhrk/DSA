@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-public class dfs_question {
+public class l002_dfs_question {
     public static class Edge {
         int v = 0, w = 0;
 

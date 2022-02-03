@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.ArrayList;
 
-public class l002_DirectedGraph {
+public class l004_DirectedGraph {
 	public static class Edge {
 		int v = 0, w = 0;
 
@@ -26,8 +26,8 @@ public class l002_DirectedGraph {
 		}
 	}
 
-	// ========================================================================================================================================
-	// Concept_1 : Topological order
+	// 	========================================================================================================================================
+	// 	Concept_1 : Topological order
 	public static void dfs_topo(ArrayList<Edge>[] graph, int src, boolean[] vis, ArrayList<Integer> ans) {
 		vis[src] = true;
 		
@@ -92,7 +92,7 @@ public class l002_DirectedGraph {
 
 	//	========================================================================================================================================
 	// 	Question_1 : 207. Course Schedule 
-	// https://leetcode.com/problems/course-schedule/
+	// 	https://leetcode.com/problems/course-schedule/
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         ArrayList<Integer>[] graph = new ArrayList[numCourses];
         for(int i = 0; i < numCourses; i++)
@@ -145,9 +145,9 @@ public class l002_DirectedGraph {
         return true;
     }
 
-	// ========================================================================================================================================
-    // Question_2 : 210. Course Schedule II
-	// https://leetcode.com/problems/course-schedule-ii/
+	// 	========================================================================================================================================
+    // 	Question_2 : 210. Course Schedule II
+	// 	https://leetcode.com/problems/course-schedule-ii/
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         ArrayList<Integer>[] graph = new ArrayList[numCourses];
         for(int i = 0; i < numCourses; i++)
@@ -203,9 +203,9 @@ public class l002_DirectedGraph {
     }
 
 
-	// ========================================================================================================================================
-	// Question_3 : 329. Longest Increasing Path in a Matrix
-	// https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+	// 	========================================================================================================================================
+	// 	Question_3 : 329. Longest Increasing Path in a Matrix
+	// 	https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
 	private class Pair {
         int row, col;
         Pair(int row, int col) {
@@ -268,8 +268,10 @@ public class l002_DirectedGraph {
         return length;
                                                    
     }
-    // =======================================================
-    // Cycle dectect using DFS in Directed graph
+
+    // 	========================================================================================================================================
+    // 	Question_4 : Detect cycle in a directed graph 
+	//	https://practice.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1/
 
     // tc -> O(E)
     public static boolean dfs_isCycle(ArrayList<Edge>[] graph, int src, boolean[] vis, boolean[] path, ArrayList<Integer> ans) {

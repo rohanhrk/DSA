@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-public class bfs_question {
+public class l003_bfs_question {
 	public static class Edge {
 		int v = 0, w = 0;
 

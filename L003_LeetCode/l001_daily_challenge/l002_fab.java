@@ -79,5 +79,49 @@ public class l002_fab {
         return res;
     }
 
-
+    // ================================================================================================================================
+    /*
+        DAY_3 =>
+        Question_3 : 454. 4Sum II
+        https://leetcode.com/problems/4sum-ii/
+    */ 
+    // Time => O(N^2) , space => O(N^2)     
+    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        /*
+            step 1 => initially store all combinational sum of 
+            nums1 and nums2 in a map 
+            
+            Time => O(N^2)
+        */ 
+        
+        for(int e1 : nums1) {
+            for(int e2 : nums2) {
+                int sum = e1 + e2;
+                map.put(sum, map.getOrDefault(sum, 0) + 1);
+            }
+        }
+        
+        /*  
+            AB + CD = target, where
+                AB => combinational sum of nums1 and nums2
+                CD => combinational sum of nums3 and nums4
+                
+            CD = target - AB
+            
+            step 2 => Now search (target - AB) in map. If found => increament count by 1\
+            
+            Time => O(N^2)
+        */ 
+        int target = 0, count = 0;
+        for(int e3 : nums3) {
+            for(int e4 : nums4) {
+                int sum = e3 + e4;
+                count += map.getOrDefault(target - sum, 0);
+            }
+        }
+        
+        return count;
+    }
 }
