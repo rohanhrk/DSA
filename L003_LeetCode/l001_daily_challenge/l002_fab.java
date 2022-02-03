@@ -108,9 +108,9 @@ public class l002_fab {
                 AB => combinational sum of nums1 and nums2
                 CD => combinational sum of nums3 and nums4
                 
-            CD = target - AB
+            AB = target - CD
             
-            step 2 => Now search (target - AB) in map. If found => increament count by 1\
+            step 2 => Now search (target - CD) in map. If found => increament count by 1
             
             Time => O(N^2)
         */ 
