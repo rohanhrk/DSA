@@ -357,78 +357,9 @@ public class l005_disjoint_set_union_algo {
         
         return group;
     }
-    // 1168. Optimize Water Distribution in a Village
-    public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
-        ArrayList<int[]> allPipes = new ArrayList<>();
-        for (int[] a : pipes)
-            allPipes.add(a);
-        for (int i = 0; i < wells.length; i++)
-            allPipes.add(new int[] { 0, i + 1, wells[i] });
+    
 
-        Collections.sort(allPipes, (a, b) -> {
-            return a[2] - b[2];
-        });
-
-        par = new int[n + 1];
-        size = new int[n + 1];
-        int cost = 0;
-        for (int i = 0; i <= n; i++) {
-            par[i] = i;
-            size[i] = 1;
-        }
-
-        for (int[] e : allPipes) {
-            int u = e[0], v = e[1], w = e[2];
-            int p1 = findPar(u), p2 = findPar(v);
-            if (p1 != p2) {
-                if (size[p1] > size[p2]) {
-                    par[p2] = p1;
-                    size[p1] += size[p2];
-                } else {
-                    par[p1] = p2;
-                    size[p2] += size[p1];
-                }
-
-                cost += w;
-            }
-        }
-
-        return cost;
-    }
-
-    // https://www.hackerearth.com/practice/algorithms/graphs/minimum-spanning-tree/practice-problems/algorithm/mr-president/
-    public static int mrPresident(int[][] edges, int N, int K) {
-        par = new int[N + 1];
-        for (int i = 0; i <= N; i++)
-            par[i] = i;
-
-        int mCost = 0, component = N;
-        ArrayList<Integer> cost = new ArrayList<>();
-        for (int[] e : edges) {
-            int u = e[0], v = e[1], w = e[2];
-            int p1 = findPar(u), p2 = findPar(v);
-
-            if (p1 != p2) {
-                par[p1] = p2;
-                mCost += w;
-                cost.add(w);
-                component--;
-            }
-        }
-
-        if (component > 1)
-            return -1;
-
-        int super_road = 0;
-        for (int i = cost.size() - 1; i >= 0; i++) {
-            if (mCost <= K)
-                break;
-            mCost = mCost - cost.get(i) + 1;
-            super_road++;
-        }
-
-        return mCost <= K ? super_road : -1;
-    }
+    
 
     // 959. Regions Cut By Slashes
     public int regionsBySlashes(String[] grid) {
