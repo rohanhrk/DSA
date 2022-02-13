@@ -814,4 +814,172 @@ public class l001_hm {
         
         return long_len;
     }
+
+    // ===================================================================================================================================
+    // Question_20 : Count Of Substrings With Exactly K Unique Characters
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/count-of-substrings-with-exactly-k-unique-characters-official/ojquestion
+    private static int hangleWhenK1(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int acq = -1, rel = -1;
+        int count = 0;
+        
+        while(true) {
+            boolean flag1 = false, flag2 = false;
+            
+            // 1. acquire
+            while(acq < s.length() - 1) {
+                flag1 = true;
+            
+                acq++;
+                char ch = s.charAt(acq);
+                map.put(ch, map.getOrDefault(ch, 0) + 1);
+                
+                if(map.size() == 2) {
+                    map.remove(ch);
+                    acq--;
+                    break;
+                }
+            }
+            
+            // 2. release
+            while(rel < acq) {
+                flag2 = true;
+                
+                count += acq - rel;
+                
+                rel++;
+                char ch = s.charAt(rel);
+                map.put(ch, map.get(ch) - 1);
+                
+                if(map.get(ch) == 0) {
+                    map.remove(ch);
+                }
+            }
+            
+            if(flag1 == false && flag2 == false) break;
+            
+        }
+        
+        return count;
+    }
+	public static int countSubstrKuniqueChar(String s, int k){
+		if(k == 1) {
+            return hangleWhenK1(s);
+        }
+        
+        int len = s.length();
+        HashMap<Character, Integer> bigMap = new HashMap<>(); // storing (character vs it's frequency) upto size k
+        HashMap<Character, Integer> smallMap = new HashMap<>(); // storing (character vs it's frequency) upto size k - 1
+        
+        int acq_big = -1, acq_small = -1; // acq_big => acquiring character for big hashmap
+                                          // acq_small => acquiring character for small hashmap
+        int rel = -1;
+        
+        int count = 0;
+        while(true) {
+            boolean flag1 = false, flag2 = false, flag3 = false;
+            
+            // 1. acquiring character for big hashmap
+            while(acq_big < len - 1) {
+                flag1 = true;
+                
+                acq_big++;
+                char ch = s.charAt(acq_big);
+                bigMap.put(ch, bigMap.getOrDefault(ch, 0) + 1);
+                
+                if(bigMap.size() == k + 1) {
+                    bigMap.remove(ch);
+                    acq_big--;
+                    break;
+                }
+            }
+            
+            // 2. acquiring character for small hashmap
+            while(acq_small < len - 1) {
+                flag2 = true;
+                
+                acq_small++;
+                char ch = s.charAt(acq_small);
+                smallMap.put(ch, smallMap.getOrDefault(ch, 0) + 1);
+                
+                if(smallMap.size() == k) {
+                    smallMap.remove(ch);
+                    acq_small--;
+                    break;
+                }
+            }
+            
+            // 3. releasing character from both hashmap 
+            while(rel < acq_small) {
+                flag3 = true;
+                
+                // make count
+                count += (acq_big - acq_small);
+                
+                rel++;
+                char ch = s.charAt(rel);
+                bigMap.put(ch, bigMap.get(ch) - 1);
+                if(bigMap.get(ch) == 0)
+                    bigMap.remove(ch);
+                
+                smallMap.put(ch, smallMap.get(ch) - 1);
+                if(smallMap.get(ch) == 0)
+                    smallMap.remove(ch);
+                    
+                if(bigMap.size() < k  || smallMap.size() < k - 1)
+                    break;
+            }
+            
+            if(!flag1 && !flag2 && !flag3) break;
+        }
+        
+        return count;
+	}
+
+    // ===================================================================================================================================
+    // Question_21 : Maximum Consecutive Ones - 1
+    public static int maxConsecutiveOnes1(int[] nums){
+        int zeroCount = 0;
+        int rel = -1;
+        
+        int len = 0;
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] == 0) 
+                zeroCount++;
+            
+            while(zeroCount > 1) {
+                rel++;
+                if(nums[rel] == 0)
+                    zeroCount--;
+            }
+            
+            len = Math.max(len, i - rel);
+        }
+        
+        return len;
+    }
+
+    // ===================================================================================================================================
+    // Question_22 : 1004. Max Consecutive Ones III
+    // https://leetcode.com/problems/max-consecutive-ones-iii/
+     public int longestOnes(int[] nums, int k) {
+        int zeroCount = 0;
+        int rel = -1;
+        
+        int len = 0;
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] == 0) 
+                zeroCount++;
+            
+            while(zeroCount > k) {
+                rel++;
+                if(nums[rel] == 0)
+                    zeroCount--;
+            }
+            
+            len = Math.max(len, i - rel);
+        }
+        
+        return len;
+    }
 }
