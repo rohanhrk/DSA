@@ -319,4 +319,103 @@ public class l002_fab {
 
         return count;
     }
+
+    // ================================================================================================================================
+    // Day_11 : 567. Permutation in String
+    // https://leetcode.com/problems/permutation-in-string/
+    public boolean checkInclusion(String p, String s) {
+        if (p.length() > s.length())
+            return false;
+
+        HashMap<Character, Integer> pmap = new HashMap<>(); // pattern map => store char of string p vs it's frequency
+        for (int i = 0; i < p.length(); i++) {
+            char ch = p.charAt(i);
+            pmap.put(ch, pmap.getOrDefault(ch, 0) + 1);
+        }
+
+        // initially acquire substring of first window of string s of length =
+        // p.length()
+        HashMap<Character, Integer> smap = new HashMap<>(); // source map => store char of string p vs it's frequency
+        for (int i = 0; i < p.length(); i++) {
+            char ch = s.charAt(i);
+            smap.put(ch, smap.getOrDefault(ch, 0) + 1);
+        }
+
+        // make a loop starting from i = p.length() and store result inside the loop if
+        // satisfy the condition;
+        int rel = -1; // release
+        for (int i = p.length(); i < s.length(); i++) {
+            // 1. match => if satisfies, store starting index of window of s in ans
+            if (smap.equals(pmap) == true) {
+                return true;
+            }
+
+            // 2. acquire
+            char ch = s.charAt(i);
+            smap.put(ch, smap.getOrDefault(ch, 0) + 1);
+
+            // 3. release
+            rel++;
+            char relCh = s.charAt(rel);
+            smap.put(relCh, smap.get(relCh) - 1);
+
+            if (smap.get(relCh) == 0) {
+                smap.remove(relCh);
+            }
+        }
+
+        // also check for last window => anagram or not
+        if (smap.equals(pmap) == true) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // ================================================================================================================================
+    // Day_12 : 127. Word Ladder
+    // https://leetcode.com/problems/word-ladder/
+
+    // ================================================================================================================================
+    // Day_13 : 78. Subsets
+    // https://leetcode.com/problems/subsets/
+    private void subsets_(int[] nums, int idx, List<Integer> smallAns, List<List<Integer>> ans) {
+        if (idx == nums.length) {
+            List<Integer> base = new ArrayList<>(smallAns);
+            ans.add(base);
+            return;
+        }
+
+        // yes call
+        int ele = nums[idx];
+        smallAns.add(ele);
+        subsets_(nums, idx + 1, smallAns, ans);
+        smallAns.remove(smallAns.size() - 1);
+
+        // no call
+        subsets_(nums, idx + 1, smallAns, ans);
+
+    }
+
+    public List<List<Integer>> subsets(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> smallAns = new ArrayList<>();
+        subsets_(nums, 0, smallAns, ans);
+        return ans;
+    }
+
+    // ================================================================================================================================
+    // Day_14 : 104. Maximum Depth of Binary Tree
+    // https://leetcode.com/problems/maximum-depth-of-binary-tree/
+    public int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+
+        int left_depth = maxDepth(root.left);
+        int right_depth = maxDepth(root.right);
+
+        return Math.max(left_depth, right_depth) + 1;
+    }
+
 }

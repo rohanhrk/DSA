@@ -1,5 +1,8 @@
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 
 public class l001_hm {
     // ===================================================================================================================================
@@ -405,64 +408,64 @@ public class l001_hm {
     // ===================================================================================================================================
     // Question_12 : Longest Subarray With Equal Number Of 0s 1s And 2s
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/longest-subarray-with-equal-number-of-0s-1s-and-2s-official/ojquestion
-     public static int longestSsubarrayEqNum012(int[] arr) {
+    public static int longestSsubarrayEqNum012(int[] arr) {
         // "a#b" => a : count1 - count0, b : count2 - count1
         HashMap<String, Integer> map = new HashMap<>(); // store => ("a#b" vs first occurance index)
         int count0 = 0, count1 = 0, count2 = 0;
         int length = 0;
-        
+
         map.put("0#0", -1);
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] == 0) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
                 count0++;
-            } else if(arr[i] == 1) {
+            } else if (arr[i] == 1) {
                 count1++;
             } else {
                 count2++;
             }
-            
+
             int a = count1 - count0, b = count2 - count1;
             String key = a + "#" + b;
-            if(map.containsKey(key) == false) {
-                map.put(key, i); 
+            if (map.containsKey(key) == false) {
+                map.put(key, i);
             } else {
                 // upadte length
                 length = Math.max(length, i - map.get(key));
             }
         }
-        
+
         return length;
     }
 
     // ===================================================================================================================================
     // Question_13 : Count Of Subarrays With Equal Number Of 0s 1s And 2s
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/count-of-subarrays-with-equal-number-of-0s-1s-and-2s-official/ojquestion
-     public static int countSubarray012(int[] arr) {
+    public static int countSubarray012(int[] arr) {
         // "a#b" => a : count1 - count0, b : count2 - count1
         HashMap<String, Integer> map = new HashMap<>(); // store => ("a#b" vs number of occurance)
         int count0 = 0, count1 = 0, count2 = 0;
         int count = 0;
-        
+
         map.put("0#0", 1);
-        for(int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             int num = arr[i];
-            if(num == 0) {
+            if (num == 0) {
                 count0++;
-            } else if(num == 1) {
+            } else if (num == 1) {
                 count1++;
             } else {
                 count2++;
             }
-            
+
             int a = count1 - count0, b = count2 - count1;
             String key = a + "#" + b;
-            if(map.containsKey(key) == true) {
+            if (map.containsKey(key) == true) {
                 count += map.get(key);
             }
-            
+
             map.put(key, map.getOrDefault(key, 0) + 1);
         }
-        
+
         return count;
     }
 
@@ -470,24 +473,24 @@ public class l001_hm {
     // Question_14 : Task Completion
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/task-completion-official/ojquestion
     public static void completeTask(int n, int m, int[] tasks) {
-		ArrayList<Integer> s1 = new ArrayList<>(); // s1 => student 1
-		ArrayList<Integer> s2 = new ArrayList<>(); // s2 => student 2
+        ArrayList<Integer> s1 = new ArrayList<>(); // s1 => student 1
+        ArrayList<Integer> s2 = new ArrayList<>(); // s2 => student 2
         HashSet<Integer> set = new HashSet<>();
-        
+
         // step 1 : hashSet -> store already completed task
-        for(int task : tasks) {
+        for (int task : tasks) {
             set.add(task);
         }
-        
-        
+
         // step 2 : Make a loop from task 1 to N(total number of task)
         // if task is found in hashset => continue
         // otherwise => alternativly add task to student s1 and s2
         boolean flag = true;
-        for(int task = 1; task <= n; task++) {
-            if(set.contains(task) == true) continue;
-            
-            if(flag == true) {
+        for (int task = 1; task <= n; task++) {
+            if (set.contains(task) == true)
+                continue;
+
+            if (flag == true) {
                 s1.add(task);
                 flag = false;
             } else {
@@ -495,88 +498,88 @@ public class l001_hm {
                 flag = true;
             }
         }
-        
-        for(int task : s1) {
+
+        for (int task : s1) {
             System.out.print(task + " ");
         }
-        
+
         System.out.println();
-            
-        for(int task : s2) {
+
+        for (int task : s2) {
             System.out.print(task + " ");
         }
-	}
+    }
 
     // ===================================================================================================================================
     // Question_15 : 76. Minimum Window Substring
     // https://leetcode.com/problems/minimum-window-substring/
     public String minWindow(String s, String t) {
         int n = s.length(), m = t.length();
-        
+
         // 1. make frquency map of character of string t
         HashMap<Character, Integer> fmap = new HashMap<>(); // store => {character vs freq}
-        for(int i = 0; i < m; i++) {
+        for (int i = 0; i < m; i++) {
             char ch = t.charAt(i);
             fmap.put(ch, fmap.getOrDefault(ch, 0) + 1);
         }
-        
+
         // 2. use acquire and release character techniques
         HashMap<Character, Integer> map = new HashMap<>();
 
         int acq = -1, rel = -1; // acq => acquire index , rel => release index
         String ans = "";
-        
+
         int count = 0, requirement = t.length();
-        while(true) {
+        while (true) {
             boolean acFlag = false; // acquire flag
             boolean relFlag = false; // release flag
-            
+
             // acuire character from string "s" till valid
-            while(acq < n - 1 && count < requirement) {
+            while (acq < n - 1 && count < requirement) {
                 acq++;
-                
+
                 // 1. add character in map
                 char ch = s.charAt(acq);
                 map.put(ch, map.getOrDefault(ch, 0) + 1);
-                
+
                 // 2. conditional increament in count
-                if(map.get(ch) <= fmap.getOrDefault(ch, 0)) {
+                if (map.get(ch) <= fmap.getOrDefault(ch, 0)) {
                     count++;
                 }
-                
+
                 // 3. make change acquire flag to true
                 acFlag = true;
             }
-            
+
             // start release character till invalid
-            while(count == requirement) {
+            while (count == requirement) {
                 // 1. hold answer, if substring is smaller
                 String temp_ans = s.substring(rel + 1, acq + 1);
-                if(ans.length() == 0 || temp_ans.length() < ans.length()) 
+                if (ans.length() == 0 || temp_ans.length() < ans.length())
                     ans = temp_ans;
-                
+
                 // 2. hold releasing character and decreament its frequency from map
                 rel++;
                 char ch = s.charAt(rel);
                 map.put(ch, map.get(ch) - 1);
-                
+
                 // 3. if frquency becomes zero, remove it's key from map
-                if(map.get(ch) == 0)
+                if (map.get(ch) == 0)
                     map.remove(ch);
-                
+
                 // 4. with invalid release decreament count
-                if(map.getOrDefault(ch, 0) < fmap.getOrDefault(ch, 0)) 
+                if (map.getOrDefault(ch, 0) < fmap.getOrDefault(ch, 0))
                     count--;
-                
-                // 5. make change release flag to true 
+
+                // 5. make change release flag to true
                 relFlag = true;
             }
-            
+
             // conditional break from loop
-            if(!acFlag && !relFlag)
+            if (!acFlag && !relFlag)
                 break;
         }
-        
+
         return ans;
     }
 
@@ -587,54 +590,54 @@ public class l001_hm {
         // Your code goes here
         int len = str.length();
         HashSet<Character> set = new HashSet<>();
-        for(int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             char ch = str.charAt(i);
             set.add(ch);
         }
-        
+
         HashMap<Character, Integer> map = new HashMap<>();
         int acq = -1, rel = -1;
         String ans = "";
-        while(true) {
+        while (true) {
             boolean acFlag = false, relFlag = false;
-            
+
             // acquire
-            while(acq < len - 1 && map.size() < set.size()) {
+            while (acq < len - 1 && map.size() < set.size()) {
                 acq++;
-                
+
                 // 1. add character in map with old_freq + 1
                 char ch = str.charAt(acq);
                 map.put(ch, map.getOrDefault(ch, 0) + 1);
-                
+
                 acFlag = true;
             }
-            
+
             // release
-            while(map.size() == set.size()) {
+            while (map.size() == set.size()) {
                 // 1. hold ans and if subtring is smaller than old ans
                 // int temp_len = acq - rel;
                 // ans_len = Math.max(ans_len, temp_len);
                 String temp_ans = str.substring(rel + 1, acq + 1);
-                if(ans.length() == 0 || temp_ans.length() < ans.length())
+                if (ans.length() == 0 || temp_ans.length() < ans.length())
                     ans = temp_ans;
-                
+
                 // 2. hold releasing character and decreament its frequency from map
                 rel++;
                 char ch = str.charAt(rel);
                 map.put(ch, map.get(ch) - 1);
-                
+
                 // 3. if frquency becomes zero, remove it's key from map
-                if(map.get(ch) == 0)
+                if (map.get(ch) == 0)
                     map.remove(ch);
-                    
+
                 relFlag = true;
             }
-            
+
             // conditional break from loop
-            if(!acFlag && !relFlag)
+            if (!acFlag && !relFlag)
                 break;
         }
-        
+
         return ans;
     }
 
@@ -646,55 +649,55 @@ public class l001_hm {
         HashMap<Character, Integer> map = new HashMap<>(); // character vs frequency
         int acq = -1, rel = -1; // acq -> acquire, rel -> release
         int ans_len = 0;
-         
-        while(true) {
+
+        while (true) {
             boolean acFlag = false, relFlag = false;
-            
+
             // acquire
-            while(acq < len - 1) {
+            while (acq < len - 1) {
                 acFlag = true;
-    
-                // 1. add charater with map with old_freq + 1 
+
+                // 1. add charater with map with old_freq + 1
                 acq++;
                 char ch = s.charAt(acq);
                 map.put(ch, map.getOrDefault(ch, 0) + 1);
-                
-                // 2. if current charater's frequency is become 2 
-                //          => stop acquire more character and start release character
-                //     otherwise hold ans if substring is larger length from previous length                 
-                if(map.get(ch) == 2) {
+
+                // 2. if current charater's frequency is become 2
+                // => stop acquire more character and start release character
+                // otherwise hold ans if substring is larger length from previous length
+                if (map.get(ch) == 2) {
                     // stop aquire loop
                     break;
                 } else {
                     int temp_len = acq - rel;
                     ans_len = Math.max(ans_len, temp_len);
                 }
-                
+
             }
-            
+
             // release
-            while(rel < acq) {
-                relFlag = true; 
-                
+            while (rel < acq) {
+                relFlag = true;
+
                 // 1. hold releasing character and decreasing frequency of it
                 rel++;
                 char ch = s.charAt(rel);
                 map.put(ch, map.get(ch) - 1);
-                
-                
-                // 2. releasing character's freq. becomes 1 which means this char. is responsible for repitition
+
+                // 2. releasing character's freq. becomes 1 which means this char. is
+                // responsible for repitition
                 // break from loop
-                if(map.get(ch) == 1) {
+                if (map.get(ch) == 1) {
                     // stop release
                     break;
-                }  
+                }
             }
-            
-            if(!acFlag && !relFlag) {
+
+            if (!acFlag && !relFlag) {
                 break;
             }
         }
-        
+
         return ans_len;
     }
 
@@ -702,62 +705,63 @@ public class l001_hm {
     // Question_18 : Count Of Substrings Having All Unique Characters
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/count-of-substrings-having-all-unique-characters-official/ojquestion
     public static int countSubstringWithUniqueChar(String s) {
-		int n = s.length();
-        
+        int n = s.length();
+
         HashMap<Character, Integer> map = new HashMap<>(); // store => {charcter vs frequency}
         int acq = -1, rel = -1; // acq => acquire, rel => release
         int count = 0;
-        
-        // do acquire and release and solve for Count Unique Characters of All Substrings of a Given String
-        while(true) {
+
+        // do acquire and release and solve for Count Unique Characters of All
+        // Substrings of a Given String
+        while (true) {
             boolean acFlag = false;
             boolean relFlag = false;
-            
+
             // acquire
-            while(acq < n - 1) {
+            while (acq < n - 1) {
                 // 1. while entering to acquire loop, make acFlag to true
                 acFlag = true;
-                
+
                 // 2. hold acquiring character and increament frequency
                 acq++;
-                char ch = s.charAt(acq); 
+                char ch = s.charAt(acq);
                 map.put(ch, map.getOrDefault(ch, 0) + 1);
-                
+
                 // 3. conditional break when frequency of acquiring character becomes 2
-                if(map.get(ch) == 2) {
+                if (map.get(ch) == 2) {
                     break;
                 } else {
                     // 4. add (acq - rel) in count
                     count += acq - rel;
                 }
-                
-                
+
             }
-            
+
             // release
-            while(rel < acq) {
+            while (rel < acq) {
                 // 1. while entering to release loop, make relFlag to true
                 relFlag = true;
-                
+
                 // 2. hold releasing character and decreament it's frequency
                 rel++;
-                char ch = s.charAt(rel); 
+                char ch = s.charAt(rel);
                 map.put(ch, map.get(ch) - 1);
-                
-                // 3. conditional break if releasing character's freuquency reduce to 1 and before break the loop, add (acq - rel) in count 
-                if(map.get(ch) == 1) {
+
+                // 3. conditional break if releasing character's freuquency reduce to 1 and
+                // before break the loop, add (acq - rel) in count
+                if (map.get(ch) == 1) {
                     count += acq - rel;
                     break;
                 }
             }
-            
-            if(!acFlag && !relFlag) {
+
+            if (!acFlag && !relFlag) {
                 break;
             }
         }
-        
+
         return count;
-	}
+    }
 
     // ===================================================================================================================================
     // Question_19 : Longest K unique characters substring
@@ -766,52 +770,53 @@ public class l001_hm {
         HashMap<Character, Integer> map = new HashMap<>(); // store {character vs frequency}
         int acq = -1, rel = -1; // acq => acquire, rel => release
         int long_len = -1;
-        
-        while(true) {
+
+        while (true) {
             boolean acFlag = false, relFlag = false;
-            
+
             // acquire
-            while(acq < s.length() - 1) {
+            while (acq < s.length() - 1) {
                 acFlag = true;
-                
+
                 // 1. hold acquiring character and increament it's frequency
                 acq++;
                 char ch = s.charAt(acq);
                 map.put(ch, map.getOrDefault(ch, 0) + 1);
-                
+
                 // 2. conditiona
-                if(map.size() < k) {
+                if (map.size() < k) {
                     continue;
-                } else if(map.size() == k) {
+                } else if (map.size() == k) {
                     long_len = Math.max(long_len, acq - rel);
                 } else {
                     break;
                 }
             }
-            
+
             // release
-            while(rel < acq) {
+            while (rel < acq) {
                 relFlag = true;
-                
+
                 // 1. hold releasing character and decreament it's frequency
                 rel++;
                 char ch = s.charAt(rel);
                 map.put(ch, map.get(ch) - 1);
-                
-                if(map.get(ch) == 0) {
+
+                if (map.get(ch) == 0) {
                     map.remove(ch);
                 }
-                
-                if(map.size() > k) {
+
+                if (map.size() > k) {
                     continue;
-                } else if(map.size() == k) {
+                } else if (map.size() == k) {
                     break;
                 }
             }
-            
-            if(acFlag == false && relFlag == false) break;
+
+            if (acFlag == false && relFlag == false)
+                break;
         }
-        
+
         return long_len;
     }
 
@@ -822,164 +827,392 @@ public class l001_hm {
         HashMap<Character, Integer> map = new HashMap<>();
         int acq = -1, rel = -1;
         int count = 0;
-        
-        while(true) {
+
+        while (true) {
             boolean flag1 = false, flag2 = false;
-            
+
             // 1. acquire
-            while(acq < s.length() - 1) {
+            while (acq < s.length() - 1) {
                 flag1 = true;
-            
+
                 acq++;
                 char ch = s.charAt(acq);
                 map.put(ch, map.getOrDefault(ch, 0) + 1);
-                
-                if(map.size() == 2) {
+
+                if (map.size() == 2) {
                     map.remove(ch);
                     acq--;
                     break;
                 }
             }
-            
+
             // 2. release
-            while(rel < acq) {
+            while (rel < acq) {
                 flag2 = true;
-                
+
                 count += acq - rel;
-                
+
                 rel++;
                 char ch = s.charAt(rel);
                 map.put(ch, map.get(ch) - 1);
-                
-                if(map.get(ch) == 0) {
+
+                if (map.get(ch) == 0) {
                     map.remove(ch);
                 }
             }
-            
-            if(flag1 == false && flag2 == false) break;
-            
+
+            if (flag1 == false && flag2 == false)
+                break;
+
         }
-        
+
         return count;
     }
-	public static int countSubstrKuniqueChar(String s, int k){
-		if(k == 1) {
+
+    public static int countSubstrKuniqueChar(String s, int k) {
+        if (k == 1) {
             return hangleWhenK1(s);
         }
-        
+
         int len = s.length();
         HashMap<Character, Integer> bigMap = new HashMap<>(); // storing (character vs it's frequency) upto size k
         HashMap<Character, Integer> smallMap = new HashMap<>(); // storing (character vs it's frequency) upto size k - 1
-        
+
         int acq_big = -1, acq_small = -1; // acq_big => acquiring character for big hashmap
                                           // acq_small => acquiring character for small hashmap
         int rel = -1;
-        
+
         int count = 0;
-        while(true) {
+        while (true) {
             boolean flag1 = false, flag2 = false, flag3 = false;
-            
+
             // 1. acquiring character for big hashmap
-            while(acq_big < len - 1) {
+            while (acq_big < len - 1) {
                 flag1 = true;
-                
+
                 acq_big++;
                 char ch = s.charAt(acq_big);
                 bigMap.put(ch, bigMap.getOrDefault(ch, 0) + 1);
-                
-                if(bigMap.size() == k + 1) {
+
+                if (bigMap.size() == k + 1) {
                     bigMap.remove(ch);
                     acq_big--;
                     break;
                 }
             }
-            
+
             // 2. acquiring character for small hashmap
-            while(acq_small < len - 1) {
+            while (acq_small < len - 1) {
                 flag2 = true;
-                
+
                 acq_small++;
                 char ch = s.charAt(acq_small);
                 smallMap.put(ch, smallMap.getOrDefault(ch, 0) + 1);
-                
-                if(smallMap.size() == k) {
+
+                if (smallMap.size() == k) {
                     smallMap.remove(ch);
                     acq_small--;
                     break;
                 }
             }
-            
-            // 3. releasing character from both hashmap 
-            while(rel < acq_small) {
+
+            // 3. releasing character from both hashmap
+            while (rel < acq_small) {
                 flag3 = true;
-                
+
                 // make count
                 count += (acq_big - acq_small);
-                
+
                 rel++;
                 char ch = s.charAt(rel);
                 bigMap.put(ch, bigMap.get(ch) - 1);
-                if(bigMap.get(ch) == 0)
+                if (bigMap.get(ch) == 0)
                     bigMap.remove(ch);
-                
+
                 smallMap.put(ch, smallMap.get(ch) - 1);
-                if(smallMap.get(ch) == 0)
+                if (smallMap.get(ch) == 0)
                     smallMap.remove(ch);
-                    
-                if(bigMap.size() < k  || smallMap.size() < k - 1)
+
+                if (bigMap.size() < k || smallMap.size() < k - 1)
                     break;
             }
-            
-            if(!flag1 && !flag2 && !flag3) break;
+
+            if (!flag1 && !flag2 && !flag3)
+                break;
         }
-        
+
         return count;
-	}
+    }
 
     // ===================================================================================================================================
     // Question_21 : Maximum Consecutive Ones - 1
-    public static int maxConsecutiveOnes1(int[] nums){
+    public static int maxConsecutiveOnes1(int[] nums) {
         int zeroCount = 0;
         int rel = -1;
-        
+
         int len = 0;
-        for(int i = 0; i < nums.length; i++) {
-            if(nums[i] == 0) 
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0)
                 zeroCount++;
-            
-            while(zeroCount > 1) {
+
+            while (zeroCount > 1) {
                 rel++;
-                if(nums[rel] == 0)
+                if (nums[rel] == 0)
                     zeroCount--;
             }
-            
+
             len = Math.max(len, i - rel);
         }
-        
+
         return len;
     }
 
     // ===================================================================================================================================
     // Question_22 : 1004. Max Consecutive Ones III
     // https://leetcode.com/problems/max-consecutive-ones-iii/
-     public int longestOnes(int[] nums, int k) {
+    public int longestOnes(int[] nums, int k) {
         int zeroCount = 0;
         int rel = -1;
-        
+
         int len = 0;
-        for(int i = 0; i < nums.length; i++) {
-            if(nums[i] == 0) 
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0)
                 zeroCount++;
-            
-            while(zeroCount > k) {
+
+            while (zeroCount > k) {
                 rel++;
-                if(nums[rel] == 0)
+                if (nums[rel] == 0)
                     zeroCount--;
             }
-            
+
             len = Math.max(len, i - rel);
         }
-        
+
         return len;
+    }
+
+    // ===================================================================================================================================
+    // Question_23 : Largest Subarray With Contiguous Elements
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/largest-subarray-with-contiguous-elements-official/ojquestion
+    public static int largestSubarrayWithContiguous(int[] arr) {
+        int len = 0, n = arr.length;
+        for (int i = 0; i < n; i++) {
+            HashSet<Integer> set = new HashSet<>(); // store element for ensure dublicacy not add in ans
+            int min = arr[i], max = arr[i];
+
+            for (int j = i; j < n; j++) {
+                int ele = arr[j];
+                if (set.contains(ele) == true) // if current element is already present in hashset, simply break the
+                                               // loop
+                    break;
+
+                // add curr elem in set
+                set.add(ele);
+
+                // update min and max value
+                min = Math.min(min, ele);
+                max = Math.max(max, ele);
+
+                // find (max - min)
+                int diff = max - min;
+
+                // if diff value is greater than length of the array, means we cann't get the
+                // ans from current loop, simply break the loop
+                if (diff > n)
+                    break;
+
+                // check getting diff value with j - j
+                if (diff == j - i) {
+                    len = Math.max(len, j - i + 1);
+                }
+            }
+        }
+
+        return len;
+    }
+
+    // ===================================================================================================================================
+    // Question_24 : Longest Substring With At Most K Unique Characters
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/longest-substring-with-at-most-k-unique-characters-official/ojquestion
+    public static int longestSubstrKUnique(String str, int k) {
+        HashMap<Character, Integer> map = new HashMap<>(); // store {character vs it's frequency
+        int acq = -1, rel = -1, len = 0, n = str.length();
+
+        while (true) {
+            boolean flag1 = false, flag2 = false;
+
+            // 1. acquire
+            while (acq < n - 1) {
+                flag1 = true;
+
+                acq++;
+                char ch = str.charAt(acq);
+                map.put(ch, map.getOrDefault(ch, 0) + 1);
+
+                if (map.size() > k) {
+                    break;
+                } else {
+                    len = Math.max(len, acq - rel);
+                }
+            }
+
+            // 2. release
+            while (rel < acq) {
+                flag2 = true;
+
+                rel++;
+                char ch = str.charAt(rel);
+                map.put(ch, map.get(ch) - 1);
+
+                if (map.get(ch) == 0) {
+                    map.remove(ch);
+                }
+
+                if (map.size() == k) {
+                    break;
+                }
+            }
+
+            if (!flag1 && !flag2)
+                break;
+        }
+
+        return len;
+
+    }
+
+    // ===================================================================================================================================
+    // Question_25 : Count Of Substrings Having At Most K Unique Characters
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/count-of-substrings-having-at-most-k-unique-characters-official/ojquestion
+    public static int countSubstrKUnique(String str, int k) {
+        HashMap<Character, Integer> map = new HashMap<>(); // store {char vs integer}
+        int acq = -1, rel = -1; // acq => acquire, rel => release
+        int count = 0, len = str.length();
+
+        while (true) {
+            boolean flag1 = false, flag2 = false;
+
+            // 1. acquire
+            while (acq < len - 1) {
+                flag1 = true;
+
+                acq++;
+                char ch = str.charAt(acq);
+                map.put(ch, map.getOrDefault(ch, 0) + 1);
+
+                if (map.size() > k) {
+                    break;
+                } else {
+                    count += acq - rel;
+                }
+            }
+
+            if (acq == len - 1 && map.size() <= k)
+                break;
+
+            // 2. release
+            while (rel < acq) {
+                flag2 = true;
+
+                rel++;
+                char ch = str.charAt(rel);
+                map.put(ch, map.get(ch) - 1);
+
+                if (map.get(ch) == 0) {
+                    map.remove(ch);
+                }
+
+                if (map.size() == k) {
+                    count += acq - rel;
+                    break;
+                }
+            }
+
+            if (!flag1 && !flag2) {
+                break;
+            }
+        }
+
+        return count;
+    }
+
+    // ===================================================================================================================================
+    // Question_27 : 242. Valid Anagram
+    // https://leetcode.com/problems/valid-anagram/
+    public boolean isAnagram(String s1, String s2) {
+        if (s1.length() != s2.length())
+            return false;
+
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s1.length(); i++) {
+            char ch = s1.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        for (int i = 0; i < s2.length(); i++) {
+            char ch = s2.charAt(i);
+            if (map.containsKey(ch) == false) {
+                return false;
+            }
+
+            map.put(ch, map.get(ch) - 1);
+            if (map.get(ch) == 0) {
+                map.remove(ch);
+            }
+        }
+
+        return map.size() == 0 ? true : false;
+    }
+
+    // ===================================================================================================================================
+    // Question_28 : 438. Find All Anagrams in a String
+    // https://leetcode.com/problems/find-all-anagrams-in-a-string/
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> list = new ArrayList<>(); // storing start indices of p's anagrams in s
+        if(p.length() > s.length())
+            return list;
+        
+        HashMap<Character, Integer> pmap = new HashMap<>(); // pattern map => store char of string p vs it's frequency
+        for (int i = 0; i < p.length(); i++) {
+          char ch = p.charAt(i);
+          pmap.put(ch, pmap.getOrDefault(ch, 0) + 1);
+        }
+
+
+        // initially acquire substring of first window of string s of length = p.length()
+        HashMap<Character, Integer> smap = new HashMap<>(); // source map => store char of string p vs it's frequency
+        for (int i = 0; i < p.length(); i++) {
+          char ch = s.charAt(i);
+          smap.put(ch, smap.getOrDefault(ch, 0) + 1);
+        }
+
+        // make a loop starting from i = p.length() and store result inside the loop if satisfy the condition;
+        int rel = -1; // release
+        for (int i = p.length(); i < s.length(); i++) {
+          // 1. match => if satisfies, store starting index of window of s in ans
+          if (smap.equals(pmap) == true) {
+            list.add(rel + 1);
+          }
+
+          // 2. acquire 
+          char ch = s.charAt(i);
+          smap.put(ch, smap.getOrDefault(ch, 0) + 1);
+
+          // 3. release
+          rel++;
+          char relCh = s.charAt(rel);
+          smap.put(relCh, smap.get(relCh) - 1);
+
+          if (smap.get(relCh) == 0) {
+            smap.remove(relCh);
+          }
+        }
+            
+        // also check for last window => anagram or not 
+        if (smap.equals(pmap) == true) {
+          list.add(rel + 1);
+        }
+        
+        return list;
     }
 }
