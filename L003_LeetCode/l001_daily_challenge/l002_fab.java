@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class l002_fab {
     // ================================================================================================================================
     /*
@@ -158,6 +160,13 @@ public class l002_fab {
      * Day_5 : 23. Merge k Sorted Lists
      * https://leetcode.com/problems/merge-k-sorted-lists/
      */
+    private class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int val) {
+            this.val = val;
+        }
+    }
     private ListNode mergeTwoList(ListNode h1, ListNode h2) {
         if (h1 == null || h2 == null)
             return h1 != null ? h1 : h2;
@@ -408,6 +417,14 @@ public class l002_fab {
     // ================================================================================================================================
     // Day_14 : 104. Maximum Depth of Binary Tree
     // https://leetcode.com/problems/maximum-depth-of-binary-tree/
+    private class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+        TreeNode(int val) {
+            this.val = val;
+        }
+    }
     public int maxDepth(TreeNode root) {
         if (root == null)
             return 0;
@@ -418,4 +435,135 @@ public class l002_fab {
         return Math.max(left_depth, right_depth) + 1;
     }
 
+    // ================================================================================================================================
+    // Day_15 : 136. Single Number
+    // https://leetcode.com/problems/single-number/
+
+    // T -> O(N) S -> O(N)
+    public int singleNumber01(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int ele : nums) {
+            if(set.contains(ele) == true) {
+                set.remove(ele);
+            } else {
+                set.add(ele);
+            }
+        }
+        
+        int ans = 0;
+        for(int key : set)
+            ans = key;
+        
+        return ans;
+    }
+
+    // T -> O(N) S -> O(1)
+    public int singleNumber02(int[] nums) {
+        int ans = 0;
+        for(int ele : nums) 
+            ans ^= ele;
+        
+        return ans;
+    }
+
+    // ================================================================================================================================
+    // Day_16 : 24. Swap Nodes in Pairs
+    // https://leetcode.com/problems/swap-nodes-in-pairs/
+    private ListNode glb_head = null, glb_tail = null;
+    private void addFirstNode(ListNode node) {
+        if(glb_head == null) {
+            glb_head = glb_tail = node;
+        } else {
+            node.next = glb_head;
+            glb_head = node;
+        }
+    }
+    private ListNode swapPairs_(ListNode head, int k) {
+        ListNode org_head = null, org_tail = null;
+        ListNode curr = head;
+        
+        while(curr != null) {
+            int itr = k;
+            while(curr != null && itr-- > 0) {
+                ListNode forw = curr.next;
+                curr.next = null;
+                addFirstNode(curr);
+                curr = forw;
+            }
+            
+            if(org_head == null) {
+                org_head = glb_head;
+                org_tail = glb_tail;
+            } else {
+                org_tail.next = glb_head;
+                org_tail = glb_tail;    
+            }
+            
+            glb_head = glb_tail = null;
+        }
+        
+        return org_head;
+    }
+    public ListNode swapPairs(ListNode head) {
+        return swapPairs_(head, 2);
+    }
+
+    // ================================================================================================================================
+    // Day_17 : 39. Combination Sum
+    // https://leetcode.com/problems/combination-sum/
+     private void combinationSum_rec(int[] candidates, int idx, int target, List<Integer> smallAns, List<List<Integer>> ans) {
+        if(target == 0) {
+            List<Integer> base = new ArrayList<>(smallAns);
+            ans.add(base);
+            return;
+        }
+        
+        for(int i = idx; i < candidates.length; i++) {
+            if(target - candidates[i] >= 0) {
+                smallAns.add(candidates[i]);
+                combinationSum_rec(candidates, i, target - candidates[i], smallAns, ans);
+                smallAns.remove(smallAns.size() - 1);
+            }
+        }
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> smallAns = new ArrayList<>();
+        
+        combinationSum_rec(candidates, 0, target, smallAns, ans);
+        return ans;
+    }
+
+    // ================================================================================================================================
+    // Day_18 : 402. Remove K Digits
+    // https://leetcode.com/problems/remove-k-digits/
+    public String removeKdigits(String num, int k) {
+        int n = num.length();
+        LinkedList<Character> st = new LinkedList<>();
+        for(int idx = 0; idx < n; idx++) {
+            char ch = num.charAt(idx);
+            while(k > 0 && st.size() > 0 && st.getLast() > ch) {
+                st.removeLast();
+                k--;
+            }
+            st.addLast(ch);
+        }
+        
+        // manage remaing k's
+        while(k > 0 && st.size() > 0) {
+            st.removeLast();
+            k--;
+        }
+        
+        // manage leading 0's
+        while(st.size() > 0 && st.getFirst() == '0')
+            st.removeFirst();
+        
+        StringBuilder ans = new StringBuilder();
+        for(char ch : st) {
+            ans.append(ch);
+        }
+        
+        return ans.length() > 0 ? ans.toString() : "0"; 
+    }
 }

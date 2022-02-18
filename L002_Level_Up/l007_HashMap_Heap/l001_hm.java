@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-
 public class l001_hm {
     // ===================================================================================================================================
     // Question_1 : Find Itinerary From Tickets
@@ -1169,50 +1168,337 @@ public class l001_hm {
     // https://leetcode.com/problems/find-all-anagrams-in-a-string/
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> list = new ArrayList<>(); // storing start indices of p's anagrams in s
-        if(p.length() > s.length())
+        if (p.length() > s.length())
             return list;
-        
+
         HashMap<Character, Integer> pmap = new HashMap<>(); // pattern map => store char of string p vs it's frequency
         for (int i = 0; i < p.length(); i++) {
-          char ch = p.charAt(i);
-          pmap.put(ch, pmap.getOrDefault(ch, 0) + 1);
+            char ch = p.charAt(i);
+            pmap.put(ch, pmap.getOrDefault(ch, 0) + 1);
         }
 
-
-        // initially acquire substring of first window of string s of length = p.length()
+        // initially acquire substring of first window of string s of length =
+        // p.length()
         HashMap<Character, Integer> smap = new HashMap<>(); // source map => store char of string p vs it's frequency
         for (int i = 0; i < p.length(); i++) {
-          char ch = s.charAt(i);
-          smap.put(ch, smap.getOrDefault(ch, 0) + 1);
+            char ch = s.charAt(i);
+            smap.put(ch, smap.getOrDefault(ch, 0) + 1);
         }
 
-        // make a loop starting from i = p.length() and store result inside the loop if satisfy the condition;
+        // make a loop starting from i = p.length() and store result inside the loop if
+        // satisfy the condition;
         int rel = -1; // release
         for (int i = p.length(); i < s.length(); i++) {
-          // 1. match => if satisfies, store starting index of window of s in ans
-          if (smap.equals(pmap) == true) {
-            list.add(rel + 1);
-          }
+            // 1. match => if satisfies, store starting index of window of s in ans
+            if (smap.equals(pmap) == true) {
+                list.add(rel + 1);
+            }
 
-          // 2. acquire 
-          char ch = s.charAt(i);
-          smap.put(ch, smap.getOrDefault(ch, 0) + 1);
+            // 2. acquire
+            char ch = s.charAt(i);
+            smap.put(ch, smap.getOrDefault(ch, 0) + 1);
 
-          // 3. release
-          rel++;
-          char relCh = s.charAt(rel);
-          smap.put(relCh, smap.get(relCh) - 1);
+            // 3. release
+            rel++;
+            char relCh = s.charAt(rel);
+            smap.put(relCh, smap.get(relCh) - 1);
 
-          if (smap.get(relCh) == 0) {
-            smap.remove(relCh);
-          }
+            if (smap.get(relCh) == 0) {
+                smap.remove(relCh);
+            }
         }
-            
-        // also check for last window => anagram or not 
+
+        // also check for last window => anagram or not
         if (smap.equals(pmap) == true) {
-          list.add(rel + 1);
+            list.add(rel + 1);
         }
-        
+
         return list;
     }
+
+    // ===================================================================================================================================
+    // Question_29 : Check if two strings are k-anagrams or not
+    // https://practice.geeksforgeeks.org/problems/check-if-two-strings-are-k-anagrams-or-not/1/
+    boolean areKAnagrams(String s1, String s2, int k) {
+        if (s1.length() != s2.length())
+            return false;
+
+        // 1. make frequency map for s1
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s1.length(); i++) {
+            char ch = s1.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        // 2. reduce mapping from s2
+        for (int i = 0; i < s2.length(); i++) {
+            char ch = s2.charAt(i);
+            if (map.containsKey(ch) == true && map.get(ch) > 0) {
+                map.put(ch, map.get(ch) - 1);
+            }
+        }
+
+        // 3. add +ve count
+        int count = 0;
+        for (char key : map.keySet()) {
+            count += map.get(key);
+        }
+
+        return count <= k;
+    }
+
+    // ===================================================================================================================================
+    // Question_30 : 49. Group Anagrams
+    // https://leetcode.com/problems/group-anagrams/
+    private HashMap<Character, Integer> getFreqMap(String str) {
+        HashMap<Character, Integer> fmap = new HashMap<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            fmap.put(ch, fmap.getOrDefault(ch, 0) + 1);
+        }
+
+        return fmap;
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        // store {hashmap of character vs integer} vs arraylist of string
+        HashMap<HashMap<Character, Integer>, ArrayList<String>> map = new HashMap<>();
+        for (String str : strs) {
+            HashMap<Character, Integer> fmap = getFreqMap(str);
+
+            if (map.containsKey(fmap) == false) {
+                ArrayList<String> list = new ArrayList<>();
+                list.add(str);
+                map.put(fmap, list);
+            } else {
+                map.get(fmap).add(str);
+            }
+        }
+
+        List<List<String>> ans = new ArrayList<>();
+        for (ArrayList<String> list : map.values()) {
+            ans.add(list);
+        }
+
+        return ans;
+    }
+
+    // ===================================================================================================================================
+    // Question_31 : Group Shifted Strings
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/group-shifted-strings/ojquestion
+    private static String getStringCode(String str) {
+        String code = "";
+        for (int i = 1; i < str.length(); i++) {
+            char prev_ch = str.charAt(i - 1);
+            char curr_ch = str.charAt(i);
+
+            int val = (int) (curr_ch - prev_ch);
+
+            if (val >= 0) {
+                code += val;
+            } else {
+                code += (val + 26);
+            }
+            code += "#"; // # => separator
+        }
+        code += "."; // to hadle single character, we add "."
+        return code;
+    }
+
+    public static List<List<String>> groupStrings(String[] strings) {
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+
+        for (String str : strings) {
+            String code = getStringCode(str);
+
+            if (map.containsKey(code) == true) {
+                map.get(code).add(str);
+            } else {
+                ArrayList<String> list = new ArrayList<>();
+                list.add(str);
+                map.put(code, list);
+            }
+        }
+
+        List<List<String>> ans = new ArrayList<>();
+        for (ArrayList<String> list : map.values()) {
+            ans.add(list);
+        }
+
+        return ans;
+
+    }
+
+    // ===================================================================================================================================
+    // Question_32 : 205. Isomorphic Strings
+    // https://leetcode.com/problems/isomorphic-strings/
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length())
+            return false;
+
+        HashMap<Character, Character> map = new HashMap<>(); // store mapping of char1 with char2
+        HashSet<Character> set = new HashSet<>(); // store already mapped character
+
+        // must be satisfy one to one mapping
+        // if ch1 mapping with ch2 then ch2 also mapping with ch1
+        // otherwise return false
+        for (int i = 0; i < s.length(); i++) {
+            char ch1 = s.charAt(i);
+            char ch2 = t.charAt(i);
+
+            if (map.containsKey(ch1) == true) {
+                // if ch1 is present then it must be mapped with ch2
+                if (map.get(ch1) != ch2) {
+                    return false;
+                }
+            } else {
+                // if ch1 is not mapped but ch2 is mapped => return false
+                if (set.contains(ch2) == true) {
+                    return false;
+                }
+
+                map.put(ch1, ch2);
+                set.add(ch2);
+            }
+        }
+
+        return true;
+    }
+
+    // ===================================================================================================================================
+    // Question_33 : 290. Word Pattern
+    // https://leetcode.com/problems/word-pattern/
+    public boolean wordPattern(String pattern, String strs) {
+        String[] str_arr = strs.split(" ");
+        if (pattern.length() != str_arr.length)
+            return false;
+
+        HashMap<Character, String> map = new HashMap<>(); // store character -> ch of pattern vs string -> str of
+                                                          // str_arr
+        HashSet<String> set = new HashSet<>(); // store String of str_arr which means String is already mapped
+
+        for (int i = 0; i < pattern.length(); i++) {
+            char ch = pattern.charAt(i);
+            String str = str_arr[i];
+
+            if (map.containsKey(ch) == true) {
+                // // if ch is present then it must be mapped with String str
+                // otherwise return false
+                if (map.get(ch).equals(str) == false) {
+                    return false;
+                }
+            } else {
+                // if ch is not mapped but String str is mapped => return false
+                if (set.contains(str) == true) {
+                    return false;
+                }
+
+                map.put(ch, str);
+                set.add(str);
+            }
+        }
+
+        return true;
+    }
+
+    // ===================================================================================================================================
+    // Question_34 : 1502. Can Make Arithmetic Progression From Sequence
+    // https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence/
+    public boolean canMakeArithmeticProgression(int[] arr) {
+        HashSet<Integer> set = new HashSet<>(); // store number
+        int n = arr.length, min = (int) 1e9, max = -(int) 1e9;
+        for (int num : arr) {
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+            set.add(num);
+        }
+
+        int d = (max - min) / (n - 1);
+        int sum = min;
+        while (sum < max) {
+            sum += d;
+            if (set.contains(sum) == false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // ===================================================================================================================================
+    // Question_35 : 781. Rabbits in Forest
+    // https://leetcode.com/problems/rabbits-in-forest/
+    public int numRabbits(int[] answers) {
+        HashMap<Integer, Integer> fmap = new HashMap<>(); // storing number vs its frequency
+        for (int num : answers) {
+            fmap.put(num, fmap.getOrDefault(num, 0) + 1);
+        }
+
+        int count = 0; // making count of total rabbit in a forest
+        for (int key : fmap.keySet()) {
+            int freq = fmap.get(key);
+
+            count += (key + 1) * (int) Math.ceil(freq * 1.0 / (key + 1));
+        }
+
+        return count;
+    }
+
+    // ===================================================================================================================================
+    // Question_36 : 166. Fraction to Recurring Decimal
+    // https://leetcode.com/problems/fraction-to-recurring-decimal/
+    public String fractionToDecimal(int num, int den) {
+        if (num == 0) {
+            return "0";
+        }
+
+        long n = num; // divident
+        long d = den; // devisor
+        boolean n1 = n < 0; // check divident is negative or not
+        boolean n2 = d < 0; // check devisor is negative or not
+
+        // make devident and devisor to positive number
+        n = Math.abs(n); 
+        d = Math.abs(d);
+
+        StringBuilder ans = new StringBuilder();
+        long q = n / d; // quotient
+        long r = n % d; // remainder
+        ans.append(q);
+
+        if (r == 0) {
+            // handle for negative
+            if ((n1 == true && n2 == false) || (n1 == false && n2 == true)) {
+                ans.insert(0, "-");
+            }
+            return ans.toString();
+        }
+
+        ans.append("."); // decimal
+        HashMap<Long, Integer> map = new HashMap<>(); // store num vs index
+        while (r != 0) {
+            map.put(r, ans.length()); // mapping remainder vs it's index in ans
+
+            r *= 10; // make remainder 10 times
+            q = r / d; // again find quotient
+            r = r % d; // again find remainder
+            ans.append(q); // add quotient
+
+            if (map.containsKey(r) == true) {
+                int si = map.get(r); // starting index
+                ans.insert(si, "(");
+                ans.append(")");
+                break;
+            }
+        }
+
+        // handle for negative
+        if ((n1 == true && n2 == false) || (n1 == false && n2 == true)) {
+            ans.insert(0, "-");
+        }
+
+        return ans.toString();
+    }
+
 }

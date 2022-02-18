@@ -365,7 +365,7 @@ public class l004_DirectedGraph {
     	int N = graph.length;
     	
     	// 1. Topological order
-    	ArrayList<Integer> topoOrder = new ArrayList<>;
+    	ArrayList<Integer> topoOrder = new ArrayList<>();
     	boolean[] vis = new boolean[N];
     	for(int i = 0; i< N; i++) {
     		if(!vis[i])

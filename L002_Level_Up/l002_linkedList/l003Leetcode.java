@@ -70,12 +70,12 @@ public class l003Leetcode {
         Time : O(N) + O(N) ~ O(N)
         space : O(1)
     */  
-    private ListNode getNodeAt(ListNode head, int index) {
-        ListNode curr = head;
-        while(index-- > 0) 
-            curr = curr.next;
-        return curr;
-    }
+    // private ListNode getNodeAt(ListNode head, int index) {
+    //     ListNode curr = head;
+    //     while(index-- > 0) 
+    //         curr = curr.next;
+    //     return curr;
+    // }
     
     private void swap1(ListNode c1, ListNode c2) {
         int temp = c1.val;
@@ -651,19 +651,19 @@ public class l003Leetcode {
     // ===================================================================================================================================================
     // Question_17 : 2130. Maximum Twin Sum of a Linked List
     // https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/
-    private ListNode reverse(ListNode node) {
-        ListNode prev = null, curr = node;
-        while(curr != null) {
-            ListNode forw = curr.next;
+    // private ListNode reverse(ListNode node) {
+    //     ListNode prev = null, curr = node;
+    //     while(curr != null) {
+    //         ListNode forw = curr.next;
             
-            curr.next = prev;
+    //         curr.next = prev;
             
-            prev = curr;
-            curr = forw;
-        }
+    //         prev = curr;
+    //         curr = forw;
+    //     }
         
-        return prev;
-    }
+    //     return prev;
+    // }
     public int pairSum(ListNode head) {
         ListNode slow = head, fast = head;
         while(fast.next != null && fast.next.next != null) {
