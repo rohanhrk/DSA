@@ -1501,4 +1501,90 @@ public class l001_hm {
         return ans.toString();
     }
 
+    // ===================================================================================================================================
+    // Question_37 : Equivalent Sub-Array
+    // https://practice.geeksforgeeks.org/problems/equivalent-sub-arrays3731/1#
+    // Method to calculate distinct sub-array 
+    static int countDistinctSubarray(int arr[], int n) 
+    { 
+        HashSet<Integer> set = new HashSet<>(); // store distinct element
+        for(int ele : arr) {
+            set.add(ele);
+        }
+        
+        int k = set.size();
+        
+        HashMap<Integer, Integer> fmap = new HashMap<>(); // store {num vs its occurrance}
+        int acq = -1, rel = -1; // acq -> acquire, rel -> release
+        int count = 0; // making ans
+        
+        while(true) {
+            boolean flag1 = false, flag2 = false;
+            
+            // 1. acquire
+            while(acq < n - 1) {
+                flag1 = true;
+                
+                acq++;
+                int num = arr[acq];
+                fmap.put(num, fmap.getOrDefault(num, 0) + 1);
+                if(fmap.size() == k) {
+                    //  make ans
+                    count += n - acq;
+                    break;
+                }
+            }
+            
+            // 2. release
+            while(rel < acq) {
+                flag2 = true;
+                
+                rel++;
+                int num = arr[rel];
+                fmap.put(num, fmap.get(num) - 1);
+                if(fmap.get(num) == 0) {
+                    fmap.remove(num);
+                }
+                
+                if(fmap.size() == k) {
+                    // make ans
+                    count += n - acq;
+                } else {
+                    break;
+                }
+            }
+            
+            if(flag1 == false && flag2 == false) {
+                break;
+            }
+        }
+        
+        return count;
+    }
+
+    // ===================================================================================================================================
+    // Question_38 : Pairs With Equal Sum
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/pairs-with-equal-sum-official/ojquestion
+    public static boolean paitWithEqualSum(int[] arr) {
+        // write your code here
+        HashSet<Integer> set = new HashSet<>(); // store pair sum
+        for(int i = 0; i < arr.length - 1; i++) {
+            for(int j = i + 1; j < arr.length; j++) {
+                int ele1 = arr[i], ele2 = arr[j];
+                int pairsum = ele1 + ele2;
+                
+                if(set.contains(pairsum) == false) {
+                    set.add(pairsum);
+                } else {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    // 16 jan, 2022 not done
+
+
 }
