@@ -7,7 +7,9 @@ import java.util.Stack;
 import java.util.PriorityQueue;
 
 public class l001_Arrays {
-    // 925. Long Pressed Name
+    // =========================================================================================================================================
+    // Question_1 : 925. Long Pressed Name
+    // https://leetcode.com/problems/long-pressed-name/
     public boolean isLongPressedName(String name, String typed) {
         int n = name.length(), m = typed.length();
         if (n > m)
@@ -38,7 +40,9 @@ public class l001_Arrays {
         return i == n;
     }
 
-    // 11. Container With Most Water
+    // =========================================================================================================================================
+    // Question_2 : 11. Container With Most Water
+    // https://leetcode.com/problems/container-with-most-water/
     public int maxArea(int[] height) {
         int n = height.length;
         int i = 0, j = n - 1; // with i, j pair, forms a container
@@ -60,7 +64,9 @@ public class l001_Arrays {
         return most_water;
     }
 
-    // 977. Squares of a Sorted Array
+    // ========================================================================================================================================= 
+    // Question_3 : 977. Squares of a Sorted Array
+    // https://leetcode.com/problems/squares-of-a-sorted-array/
     public int[] sortedSquares(int[] nums) {
         int n = nums.length;
         int[] res_arr = new int[n];
@@ -81,8 +87,9 @@ public class l001_Arrays {
         return res_arr;
     }
 
-    // ========================================_MAJORITY_SERIES(MOORE'S_VOTING_ALGO)_========================================
-    // 169. Majority Element
+    // =========================================================================================================================================
+    // Question_4 : 169. Majority Element 1
+    // https://leetcode.com/problems/majority-element/
     public int majorityElement_01(int[] nums) {
         int n = nums.length;
         int val = nums[0];
@@ -105,7 +112,9 @@ public class l001_Arrays {
         return val;
     }
 
-    // 229. Majority Element II
+    // =========================================================================================================================================
+    // Question_5 : 229. Majority Element II
+    // https://leetcode.com/problems/majority-element-ii/
     private boolean isMajority(int[] arr, int val) {
         int n = arr.length;
         int count = 0;
@@ -154,21 +163,17 @@ public class l001_Arrays {
         return res;
     }
 
-    // Majority Element General (pepcoding)_=======================================
+    // =========================================================================================================================================
+    // Question_6 : Majority Element General (pepcoding)
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/arrays-&-strings-l2/majority-element-general/ojquestion
     public static ArrayList<Integer> majorityElement_03(int[] arr, int k) {
         // write yout code here
         HashMap<Integer, Integer> map = new HashMap<>();
         ArrayList<Integer> res = new ArrayList<>();
 
         int n = arr.length;
-        for (int key : arr) {
-            if (!map.containsKey(key))
-                map.put(key, 1);
-
-            else {
-                int count = map.get(key);
-                map.put(key, count + 1);
-            }
+        for (int val : arr) {
+            map.put(val, map.getOrDefault(val, 0) + 1);
         }
 
         for (int key : map.keySet())
@@ -179,8 +184,9 @@ public class l001_Arrays {
         return res;
     }
 
-    // =================================_556. Next Greater Element
-    // III_============================================
+    // =========================================================================================================================================
+    // Question_7 : 556. Next Greater Element III
+    // https://leetcode.com/problems/next-greater-element-iii/
     private int findDipIndex(int[] arr) {
         int idx = -1, n = arr.length;
         for (int i = n - 1; i > 0; i--) {
@@ -249,13 +255,14 @@ public class l001_Arrays {
             return -1;
     }
 
-    // 905. Sort Array By Parity_==============================================
-
-    // private void swap(int[] arr, int si, int ei) {
-    // int temp = arr[si];
-    // arr[si] = arr[ei];
-    // arr[ei] = temp;
-    // }
+    // =========================================================================================================================================
+    // Question_8 : 905. Sort Array By Parity
+    // https://leetcode.com/problems/sort-array-by-parity/
+    private void swap(int[] arr, int si, int ei) {
+        int temp = arr[si];
+        arr[si] = arr[ei];
+        arr[ei] = temp;
+    }
 
     public int[] sortArrayByParity(int[] nums) {
         int n = nums.length;
@@ -273,7 +280,9 @@ public class l001_Arrays {
         return nums;
     }
 
-    // 628. Maximum Product of Three Numbers_==============================
+    // =========================================================================================================================================
+    // Question_9 : 628. Maximum Product of Three Numbers
+    // https://leetcode.com/problems/maximum-product-of-three-numbers/
     public int maximumProduct(int[] nums) {
         int max1 = -(int) 1e9, max2 = -(int) 1e9, max3 = -(int) 1e9;
         int min1 = (int) 1e9, min2 = (int) 1e9;
@@ -301,7 +310,9 @@ public class l001_Arrays {
         return Math.max(max1 * max2 * max3, min1 * min2 * max1);
     }
 
-    // 769. Max Chunks To Make Sorted_======================
+    // =========================================================================================================================================
+    // Question_10 : 769. Max Chunks To Make Sorted
+    // https://leetcode.com/problems/max-chunks-to-make-sorted/
     public int maxChunksToSorted(int[] arr) {
         int n = arr.length;
 
@@ -316,29 +327,32 @@ public class l001_Arrays {
         return chunk;
     }
 
-    // 768. Max Chunks To Make Sorted II_=============================
-
-    // using two array
+    // =========================================================================================================================================
+    // Question_11 : 768. Max Chunks To Make Sorted II
+    // https://leetcode.com/problems/max-chunks-to-make-sorted-ii/
     public int maxChunksToSorted_01(int[] arr) {
         int n = arr.length;
-        int[] left_max = new int[n];
-        int[] right_min = new int[n];
-
-        left_max[0] = arr[0];
-        right_min[n - 1] = arr[n - 1];
-
-        for (int i = 1; i < left_max.length; i++)
-            left_max[i] = Math.max(arr[i], left_max[i - 1]);
-        for (int i = right_min.length - 2; i >= 0; i--)
-            right_min[i] = Math.min(arr[i], right_min[i + 1]);
-
-        int chunk_count = 1;
-        for (int i = 0; i < n - 1; i++) {
-            if (left_max[i] <= right_min[i + 1])
-                chunk_count++;
+        int[] left_max = new int[n + 1];
+        int[] right_min = new int[n + 1];
+        
+        left_max[0] = -(int) 1e9;
+        for(int i = 1; i < left_max.length; i++) {
+            left_max[i] = Math.max(left_max[i - 1], arr[i - 1]);
         }
-
-        return chunk_count;
+        
+        right_min[right_min.length - 1] = (int) 1e9;
+        for(int i = arr.length - 1; i >= 0; i--) {
+            right_min[i] = Math.min(right_min[i + 1], arr[i]);
+        }
+        
+        int chunk = 0;
+        for(int i = 1; i < left_max.length; i++) {
+            if(left_max[i] <= right_min[i]) {
+                chunk++;
+            }
+        }
+        
+        return chunk;
     }
 
     // using one array
@@ -363,7 +377,9 @@ public class l001_Arrays {
         return chunk_count;
     }
 
-    // 747. Largest Number At Least Twice of Others
+    // =========================================================================================================================================
+    // Question_12 : 747. Largest Number At Least Twice of Others
+    // https://leetcode.com/problems/largest-number-at-least-twice-of-others/
     public int dominantIndex(int[] nums) {
         int n = nums.length;
         int max1 = -(int) 1e9, max2 = -(int) 1e9, idx = -1;
@@ -381,7 +397,9 @@ public class l001_Arrays {
         return max1 >= 2 * max2 ? idx : -1;
     }
 
-    // 345. Reverse Vowels of a String
+    // =========================================================================================================================================
+    // Question_13 : 345. Reverse Vowels of a String
+    // https://leetcode.com/problems/reverse-vowels-of-a-string/
     private boolean isVowel(char ch) {
         String s = "aeiou";
         return s.contains(ch + "");
@@ -417,7 +435,9 @@ public class l001_Arrays {
         return new String(arr);
     }
 
-    // 795. Number of Subarrays with Bounded Maximum
+    // =========================================================================================================================================
+    // Question_14 : 795. Number of Subarrays with Bounded Maximum
+    // 
     public int numSubarrayBoundedMax(int[] nums, int left, int right) {
         int n = nums.length;
         int prevCount = 0, count = 0;
