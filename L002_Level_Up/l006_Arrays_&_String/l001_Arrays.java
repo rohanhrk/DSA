@@ -485,7 +485,7 @@ public class l001_Arrays {
 
     // =========================================================================================================================================
     // Question_8 : 324. Wiggle Sort II
-    // 
+    // https://leetcode.com/problems/wiggle-sort-ii/
     public void wiggleSort(int[] nums) {
         int n = nums.length;
         int[] dup = new int[n];
@@ -509,15 +509,17 @@ public class l001_Arrays {
         }
     }
 
+    // =========================================================================================================================================
+    // Question_9 : range addition
     // https://www.lintcode.com/problem/range-addition/description
     public int[] getModifiedArray(int n, int[][] query) {
         // Write your code here
         int[] arr = new int[n];
 
         for (int i = 0; i < query.length; i++) {
-            int si = query[i][0];
-            int ei = query[i][1];
-            int val = query[i][2];
+            int si = query[i][0]; // starting index
+            int ei = query[i][1]; // ending index
+            int val = query[i][2]; // increment value
 
             arr[si] += val;
             if (ei != n - 1)
@@ -532,7 +534,9 @@ public class l001_Arrays {
         return arr;
     }
 
-    // 238. Product of Array Except Self
+    // =========================================================================================================================================
+    // Question_10 : 238. Product of Array Except Self
+    // https://leetcode.com/problems/product-of-array-except-self/
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
         int[] right_prod = new int[n + 1];
@@ -553,7 +557,9 @@ public class l001_Arrays {
         return res;
     }
 
-    // 118. Pascal's Triangle
+    // =========================================================================================================================================
+    // Question_11 : 118. Pascal's Triangle
+    // https://leetcode.com/problems/pascals-triangle/
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res = new ArrayList<>();
 
@@ -571,8 +577,9 @@ public class l001_Arrays {
         return res;
     }
 
-    // ==============================================================
-    // 849. Maximize Distance to Closest Person
+    // =========================================================================================================================================
+    // Question_12 : 849. Maximize Distance to Closest Person
+    // https://leetcode.com/problems/maximize-distance-to-closest-person/
     // space-->O(n)
     public int maxDistToClosest_01(int[] seats) {
         int n = seats.length;
@@ -643,7 +650,8 @@ public class l001_Arrays {
         return max;
     }
 
-    // 41. First Missing Positive
+    // =========================================================================================================================================
+    // Question_13 : 41. First Missing Positive
     public int firstMissingPositive(int[] nums) {
         int n = nums.length;
 
