@@ -734,4 +734,59 @@ public class l002_stringSet {
         return isMatch_memo(s, p, n, m, dp) == 1;
     }
 
+    // =============================================================================================================================
+    // Question_25 : 1035. Uncrossed Lines
+    // https://leetcode.com/problems/uncrossed-lines/
+     private int maxUncrossedLines_tabu(int[] nums1, int[] nums2, int IDX1, int IDX2, int[][] dp) {
+        for(int idx1 = IDX1; idx1 >= 0; idx1--) {
+            for(int idx2 = IDX2; idx2 >= 0; idx2--) {
+                if(idx1 == nums1.length || idx2 == nums2.length) {
+                    dp[idx1][idx2] = 0;
+                    continue;
+                }
+
+                int len = 0;
+                if(nums1[idx1] == nums2[idx2]) {
+                    len = dp[idx1 + 1][idx2 + 1] + 1;
+                } else {
+                    len = Math.max(dp[idx1][idx2 + 1], dp[idx1 + 1][idx2]);
+                }
+
+                dp[idx1][idx2] = len;
+            }
+        }
+         
+        return dp[0][0];
+    }  
+    
+    private int maxUncrossedLines_memo(int[] nums1, int[] nums2, int idx1, int idx2, int[][] dp) {
+        if(idx1 == nums1.length || idx2 == nums2.length) {
+            return dp[idx1][idx2] = 0;
+        }
+            // return 0;
+        
+        
+        if(dp[idx1][idx2] != -1)
+            return dp[idx1][idx2];
+        
+        int len = 0;
+        if(nums1[idx1] == nums2[idx2]) {
+            len = maxUncrossedLines_memo(nums1, nums2, idx1 + 1, idx2 + 1, dp) + 1;
+        } else {
+            len = Math.max(maxUncrossedLines_memo(nums1, nums2, idx1, idx2 + 1, dp), maxUncrossedLines_memo(nums1, nums2, idx1 + 1, idx2, dp));
+        }
+        
+        return dp[idx1][idx2] = len;
+    }
+    public int maxUncrossedLines(int[] nums1, int[] nums2) {
+        int n = nums1.length, m = nums2.length;
+        int[][] dp = new int[n +1][m + 1];
+        // for(int[] d : dp)
+        //     Arrays.fill(d, -1);
+        
+        // return maxUncrossedLines_memo(nums1, nums2, 0, 0, dp);
+        return maxUncrossedLines_tabu(nums1, nums2, n, m, dp);
+        
+    }
+
 }
