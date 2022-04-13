@@ -126,6 +126,7 @@ public class l003_LIS {
 
     // =============================================================================================================================
     // Question_30 : 1671. Minimum Number of Removals to Make Mountain Array
+    // https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/
     public int minimumMountainRemovals(int[] arr) {
         int[] LIS = LIS_leftToRight(arr);
         int[] LDS = LIS_rightToLeft(arr);
