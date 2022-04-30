@@ -15,6 +15,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_35 : Permutation with infinite coins
+    // 
     public static int permutation_memo(int[] arr, int tar, int[] dp) {
         if (tar == 0) {
             return dp[tar] = 1;
@@ -54,6 +55,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_36 : Combination with infinite coins
+    // https://practice.geeksforgeeks.org/problems/coin-change2448/1
     public static int combination_memo(int[] arr, int tar, int n, int[][] dp) {
         if (tar == 0)
             return dp[n][tar] = 1;
@@ -108,6 +110,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_37 : 322. Coin Change
+    // https://leetcode.com/problems/coin-change/
     public int coinChange_memo(int[] arr, int tar, int[] dp) {
         if (tar == 0) {
             return dp[tar] = 0;
@@ -156,6 +159,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_38 : 518. Coin Change 2
+    // https://leetcode.com/problems/coin-change-2/
     public int change_memo(int[] arr, int tar, int n, int[][] dp) {
         if (tar == 0)
             return dp[n][tar] = 1;
@@ -203,6 +207,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_39 : 377. Combination Sum IV
+    // https://leetcode.com/problems/combination-sum-iv/
     public int combinationSum4(int[] nums, int target, int[] dp) {
         if (target == 0)
             return dp[target] = 1;
@@ -231,6 +236,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_40 : subset sum problem
+    // https://practice.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1/
     public static int subsetSum_memo(int[] arr, int tar, int n, int[][] dp) {
         if (tar == 0 || n == 0)
             return dp[n][tar] = (tar == 0) ? 1 : 0;
@@ -270,6 +276,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_41 : 0-1_knapsack_problems_
+    // https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
     public static int knapSack_memo(int W, int wt[], int val[], int n, int[][] dp) {
         if (W == 0 || n == 0)
             return dp[n][W] = 0;
@@ -288,6 +295,7 @@ public class l004_targetSet {
 
     // =============================================================================================================================
     // Que_42 : UNBOUNDED_KNAPSACK_problems
+    // https://practice.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1/
     static int unboundedKnapSack_memo(int W, int wt[], int val[], int n, int[][] dp) {
         if (W == 0 || n == 0)
             return dp[n][W] = 0;
@@ -328,10 +336,10 @@ public class l004_targetSet {
 
     // using 1d_========================
     public static int  unboundedKnapSack_tabu_1d(int W, int wt[], int val[], int N, int[] dp) {
-        for(int ele : wt) {
+        for(int i = 0; i = wt.length; i++) {
             for(int w = 0; w <= W; w++) {
-                if(w - ele >= 0)
-                    dp[w] = Math.max(dp[w], dp[w - ele]);
+                if(w - wt[i] >= 0)
+                    dp[w] = Math.max(dp[w], dp[w - wt[i]] + val[i]);
             }
         }
 
@@ -343,11 +351,12 @@ public class l004_targetSet {
         int[][] dp = new int[N + 1][W + 1];
         for (int[] d : dp)
             Arrays.fill(d, -1);
-        return unboundedKnapSack_memo(W, wt, val, N, dp);
+        return  (W, wt, val, N, dp);
     }
 
     // =============================================================================================================================
     // Que_43 : 416. Partition Equal Subset Sum
+    // https://leetcode.com/problems/partition-equal-subset-sum/
     // -1 -> undefined, 0 -> false , 1 -> true     
     public int canPartition(int[] nums, int tar, int n, int[][] dp) {
         if(n == 0 || tar == 0)

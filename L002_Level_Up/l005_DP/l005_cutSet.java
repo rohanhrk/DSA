@@ -19,6 +19,7 @@ public class l005_cutSet {
 
     // =============================================================================================================================
     // Que_44 : matrix_chain_multiplication
+    // https://practice.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1/
     // memoization
     public static int mcm_memo(int[] arr, int si, int ei, int[][] dp) {
         if (si + 1 == ei)
@@ -121,8 +122,8 @@ public class l005_cutSet {
     }
 
     // =============================================================================================================================
-    // Que_45 : https://www.geeksforgeeks.org/minimum-maximum-values-expression/
-    // Minimum and Maximum values of an expression with * and +
+    // Que_45 : Minimum and Maximum values of an expression with * and +
+    // https://www.geeksforgeeks.org/minimum-maximum-values-expression/
     public static class min_max_pair {
         int min_value = (int) 1e9;
         int max_value = -(int) 1e9;
@@ -184,10 +185,11 @@ public class l005_cutSet {
 
     // =============================================================================================================================
     // Que_44 : 312. Burst Balloons
+    // https://leetcode.com/problems/burst-balloons/
     public int maxCoins(int[] nums, int si, int ei, int[][] dp) {
         if (dp[si][ei] != -1)
             return dp[si][ei];
-
+v  
         int left_val = (si == 0) ? 1 : nums[si - 1];
         int right_val = (ei == nums.length - 1) ? 1 : nums[ei + 1];
 
@@ -213,7 +215,8 @@ public class l005_cutSet {
     }
 
     // =============================================================================================================================
-    // Que_45 : https://practice.geeksforgeeks.org/problems/boolean-parenthesization5610/1
+    // Que_45 : Boolean Parenthesization 
+    // https://practice.geeksforgeeks.org/problems/boolean-parenthesization5610/1
     public static class boolean_pair {
         int true_count = 0;
         int false_count = 0;
@@ -274,7 +277,8 @@ public class l005_cutSet {
     }
 
     // =============================================================================================================================
-    // Que_46 : https://www.geeksforgeeks.org/optimal-binary-search-tree-dp-24/
+    // Que_46 : Optimal Binary Search Tree
+    // https://www.geeksforgeeks.org/optimal-binary-search-tree-dp-24/
     public static int optimalSearchTree_memo(int keys[], int freq[], int si, int ei, int[][] dp) {
         // code here
         if (dp[si][ei] != -1)
@@ -306,6 +310,7 @@ public class l005_cutSet {
 
     // =============================================================================================================================
     // Que_47 : 95. Unique Binary Search Trees II
+    // https://leetcode.com/problems/unique-binary-search-trees-ii/
     public class TreeNode {
         int val;
         TreeNode left;

@@ -231,6 +231,7 @@ public class l003_LIS {
 
     // =============================================================================================================================
     // Que_33 : 354. Russian Doll Envelopes
+    // https://leetcode.com/problems/russian-doll-envelopes/
     public int maxEnvelopes(int[][] envelopes) {
         Arrays.sort(envelopes, (a, b) -> {
             if(a[0] == b[0]) {
@@ -325,6 +326,7 @@ public class l003_LIS {
     
     // =============================================================================================================================
     // Que_34 : 673. Number of Longest Increasing Subsequence
+    // https://leetcode.com/problems/number-of-longest-increasing-subsequence/
     public int findNumberOfLIS(int[] arr) {
         int n = arr.length;
         int[] LIS_Len = new int[n]; // arr[i] pe khatam hone wala LIS ka length store karenge
