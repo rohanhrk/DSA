@@ -23,6 +23,7 @@ public class l001_Arrays {
                 i++;
                 j++;
             } else {
+                // check validity of (i - 1)
                 if (i > 0 && name.charAt(i - 1) == typed.charAt(j)) {
                     j++;
                 } else {
@@ -439,22 +440,35 @@ public class l001_Arrays {
     // Question_14 : 795. Number of Subarrays with Bounded Maximum
     // https://leetcode.com/problems/number-of-subarrays-with-bounded-maximum/
     public int numSubarrayBoundedMax(int[] nums, int left, int right) {
-        int n = nums.length;
-        int prevCount = 0, count = 0;
-
-        int j = 0;
-        for (int i = 0; i < n; i++) {
-            if (nums[i] >= left && nums[i] <= right) {
-                prevCount = i - j + 1;
-                count += (i - j + 1);
-            } else if (nums[i] < left) {
-                count += prevCount;
-            } else if (nums[i] > right) {
-                j = i + 1;
-                prevCount = 0;
+        int n = nums.length, prev_count = 0;
+        int i = 0, j = 0; // j -> pointing on first index of subarray, i -> pointing on current index
+                 
+        int count = 0;
+        while(i < n) {
+            int val = nums[i];
+           
+            // case 1 : left <= val <= right ------> val is in range
+            if(left <= val && val <= right) {
+                prev_count = i - j + 1;
+                count += prev_count;
+            } 
+            
+            // case 2 : val < left --------> add previous count in ans
+            else if(val < left) {
+                count += prev_count;
             }
+            
+            // case 3 : val > right ---------> means val is out of range
+            // reset area
+            else if(val > right) {
+                // reset prev_count, j
+                prev_count = 0;
+                j = i + 1;
+            }
+            
+            i++;
         }
-
+        
         return count;
     }
 
@@ -488,24 +502,32 @@ public class l001_Arrays {
     // https://leetcode.com/problems/wiggle-sort-ii/
     public void wiggleSort(int[] nums) {
         int n = nums.length;
-        int[] dup = new int[n];
+        
+        // step 1 => make dublicate arr of nums
+        int[] dub = new int[n];
         for (int i = 0; i < n; i++)
-            dup[i] = nums[i];
-
-        Arrays.sort(dup);
-
-        int i = 1, j = dup.length - 1;
-        while (i < n) {
-            nums[i] = dup[j];
-            i += 2;
-            j--;
+            dub[i] = nums[i];
+        
+        // step 2 => sort dublicate array
+        Arrays.sort(dub);
+        
+        // step 3 => make iteration from i = 1 and increment with 2 steps until end
+        // simultaneously, j pointer moving on dublicate array from end to start by 1 decrement
+        int i = 1, j = dub.length - 1;
+        while(i < n) {
+            nums[i] = dub[j];
+            
+            i += 2; // i increment by 2
+            j -= 1; // j decrement by 1
         }
-
+        
+        // step 4 => If i pointer reached at the end then i again start with 0 and increment by 2
         i = 0;
-        while (i < n) {
-            nums[i] = dup[j];
-            i += 2;
-            j--;
+        while(i < n) {
+            nums[i] = dub[j];
+            
+            i += 2; // i increment by 2
+            j -= 1; // j decrement by 1
         }
     }
 
@@ -513,7 +535,6 @@ public class l001_Arrays {
     // Question_9 : range addition
     // https://www.lintcode.com/problem/range-addition/description
     public int[] getModifiedArray(int n, int[][] query) {
-        // Write your code here
         int[] arr = new int[n];
 
         for (int i = 0; i < query.length; i++) {
@@ -526,7 +547,7 @@ public class l001_Arrays {
                 arr[ei + 1] -= val;
         }
 
-        // make prefix sum araay
+        // make prefix sum araay to visible impact
         for (int i = 1; i < n; i++) {
             arr[i] += arr[i - 1];
         }
@@ -652,6 +673,7 @@ public class l001_Arrays {
 
     // =========================================================================================================================================
     // Question_13 : 41. First Missing Positive
+    // https://leetcode.com/problems/first-missing-positive/
     public int firstMissingPositive(int[] nums) {
         int n = nums.length;
 
@@ -684,6 +706,9 @@ public class l001_Arrays {
         return n + 1;
     }
 
+
+    // =========================================================================================================================================
+    // Question_14 : 912 · Best Meeting Point
     // https://www.lintcode.com/problem/912/
     public int minTotalDistance(int[][] grid) {
         int n = grid.length, m = grid[0].length;
@@ -724,13 +749,11 @@ public class l001_Arrays {
         return dist;
     }
 
-    // 670. Maximum Swap
-    // private void swap(int[] arr, int i , int j) {
-    // int temp = arr[i];
-    // arr[i] = arr[j];
-    // arr[j] = temp;
-    // }
+    // =========================================================================================================================================
+    // Question_15 : 670. Maximum Swap
+    // https://leetcode.com/problems/maximum-swap/
 
+    // Mathod 1 ======>>>>>>>>>
     // space -> O(n) where n is length
     public int maximumSwap_01(int num) {
         // convert number to string and create integer array
@@ -775,6 +798,7 @@ public class l001_Arrays {
         return ans;
     }
 
+    // Mathod 2 ========>>>>>>>>>>>>>>>>>
     // space -> O(10)
     public int maximumSwap_02(int num) {
         String str = "" + num;
@@ -816,6 +840,8 @@ public class l001_Arrays {
 
     }
 
+    // =========================================================================================================================================
+    // Question_16 : 2 Sum - Target Sum Unique Pairs
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/arrays-&-strings-l2/2-sum-target-sum-unique-pairs/ojquestion
     public static List<List<Integer>> twoSum(int[] arr, int target) {
         // write your code here
@@ -849,7 +875,9 @@ public class l001_Arrays {
         return ans;
     }
 
-    // 15. 3Sum
+    // =========================================================================================================================================
+    // Question_17 : 15. 3Sum
+    // https://leetcode.com/problems/3sum/
     private List<List<Integer>> two_sum(int[] arr, int target, int sp) {
         int n = arr.length;
         int left = sp, right = arr.length - 1;
@@ -904,7 +932,9 @@ public class l001_Arrays {
         return threeSum(nums, 0);
     }
 
-    // 18. 4Sum
+    // =========================================================================================================================================
+    // Question_18 : 18. 4Sum
+    // https://leetcode.com/problems/4sum/
     public List<List<Integer>> three_sum(int[] nums, int target, int sp) {
         int n = nums.length;
         List<List<Integer>> ans = new ArrayList<>();
@@ -945,7 +975,8 @@ public class l001_Arrays {
         return ans;
     }
 
-    // K Sum - Target Sum Unique Set
+    // =========================================================================================================================================
+    // Question_19 : K Sum - Target Sum Unique Set  (GENERAL)
     public List<List<Integer>> kSum(int[] arr, int target, int k, int sp) {
         // write your code here
         if (k == 2) {
@@ -976,7 +1007,10 @@ public class l001_Arrays {
         return kSum(arr, target, k, 0);
     }
 
-    // 537. Complex Number Multiplication
+
+    // =========================================================================================================================================
+    // Question_20 : 537. Complex Number Multiplication
+    // https://leetcode.com/problems/complex-number-multiplication/
     public String complexNumberMultiply(String num1, String num2) {
         int a1 = Integer.parseInt(num1.substring(0, num1.indexOf("+")));
         int b1 = Integer.parseInt(num1.substring(num1.indexOf("+") + 1, num1.length() - 1));
@@ -991,6 +1025,8 @@ public class l001_Arrays {
         return result;
     }
 
+    // =========================================================================================================================================
+    // Question_21 : Minimum Platforms 
     // https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1
     public static int findPlatform(int arr[], int dep[], int n) {
         // add your code here
@@ -1015,7 +1051,8 @@ public class l001_Arrays {
         return over_max;
     }
 
-    // Sieve Of Eratosthenes
+    // =========================================================================================================================================
+    // Question_22 : Sieve Of Eratosthenes
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/arrays-&-strings-l2/sieve-of-eratosthenes/ojquestion
     public static void printPrimeUsingSieve(int n) {
         // pre calculation
@@ -1042,7 +1079,9 @@ public class l001_Arrays {
 
     }
 
-    // 204. Count Primes
+    // =========================================================================================================================================
+    // Question_23 : 204. Count Primes
+    // https://leetcode.com/problems/count-primes/
     public int countPrimes(int n) {
         // pre calculation
         boolean[] isPrime = new boolean[n + 1];
@@ -1070,6 +1109,10 @@ public class l001_Arrays {
         return prime_count;
     }
 
+    // =========================================================================================================================================
+    // Question_24 : Product of Primes
+    // https://practice.geeksforgeeks.org/problems/product-of-primes5328/1/
+    
     // segmented Sieve Algo
     private static ArrayList<Integer> seive(int n) {
         // pre calculation
