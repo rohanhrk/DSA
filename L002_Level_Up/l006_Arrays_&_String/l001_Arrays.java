@@ -1308,7 +1308,8 @@ public class l001_Arrays {
     }
 
     // =========================================================================================================================================
-    // 48. Rotate Image
+    // Question_31 : 48. Rotate Image
+    // https://leetcode.com/problems/rotate-image/
     private void transpose(int matrix[][]) {
         // code here
         int n = matrix.length;
@@ -1340,59 +1341,94 @@ public class l001_Arrays {
         }
     }
 
-    // 838. Push Dominoes
-    private void solveConf(char[] arr, int i, int j) {
-        if (arr[i] == 'L' && arr[j] == 'L') {
-            for (int k = i + 1; k < j; k++) {
+    // =========================================================================================================================================
+    // Question_32 : 838. Push Dominoes
+    // https://leetcode.com/problems/push-dominoes/
+/*
+        Cases =>
+            case 1 => 'L.....L' 
+               res => 'LLLLLLL'
+            case 2 => 'R.....R'
+               res => 'RRRRRRR'
+            case 3 => 'L.....R'
+               res => 'L.....R' => No changes in result
+            case 4 => 'R.....L' 
+               res => 'RRR.LLL'
+               
+        edge cases =>
+            case 1 => '.....L.....'
+            case 2 => '.....R....'
+            case 3 => '.....L...R....'
+    */ 
+    
+    private void solveConfig(char[] arr, int i, int j) {
+        // case 1 => 'L.....L'
+        if(arr[i] == 'L' && arr[j] == 'L') {
+            for(int k = i + 1; k < j; k++) {
                 arr[k] = 'L';
             }
-        } else if (arr[i] == 'R' && arr[j] == 'R') {
-            for (int k = i + 1; k < j; k++) {
+        }
+        
+        // case 2 => 'R.....R'
+        else if(arr[i] == 'R' && arr[j] == 'R') {
+            for(int k = i + 1; k < j; k++) {
                 arr[k] = 'R';
             }
-        } else if (arr[i] == 'L' && arr[j] == 'R') {
+        }
+        
+        // case 3 => 'L.....R'
+        else if(arr[i] == 'L' && arr[j] == 'R') {
             // Nothing to do
-        } else {
+        }
+        
+        // case 4 => 'R.....L'
+        else if(arr[i] == 'R' && arr[j] == 'L') {
             int left = i + 1, right = j - 1;
-            while (left < right) {
+            while(left < right) {
+                // work
                 arr[left] = 'R';
                 arr[right] = 'L';
-
+                
+                // update
                 left++;
                 right--;
             }
         }
     }
-
     public String pushDominoes(String dominoes) {
         int n = dominoes.length();
-        char[] arr = new char[n + 2];
-        arr[0] = 'L';
-        arr[arr.length - 1] = 'R';
-
-        for (int i = 1; i < arr.length - 1; i++)
-            arr[i] = dominoes.charAt(i - 1);
-
+        
+        char[] ch_arr = new char[n + 2];
+        ch_arr[0] = 'L'; // manually added 'L' to handle edge cases
+        ch_arr[n + 1] = 'R'; // manually added 'R' handle edge cases
+        for(int i = 0; i < n; i++) {
+            ch_arr[i + 1] = dominoes.charAt(i);
+        } 
+        
         int i = 0, j = 1;
-
-        while (j < arr.length) {
-            while (arr[j] == '.')
+        while(j < ch_arr.length) {
+            while(j < ch_arr.length && ch_arr[j] == '.')
                 j++;
+            
             // case management
-            if (j - i > 1)
-                solveConf(arr, i, j);
+            solveConfig(ch_arr, i, j);
+            
+            // index update
             i = j;
             j++;
         }
-
-        StringBuilder sb = new StringBuilder();
-        for (int k = 1; k < arr.length - 1; k++)
-            sb.append(arr[k]);
-
-        return sb.toString();
+        
+        // make final res
+        StringBuilder res = new StringBuilder();
+        for(int k = 1; k < ch_arr.length - 1; k++) {
+            res.append(ch_arr[k]);
+        }
+        return res.toString();
     }
 
-    // 829. Consecutive Numbers Sum
+    // =========================================================================================================================================
+    // Question_33 : 829. Consecutive Numbers Sum
+    // https://leetcode.com/problems/consecutive-numbers-sum/
     public int consecutiveNumbersSum(int n) {
         int count = 0;
         for (int k = 1; k * (k - 1) < 2 * n; k++) {
@@ -1409,7 +1445,9 @@ public class l001_Arrays {
         return count;
     }
 
-    // 415. Add Strings
+    // =========================================================================================================================================
+    // Question_34 : 415. Add Strings
+    // https://leetcode.com/problems/add-strings/
     public String addStrings(String num1, String num2) {
         StringBuilder sb = new StringBuilder();
         int i = num1.length() - 1, j = num2.length() - 1;
@@ -1428,7 +1466,9 @@ public class l001_Arrays {
         return sb.reverse().toString();
     }
 
-    // 43. Multiply Strings
+    // =========================================================================================================================================
+    // Question_35 : 43. Multiply Strings
+    // https://leetcode.com/problems/multiply-strings/
     public String multiply(String num1, String num2) {
         if (num1.equals("0") || num2.equals("0"))
             return "0";
@@ -1465,7 +1505,9 @@ public class l001_Arrays {
         return sb.toString();
     }
 
-    // 239. Sliding Window Maximum
+    // =========================================================================================================================================
+    // Question_36 : 239. Sliding Window Maximum
+    // https://leetcode.com/problems/sliding-window-maximum/
     private int[] ngri(int[] arr) {
         // ngri -> next greater on right index
         int n = arr.length;
@@ -1506,7 +1548,9 @@ public class l001_Arrays {
         return res;
     }
 
-    // 42. Trapping Rain Water
+    // =========================================================================================================================================
+    // Question_37 : 42. Trapping Rain Water
+    // https://leetcode.com/problems/trapping-rain-water/
     // Time -> O(n) , space -> O(n)
     public int trap_01(int[] height) {
         int n = height.length;
