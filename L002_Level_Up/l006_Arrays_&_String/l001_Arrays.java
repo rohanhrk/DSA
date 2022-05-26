@@ -1168,7 +1168,8 @@ public class l001_Arrays {
         }
     }
 
-    // Find Pair Given Difference
+    // =========================================================================================================================================
+    // Question_25 : Find Pair Given Difference
     // https://practice.geeksforgeeks.org/problems/find-pair-given-difference1559/1#
     public boolean findPair(int arr[], int size, int target) {
         // code here.
@@ -1190,7 +1191,9 @@ public class l001_Arrays {
         return false;
     }
 
-    // 881. Boats to Save People
+    // =========================================================================================================================================
+    // Question_26 : 881. Boats to Save People
+    // https://leetcode.com/problems/boats-to-save-people/
     public int numRescueBoats(int[] weights, int capacity) {
         Arrays.sort(weights);
         int n = weights.length;
@@ -1213,7 +1216,9 @@ public class l001_Arrays {
         return boats;
     }
 
-    // 763. Partition Labels
+    // =========================================================================================================================================
+    // Question_27 : 763. Partition Labels
+    // https://leetcode.com/problems/partition-labels/
     public List<Integer> partitionLabels(String s) {
         int n = s.length();
 
@@ -1245,7 +1250,9 @@ public class l001_Arrays {
         return res;
     }
 
-    // 754. Reach a Number
+    // =========================================================================================================================================
+    // Question_28 : 754. Reach a Number
+    // https://leetcode.com/problems/reach-a-number/
     public int reachNumber(int target) {
         // if target is negative
         target = Math.abs(target);
@@ -1265,7 +1272,9 @@ public class l001_Arrays {
         return jump;
     }
 
-    // 867. Transpose Matrix
+    // =========================================================================================================================================
+    // Question_29 : 867. Transpose Matrix -> (N X M)
+    // https://leetcode.com/problems/transpose-matrix/
     public int[][] transpose_NxM(int[][] matrix) {
         int row = matrix.length, col = matrix[0].length;
         int[][] transpose = new int[col][row];
@@ -1279,6 +1288,8 @@ public class l001_Arrays {
         return transpose;
     }
 
+    // =========================================================================================================================================
+    // Question_30 : Transpose Matrix -> (N X N)
     // https://practice.geeksforgeeks.org/problems/transpose-of-matrix-1587115621/1
     // Function to find transpose of a matrix.
     private static void swap(int[][] arr, int i, int j) {
@@ -1296,6 +1307,7 @@ public class l001_Arrays {
         }
     }
 
+    // =========================================================================================================================================
     // 48. Rotate Image
     private void transpose(int matrix[][]) {
         // code here
