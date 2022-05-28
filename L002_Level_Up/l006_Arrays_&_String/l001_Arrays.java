@@ -1613,7 +1613,8 @@ public class l001_Arrays {
         return water;
     }
 
-    // meeting rooms 1
+    // =========================================================================================================================================
+    // Question_38 : meeting rooms 1
     // https://www.lintcode.com/problem/920/
     public static class Interval {
         int start, end;
@@ -1645,7 +1646,8 @@ public class l001_Arrays {
         return true;
     }
 
-    // meeting room2
+    // =========================================================================================================================================
+    // Question_39 : meeting room2
     // https://www.interviewbit.com/problems/meeting-rooms/
     public int solve(ArrayList<ArrayList<Integer>> intervals) {
         int n = intervals.size();
@@ -1676,7 +1678,9 @@ public class l001_Arrays {
         return overall_max;
     }
 
-    // 56. Merge Intervals
+    // =========================================================================================================================================
+    // Question_39 : 56. Merge Intervals
+    // https://leetcode.com/problems/merge-intervals/
     public int[][] merge(int[][] intervals) {
         int n = intervals.length;
         Arrays.sort(intervals, (a, b) -> {
@@ -1717,6 +1721,55 @@ public class l001_Arrays {
         // return ans;
 
         return res.toArray(new int[res.size()][]);
+    }
+
+    // =========================================================================================================================================
+    // Question_40 : 57. Insert Interval
+    // https://leetcode.com/problems/insert-interval/
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        ArrayList<int[]> ans = new ArrayList<>();
+        
+        // step1 => add interval in res as it is if starting time of interval is less than starting time of new interval
+        int idx = 0;
+        while(idx < intervals.length) {
+            int start = intervals[idx][0]; // starting 
+            int end = intervals[idx][1]; // ending  
+            if(start < newInterval[0]) {
+                ans.add(intervals[idx]); // add as it is
+            } else {
+                break; // means we have to merge further
+            }
+            idx++;
+        }
+        
+        // step2 => there will be two cases => i) size of ans = 0, ii) size of ans > 0
+        if(ans.size() == 0) {
+            // add newInterval as it is
+            ans.add(newInterval);
+        } else {
+            // newInterval may be marging with intervals
+            if(ans.get(ans.size() - 1)[1] >= newInterval[0]) {
+                ans.get(ans.size() - 1)[1] = Math.max(ans.get(ans.size() - 1)[1], newInterval[1]);
+            } else {
+                ans.add(newInterval);
+            }
+        }
+        
+        // step3 => further prosess for remaining idx
+        while(idx < intervals.length) {
+            if(ans.get(ans.size() - 1)[1] >= intervals[idx][0]) {
+                // marging
+                ans.get(ans.size() - 1)[1] = Math.max(ans.get(ans.size() - 1)[1], intervals[idx][1]);
+            } else {
+                // add as it is
+                ans.add(intervals[idx]);
+            }
+            idx++;
+        }
+        
+        return ans.toArray(new int[ans.size()][]);
+        
+        
     }
 
     // 986. Interval List Intersections
