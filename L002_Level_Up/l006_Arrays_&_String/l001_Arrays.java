@@ -1928,7 +1928,9 @@ public class l001_Arrays {
         return (s.charAt(i) == curr_char) ? 0 : j - i + 1;
     }
 
-    // 1191. K-Concatenation Maximum Sum
+    // =========================================================================================================================================
+    // Question_47 : 1191. K-Concatenation Maximum Sum
+    // https://leetcode.com/problems/k-concatenation-maximum-sum/
     public long kadans1(int[] arr) {
         int n = arr.length;
         long curr_sum = 0;
@@ -1957,7 +1959,6 @@ public class l001_Arrays {
     }
 
     long mod = (int) 1e9 + 7;
-
     public int kConcatenationMaxSum(int[] arr, int k) {
         if (k == 1) {
             return (int) (kadans1(arr) % mod);
@@ -1974,39 +1975,46 @@ public class l001_Arrays {
         }
     }
 
-    // 152. Maximum Product Subarray
+    // =========================================================================================================================================
+    // Question_48 : 152. Maximum Product Subarray
+    // https://leetcode.com/problems/maximum-product-subarray/
     public int maxProduct(int[] nums) {
         int n = nums.length;
-        int curr_prod = 1;
-        int max_prod = -(int) 1e9;
-
-        // left product with maximization of result
-        for (int i = 0; i < n; i++) {
-            if (nums[i] != 0) {
-                curr_prod *= nums[i];
-                max_prod = Math.max(max_prod, curr_prod);
+        int over_max_prod = -(int)1e9;
+        
+        // left product
+        int leftProd = 1;
+        for(int i = 0; i < n; i++) {
+            if(nums[i] != 0) {
+                // find product and maximise the overal product
+                leftProd *= nums[i];
+                over_max_prod = Math.max(over_max_prod, leftProd);
             } else {
-                curr_prod = 1;
-                max_prod = Math.max(0, max_prod);
+                // reset leftProduct
+                leftProd = 1;
+                over_max_prod = Math.max(over_max_prod, 0);
             }
         }
-
-        // right product with maximization of result
-        curr_prod = 1;
-        for (int i = n - 1; i >= 0; i--) {
-            if (nums[i] != 0) {
-                curr_prod *= nums[i];
-                max_prod = Math.max(max_prod, curr_prod);
+        
+        // right product
+        int rightProd = 1;
+        for(int i = n - 1; i >= 0; i--) {
+            if(nums[i] != 0) {
+                // find product and maximise the overal product
+                rightProd *= nums[i];
+                over_max_prod = Math.max(over_max_prod, rightProd);
             } else {
-                curr_prod = 1;
-                max_prod = Math.max(0, max_prod);
+                // reset rightProduct
+                rightProd = 1;
+                over_max_prod = Math.max(over_max_prod, 0);
             }
         }
-
-        return max_prod;
+        
+        return over_max_prod;
     }
 
-    // Max sum in sub-arrays
+    // =========================================================================================================================================
+    // Question_49 : Max sum in sub-arrays
     // https://practice.geeksforgeeks.org/problems/max-sum-in-sub-arrays0824/1
     public static long pairWithMaxSum(long arr[], long n) {
         // Your code goes here
@@ -2017,7 +2025,9 @@ public class l001_Arrays {
         return max_sum;
     }
 
-    // 134. Gas Station
+    // =========================================================================================================================================
+    // Question_50 : 134. Gas Station
+    // https://leetcode.com/problems/gas-station/
     public int canCompleteCircuit(int[] gas, int[] cost) {
         int n = gas.length;
         int gas_sum = 0, cost_sum = 0;
@@ -2043,7 +2053,9 @@ public class l001_Arrays {
         return (idx + 1) % n;
     }
 
-    // 1007. Minimum Domino Rotations For Equal Row
+    // =========================================================================================================================================
+    // Question_51 : 1007. Minimum Domino Rotations For Equal Row
+    // https://leetcode.com/problems/minimum-domino-rotations-for-equal-row/
     private int find_minimum(int... arr) {
         int min = arr[0];
         for (int val : arr)
@@ -2108,7 +2120,9 @@ public class l001_Arrays {
         return res != (int) 1e9 ? res : -1;
     }
 
-    // 632. Smallest Range Covering Elements from K Lists
+    // =========================================================================================================================================
+    // Question_52 : 632. Smallest Range Covering Elements from K Lists
+    // https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
     private class range_helper implements Comparable<range_helper> {
         int val;
         int r;
@@ -2164,7 +2178,9 @@ public class l001_Arrays {
         return res;
     }
 
-    // 209. Minimum Size Subarray Sum
+    // =========================================================================================================================================
+    // Question_53 : 209. Minimum Size Subarray Sum
+    // https://leetcode.com/problems/minimum-size-subarray-sum/
     public int minSubArrayLen(int target, int[] nums) {
         int n = nums.length;
         int sum = 0;
@@ -2187,7 +2203,9 @@ public class l001_Arrays {
         return min_len != (int)1e9 ? min_len : 0;
     }
 
-    // 643. Maximum Average Subarray I
+    // =========================================================================================================================================
+    // Question_54 : 643. Maximum Average Subarray I
+    // https://leetcode.com/problems/maximum-average-subarray-i/
     public double findMaxAverage(int[] nums, int k) {
         int sum = 0;
         for(int i = 0; i < k - 1; i++) {
@@ -2206,7 +2224,9 @@ public class l001_Arrays {
         return max_avg;
     }
 
-    // 442. Find All Duplicates in an Array
+    // =========================================================================================================================================
+    // Question_55 : 442. Find All Duplicates in an Array
+    // https://leetcode.com/problems/find-all-duplicates-in-an-array/
     public List<Integer> findDuplicates(int[] nums) {
         ArrayList<Integer> res = new ArrayList<>();
         int n = nums.length;
