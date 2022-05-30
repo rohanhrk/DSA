@@ -1772,7 +1772,9 @@ public class l001_Arrays {
         
     }
 
-    // 986. Interval List Intersections
+    // =========================================================================================================================================
+    // Question_41 : 986. Interval List Intersections
+    // https://leetcode.com/problems/interval-list-intersections/
     public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
         int l1 = firstList.length, l2 = secondList.length;
         if (l1 == 0 || l2 == 0)
@@ -1783,25 +1785,35 @@ public class l001_Arrays {
         int j = 0; // poniting to first interval of second list
 
         while (i < l1 && j < l2) {
-            int sp = Math.max(firstList[i][0], secondList[j][0]);
-            int ep = Math.min(firstList[i][1], secondList[j][1]);
-
-            if (sp <= ep) {
-                int[] arr = { sp, ep };
-                res.add(arr);
+            int[] list1 = firstList[i], list2 = secondList[j];
+            
+            int sp1 = list1[0], sp2 = list2[0];
+            int ep1 = list1[1], ep2 = list2[1];
+            
+            int st = Math.max(sp1, sp2); // start
+            int end = Math.min(ep1, ep2); // end
+            
+            // valid intersection
+            if(st <= end) {
+                int[] interval = {st, end};
+                res.add(interval);
             }
-
-            if (firstList[i][1] < secondList[j][1])
+            
+            // update i and j
+            if(ep1 < ep2) {
                 i++;
-            else
+            } else {
                 j++;
+            }
 
         }
 
         return res.toArray(new int[res.size()][]);
     }
 
-    // 853. Car Fleet
+    // =========================================================================================================================================
+    // Question_42 : 853. Car Fleet
+    // https://leetcode.com/problems/car-fleet/
     private class fleetHelper implements Comparable<fleetHelper> {
         int pos;
         int speed;
@@ -1839,7 +1851,8 @@ public class l001_Arrays {
         return fleet;
     }
 
-    // Digit multiplier
+    // =========================================================================================================================================
+    // Question_43 : Digit multiplier
     // https://practice.geeksforgeeks.org/problems/digit-multiplier3000/1#
     public static String getSmallest(Long N) {
         // code here
@@ -1856,7 +1869,8 @@ public class l001_Arrays {
         return (N == 1) ? res : "-1";
     }
 
-    // First negative integer in every window of size k
+    // =========================================================================================================================================
+    // Question_44 : First negative integer in every window of size k
     // https://practice.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1
     public long[] printFirstNegativeInteger(long arr[], int n, int k) {
         long[] res = new long[n - k + 1];
@@ -1877,7 +1891,9 @@ public class l001_Arrays {
         return res;
     }
 
-    // 53. Maximum Subarray
+    // =========================================================================================================================================
+    // Question_45 : 53. Maximum sum Subarray
+    // https://leetcode.com/problems/maximum-subarray/
     public int maxSubArray(int[] arr) {
         int n = arr.length;
         int curr_sum = 0;
@@ -1892,6 +1908,24 @@ public class l001_Arrays {
             over_sum = Math.max(over_sum, curr_sum);
         }
         return over_sum;
+    }
+
+    // =========================================================================================================================================
+    // Question_46 : 1750. Minimum Length of String After Deleting Similar Ends
+    // https://leetcode.com/problems/minimum-length-of-string-after-deleting-similar-ends/
+    public int minimumLength(String s) {
+        int n = s.length();
+        char curr_char = 'd';
+        
+        int i = 0, j = n - 1;
+        while(i < j && s.charAt(i) == s.charAt(j)) {
+            curr_char = s.charAt(i);
+            
+            while(i < j && s.charAt(i) == curr_char) i++;
+            while(i < j && s.charAt(j) == curr_char) j--;
+        }
+        
+        return (s.charAt(i) == curr_char) ? 0 : j - i + 1;
     }
 
     // 1191. K-Concatenation Maximum Sum
