@@ -110,6 +110,7 @@ public class l001_revision {
 
 	// ======================================================================================================================================================
 	// BREADTH FIRST SEARCH (BFS) WITH CYCLE
+	// O(E) -> E : Total Number of Edge
 	public static void BFS_WithCycle(ArrayList<Edge>[] graph, int src, boolean[] vis) {
 		LinkedList<Integer> que = new LinkedList<>();
 		que.addLast(src);
@@ -137,6 +138,7 @@ public class l001_revision {
 		}
 	}
 
+	// O(V) -> V : Total Number Of Vertecs
 	public static void BFS_WithOutCycle(ArrayList<Edge>[] graph, int src, boolean[] vis) {
 		LinkedList<Integer> que = new LinkedList<>();
 		int level = 0;
