@@ -22,7 +22,7 @@ public class l006_kruskal_algo {
     // Concept : Kruskal's Algo => Basic
     static int[] par, size;
 
-    // amotized O(1)
+    // amotized O(1) == O(4)
     public static int findPar(int u) {
         if (par[u] == u)
             return u;
@@ -84,6 +84,7 @@ public class l006_kruskal_algo {
 
     // ============================================================================================================================================
     // Question_1 : 1168. Optimize Water Distribution in a Village
+    // https://www.codingninjas.com/codestudio/problems/water-supply-in-a-village_1380956?leftPanelTab=0
     public int minCostToSupplyWater(int n, int[] wells, int[][] pipes) {
         ArrayList<int[]> allPipes = new ArrayList<>();
         for (int[] a : pipes)
@@ -145,7 +146,7 @@ public class l006_kruskal_algo {
         }
     }
 
-    public static void mrPresident(int[][] roads, int n, int k) {
+    public static int mrPresident(int[][] roads, int n, int k) {
         /*
             step 1 : first we have to convert this graph to a MST(minimum spanning tree)
             => By processing step 1, we maintain total cost maintanace (m_count) and also, with this we store cost in arraylist (r_list);
@@ -193,7 +194,7 @@ public class l006_kruskal_algo {
                 break;
 
             int rem_cost = r_list.remove(i); // remove cost from r_list
-            m_cost = m_cost - rem_cost + 1; // +1 for maintanance cost of transforming transforming standard roads into super road
+            m_cost = m_cost - rem_cost + 1; // +1 for maintanance cost of transforming standard roads into super road
             super_road++;
         }
 
