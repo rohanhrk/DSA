@@ -26,22 +26,22 @@
         int[] par = new int[N]; // parent
 
         while (pq.size() != 0) {
-            pair p = pq.remove(); // remove
+            pair rp = pq.remove(); // remove
 
-            if (vis[p.vtx])
+            if (vis[rp.vtx])
                 continue;
 
-            if (p.par != -1)
-                addEdge(ngraph, p.par, p.vtx, p.weight);
+            if (rp.par != -1)
+                addEdge(ngraph, rp.par, rp.vtx, rp.weight);
 
-            vis[p.vtx] = true; // mark visited
-            dis[p.vtx] = p.wsf;
-            par[p.vtx] = p.par;
+            vis[rp.vtx] = true; // mark visited
+            dis[rp.vtx] = rp.wsf;
+            par[rp.vtx] = rp.par;
 
             // call in neighbours of vertex
-            for (Edge e : graph[p.vtx]) {
+            for (Edge e : graph[rp.vtx]) {
                 if (!vis[e.v])
-                    pq.add(new pair(p.vtx, e.v, e.w, e.w + p.weight));
+                    pq.add(new pair(rp.vtx, e.v, e.w, e.w + rp.weight));
 
             }
 
