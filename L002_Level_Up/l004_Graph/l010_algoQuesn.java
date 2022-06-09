@@ -8,7 +8,9 @@ public class algoQuesn {
     static boolean[] vis, articulationPoint;
     static int time = 0, rootCalls = 0;
 
-    // 1192. Critical Connections in a Network
+    // ============================================================================================================================================
+    // Question_1 : 1192. Critical Connections in a Network
+    // https://leetcode.com/problems/critical-connections-in-a-network/
     // Articulation Bridge/edge
     public void dfs_cc(ArrayList<Integer>[] graph, int src, int par, List<List<Integer>> ans) {
         disc[src] = low[src] = time++;
@@ -59,7 +61,10 @@ public class algoQuesn {
         return ans;
     }
 
-    // 743. Network Delay Time
+    // ============================================================================================================================================
+    // Question_2 : 743. Network Delay Time
+    // https://leetcode.com/problems/network-delay-time/
+    // dijstra algo
     public int networkDelayTime(int[][] times, int n, int k) {
         // {v,w}
         ArrayList<int[]>[] graph = new ArrayList[n + 1];
@@ -107,6 +112,7 @@ public class algoQuesn {
         return max;
     }
 
+    // ============================================================================================================================================
     // 787. Cheapest Flights Within K Stops
     public int findCheapestPrice(int n, int[][] flights, int src, int dest, int k) {
         int[] prev = new int[n];
