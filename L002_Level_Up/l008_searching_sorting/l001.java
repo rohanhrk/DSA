@@ -595,48 +595,69 @@ public class l001 {
 
     // 2. Optimised solution************************
     // O(log(min(n, m)))
-    public double findMedianSortedArrays(int[] a, int[] b) {
-        if (a.length > b.length) {
-            int[] temp = a;
-            a = b;
-            b = temp;
-        }
-
-        int l1 = a.length, l2 = b.length;
-        int total_elem = l1 + l2;
-
-        int lo = 0, hi = l1;
-        while (lo <= hi) {
-            int aleft = lo + (hi - lo) / 2;
-            int bleft = (total_elem + 1) / 2 - aleft;
-
-            int al = (aleft == l1) ? (int) 1e9 : a[aleft]; // aleft element
-            int alm1 = (aleft == 0) ? -(int) 1e9 : a[aleft - 1]; // (aleft - 1) element
-            int bl = (bleft == l2) ? (int) 1e9 : b[bleft]; // bleft element
-            int blm1 = (bleft == 0) ? -(int) 1e9 : b[bleft - 1]; // (bleft - 1) element
-
-            // valid spliting
-            if (alm1 <= bl && blm1 <= al) {
-                double median = 0.0;
-                int lmax = Math.max(alm1, blm1);
-                int rmin = Math.min(al, bl);
-
-                if (total_elem % 2 == 0) {
-                    median = (lmax + rmin) / 2.0;
+     public double findMedianSortedArrays(int[] arr1, int[] arr2) {
+        int len1 = arr1.length, len2 = arr2.length; // get length of both array 
+        
+        // try to always arr1 pointing to smaller array
+        if(len1 > len2) {
+            // swap referances of arr1 and arr2
+            int[] tempArr = arr1;
+            arr1 = arr2;
+            arr2 = tempArr;
+            
+            // also swap value of len1 and len2
+            int tempVal = len1;
+            len1 = len2;
+            len2 = tempVal;
+        } 
+        
+        // st_idx -> starting index which is pointing smaller array
+        // end_idx -> ening index which is pointing to smaller array
+        int total_elem = len1 + len2, st_idx = 0, end_idx = len1; 
+        double median = 0.0; // storing res in data type double
+        
+        // do binary search in array which is smaller in length
+        while(st_idx <= end_idx) {
+            int arr1_left_idx = st_idx + (end_idx - st_idx) / 2; // arr1_left_idx => splitting post idx in arr1 
+            int arr1_left_minus_1_idx = arr1_left_idx - 1; // arr1_left_minus_1_idx => splitting pre idx in arr1
+            
+            int arr2_left_idx = ((total_elem + 1) / 2) - arr1_left_idx; // arr2_left_idx => splitting post idx in arr1 
+            int arr2_left_minus_1_idx = arr2_left_idx - 1; // arr2_left_minus_1_idx => splitting pre idx in arr2
+            
+            // get value from above indeces
+            int arr1_left_value = (arr1_left_idx == len1) ? (int)1e9 : arr1[arr1_left_idx]; 
+            int arr1_left_minus_1_value = (arr1_left_minus_1_idx == -1) ? -(int)1e9 : arr1[arr1_left_minus_1_idx]; // left minus 1
+            int arr2_left_value = (arr2_left_idx == len2) ? (int)1e9 : arr2[arr2_left_idx];
+            int arr2_left_minus_1_value = (arr2_left_minus_1_idx == -1) ? -(int)1e9 : arr2[arr2_left_minus_1_idx];
+            
+            // check valid splitting
+            if(arr1_left_minus_1_value <= arr2_left_value && arr1_left_value >= arr2_left_minus_1_value) {
+                // valid
+                int left_max = Math.max(arr1_left_minus_1_value, arr2_left_minus_1_value); // get maximum of pre splitting from both array
+                int right_min = Math.min(arr1_left_value, arr2_left_value); // get minimum of post splitting from both array 
+                
+                if(total_elem % 2 == 0) {
+                    // even element
+                    int numerator = left_max + right_min;
+                    median = (numerator) / 2.0;
                 } else {
-                    median = lmax;
+                    // odd element
+                    median = left_max; 
                 }
-                return median;
-            } else if (alm1 > bl) {
-                // there are more element to picked in left part from 'b' arr
-                hi = aleft - 1;
-            } else if (blm1 > al) {
-                // there are more element to picked in left part from 'a' arr
-                lo = aleft + 1;
+                break;
+            } 
+            
+            if(arr1_left_minus_1_value > arr2_left_value) {
+                end_idx = arr1_left_idx - 1;
+            } else {
+                st_idx = arr1_left_idx + 1;
             }
+            
         }
-
-        return 0;
+        
+        return median;
+        
+    }
     }
 
     // ============================================================================================================================================================================================
@@ -783,6 +804,7 @@ public class l001 {
 
     // ============================================================================================================================================================================================
     // Question_23 : 410. Split Array Largest Sum
+    // https://leetcode.com/problems/split-array-largest-sum/
     private boolean isSplitPossible(int[] nums, int m, int curr_sum) {
         int count_subarr = 1, sum = 0;
         for (int val : nums) {
@@ -818,7 +840,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Count zeros in a sorted matrix
+    // Question_24 : Count zeros in a sorted matrix
     // https://practice.geeksforgeeks.org/problems/count-zeros-in-a-sorted-matrix/1
     public int countZeros(int matrix[][], int n) {
         // Your code here
@@ -836,7 +858,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Counting elements in two arrays
+    // Question_25 : Counting elements in two arrays
     // https://practice.geeksforgeeks.org/problems/counting-elements-in-two-arrays/1
     public static int ceilIdx(int[] arr, int data) {
         int idx = -1, n = arr.length, lo = 0, hi = n - 1;
@@ -866,7 +888,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Count Zeros Xor Pairs -> portals
+    // Question_26 : Count Zeros Xor Pairs -> portals
     // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/searching-and-sorting/count-zeros-xor-pairs-official/ojquestion
     public static int countPairs(int[] arr) {
         // write your code here
@@ -889,7 +911,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Buildings receiving sunlight
+    // Question_27 : Buildings receiving sunlight
     // https://practice.geeksforgeeks.org/problems/buildings-receiving-sunlight3032/1
     public static int longest(int ht[], int n) {
         int count = 0, max = -(int) 1e9;
@@ -904,7 +926,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Distinct absolute array elements
+    // Question_28 : Distinct absolute array elements
     // https://practice.geeksforgeeks.org/problems/distinct-absolute-array-elements4529/1
     public int distinctCount(int[] arr, int n) {
         int left = 0, right = n - 1, prev_val = -(int) 1e9, next_val = (int) 1e9;
@@ -936,7 +958,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // 540. Single Element in a Sorted Array
+    // Question_29 : 540. Single Element in a Sorted Array
     // Link : https://leetcode.com/problems/single-element-in-a-sorted-array/
     public int singleNonDuplicate(int[] arr) {
         int n = arr.length;
@@ -971,7 +993,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Question_18 : Punish the Students 
+    // Question_30 : Punish the Students 
     // https://practice.geeksforgeeks.org/problems/punish-the-students5726/1
     private static void swap(int[] arr, int sp, int lp) {
         int temp = arr[sp];
@@ -1011,7 +1033,7 @@ public class l001 {
     }
 
     // ============================================================================================================================================================================================
-    // Question_19 : 3. Longest Substring Without Repeating Characters
+    // Question_31 : 3. Longest Substring Without Repeating Characters
     // https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
     public int lengthOfLongestSubstring(String s) {
