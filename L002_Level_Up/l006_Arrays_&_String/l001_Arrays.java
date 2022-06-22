@@ -1858,6 +1858,7 @@ public class l001_Arrays {
         // code here
         if (N == 1)
             return "1";
+        
         String res = "";
         for (int digit = 9; digit > 1; digit--) {
             while (N % digit == 0) {
