@@ -32,14 +32,19 @@ public class l001 {
         }
     }
 
+    // TC -> O(2n + nlogn)
     public void customSort(int phy[], int chem[], int math[], int N) {
         int n = phy.length;
         marks[] arr = new marks[n];
+        // O(n)
         for (int i = 0; i < n; i++) {
             arr[i] = new marks(phy[i], chem[i], math[i]);
         }
 
+        // O(nlogn)
         Arrays.sort(arr);
+        
+        // O(n)
         for (int i = 0; i < n; i++) {
             phy[i] = arr[i].phy;
             chem[i] = arr[i].chem;
@@ -51,6 +56,7 @@ public class l001 {
     // ============================================================================================================================================================================================
     // Question_2 : Union Of Two Sorted Array (GFG)
     // Link:https://practice.geeksforgeeks.org/problems/union-of-two-sorted-arrays/1
+    // TC -> O(n + m)
     public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m) {
         ArrayList<Integer> res = new ArrayList<>();
         int i = 0, j = 0;
@@ -130,6 +136,15 @@ public class l001 {
         return idx;
     }
 
+    /*
+        Step => 
+        1. find valid row index where given element lie on that row     -> O(log(n))
+        2. after finding valid row, find element in that row            -> O(long(m))
+            |----> If found, return that location, (row, col) pair
+            |----> otherwise return -1 which indicate not found
+
+        Complexity => TC -> O(log(n) + log(m))
+    */ 
     public boolean searchMatrix(int[][] matrix, int target) {
         int rowIdx = findRowIdx(matrix, target);
         if (rowIdx == -1)
@@ -142,6 +157,7 @@ public class l001 {
     // ============================================================================================================================================================================================
     // Question_4 : 240. Search a 2D Matrix II
     // Link : https://leetcode.com/problems/search-a-2d-matrix-ii/
+    // TC -> O(n + m)
     public boolean searchMatrix_2(int[][] matrix, int target) {
         int n = matrix.length, m = matrix[0].length;
         int r = 0, c = m - 1;
@@ -161,6 +177,7 @@ public class l001 {
     // ============================================================================================================================================================================================
     // Quewstion_5 : 724. Find Pivot Index
     // Link : https://leetcode.com/problems/find-pivot-index/
+    // TC -> O(n)
     public int pivotIndex(int[] nums) {
         int n = nums.length;
         int total_sum = 0;
@@ -197,7 +214,7 @@ public class l001 {
             if (this.dis != other.dis)
                 return this.dis - other.dis;
             else
-                return this.val - other.val;
+                return this.val - other.val; // if both distance equal => pair selection on the basis of smaller element
         }
     }
 
@@ -223,7 +240,8 @@ public class l001 {
         return res;
     }
 
-    // ***************_OptimizatioN_***************
+    
+    // -----------------_Obtimized Solution_-----------------
     // Space --> O(1) , Time --> O(log(n))
     public List<Integer> findClosestElements_optimize(int[] arr, int k, int x) {
         int n = arr.length;
@@ -394,6 +412,7 @@ public class l001 {
                 count = 0;
             }
         }
+        // ✔Edge case => dry run on sorted array 
         max_step = Math.max(count, max_step);
         return max_step;
     }
