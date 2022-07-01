@@ -18,10 +18,11 @@ public class l009_diameter_set {
     // https://leetcode.com/problems/diameter-of-binary-tree/
     /*
         mathod 1 => 
-            time -> O(N*N)
-            space -> O(1)
+        time -> O(N*N)
+        space -> O(1)
     */ 
     public int diameterOfBinaryTree_01(TreeNode root) {
+        if(root == null) return 0;
         int ld = diameterOfBinaryTree_01(root.left);
         int rd = diameterOfBinaryTree_01(root.right);
 
@@ -34,11 +35,12 @@ public class l009_diameter_set {
 
     /*
         Mathod 2 =>
-            time -> O(N)
-            space -> O(N)
+        time -> O(N)
+        space -> O(1)
     */ 
     // {diameter, height}
     public int[] diameterOfBinaryTree_02(TreeNode root) {
+        if(root == null) return new int[]{0, -1};
         int[] lp = diameterOfBinaryTree_02(root.left);
         int[] rp = diameterOfBinaryTree_02(root.right);
 
@@ -51,7 +53,7 @@ public class l009_diameter_set {
 
     /*'
         Mathod 3 =>
-            using static varible
+        using static varible
     */ 
     public int diameterOfBinaryTree_03(TreeNode root, int[] dia) {
         if (root == null)
@@ -65,15 +67,25 @@ public class l009_diameter_set {
     // ===================================================================================================================================
     // Question_2 : 112. Path Sum
     // https://leetcode.com/problems/path-sum/submissions/
-    public boolean hasPathSum(TreeNode root, int targetSum) {
+    /*
+        faith =>
+        left subtree -> is left subtree make target of target - root.val
+        left subtree -> is left subtree make target of target - root.val
+    */ 
+     public boolean hasPathSum_(TreeNode root, int targetSum) {
         if(root == null)
             return false;
         
-        boolean res = (root.left == null && root.right == null && targetSum - root.val == 0);
-        
-        return res || hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+        // condition for leaf node
+        boolean res = root.left == null && root.right == null && (targetSum - root.val) == 0; 
+        boolean lr = hasPathSum_(root.left, targetSum - root.val);
+        boolean rr = hasPathSum_(root.right, targetSum - root.val);
+        return res || lr || rr;
     }
-
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        return hasPathSum_(root, targetSum);
+    }
+    
     // ===================================================================================================================================
     // Question_2 : 113. Path Sum II
     // https://leetcode.com/problems/path-sum-ii/ 
@@ -107,6 +119,15 @@ public class l009_diameter_set {
     // ===================================================================================================================================
     // Question_3 : Maximum Path Sum between 2 Leaf Nodes
     // https://www.geeksforgeeks.org/find-maximum-path-sum-two-leaves-binary-tree/
+
+    /*
+        Faith => 
+        left subtree => bring maximum leaf to leaf sum
+        right subtree => bring maximum leaf to leaf sum
+        root => (left subtree ka node to leaf maximum sum) + root.val + (right subtree ka node to leaf maximum sum)
+        
+        retrun Maximum of (left subtree ka max leaf to leaf sum), (including root leaf to leaf max sum), (right subtree ka max leaf to leaf sum)
+    */ 
     public static class leafToLeafPair {
         int LTLMaxSum = -(int)1e9; // leave to leave maximum sum 
         int NTLMaxSum = -(int)1e9; // Node to leave maximum sum
@@ -178,24 +199,38 @@ public class l009_diameter_set {
         -1 => the node is not monitored, camera required,  
          0 => the node is monitored. , 
          1 =>  the node has the camera.
-    */ 
-    public int minCameraCover(TreeNode root, int[] noOfCamerasInstal) {
-        int lr = minCameraCover(root.left, noOfCamerasInstal);
-        int rr = minCameraCover(root.right, noOfCamerasInstal);
-
+    */     
+    private int minCameraCover_(TreeNode root, int[] countCamera) {
+        if(root == null) 
+            return 0;
+        
+        int lr = minCameraCover_(root.left, countCamera);
+        int rr = minCameraCover_(root.right, countCamera);
+        
         if(lr == -1 || rr == -1) {
-            noOfCamerasInstal[0]++;
+            // any of the child does not covered by camera, need camera
+            countCamera[0]++;
             return 1;
         }
-
-        if(lr == 1 || rr == 1) return 0;
-
-        return -1; 
-    } 
+        
+        if(lr == 1 || rr == 1) {
+            // any of the child have camera, so I am already covered by camera
+            return 0;
+        }
+        
+        // otherwise root required camera
+        return -1;
+    }
+    public int minCameraCover(TreeNode root) {
+        int[] countCamera = new int[1];
+        int ans = minCameraCover_(root, countCamera);
+        if(ans == -1) countCamera[0]++;
+        return countCamera[0];
+    }
 
     // ===================================================================================================================================
     // Question_6 : 337. House Robber III
-    // https://leetcode.com/problems/house-robber-iii/submissions/
+    // https://leetcode.com/problems/house-robber-iii/
     public class housePair {
         int withRobbery = 0;
         int withoutRobbery = 0;
@@ -205,12 +240,12 @@ public class l009_diameter_set {
         if(root == null) 
             return new housePair();
 
-        housePair left = houseRobbery(root.left);
-        housePair right = houseRobbery(root.right);
+        housePair left = houseRobbery(root.left); 
+        housePair right = houseRobbery(root.right); 
 
         housePair myAns = new housePair();
-        myAns.withRobbery = left.withoutRobbery + root.val + right.withoutRobbery;
-        myAns.withoutRobbery = Math.max(left.withRobbery + left.withoutRobbery) + Math.max(right.withRobbery + right.withoutRobbery);
+        myAns.withRobbery = left.withoutRobbery + root.val + right.withoutRobbery; // wnat to robbery in root(current house)
+        myAns.withoutRobbery = Math.max(left.withRobbery + left.withoutRobbery) + Math.max(right.withRobbery + right.withoutRobbery); // dont want to robbery in current house
 
         return myAns;
     }

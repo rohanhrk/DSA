@@ -114,7 +114,7 @@ public class l001 {
     }
 
     // =================================================================================================================================
-    // Question_3 : all single child parend in binary tree
+    // Question_3 : all single child parent in binary tree
     // https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/trees/count-all-single-child-parent-in-binary-tree/ojquestion
     public static void exactlyOneChild(TreeNode root, ArrayList<Integer> ans) {
         if (root == null || (root.left == null && root.right == null))
@@ -289,6 +289,25 @@ public class l001 {
         return LCA;
     }
 
+    /*
+        method 2 => defferent code
+    */ 
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null)
+            return null;
+        
+        boolean self = (root.val == p.val || root.val == q.val);
+        
+        TreeNode left_subtree = lowestCommonAncestor(root.left, p, q);
+        TreeNode right_subtree = lowestCommonAncestor(root.right, p, q);
+        
+        if((self && left_subtree != null) || (self && right_subtree != null) || (left_subtree != null && right_subtree != null)) {
+            return root;
+        }
+        
+        return self ? root : left_subtree != null ? left_subtree : right_subtree;
+    }
+
     
     public static class allSolnPair {
         TreeNode pred = null;
@@ -323,7 +342,7 @@ public class l001 {
     // 110. Balanced Binary Tree
     public int getHeight(TreeNode node){
         if(node==null) return 0;
-        return Math.max(getHeight(node.left),getHeight(node.right))+1;
+        return Math.max(getHeight(node.left),getHeight(node .right))+1;
     }
     public boolean isBalanced(TreeNode root) {
         if(root==null) return true;
