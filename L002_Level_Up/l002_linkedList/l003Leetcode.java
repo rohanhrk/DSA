@@ -414,55 +414,61 @@ public class l003Leetcode {
     // ===================================================================================================================================================
     // Question_11 : 25. Reverse Nodes in k-Group
     // https://leetcode.com/problems/reverse-nodes-in-k-group/
-    static ListNode th = null, tt = null;
-
-    public int length(ListNode head) {
-        int count = 0;
-        while (head != null) {
-            count++;
-            head = head.next;
+    private int getListLength(ListNode head) {
+        int len = 0;
+        ListNode curr = head;
+        while(curr != null) {
+            len++;
+            curr = curr.next;
         }
-
-        return count;
+        
+        return len;
     }
-
-    public void addFirstNode(ListNode node) {
-        if (th == null) {
-            th = tt = node;
+    private void addFirstNode(ListNode node) {
+        if(tempH == null) {
+            tempH = tempT = node;
         } else {
-            node.next = th;
-            th = node;
+            node.next = tempH;
+            tempH = node;
         }
     }
-
+    
+    private ListNode tempH = null, tempT = null; // temp head and temp tail
     public ListNode reverseKGroup(ListNode head, int k) {
-        if (head == null || head.next == null || k <= 1)
-            return head;
-
-        ListNode curr = head, oh = null, ot = null;
-        int len = length(head);
-        while (len >= k) {
-            int itr = k;
-            while (itr-- > 0) {
-                ListNode forw = curr.next;
-                curr.next = null;
-                addFirstNode(curr);
-                curr = forw;
+        if(head == null || head.next == null) return head;
+        
+        ListNode overH = null, overT = null; // overall head and overall tail
+        
+        int len = getListLength(head); // length of given list
+        ListNode curr = head; // current node
+        while(len >= k) {
+            int innerItr = k; // inner iterator
+            while(innerItr-- > 0) {
+                ListNode forw = curr.next; // forward node
+                ListNode node = new ListNode(curr.val); // create node 
+                
+                // addFirst node
+                addFirstNode(node);
+                
+                curr.next = null; // link break
+                curr = forw; // moving forward
             }
-
-            if (oh == null) {
-                oh = th;
-                ot = tt;
+            
+            // add k group in a result
+            if(overH == null) {
+                overH = tempH;
+                overT = tempT;
             } else {
-                ot.next = th;
-                ot = th;
+                overT.next = tempH;
+                overT = tempT;
             }
-
+            
             len -= k;
-            th = tt = null;
+            tempH = tempT = null;
         }
-        ot.next = curr;
-        return oh;
+    
+        overT.next = curr; // add remaining list in result
+        return overH;
     }
 
     // ===================================================================================================================================================

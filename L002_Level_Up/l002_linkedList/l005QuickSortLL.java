@@ -86,7 +86,7 @@ public class l005QuickSortLL {
         int pivotIdx = len / 2;
         ListNode[] segregateElements = segregate(head, pivotIdx);
 
-        ListNode[] left = quickSort(segregateElements[0]);
+        ListNode[] left = quickSort(segregateElements[0]);qqq
         ListNode[] right = quickSort(segregateElements[2]);
         
         return MergeNode(left,segregateElements[1], right);

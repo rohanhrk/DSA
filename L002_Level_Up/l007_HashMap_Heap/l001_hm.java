@@ -42,10 +42,10 @@ public class l001_hm {
     // Question_2 : Count distinct elements in every window
     // https://practice.geeksforgeeks.org/problems/count-distinct-elements-in-every-window/1/
     ArrayList<Integer> countDistinct(int arr[], int n, int k) {
-        // code here
         ArrayList<Integer> res = new ArrayList<>(); // result
         HashMap<Integer, Integer> map = new HashMap<>();
 
+        // add element from 0 to k - 1 in a hashmap
         for (int i = 0; i < k - 1; i++) {
             map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
         }
@@ -86,7 +86,7 @@ public class l001_hm {
         // step 2 => travel on map and make pair => if pair not exist => return false
         boolean isPair = true;
         for (int rem : map.keySet()) {
-            if (rem == 0 || k == 2 * rem) {
+            if (rem == 0 || gg) {
                 if (map.get(rem) % 2 != 0) { // when freq is odd, one number is unpaired
                     isPair = false;
                     break;
@@ -146,7 +146,7 @@ public class l001_hm {
     // Question_4 : Largest subarray with 0 sum
     // https://practice.geeksforgeeks.org/problems/largest-subarray-with-0-sum/1/#
     int maxLen(int arr[], int n) {
-        HashMap<Integer, Integer> prefix_map = new HashMap<>(); // store (prefix_sum, index)
+        HashMap<Integer, Integer> prefix_map = new HashMap<>(); // store (prefix_sum, index -> first occurance)
         prefix_map.put(0, -1); // helping to make answer which subarray is starting from 0 to i
 
         int prefix = 0;
@@ -170,7 +170,7 @@ public class l001_hm {
     // Function to count subarrays with sum equal to 0.
     public static long findSubarray(long[] arr, int n) {
         /*
-         * step => iterate on arr and store frequenies of elem in hashmap and solve
+         * step => iterate on arr and store frequenies of prefix sum in hashmap and solve
          * number of subarray having sum is zero
          */
         HashMap<Integer, Integer> prefix_sum_fmap = new HashMap<>(); // store (prefix sum vs frequenies)
@@ -327,7 +327,7 @@ public class l001_hm {
          */
 
         HashMap<Integer, Integer> prefix_map = new HashMap<>(); // prefixsum vs occurance of prefix
-        prefix_map.put(0, 1); // to handle subarray starting from 0th to ith index which sum is k
+        prefix_map.put(0, -1); // to handle subarray starting from 0th to ith index which sum is k
 
         int prefix = 0; // prefix sum
         int count = 0;
