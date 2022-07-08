@@ -945,6 +945,7 @@ public class l001_hm {
 
     // ===================================================================================================================================
     // Question_21 : Maximum Consecutive Ones - 1
+    // https://classroom.pepcoding.com/myClassroom/the-placement-program-gtbit-nov-27-2020/heap-and-hashmap-l2/maximum-consecutive-ones-i-official/ojquestion
     public static int maxConsecutiveOnes1(int[] nums) {
         int zeroCount = 0;
         int rel = -1;
