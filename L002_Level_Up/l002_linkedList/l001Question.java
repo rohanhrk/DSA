@@ -120,6 +120,7 @@ public class l001Question {
 
             c1 = f1; // move
             c2 = f2;
+            
         }
     }
 

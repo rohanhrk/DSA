@@ -84,10 +84,10 @@ public class l005QuickSortLL {
             return new ListNode[] { head, head };
         int len = length(head);
         int pivotIdx = len / 2;
-        ListNode[] segregateElements = segregate(head, pivotIdx);
+        ListNode[] segregateElements = segregate(head, pivotIdx); // {LH, PN, RH}
 
-        ListNode[] left = quickSort(segregateElements[0]);qqq
-        ListNode[] right = quickSort(segregateElements[2]);
+        ListNode[] left = quickSort(segregateElements[0]); // {head, tail}
+        ListNode[] right = quickSort(segregateElements[2]); // {head, tail}
         
         return MergeNode(left,segregateElements[1], right);
     }

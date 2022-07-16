@@ -568,7 +568,7 @@ public class l001 {
                     st.pop();
                 }
                 
-                // absolute of negative val is smaller in terms of peek whice is positive
+                // absolute of negative val is smaller in terms of peek which is positive
                 if(st.size() > 0 && Math.abs(asteroid) < st.peek())
                     continue; // positive will destroy impact of negative
                 
@@ -619,5 +619,179 @@ public class l001 {
         }
         
         return ans.length() > 0 ? ans.toString() : "0"; 
+    }
+
+    // ==============================================================================================================================================================================
+    // Question_21 : 316. Remove Duplicate Letters
+    // https://leetcode.com/problems/remove-duplicate-letters/
+     public String removeDuplicateLetters(String s) {
+        int[] farr = new int[26]; // frequency arr
+        boolean[] varr = new boolean[26]; // visited arr
+        LinkedList<Character> st = new LinkedList<>(); // linkedList -> behave as stack
+        
+        for(int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            farr[ch - 'a']++;
+        }
+        
+        for(int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(varr[ch - 'a']) {
+                farr[ch - 'a']--;
+                continue;
+            }
+            
+            // pop until it can
+            while(st.size() != 0 && ch < st.getLast() && farr[st.getLast() - 'a'] > 0) {
+                char pch = st.removeLast(); // popped char
+                varr[pch - 'a'] = false;
+            }
+            
+            st.addLast(ch);
+            farr[ch - 'a']--;
+            varr[ch - 'a'] = true;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while(st.size() != 0) {
+            sb.append(st.removeFirst());
+        }
+        
+        return sb.toString();
+    }
+
+    // ==============================================================================================================================================================================
+    // Question_22 : 42. Trapping Rain Water
+    // https://leetcode.com/problems/trapping-rain-water/
+
+    /*
+        Approch => Using Stack
+        TC => O(N)
+        SC => O(N)
+    */ 
+    public int trap_usingStack(int[] height) {
+        Stack<Integer> st = new Stack<>();
+        int water = 0;
+        
+        for(int i = 0; i < height.length; i++) {
+            int rMax = height[i]; // right max height
+            int rIdx = i; // right index
+            while(st.size() > 0 && rMax >= height[st.peek()]) {
+                int remIdx = st.pop();
+                int currH = height[remIdx];
+                
+                if(st.size() == 0)
+                    break;
+                int lIdx = st.peek(); // left idx
+                int lMax = height[lIdx];
+                int width = rIdx - lIdx - 1;
+                water += (Math.min(lMax, rMax) - currH) * width;
+            }
+            st.push(i);
+        }
+        
+        return water;
+    }
+
+
+    /*
+        Approach => Using Two Pointer
+        TC => O(N)
+        SC => O(1)
+    */ 
+    public int trap_usingTP(int[] height) {
+        int n = height.length, left = 0, right = n - 1; 
+        int lmax = -(int)1e9, rmax = -(int)1e9;
+        
+        int water = 0;
+        while(left < right) {
+            lmax = Math.max(lmax, height[left]);
+            rmax = Math.max(rmax, height[right]);
+            
+            if(lmax < rmax) {
+                water += lmax - height[left];
+                left++;
+            } else {
+                water += rmax - height[right];
+                right--;
+            }
+        }
+        
+        return water;
+    }
+
+    // ==============================================================================================================================================================================
+    // Question_23 : 227. Basic Calculator II
+    // https://leetcode.com/problems/basic-calculator-ii/
+    private int priority(char op) {
+        if(op == '*' || op == '/') {
+            return 2;
+        } else if(op == '+' || op == '-') {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
+    private int evaluate(int v1, char op, int v2) {
+        if(op == '*') {
+            return v1 * v2;
+        } else if(op == '/') {
+            return v1 / v2;
+        } else if(op == '+') {
+            return v1 + v2;
+        } else {
+            return v1 - v2;
+        }
+    }
+    
+    public int calculate(String s) {
+        Stack<Integer> vStack = new Stack<>(); // value stack
+        Stack<Character> oStack = new Stack<>(); // operator stack
+        
+        for(int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(ch == ' ')  {
+                 continue;
+            } else if(ch >= '0' && ch <= '9') {
+                // operand
+                int j = i;
+                StringBuilder sb = new StringBuilder();
+                while(j < s.length() && s.charAt(j) >= '0' && s.charAt(j) <= '9') {
+                    sb.append(s.charAt(j));
+                    j++;
+                }
+                
+                int num = Integer.parseInt(sb.toString());
+                vStack.push(num);
+                
+                i = j - 1;
+            } else if(ch == '*' || ch == '/' || ch == '+' || ch == '-') {
+                // pop until it can
+                while(oStack.size() > 0 && priority(ch) <= priority(oStack.peek())) {
+                    // evaluation area
+                    char op = oStack.pop(); // opearator
+                    int v2 = vStack.pop();
+                    int v1 = vStack.pop();
+                    
+                    int eval = evaluate(v1, op, v2);
+                    vStack.push(eval);
+                }
+                // push
+                oStack.push(ch);
+            }
+        }
+                      
+        while(oStack.size() > 0) {
+            // evaluation area
+            char op = oStack.pop(); // opearator
+            int v2 = vStack.pop();
+            int v1 = vStack.pop();
+
+            int eval = evaluate(v1, op, v2);
+            vStack.push(eval);
+        }
+                      
+        return vStack.pop();
     }
 }
