@@ -614,69 +614,62 @@ public class l001 {
 
     // 2. Optimised solution************************
     // O(log(min(n, m)))
-     public double findMedianSortedArrays(int[] arr1, int[] arr2) {
-        int len1 = arr1.length, len2 = arr2.length; // get length of both array 
-        
-        // try to always arr1 pointing to smaller array
-        if(len1 > len2) {
-            // swap referances of arr1 and arr2
-            int[] tempArr = arr1;
-            arr1 = arr2;
-            arr2 = tempArr;
-            
-            // also swap value of len1 and len2
-            int tempVal = len1;
-            len1 = len2;
-            len2 = tempVal;
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int l1 = nums1.length, l2 = nums2.length;
+
+        // make nums1 always pointing to smaller array
+        if(l1 > l2) {
+            // swap reference of both array
+            int[] temp = nums1;
+            nums1 = nums2;
+            nums2 = temp; 
+
+
+            // also swap l1 and l2
+            int l = l1;
+            l1 = l2;
+            l2 = l;
         } 
-        
-        // st_idx -> starting index which is pointing smaller array
-        // end_idx -> ening index which is pointing to smaller array
-        int total_elem = len1 + len2, st_idx = 0, end_idx = len1; 
-        double median = 0.0; // storing res in data type double
-        
-        // do binary search in array which is smaller in length
-        while(st_idx <= end_idx) {
-            int arr1_left_idx = st_idx + (end_idx - st_idx) / 2; // arr1_left_idx => splitting post idx in arr1 
-            int arr1_left_minus_1_idx = arr1_left_idx - 1; // arr1_left_minus_1_idx => splitting pre idx in arr1
-            
-            int arr2_left_idx = ((total_elem + 1) / 2) - arr1_left_idx; // arr2_left_idx => splitting post idx in arr1 
-            int arr2_left_minus_1_idx = arr2_left_idx - 1; // arr2_left_minus_1_idx => splitting pre idx in arr2
-            
-            // get value from above indeces
-            int arr1_left_value = (arr1_left_idx == len1) ? (int)1e9 : arr1[arr1_left_idx]; 
-            int arr1_left_minus_1_value = (arr1_left_minus_1_idx == -1) ? -(int)1e9 : arr1[arr1_left_minus_1_idx]; // left minus 1
-            int arr2_left_value = (arr2_left_idx == len2) ? (int)1e9 : arr2[arr2_left_idx];
-            int arr2_left_minus_1_value = (arr2_left_minus_1_idx == -1) ? -(int)1e9 : arr2[arr2_left_minus_1_idx];
-            
-            // check valid splitting
-            if(arr1_left_minus_1_value <= arr2_left_value && arr1_left_value >= arr2_left_minus_1_value) {
-                // valid
-                int left_max = Math.max(arr1_left_minus_1_value, arr2_left_minus_1_value); // get maximum of pre splitting from both array
-                int right_min = Math.min(arr1_left_value, arr2_left_value); // get minimum of post splitting from both array 
-                
-                if(total_elem % 2 == 0) {
-                    // even element
-                    int numerator = left_max + right_min;
-                    median = (numerator) / 2.0;
-                } else {
-                    // odd element
-                    median = left_max; 
-                }
-                break;
-            } 
-            
-            if(arr1_left_minus_1_value > arr2_left_value) {
-                end_idx = arr1_left_idx - 1;
-            } else {
-                st_idx = arr1_left_idx + 1;
+
+        // define lo and hi which pointin to nums1(smaller array)
+        int lo = 0, hi = l1; // why index hi is pointing to length of array?? (see example 2)
+        int te = l1 + l2; // total element
+
+        while(lo <= hi) {
+            int mid = lo + (hi - lo)/ 2;
+
+            // figure out post spliting index and pre spliting index on nums1 and nums2
+            int post_spl_idx1 = mid; // refers to nums1
+            int pre_spl_idx1 = mid - 1; // refers to nums1
+            int post_spl_idx2 = ((te + 1) / 2) - mid; // refers to nums1
+            int pre_spl_idx2 = post_spl_idx2 - 1; // refers to nums1
+
+
+            // figure out value on that index and also caring that idx doesn't get out of index
+            int post_spl_val1 = post_spl_idx1 == l1 ? (int)1e9 : nums1[post_spl_idx1]; // refers to nums1
+            int pre_spl_val1 = pre_spl_idx1 == -1 ? -(int)1e9 : nums1[pre_spl_idx1]; // refers to nums1
+            int post_spl_val2 = post_spl_idx2 == l2 ? (int)1e9 : nums2[post_spl_idx2]; // refers to nums1
+            int pre_spl_val2 = pre_spl_idx2 == -1 ? -(int)1e9 : nums2[pre_spl_idx2]; // refers to nums1
+
+            // check for valid spliting
+            if(post_spl_val1 >= pre_spl_val2 && pre_spl_val1 <= post_spl_val2) {
+                // got valid split => make median and return
+                int max = Math.max(pre_spl_val1, pre_spl_val2); // maximum value of pre spliting area
+                int min = Math.min(post_spl_val1, post_spl_val2); // minimum value of post spliting area
+
+                return (te % 2 == 0) ? (max + min) / 2.0 : max; 
             }
-            
+
+            // if unvalid spliting
+            if(post_spl_val1 < pre_spl_val2) {
+                lo = post_spl_idx1 + 1;
+            } else {
+                hi = post_spl_idx1 - 1;
+            }
+
         }
-        
-        return median;
-        
-    }
+
+        return 0.0;
     }
 
     // ============================================================================================================================================================================================

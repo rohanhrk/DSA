@@ -174,10 +174,21 @@ public class l001 {
         // printHello();
         // workWithDataType();
         // printZ();
-        int a = scn.nextInt();
-        int b = scn.nextInt();
-        System.out.println(GCD(a, b));
+        // int a = scn.nextInt();
+        // int b = scn.nextInt();
+        // System.out.println(GCD(a, b));
         // gradingSystem(n);
         // oddEven(n);
+        main();
+    }
+
+    public static void main() {
+        int a = 300, b = 200, c = 0;
+        if(!a >= 200) {
+            b = 300;
+        }
+        c = 400;
+
+        System.out.println(b + " " + c);
     }
 }

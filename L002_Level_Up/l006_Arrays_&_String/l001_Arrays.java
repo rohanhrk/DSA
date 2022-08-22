@@ -710,7 +710,51 @@ public class l001_Arrays {
     // =========================================================================================================================================
     // Question_14 : 912 · Best Meeting Point
     // https://www.lintcode.com/problem/912/
-    public int minTotalDistance(int[][] grid) {
+   
+    // 1. brute force => time -> O(n^4), space -> O(n^2)
+    private int getDistance(int[][] grid,  ArrayList<Integer> xCord, ArrayList<Integer> yCord, int sr, int sc) {
+        int dis = 0;
+        for(int i = 0; i < xCord.size(); i++) {
+            dis += Math.abs(xCord.get(i) - sr) + Math.abs(yCord.get(i) - sc);
+        }
+        return dis;
+    }
+    public int minTotalDistance_01(int[][] grid) {
+        // Write your code here
+        int min = (int)1e9;
+        ArrayList<Integer> xCord = new ArrayList<>();
+        ArrayList<Integer> yCord = new ArrayList<>();
+
+        // O(n*m)
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[0].length; j++) {
+                if(grid[i][j] == 1) {
+                    xCord.add(i);
+                } 
+            }
+        }
+        // O(n * m)
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[0].length; j++) {
+                if(grid[i][j] == 1) {
+                    yCord.add(j);
+                } 
+            }
+        }
+
+        // O(n * m * length(xCord)) => worse O(n^4)
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j < grid[0].length; j++) {
+               int dist = getDistance(grid, xCord, yCord, i, j); // 
+               min = Math.min(min, dist); 
+            }
+        }
+
+        return min;
+    }
+
+    // 2. optimise => time -> O(n^2)
+    public int minTotalDistance_02(int[][] grid) {
         int n = grid.length, m = grid[0].length;
 
         // step 1 : find x coordinate in a sorted order and travel row wise
