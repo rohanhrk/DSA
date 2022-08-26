@@ -266,6 +266,7 @@ public class l001_basic {
         https://practice.geeksforgeeks.org/problems/merge-k-sorted-arrays/1#
         method 1 ---> Using Helper class
     */ 
+    we
     private static class Helper implements Comparable<Helper> {
         int val;
         int r;
@@ -276,7 +277,7 @@ public class l001_basic {
             this.r = r;
             this.c = c;
         }
-
+        // we making compzre 
         public int compareTo(Helper other) {
             return this.val - other.val;
         }
@@ -285,18 +286,21 @@ public class l001_basic {
     public static ArrayList<Integer> mergeKArrays(int[][] arr, int K) {
         PriorityQueue<Helper> pq = new PriorityQueue<>(); // default behaviour
         ArrayList<Integer> ans = new ArrayList<>();
-
+           
+         // storing 1st element in priority que
         // O(log(k))
         for (int i = 0; i < arr.length; i++) {
             Helper nh = new Helper(arr[i][0], i, 0);
             pq.add(nh);
         }
 
+        // then loop is run untill size of pq not empty
         while (pq.size() != 0) {
-            Helper rem = pq.remove();
-            int val = rem.val, r = rem.r, c = rem.c;
+            Helper rem = pq.remove();// removing min element 
+            int val = rem.val, r = rem.r, c = rem.c; // r row idx and c colm idx for removing elem 
             ans.add(val);
 
+            
             if (c + 1 < arr[r].length) {
                 rem.val = arr[r][c + 1];
                 rem.c = c + 1;
