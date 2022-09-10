@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashMap;merge
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.Stack;
@@ -1727,6 +1727,8 @@ public class l001_Arrays {
     // https://leetcode.com/problems/merge-intervals/
     public int[][] merge(int[][] intervals) {
         int n = intervals.length;
+
+        // firstly we have 
         Arrays.sort(intervals, (a, b) -> {
             return a[0] - b[0];
         });

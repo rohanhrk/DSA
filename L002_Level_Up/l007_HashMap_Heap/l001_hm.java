@@ -86,7 +86,7 @@ public class l001_hm {
         // step 2 => travel on map and make pair => if pair not exist => return false
         boolean isPair = true;
         for (int rem : map.keySet()) {
-            if (rem == 0 || gg) {
+            if (rem == 0 || k == 2 * rem) {
                 if (map.get(rem) % 2 != 0) { // when freq is odd, one number is unpaired
                     isPair = false;
                     break;
@@ -553,7 +553,8 @@ public class l001_hm {
             // start release character till invalid
             while (count == requirement) {
                 // 1. hold answer, if substring is smaller
-                String temp_ans = s.substring(rel + 1, acq + 1);
+                
+                
                 if (ans.length() == 0 || temp_ans.length() < ans.length())
                     ans = temp_ans;
 
