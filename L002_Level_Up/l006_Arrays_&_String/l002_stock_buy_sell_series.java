@@ -82,7 +82,7 @@ public class l002_stock_buy_sell_series {
     // =========================================================================================================================================
     // Question_5 : 123. Best Time to Buy and Sell Stock III - two transection alllowed
     // https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
-     public int maxProfit(int[] prices) {
+    public int maxProfit(int[] prices) {
         int n = prices.length;
         
         int[] dp1 = new int[n]; // max profit if we sell stock today
@@ -117,7 +117,50 @@ public class l002_stock_buy_sell_series {
         
         return ov_profit;
     }
-    
+
+
+    // =========================================================================================================================================
+    // Question_6 : 188. Best Time to Buy and Sell Stock IV
+    // https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+    // TC -> O(N^3) 
+    public int maxProfit(int K, int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[K + 1][n];
+        
+        for(int i = 1; i < dp.length; i++) {
+            for(int j = 1; j < dp[0].length; j++) {
+                int pitt = 0; // profit if transection today
+                for(int k = j - 1; k >= 0; k--) {
+                    pitt = Math.max(pitt, prices[j] - prices[k] + dp[i - 1][k]);
+                }
+                int pwot = dp[i][j - 1]; // profit without transection
+                
+                dp[i][j] = Math.max(pitt, pwot); // max profit we can generate till "i"th day with "j" transection
+            }
+        }
+        
+        return n == 0 ? 0 : dp[K][n - 1];
+    }
+
+    // TC -> O(N^2) 
+    public int maxProfit(int k, int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[k + 1][n]; // store max profit
+        if(n == 0) return 0;
+        
+        for(int i = 1; i < dp.length; i++) {
+            int max = -prices[0]; // store max profit for next iteration
+            for(int j = 1; j < dp[0].length; j++) {
+                int pitt = max + prices[j]; // profit if transection today
+                dp[i][j] = Math.max(pitt, dp[i][j - 1]); // store max profit we can generate till "j"th day with "i"th transection
+                
+                // update max
+                max = Math.max(max, dp[i - 1][j] - prices[j]);
+            }
+        }
+        
+        return dp[k][n - 1];
+    }
     public static void main(string[] args) {
         System.out.println("hello world");
     }

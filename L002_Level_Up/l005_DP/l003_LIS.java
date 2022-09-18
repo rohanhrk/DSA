@@ -361,4 +361,149 @@ public class l003_LIS {
         return max_LIS_Count;
     }
 
+    // =============================================================================================================================
+    // Question_35 : 646. Maximum Length of Pair Chain 
+    // https://leetcode.com/problems/maximum-length-of-pair-chain/
+    public int findLongestChain(int[][] pairs) {
+        Arrays.sort(pairs, (a, b) -> {
+            return a[0] - b[0];
+        });
+        
+        int n = pairs.length;
+        int[] dp = new int[n];
+        
+        int maxLen = 0;
+        for(int i = 0; i < n; i++) {
+            int max = 0;
+            for(int j = i - 1; j >= 0; j--) {
+                if(pairs[i][0] > pairs[j][1]) {
+                    max = Math.max(max, dp[j]);
+                }
+            }
+            
+            dp[i] = max + 1;
+            maxLen = Math.max(maxLen, dp[i]);
+        }
+        
+        return maxLen;
+    }
+
+    // =============================================================================================================================
+    // Question_36 : Box Stacking
+    // https://practice.geeksforgeeks.org/problems/box-stacking/1
+    private static class Box implements Comparable<Box>{
+        int l;
+        int b;
+        int h;
+        int area;
+        
+        Box(int l, int b, int h) {
+            this.l = l;
+            this.b = b;
+            this.h = h;
+            this.area = this.l * this.b;
+        }
+        
+        public int compareTo(Box o) {
+            return o.area - this.area;
+        }
+    }
+    public static int maxHeight(int[] height, int[] width, int[] length, int n) {
+        // Code here
+        Box[] box = new Box[3 * n];
+        int j = 0;
+        for(int i = 0; i < n; i++) {
+            int l = length[i], b = width[i], h = height[i];
+            
+            // lbh
+            if(l > b) {
+                box[j++] = new Box(l, b, h);
+            } else {
+                box[j++] = new Box(b, l, h);
+            }
+            
+            // hbl
+            if(h > b) {
+                box[j++] = new Box(h, b, l);
+            } else {
+                box[j++] = new Box(b, h, l);
+            }
+            
+            // lhb
+            if(l > h) {
+                box[j++] = new Box(l, h, b);
+            } else {
+                box[j++] = new Box(h, l, b);
+            }
+        }
+        
+        Arrays.sort(box);
+        int[] dp = new int[box.length];
+        int maxHt = 0;
+        for(int i = 0; i < box.length; i++) {
+            int max = 0;
+            for(int k = i - 1; k >= 0; k--) {
+                if(box[k].l > box[i].l && box[k].b > box[i].b) {
+                    max = Math.max(max, dp[k]);
+                }
+            }
+            
+            dp[i] = max + box[i].h;
+            maxHt = Math.max(maxHt, dp[i]); 
+        }
+        
+        return maxHt;
+    }
+
+    // =============================================================================================================================
+    // Question_37 : 1691. Maximum Height by Stacking Cuboids
+    // https://leetcode.com/problems/maximum-height-by-stacking-cuboids/
+    private class Box implements Comparable<Box>{
+        int l;
+        int b;
+        int h;
+        int area;
+        
+        Box(int l, int b, int h) {
+            this.l = l;
+            this.b = b;
+            this.h = h;
+            this.area = this.l * this.b;
+        }
+        
+        public int compareTo(Box o) {
+            if(this.area == o.area) {
+                return o.h - this.h;
+            }
+            
+            return o.area - this.area;
+        }
+    }
+    public int maxHeight(int[][] cuboids) {
+        int n = cuboids.length;
+        Box[] box = new Box[n];
+        int j = 0;
+        for(int[] c : cuboids) {
+            Arrays.sort(c);
+            box[j++] = new Box(c[0], c[1], c[2]);
+        }
+        Arrays.sort(box);
+        
+        int maxHt = 0;
+        int[] dp = new int[n];
+        for(int i = 0; i < n; i++) {
+            Box box1 = box[i]; // {l, b, h}
+            int max = 0;
+            for(int k = i - 1; k >= 0; k--) {
+                Box box2 = box[k];
+                if(box2.l >= box1.l && box2.b >= box1.b && box2.h >= box1.h) {
+                    max = Math.max(max, dp[k]);
+                }
+            }
+            dp[i] = max + box1.h;
+            maxHt = Math.max(maxHt, dp[i]);
+        }
+        return maxHt;
+    }
+
 }
