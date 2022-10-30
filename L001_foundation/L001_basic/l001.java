@@ -3,13 +3,16 @@ import java.util.Scanner;
 public class l001 {
     public static Scanner scn = new Scanner(System.in);
     
-    // **************************************************************** Date-12/06 ****************************************************************
+    // ===================================================================================================================================================
+    // How to Print
     public static void printHello() {                                                                                
         System.out.println("hello there!");
         System.out.println("This is Rohan Hazarika");
 
     }
 
+    // ===================================================================================================================================================
+    // data type
     public static void workWithDataType() {
         int a = 10;
         int b = 20;
@@ -17,6 +20,8 @@ public class l001 {
         System.out.println("value of B: " + b);
     }
 
+    // ===================================================================================================================================================
+    // print z
     public static void printZ() {
         System.out.println("*****");
         System.out.println("   *");
@@ -25,6 +30,8 @@ public class l001 {
         System.out.println("*****");
     }
 
+    // ===================================================================================================================================================
+    // grading syztem
     public static void gradingSystem(int marks) {
         if (marks > 90) {
             System.out.println("excellent");
@@ -39,6 +46,8 @@ public class l001 {
         }
     }
 
+    // ===================================================================================================================================================
+    // check value is odd or even
     public static void oddEven(int n) {
         if (n % 2 == 0) {
             System.out.println("even");
@@ -47,7 +56,18 @@ public class l001 {
         }
     }
 
-     
+    // ===================================================================================================================================================
+    // whether a number is prime or not
+    public static boolean isPrime_(int n){
+        boolean prime = true;
+        for(int i = 2; i * i <= n; i++){
+            if(n % i == 0){
+                prime = false;
+                break;
+            }
+        }
+        return prime;
+    }
 
     public static void isPrime() {
         int n;
@@ -61,6 +81,8 @@ public class l001 {
         }
     }
 
+    // ===================================================================================================================================================
+    // print all primes between given range
     public static void printAllPrime(int a, int b) {
         for (int i = a; i <= b; i++) {
             boolean ans = isPrime_(i);
@@ -70,8 +92,9 @@ public class l001 {
         }
     }
    
-    // **************************************************************** date - 13/06 ****************************************************************
-    public static void printFibbonacciNumbersTillN(int n) {                                                                      //
+    // ===================================================================================================================================================
+    // fibbonacci series
+    public static void printFibbonacciNumbersTillN(int n) {                                                                      
         int a = 0;
         int b = 1;
         int c = 0;
@@ -85,6 +108,8 @@ public class l001 {
         }
     }
 
+    // ===================================================================================================================================================
+    // count digit
     public static int countDigit_(int n) {
         int count = 0;
         int temp = n;
@@ -95,14 +120,14 @@ public class l001 {
 
         return count;
     }
-
     public static void countDigit(int n) {
-        ;
-
         int count = countDigit_(n);
         System.out.println(count);
     }
 
+    // ===================================================================================================================================================
+    // digit of numbers
+    // 1234 => 1 2 3 4
     public static void DigtOfANum(int n) {
         int count = countDigit_(n);
         int power = count - 1;
@@ -116,6 +141,8 @@ public class l001 {
         }
     }
 
+    // ===================================================================================================================================================
+    // reverse a number
     public static void reverseNumber(int n) {
         int temp = n;
 
@@ -129,7 +156,8 @@ public class l001 {
         }
     }
 
-    // **************************************************************** date- 18/06 ****************************************************************
+    // ===================================================================================================================================================
+    // GCD => greatest common divisor
     public static int GCD(int a, int b) {                                                                                     
         int divisor = a;
         int dividend = b;
@@ -148,6 +176,8 @@ public class l001 {
         return (a / gcd) * b;
     }
      
+    // ===================================================================================================================================================
+    // pythagorean triplet
     public static boolean PythagoreanTriplet(int a, int b, int c) {
         if((a*a + b*b == c*c) || (b*b + c*c == a*a) || (c*c + a*a == b*b) ) {
             return true;
@@ -155,6 +185,9 @@ public class l001 {
     
         return false;
     }
+
+    // ===================================================================================================================================================
+    // Benjamin bulbs
     public static void BenjaminBulbs(int n) {
         for (int i = 1; i * i <= n; i++) {
             System.out.println(i * i);

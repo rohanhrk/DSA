@@ -65,7 +65,7 @@ public class trie {
 
     // =========================================================================================================================================================================
     // Question_2 : 211. Design Add and Search Words Data Structure
-    // https://leetcode.com/problems/design-add-and-search-words-data-structure/
+    // https://leetcode.com/problems/design-add-and-search-words-d                                                                                                                                                                                     ata-structure/
     class WordDictionary {
         private class Node {
             Node[] children;

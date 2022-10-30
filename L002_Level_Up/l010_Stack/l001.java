@@ -204,6 +204,28 @@ public class l001 {
     }
 
     // ==============================================================================================================================================================================
+    // Question_7.1 : 85. Maximal Rectangle
+    // https://leetcode.com/problems/maximal-rectangle/
+    public int maximalRectangle(char[][] matrix) {
+        int rows = matrix.length, cols = matrix[0].length;
+        int[] heights = new int[cols];
+        int maxArea = -(int)1e9;
+        for(int r = 0; r < rows; r++) {
+            for(int c = 0; c < cols; c++) {
+                if(matrix[r][c] == '0') {
+                    heights[c] = 0;
+                } else {
+                    heights[c] += 1;
+                }
+            }
+            
+            int area = largestRectangleArea(heights);
+            maxArea = Math.max(maxArea, area);
+        }
+        return maxArea;
+    }
+
+    // ==============================================================================================================================================================================
     // Question_8 : 921. Minimum Add to Make Parentheses Valid
     // https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/
     public int minAddToMakeValid(String s) {

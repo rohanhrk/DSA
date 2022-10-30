@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class l002Pattern {
     public static Scanner scn = new Scanner(System.in);
     
-    //  **************************************************************** Date - 18/06 ****************************************************************
+    // ===================================================================================================================================================
+    // Question_1 : print square
     public static void printSquare(int row) {
         int nst = row; // no. of star
 
@@ -16,6 +17,8 @@ public class l002Pattern {
         }
     }
 
+    // ===================================================================================================================================================
+    // Question_2 : print triangle
     public static void printTriangle(int row) {
         int nst = 1; // no. of star
 
@@ -28,9 +31,19 @@ public class l002Pattern {
         }
     }
 
-    public static void pattern2(int row) {
-        int nsp = 0;
-        int nst = row;
+    // ===================================================================================================================================================
+    /*
+        Pattern_1 :
+
+        * * * * *
+        * * * *
+        * * *
+        * *
+        *
+    */  
+    public static void 1(int row) {
+        int nsp = 0; // number of space
+        int nst = row; // number of star
 
         for (int r = 1; r <= row; r++) {
             // star
@@ -49,12 +62,21 @@ public class l002Pattern {
         }
     }
 
+    // ===================================================================================================================================================
+    /*
+        pattern_2 : 
+
+        - - - - *
+        - - - * *
+        - - * * *
+        - * * * *
+        * * * * *
+    */ 
     public static void pattern3(int row) {
-        int nst = 1;
-        int nsp = row - 1;
+        int nst = 1; // number of star
+        int nsp = row - 1; // number of space
 
         for (int r = 1; r <= row; r++) {
-
             // space
             for (int csp = 1; csp <= nsp; csp++) {
                 System.out.print("\t");
@@ -66,15 +88,24 @@ public class l002Pattern {
             }
 
             nst++;
-            ;
             nsp--;
             System.out.println();
         }
     }
 
+    // ===================================================================================================================================================
+    /*  
+        pattern_3 :
+
+            *
+          * * *
+        * * * * * 
+          * * *
+            *
+    */ 
     public static void pattern5(int row) {
-        int nst = 1;
-        int nsp = row / 2;
+        int nst = 1; // number of star
+        int nsp = row / 2;  // number of space
 
         for (int r = 1; r <= row; r++) {
 
@@ -99,6 +130,16 @@ public class l002Pattern {
         }
     }
 
+    // ===================================================================================================================================================
+    /*
+        pattern_ 4 :
+
+        * * * * *
+          * * * *
+            * * * 
+              * *
+                *  
+    */ 
     public static void printMirrorInvertedTriangle(int row) {
         int nsp = 0;
         int nst = row;
@@ -119,7 +160,17 @@ public class l002Pattern {
         }
     }
    
-    // **************************************************************** Date - 20/06 ****************************************************************
+    // ===================================================================================================================================================
+    /*
+        pattern_6 :
+
+
+        * * * - * * *
+        * * - - - * *
+        * - - - - - *
+        * * - - - * *
+        * * * - * * *
+    */ 
     public static void pattern6(int row) {
         int nsp = 1;
         int nst = (row + 1) / 2;
@@ -152,12 +203,270 @@ public class l002Pattern {
         }
     }
 
-    public static void pattern15_mathod1(int row) {
-        int nsp = row / 2;
-        int nst = 1;
+    // ===================================================================================================================================================
+    /*
+        pattern 7 :
 
-        int rCount = 1;
-        int cCount;
+        * 
+        - *
+        - - *
+        - - - *
+        - - - - *
+    */ 
+
+    // mathod 1
+    public static void printPattern7(int row) {
+        int nsp = 0;
+
+        for (int r = 1; r <= row; r++) {
+            for (int csp = 1; csp <= nsp; csp++) {
+                System.out.print("\t");
+            }
+            System.out.print("*\t");
+            nsp++;
+            System.out.println();
+        }
+    }
+
+    // mathod 2
+    public static void printPattern7_mathod2(int row) {
+        for (int r = 1; r <= row; r++) {
+            for (int c = 1; c <= row; c++) {
+                if (r == c) {
+                    System.out.print("*\t");
+                } else {
+                    System.out.print("\t");
+                }
+            }
+
+            System.out.println();
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern_8 : 
+
+        - - - - *
+        - - - * 
+        - - *  
+        - * 
+        * 
+    */ 
+    // mathod 1
+    public static void printPAttern8(int row) {
+        int nsp = row - 1;
+
+        for (int r = 1; r <= row; r++) {
+            // space
+            for (int csp = 1; csp <= nsp; csp++) {
+                System.out.print("\t");
+            }
+
+            // star
+            System.out.print("*\t");
+
+            nsp--;
+            System.out.println();
+        }
+    }
+
+    // mathod 2
+    public static void pattern8_mathod2(int row) {
+        for (int r = 1; r <= row; r++) {
+            for (int c = 1; c <= row; c++) {
+                if (r + c == row + 1) {
+                    System.out.print("*\t");
+                } else {
+                    System.out.print("\t");
+                }
+            }
+
+            System.out.println();
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern_9 :
+
+        * - - - *
+        - * - * -
+        - - * - -
+        - * - * -
+        * - - - *
+    */ 
+    public static void pattern9(int row) {
+        for (int r = 1; r <= row; r++) {
+            for (int c = 1; c <= row; c++) {
+                if (r == c || r + c == row + 1) {
+                    System.out.print("*\t");
+                } else {
+                    System.out.print("\t");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern 10 :
+
+        - - * - -
+        - * - * -
+        * - - - *
+        - * - * -
+        - - * - -
+    */ 
+    public static void pattern10(int row) {
+        int outerNSP = row / 2; // outer No. of space
+        int innerNSP = -1; // inner No. Of Space
+
+        for (int r = 1; r <= row; r++) {
+            // space
+            for (int csp = 1; csp <= outerNSP; csp++) {
+                System.out.print("\t");
+            }
+
+            // star
+            System.out.print("*\t");
+
+            // space
+            for (int csp = 1; csp <= innerNSP; csp++) {
+                System.out.print("\t");
+            }
+
+            // star
+            if (innerNSP != -1) {
+                System.out.print("*\t");
+            }
+
+            // change
+            if (r <= row / 2) {
+                outerNSP--;
+                innerNSP += 2;
+            } else {
+                outerNSP++;
+                innerNSP -= 2;
+            }
+
+            // enter
+            System.out.println();
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern 11 :
+
+        1
+        2 3
+        4 5 6
+        7 8 9 10
+    */ 
+    public static void pattern11(int row) {
+        int nst = 1; // number of star
+        int count = 1;
+        for (int r = 1; r <= row; r++) {
+            for (int cst = 1; cst <= nst; cst++) {
+                System.out.print(count + "\t");
+                count++;
+            }
+
+            nst++;
+
+            System.out.println();
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern 12 :
+
+        0
+        1 1
+        2 3 5
+        8 13 21 34
+    */ 
+    public static void pattern12(int row) {
+        int nst = 1;
+        int a = 0;
+        int b = 1;
+        int c;
+        for (int r = 1; r <= row; r++) {
+            for (int cst = 1; cst <= nst; cst++) {
+                System.out.print(a + "\t");
+                c = a + b;
+                a = b;
+                b = c;
+            }
+
+            nst++;
+
+            System.out.println();
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern 13 :
+
+        1
+        1 1
+        1 2 1
+        1 3 3 1
+        1 4 6 4 1
+    */ 
+    public static void pattern13(int row) {
+
+        for (int n = 0; n < row; n++) {
+            int val = 1;
+            for (int r = 0; r <= n; r++) {
+                System.out.print(val + "\t");
+                val = ((n - r) * val) / (r + 1);
+            }
+
+            System.out.println();
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern 14 :
+
+        3 * 1 = 3
+        3 * 2 = 6
+        .
+        .
+        .
+        3 * 10 = 30
+    */ 
+    public static void pattern14(int num) {
+
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(num + " * " + i + " = " + num * i);
+        }
+    }
+
+    // ===================================================================================================================================================
+    /*
+        pattern 15 :
+
+        - - 1
+        - 2 3 2
+        3 4 5 4 3
+        - 2 3 2
+        - - 1 
+    */ 
+
+    // method 1
+    public static void pattern15_mathod1(int row) {
+        int nsp = row / 2; // number of space
+        int nst = 1; // number of star
+
+        int rCount = 1; // row count
+        int cCount = 0; // col count
         for (int r = 1; r <= row; r++) {
             // space
             for (int csp = 1; csp <= nsp; csp++) {
@@ -193,6 +502,7 @@ public class l002Pattern {
         }
     }
 
+    // method 2
     public static void printPattern15_mathod2(int row) {
         int nsp = row / 2;
         int nst = 1;
@@ -231,168 +541,15 @@ public class l002Pattern {
         }
     }
 
-    public static void printPattern7(int row) {
-        int nsp = 0;
+    // ===================================================================================================================================================
+    /*
+        pattern 16 :
 
-        for (int r = 1; r <= row; r++) {
-            for (int csp = 1; csp <= nsp; csp++) {
-                System.out.print("\t");
-            }
-            System.out.print("*\t");
-            nsp++;
-            System.out.println();
-        }
-    }
-
-    public static void printPattern7_mathod2(int row) {
-        for (int r = 1; r <= row; r++) {
-            for (int c = 1; c <= row; c++) {
-                if (r == c) {
-                    System.out.print("*\t");
-                } else {
-                    System.out.print("\t");
-                }
-            }
-
-            System.out.println();
-        }
-    }
-
-    public static void printPAttern8(int row) {
-        int nsp = row - 1;
-
-        for (int r = 1; r <= row; r++) {
-            // space
-            for (int csp = 1; csp <= nsp; csp++) {
-                System.out.print("\t");
-            }
-
-            // star
-            System.out.print("*\t");
-
-            nsp--;
-            System.out.println();
-        }
-    }
-
-    public static void pattern8_mathod2(int row) {
-        for (int r = 1; r <= row; r++) {
-            for (int c = 1; c <= row; c++) {
-                if (r + c == row + 1) {
-                    System.out.print("*\t");
-                } else {
-                    System.out.print("\t");
-                }
-            }
-
-            System.out.println();
-        }
-    }
-
-    public static void pattern9(int row) {
-        for (int r = 1; r <= row; r++) {
-            for (int c = 1; c <= row; c++) {
-                if (r == c || r + c == row + 1) {
-                    System.out.print("*\t");
-                } else {
-                    System.out.print("\t");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    public static void pattern10(int row) {
-        int outerNSP = row / 2; // outer No. of space
-        int innerNSP = -1; // inner No. Of Space
-
-        for (int r = 1; r <= row; r++) {
-            // space
-            for (int csp = 1; csp <= outerNSP; csp++) {
-                System.out.print("\t");
-            }
-
-            // star
-            System.out.print("*\t");
-
-            // space
-            for (int csp = 1; csp <= innerNSP; csp++) {
-                System.out.print("\t");
-            }
-
-            // star
-            if (innerNSP != -1) {
-                System.out.print("*\t");
-            }
-
-            // change
-            if (r <= row / 2) {
-                outerNSP--;
-                innerNSP += 2;
-            } else {
-                outerNSP++;
-                innerNSP -= 2;
-            }
-
-            // enter
-            System.out.println();
-        }
-    }
-
-    public static void pattern11(int row) {
-        int nst = 1;
-        int count = 1;
-        for (int r = 1; r <= row; r++) {
-            for (int cst = 1; cst <= nst; cst++) {
-                System.out.print(count + "\t");
-                count++;
-            }
-
-            nst++;
-
-            System.out.println();
-        }
-    }
-
-    public static void pattern12(int row) {
-        int nst = 1;
-        int a = 0;
-        int b = 1;
-        int c;
-        for (int r = 1; r <= row; r++) {
-            for (int cst = 1; cst <= nst; cst++) {
-                System.out.print(a + "\t");
-                c = a + b;
-                a = b;
-                b = c;
-            }
-
-            nst++;
-
-            System.out.println();
-        }
-    }
-
-    public static void pattern13(int row) {
-
-        for (int n = 0; n < row; n++) {
-            int val = 1;
-            for (int r = 0; r <= n; r++) {
-                System.out.print(val + "\t");
-                val = ((n - r) * val) / (r + 1);
-            }
-
-            System.out.println();
-        }
-    }
-
-    public static void pattern14(int num) {
-
-        for (int i = 1; i <= 10; i++) {
-            System.out.println(num + " * " + i + " = " + num * i);
-        }
-    }
-
+        1 - - - - - 1
+        1 2 - - - 2 1
+        1 2 3 - 3 2 1
+        1 3 3 4 3 2 1
+    */ 
     public static void pattern16(int row) {
         int nst = 1;
         int nsp = 2 * row - 3;
@@ -424,7 +581,17 @@ public class l002Pattern {
         }
 
     }
-    // **************************************************************** HOMEWORK ****************************************************************
+
+    // ===================================================================================================================================================
+    /*
+        pattern 17 : 
+
+        - - *
+        - - * *
+        * * * * *
+        - - * * 
+        - - *
+    */ 
     public static void pattern17(int row) {
         int nst = 1;
         int nsp = row / 2;
@@ -457,11 +624,23 @@ public class l002Pattern {
         }
     }
 
+
+    // ===================================================================================================================================================
+    /*
+        pattern 18 :
+
+        * * * * *
+        - * - * -
+        - - * - -
+        - * * * -
+        * * * * *
+    */ 
     public static void pattern18(int row) {
         int nsp1 = 0;
         int nsp2 = row - 2;
 
         for (int r = 1; r <= row; r++) {
+            
             // space
             for (int csp = 1; csp <= nsp1; csp++) {
                 System.out.print("\t");
@@ -498,6 +677,18 @@ public class l002Pattern {
         }
     }
 
+    // ===================================================================================================================================================
+    /*
+        pattern 19 :
+         
+        * * * *     *
+              *     *
+              *     *
+        * * * * * * *
+        *     *
+        *     *
+        *     * * * *
+    */ 
     public static void pattern19(int row) {
         for (int r = 1; r <= row; r++) {
             for (int c = 1; c <= row; c++) {
@@ -538,6 +729,16 @@ public class l002Pattern {
         }
     }
 
+    // ===================================================================================================================================================
+    /*
+        pattern 20 :
+
+        *         *
+        *         *
+        *    *    *
+        *  *   *  *
+        *         *
+    */ 
     public static void pattern20(int row) {
         for (int r = 1; r <= row; r++) {
             for (int c = 1; c <= row; c++) {
@@ -561,7 +762,8 @@ public class l002Pattern {
             System.out.println();
         }
     }
-    // ********************************************************************************************************************************
+    
+    // =================================================================================================================================================== 
     public static void patterExtra1_1(int row) {
         for(int i = 1; i <= row; i++) {
             for(int j = 1; j <= row; j++) {

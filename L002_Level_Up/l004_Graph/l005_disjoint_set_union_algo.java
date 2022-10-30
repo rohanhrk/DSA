@@ -405,6 +405,58 @@ public class l005_disjoint_set_union_algo {
     }
 
     // ============================================================================================================================================
+    // Question_8 : 685. Redundant Connection II
+    // https://leetcode.com/problems/redundant-connection-ii/
+     public int[] findRedundantDirectedConnection(int[][] edges) {
+        int n = edges.length;
+        int[] indegree = new int[n + 1];
+        Arrays.fill(indegree, -1);
+        
+        int blacklisted1 = -1, blacklisted2 = -1;
+        for(int i = 0; i < n; i++) {
+            int[] e = edges[i];
+            int u = e[0], v = e[1];
+            
+            if(indegree[v] != -1) {
+                blacklisted1 = i;
+                blacklisted2 = indegree[v];
+                
+                break;
+            }
+            
+            indegree[v] = i;
+        }
+        
+        par = new int[n + 1];
+        size = new int[n + 1];
+        
+        for(int i = 0; i < n; i++) {
+            par[i] = i;
+            size[i] = 1;
+        }
+        
+        for(int i = 0; i < n; i++) {
+            if(blacklisted1 == i) continue;
+            
+            int[] e = edges[i];
+            int u = e[0], v = e[1];
+            
+            int p1 = findPar(u), p2 = findPar(v);
+            if(p1 == p2) {
+                if(blacklisted1 == -1) {
+                    return e;
+                } else {
+                    return edges[blacklisted2];
+                }
+            }
+            
+            union(p1, p2);
+        }
+        
+        return edges[blacklisted1];
+    }
+
+    // ============================================================================================================================================
     // 924. Minimize Malware Spread
     int[] country; 
     int[] poc; // population of country

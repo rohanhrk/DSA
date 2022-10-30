@@ -12,6 +12,7 @@ public class l002_stock_buy_sell_series {
             // minimum price from 0th day to dth day
             if(p < min_price) 
                 min_price = p;  
+                
             int curr_profit = p - min_price; // current profit
             
             ov_profit = Math.max(ov_profit, curr_profit); // maximise the overall profit which is our final result
