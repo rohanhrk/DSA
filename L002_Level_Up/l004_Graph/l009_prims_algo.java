@@ -24,9 +24,9 @@
         });
         pq.add(new prims_pair(-1, src, 0));
 
-        vis[src] = true;
-        dis[src] = 0;
-        par[src] = -1;
+        // vis[src] = true;
+        // dis[src] = 0;
+        // par[src] = -1;
 
         while (pq.size() != 0) {
             prims_pair p = pq.remove();

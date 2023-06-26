@@ -41,7 +41,7 @@
             // call in neighbours of vertex
             for (Edge e : graph[rp.vtx]) {
                 if (!vis[e.v])
-                    pq.add(new pair(rp.vtx, e.v, e.w, e.w + rp.weight));
+                    pq.add(new pair(rp.vtx, e.v, e.w, e.w + rp.wsf));
 
             }
 
@@ -78,7 +78,7 @@
                 if (e.w + p.wsf < dis[p.vtx]) {
                     dis[p.vtx] = e.w + p.wsf;
                     par[p.vtx] = p.par;
-                    pq.add(new pair(p.par, e.v, e.w, e.w + p.weight));
+                    pq.add(new pair(p.par, e.v, e.w, e.w + p.wsf));
                 }
             }
         }

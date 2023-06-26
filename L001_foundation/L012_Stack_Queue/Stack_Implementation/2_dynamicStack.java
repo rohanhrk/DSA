@@ -1,4 +1,4 @@
-public class 2_dynamicStack extends stack {
+public class 2_dynamicStack extends 1_stack {
     /*
         facts about super() ====>
         1. "this" keyword pehle dynamics stack me search karta he, apne pass se variable ya function

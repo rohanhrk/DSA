@@ -319,6 +319,7 @@ public class l003_bfs_question {
 		if (source == target)
 			return 0;
 
+		// 1. making a map between busStand and bus
 		HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
 		for (int busNo = 0; busNo < routes.length; busNo++) {
 			for (int busStand : routes[busNo]) {
@@ -327,9 +328,10 @@ public class l003_bfs_question {
 			}
 		}
 
-		HashSet<Integer> busStandVisited = new HashSet<>();
-		boolean[] busVisited = new boolean[routes.length];
+		HashSet<Integer> busStandVisited = new HashSet<>(); // visited set for bus stand to avoid repitation of same bus stand 
+		boolean[] busVisited = new boolean[routes.length]; // visited array for bus
 
+		// 2. run a BSF untill get the destination
 		LinkedList<Integer> que = new LinkedList<>();
 		que.add(source);
 		busStandVisited.add(source);

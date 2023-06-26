@@ -434,6 +434,52 @@ public class l001_twoPointer{
 		return divideInKGroups_memo(n, k, dp);
 	}
 	
+	// =============================================================================================================================
+	// Question_9 : Mobile numeric keypad
+	// https://practice.geeksforgeeks.org/problems/mobile-numeric-keypad5456/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+	char[][] keypad =  {
+                            {'1', '2', '3'}, 
+                            {'4', '5', '6'}, 
+                            {'7', '8', '9'}, 
+                            {'@', '0', '@'}
+                        };
+                        
+    private long getCount_memo(int sr, int sc, int N, int dr, int dc, int[][] dir, long[][] dp) {
+        if(N == 1)
+            return dp[keypad[sr][sc] - '0'][N] =  1;
+            
+        if(dp[keypad[sr][sc] - '0'][N] != -1)
+            return dp[keypad[sr][sc] - '0'][N];
+            
+        long count = 0;
+        for(int[] d : dir) {
+            int r = sr + d[0], c = sc + d[1];
+            if(r >= 0 && r < keypad.length && c >= 0 && c < keypad[0].length && keypad[r][c] != '@') {
+                count += getCount_memo(r, c, N - 1, dr, dc, dir, dp);
+            }
+        } 
+        
+        return dp[keypad[sr][sc] - '0'][N] = count;
+    }
+	public long getCount(int N) {
+		// Your code goes here
+		int[][] dir = {{0, 0}, {-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+		long[][] dp = new long[10][N + 1];
+		for(long[] d : dp)
+		    Arrays.fill(d, -1);
+		    
+		long count = 0;
+
+		for(int sr = 0; sr < keypad.length; sr++) {
+		    for(int sc = 0; sc < keypad[0].length; sc++) {
+		        if(keypad[sr][sc] != '@')
+		            count += getCount_memo(sr, sc, N, keypad.length - 1, keypad[0].length - 1, dir, dp);
+		    }
+		}
+		
+		return count;
+		
+	}
 
 	public static void main(String[] args) {
 		dice_set();

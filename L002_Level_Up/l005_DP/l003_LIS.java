@@ -24,6 +24,36 @@ public class l003_LIS {
         return dp;
     }
 
+    // 2nd approach => TC => O(N*logN) 
+    public int lengthOfLIS(int[] nums) {
+        ArrayList<Integer> lis_len = new ArrayList<>();
+        lis_len.add(nums[0]);
+
+        for(int i = 1; i < nums.length; i++) {
+            if(nums[i] > lis_len.get(lis_len.size() - 1)) {
+                lis_len.add(nums[i]);
+            } else {
+                // find just graeter element of nums[i] in arraylist
+                int lo = 0, hi = lis_len.size() - 1;
+                int idx = lo;
+                while(lo <= hi) {
+                    int mid = lo + (hi - lo) / 2;
+                    if(lis_len.get(mid) == nums[i]) {
+                        idx = mid;
+                        break;
+                    } else if(lis_len.get(mid) < nums[i]) {
+                        lo = mid + 1;
+                        idx = lo;
+                    } else {
+                        hi = mid - 1;
+                    }
+                }
+                lis_len.set(idx, nums[i]);
+            }
+        }
+
+        return lis_len.size();
+    }
     // =============================================================================================================================
     // Que_26 : maximum-sum-increasing-subsequence
     // https://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1
@@ -232,30 +262,18 @@ public class l003_LIS {
     // =============================================================================================================================
     // Que_33 : 354. Russian Doll Envelopes
     // https://leetcode.com/problems/russian-doll-envelopes/
-    public int maxEnvelopes(int[][] envelopes) {
+      public int maxEnvelopes(int[][] envelopes) {
         Arrays.sort(envelopes, (a, b) -> {
-            if(a[0] == b[0]) {
-                return b[1] - a[1];
-            }
-            return a[0] - b[0];
+            if(a[1] == b[1]) return b[0] - a[0];
+            return a[1] - b[1];
         });
-        
-        
-        int n = envelopes.length;
-        int[] dp = new int[n];
-        int maxEnv = 0;
-        
-        for(int i = 0; i < n; i++) {
-            dp[i] = 1;
-            for(int j = i - 1; j >= 0; j--) {
-                if(envelopes[i][1] > envelopes[j][1])
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-            }
-            
-            maxEnv = Math.max(maxEnv, dp[i]);
+
+        int[] heights = new int[envelopes.length];
+        for(int i = 0; i < envelopes.length; i++) {
+            heights[i] = envelopes[i][0];
         }
-        
-        return maxEnv;
+
+        return lengthOfLIS(heights)
     }
 
 
