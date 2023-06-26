@@ -56,8 +56,10 @@ public class l002Pattern {
                 System.out.print("\t");
             }
 
+            // update nsp and nst
             nsp++;
             nst--;
+
             System.out.println();
         }
     }
@@ -87,8 +89,10 @@ public class l002Pattern {
                 System.out.print("*\t");
             }
 
+            // update nsp and nst
             nst++;
             nsp--;
+
             System.out.println();
         }
     }
@@ -119,6 +123,7 @@ public class l002Pattern {
                 System.out.print("*\t");
             }
 
+            // update nsp and nsp according to condition
             if (r <= row / 2) {
                 nsp--;
                 nst += 2;
@@ -126,6 +131,7 @@ public class l002Pattern {
                 nsp++;
                 nst -= 2;
             }
+
             System.out.println();
         }
     }
@@ -154,8 +160,11 @@ public class l002Pattern {
             for (int cst = 1; cst <= nst; cst++) {
                 System.out.print("*\t");
             }
+
+            // update nsp and nst
             nsp++;
             nst--;
+
             System.out.println();
         }
     }
@@ -192,6 +201,7 @@ public class l002Pattern {
                 System.out.print("*\t");
             }
 
+            // update nsp and nsp according to condition    
             if (r <= row / 2) {
                 nst--;
                 nsp += 2;
@@ -199,6 +209,7 @@ public class l002Pattern {
                 nst++;
                 nsp -= 2;
             }
+
             System.out.println();
         }
     }
@@ -219,11 +230,17 @@ public class l002Pattern {
         int nsp = 0;
 
         for (int r = 1; r <= row; r++) {
+            // space
             for (int csp = 1; csp <= nsp; csp++) {
                 System.out.print("\t");
             }
+
+            // star
             System.out.print("*\t");
+            
+            // update nsp 
             nsp++;
+            
             System.out.println();
         }
     }
