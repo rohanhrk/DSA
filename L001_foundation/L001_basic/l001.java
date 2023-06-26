@@ -14,14 +14,17 @@ public class l001 {
     // ===================================================================================================================================================
     // data type
     public static void workWithDataType() {
-        int a = 10;
-        int b = 20;
-        System.out.println("value of A: " + a);
-        System.out.println("value of B: " + b);
+        int val = 10;
+        String name = "Rohan Hazarika";
+        Char ch = 'a';
+
+        System.out.println("Integer value is " + val);
+        System.out.println("String value is " + name);
+        System.out.println("Character value is " + ch);
     }
 
     // ===================================================================================================================================================
-    // print z
+    // Question_1 : print z
     public static void printZ() {
         System.out.println("*****");
         System.out.println("   *");
@@ -31,7 +34,7 @@ public class l001 {
     }
 
     // ===================================================================================================================================================
-    // grading syztem
+    // Question_2 : grading syztem
     public static void gradingSystem(int marks) {
         if (marks > 90) {
             System.out.println("excellent");
@@ -47,7 +50,7 @@ public class l001 {
     }
 
     // ===================================================================================================================================================
-    // check value is odd or even
+    // Question_3 : check value is odd or even
     public static void oddEven(int n) {
         if (n % 2 == 0) {
             System.out.println("even");
@@ -57,15 +60,20 @@ public class l001 {
     }
 
     // ===================================================================================================================================================
-    // whether a number is prime or not
+    // Question_4 : whether a number is prime or not
     public static boolean isPrime_(int n){
-        boolean prime = true;
+        boolean prime = true; // mark given value as a prime
         for(int i = 2; i * i <= n; i++){
+            /*
+                check whether given number is completely divisible by 'i' or not
+                if true => mark prime as false (means n is not prime) and break the loop
+            */ 
             if(n % i == 0){
                 prime = false;
                 break;
             }
         }
+
         return prime;
     }
 
@@ -82,7 +90,7 @@ public class l001 {
     }
 
     // ===================================================================================================================================================
-    // print all primes between given range
+    // Question_5 : print all primes between given range
     public static void printAllPrime(int a, int b) {
         for (int i = a; i <= b; i++) {
             boolean ans = isPrime_(i);
@@ -93,25 +101,27 @@ public class l001 {
     }
    
     // ===================================================================================================================================================
-    // fibbonacci series
+    // Question_6 : fibbonacci series
+    // 8 => 0 1 1 2 3 5 8 13
     public static void printFibbonacciNumbersTillN(int n) {                                                                      
-        int a = 0;
-        int b = 1;
-        int c = 0;
+        int a = 0; // first number
+        int b = 1; // second number
+        int c = 0; // store summation of a and b
 
         for (int i = 0; i < n; i++) {
-            c = a + b;
-            System.out.println(a);
+            c = a + b; // find sum
+            System.out.println(a); // print a
 
+            // update a and b for next answer
             a = b;
             b = c;
         }
     }
 
     // ===================================================================================================================================================
-    // count digit
+    // Question_7 : count digit
     public static int countDigit_(int n) {
-        int count = 0;
+        int count = 0; // store count of digit
         int temp = n;
         while (temp != 0) {
             temp = temp / 10;
@@ -126,23 +136,25 @@ public class l001 {
     }
 
     // ===================================================================================================================================================
-    // digit of numbers
+    // Question_8 : digit of numbers
     // 1234 => 1 2 3 4
     public static void DigtOfANum(int n) {
-        int count = countDigit_(n);
+        int count = countDigit_(n); // find count of digit
         int power = count - 1;
         int divisor = (int) Math.pow(10, power);
         while (divisor != 0) {
             int digit = n / divisor;
             System.out.println(digit);
 
+            // update n and divisor
             n = n % divisor;
             divisor = divisor / 10;
         }
     }
 
     // ===================================================================================================================================================
-    // reverse a number
+    // Question_9 : reverse a number
+    // 1234 -> 4321
     public static void reverseNumber(int n) {
         int temp = n;
 
@@ -157,11 +169,12 @@ public class l001 {
     }
 
     // ===================================================================================================================================================
+    // Question_10 : Find GCD
     // GCD => greatest common divisor
     public static int GCD(int a, int b) {                                                                                     
         int divisor = a;
         int dividend = b;
-        int reminder;
+        int reminder = 0;
         while (dividend % divisor != 0) {
             reminder = dividend % divisor;
 
@@ -177,7 +190,7 @@ public class l001 {
     }
      
     // ===================================================================================================================================================
-    // pythagorean triplet
+    // Question_11 : pythagorean triplet
     public static boolean PythagoreanTriplet(int a, int b, int c) {
         if((a*a + b*b == c*c) || (b*b + c*c == a*a) || (c*c + a*a == b*b) ) {
             return true;
@@ -187,7 +200,7 @@ public class l001 {
     }
 
     // ===================================================================================================================================================
-    // Benjamin bulbs
+    // Question_12 : Benjamin bulbs
     public static void BenjaminBulbs(int n) {
         for (int i = 1; i * i <= n; i++) {
             System.out.println(i * i);
